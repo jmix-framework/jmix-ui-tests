@@ -1,7 +1,7 @@
 package io.jmix.tests.ui
 
 
-import io.jmix.masquerade.components.Notification
+import io.jmix.masquerade.component.Notification
 import io.jmix.tests.ui.extension.DefaultCleanupExtension
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
