@@ -1,0 +1,56 @@
+plugins {
+    id 'io.jmix' version '0.1.11'
+    id 'java'
+    id 'groovy'
+}
+
+apply plugin: 'org.springframework.boot'
+
+jmix {
+    bomVersion = '0.1.0-SNAPSHOT'
+}
+
+group = 'com.company'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '1.8'
+
+repositories {
+    mavenLocal()
+    jcenter()
+    maven {
+        url 'https://nexus.jmix.io/repository/public'
+    }
+}
+
+dependencies {
+    implementation 'io.jmix.core:jmix-core-starter'
+    implementation 'io.jmix.data:jmix-data-starter'
+    implementation 'io.jmix.ui:jmix-ui-starter'
+    implementation 'io.jmix.ui:jmix-ui-data-starter'
+    implementation 'io.jmix.ui:jmix-ui-themes-compiled'
+    implementation 'io.jmix.ui:jmix-ui-widgets-compiled'
+    implementation 'io.jmix.security:jmix-security-starter'
+    implementation 'io.jmix.security:jmix-security-ui-starter'
+    implementation 'io.jmix.security:jmix-security-data-starter'
+
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+
+    implementation ('org.jsoup:jsoup') {
+        version {
+            strictly '1.11.2'
+        }
+    }
+
+    runtimeOnly 'org.hsqldb:hsqldb'
+
+    testImplementation 'io.jmix.masquerade:jmix-masquerade:1.0-SNAPSHOT'
+    testImplementation 'org.slf4j:slf4j-simple:1.7.30'
+    testImplementation 'org.codehaus.groovy:groovy:3.0.5'
+    testImplementation 'org.codehaus.groovy:groovy-sql:3.0.5'
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.6.2'
+    testImplementation 'org.apache.commons:commons-collections4:4.4'
+}
+
+test {
+
+}
