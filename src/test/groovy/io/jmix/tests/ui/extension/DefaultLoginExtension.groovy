@@ -1,5 +1,6 @@
 package io.jmix.tests.ui.extension
 
+import io.jmix.tests.base.extension.DefaultCleanupExtension
 import io.jmix.tests.ui.screen.login.LoginScreen
 import org.junit.jupiter.api.extension.ExtensionContext
 

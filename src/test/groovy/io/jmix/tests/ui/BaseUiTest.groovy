@@ -1,6 +1,6 @@
 package io.jmix.tests.ui
 
-import io.jmix.tests.BaseTest
+import io.jmix.tests.base.BaseTest
 import io.jmix.tests.ui.screen.login.LoginScreen
 
 import static io.jmix.masquerade.Components.wire

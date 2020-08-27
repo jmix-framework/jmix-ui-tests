@@ -1,4 +1,4 @@
-package io.jmix.tests.ui.extension
+package io.jmix.tests.base.extension
 
 import com.codeborne.selenide.WebDriverRunner
 import org.junit.jupiter.api.extension.AfterEachCallback

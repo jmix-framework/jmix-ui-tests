@@ -1,6 +1,6 @@
-package io.jmix.tests.ui
+package io.jmix.tests.sampler
 
-
+import io.jmix.masquerade.component.Button
 import io.jmix.masquerade.component.Notification
 import io.jmix.tests.base.extension.DefaultCleanupExtension
 import org.junit.jupiter.api.DisplayName
@@ -11,14 +11,18 @@ import static io.jmix.masquerade.Conditions.caption
 import static io.jmix.masquerade.Selectors.$j
 
 @ExtendWith(DefaultCleanupExtension.class)
-class LoginScreenUiTest extends BaseUiTest {
+class ButtonSamplerUiTest extends BaseSamplerUiTest {
 
     @Test
-    @DisplayName("Checks that the user cannot login with incorrect credentials")
-    void loginWithIncorrectCredentials() {
-        login('login', '1')
+    @DisplayName("Checks that user can click on simple button")
+    void clickOnSimpleButton() {
+        openSample('button-simple')
+
+        $j(Button.class, 'helloButton')
+                .shouldHave(caption('Say Hello!'))
+                .click()
 
         $j(Notification.class)
-                .shouldHave(caption('Login failed'))
+                .shouldHave(caption('Hello, world!'))
     }
 }

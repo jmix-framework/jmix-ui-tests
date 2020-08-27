@@ -1,4 +1,4 @@
-package io.jmix.tests
+package io.jmix.tests.base
 
 /**
  * Base class for all UI tests
