@@ -82,7 +82,28 @@ liquibase contexts are used. The context for main application is **"base"**, it 
 contexts for the application to work correctly.
 
 To create UI test that uses a test dataset in addition to the base dataset, you need to follow these steps:
-1. Create a [changeSet](./src/main/resources/io/jmix/tests/liquibase/changelog/test/2020/08/31-010-init-selenium-role.xml) 
+1. Create a database Spring Initializer to define datasource properties:
+```
+class PostgreSQLContextInitializer implements ApplicationContextInitializer<ConfigurableApplicationContext> {
+
+    static PostgreSQLContainer postgreSQL = new PostgreSQLContainer()
+            .withDatabaseName("postgres-test-db")
+            .withUsername("test")
+            .withPassword("pass")
+
+    @Override
+    void initialize(ConfigurableApplicationContext applicationContext) {
+        postgreSQL.start()
+        TestPropertyValues.of(
+                "main.datasource.jdbcUrl=" + postgreSQL.getJdbcUrl(),
+                "main.datasource.username=" + postgreSQL.getUsername(),
+                "main.datasource.password=" + postgreSQL.getPassword(),
+                "jmix.data.dbmsType=postgres"
+        ).applyTo(applicationContext.getEnvironment())
+    }
+}
+```
+2. Create a [changeSet](./src/main/resources/io/jmix/tests/liquibase/changelog/test/2020/08/31-010-init-selenium-role.xml) 
 and define a context for it:
 ```
     <changeSet id="4" author="jmix-ui-tests" context="test-role">
@@ -97,7 +118,8 @@ and define a context for it:
     </changeSet>
 ```
 In the above example, we have created a change set with the `test-role` context.
-2. Create a Spring Boot test and define `jmix.liquibase.contexts` property inside `@SpringBootTest` annotation:
+3. Create a Spring Boot test, define `jmix.liquibase.contexts` property inside `@SpringBootTest` annotation and define 
+the initializer class inside `@ContextConfiguration` annotation:
 ```
 @ExtendWith([
         SpringBootExtension
