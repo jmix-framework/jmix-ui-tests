@@ -6,9 +6,6 @@ import io.jmix.masquerade.component.Button
 import io.jmix.masquerade.component.ComboBox
 import io.jmix.masquerade.component.PasswordField
 import io.jmix.masquerade.component.TextField
-import io.jmix.tests.ui.screen.main.MainScreen
-
-import static io.jmix.masquerade.Components.wire
 
 class LoginScreen extends Composite<LoginScreen> {
 
@@ -24,18 +21,17 @@ class LoginScreen extends Composite<LoginScreen> {
     @Wire
     ComboBox localesField
 
-    MainScreen defaultLogin() {
+    void loginAsAdmin() {
         submit()
     }
 
-    MainScreen login(String username, String password) {
+    void login(String username, String password) {
         usernameField.value = username
         passwordField.value = password
         submit()
     }
 
-    MainScreen submit() {
+    void submit() {
         loginButton.click()
-        wire(MainScreen)
     }
 }

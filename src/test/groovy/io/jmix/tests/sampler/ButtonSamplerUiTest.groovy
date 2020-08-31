@@ -2,7 +2,7 @@ package io.jmix.tests.sampler
 
 import io.jmix.masquerade.component.Button
 import io.jmix.masquerade.component.Notification
-import io.jmix.tests.base.extension.DefaultCleanupExtension
+import io.jmix.tests.base.extension.ChromeExtension
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
@@ -10,7 +10,7 @@ import org.junit.jupiter.api.extension.ExtendWith
 import static io.jmix.masquerade.Conditions.caption
 import static io.jmix.masquerade.Selectors.$j
 
-@ExtendWith(DefaultCleanupExtension.class)
+@ExtendWith(ChromeExtension.class)
 class ButtonSamplerUiTest extends BaseSamplerUiTest {
 
     @Test

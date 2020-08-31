@@ -13,8 +13,8 @@ abstract class BaseUiTest extends BaseTest {
     /**
      * Login as Administrator
      */
-    static void defaultLogin() {
-        wire(LoginScreen).defaultLogin()
+    static void loginAsAdmin() {
+        wire(LoginScreen).loginAsAdmin()
     }
 
     /**

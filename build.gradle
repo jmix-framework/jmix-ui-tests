@@ -10,7 +10,7 @@ jmix {
     bomVersion = '0.1.0-SNAPSHOT'
 }
 
-group = 'com.company'
+group = 'io.jmix.tests'
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '1.8'
 
@@ -45,58 +45,31 @@ dependencies {
 
     testImplementation 'io.jmix.masquerade:jmix-masquerade:1.0-SNAPSHOT'
     testImplementation 'com.codeborne:selenide:5.14.0'
-    testImplementation 'org.slf4j:slf4j-simple:1.7.30'
     testImplementation 'org.codehaus.groovy:groovy:3.0.5'
-    testImplementation 'org.codehaus.groovy:groovy-sql:3.0.5'
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.6.2'
-    testImplementation 'org.apache.commons:commons-collections4:4.4'
+
+    testImplementation 'org.testcontainers:selenium:1.14.3'
+    testImplementation 'org.testcontainers:junit-jupiter:1.14.3'
+    testImplementation 'org.testcontainers:postgresql:1.14.3'
+
+    testImplementation('org.springframework.boot:spring-boot-starter-test') {
+        exclude group: 'junit', module: 'junit'
+    }
 
     testRuntime 'org.junit.jupiter:junit-jupiter-engine:5.6.2'
+    testRuntime 'org.postgresql:postgresql:42.2.16'
 }
 
 task testUi(type: Test) {
-
     useJUnitPlatform()
-
-    systemProperty 'selenide.savePageSource', 'false'
-
-    if (System.getProperty('webdriver.chrome.driver')) {
-        systemProperty 'webdriver.chrome.driver', System.getProperty('webdriver.chrome.driver')
-    }
-
-    def javaProperties = System.getProperties()
-    for (def entry in javaProperties.entrySet()) {
-        if (String.valueOf(entry.key).startsWith('selenide.')) {
-            systemProperty(String.valueOf(entry.key), entry.value)
-        }
-    }
 
     filter {
         includeTestsMatching "io.jmix.tests.ui.*"
-    }
-
-    if (System.getProperty('jmix.tests.ui.baseUrl')) {
-        systemProperty 'selenide.baseUrl', System.getProperty('jmix.tests.ui.baseUrl')
-    } else {
-        systemProperty 'selenide.baseUrl', 'http://localhost:8080/ui-tests'
     }
 }
 
 task testSampler(type: Test) {
     useJUnitPlatform()
-
-    systemProperty 'selenide.savePageSource', 'false'
-
-    if (System.getProperty('webdriver.chrome.driver')) {
-        systemProperty 'webdriver.chrome.driver', System.getProperty('webdriver.chrome.driver')
-    }
-
-    def javaProperties = System.getProperties()
-    for (def entry in javaProperties.entrySet()) {
-        if (String.valueOf(entry.key).startsWith('selenide.')) {
-            systemProperty(String.valueOf(entry.key), entry.value)
-        }
-    }
 
     filter {
         includeTestsMatching "io.jmix.tests.sampler.*"
@@ -105,7 +78,7 @@ task testSampler(type: Test) {
     if (System.getProperty('jmix.tests.sampler.baseUrl')) {
         systemProperty 'selenide.baseUrl', System.getProperty('jmix.tests.sampler.baseUrl')
     } else {
-        systemProperty 'selenide.baseUrl', 'http://localhost:8080/sampler'
+        systemProperty 'selenide.baseUrl', 'http://host.docker.internal:8080/sampler'
     }
 }
 

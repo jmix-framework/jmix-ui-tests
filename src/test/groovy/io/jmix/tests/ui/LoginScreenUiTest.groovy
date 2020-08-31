@@ -1,16 +1,26 @@
 package io.jmix.tests.ui
 
-
 import io.jmix.masquerade.component.Notification
-import io.jmix.tests.base.extension.DefaultCleanupExtension
+import io.jmix.tests.JmixUiTestsApplication
+import io.jmix.tests.base.extension.ChromeExtension
+import io.jmix.tests.ui.extension.SpringBootExtension
+import io.jmix.tests.ui.initializer.PostgreSQLContextInitializer
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
+import org.springframework.boot.test.context.SpringBootTest
+import org.springframework.test.context.ContextConfiguration
 
 import static io.jmix.masquerade.Conditions.caption
 import static io.jmix.masquerade.Selectors.$j
 
-@ExtendWith(DefaultCleanupExtension.class)
+@ExtendWith([
+        SpringBootExtension,
+        ChromeExtension
+])
+@SpringBootTest(classes = JmixUiTestsApplication,
+        webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+@ContextConfiguration(initializers = PostgreSQLContextInitializer)
 class LoginScreenUiTest extends BaseUiTest {
 
     @Test
