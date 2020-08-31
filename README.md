@@ -1,4 +1,4 @@
-# jmix-ui-test
+# jmix-ui-tests
 
 Jmix UI test suite
 
@@ -21,7 +21,7 @@ There are two packages in `jmix-ui-tests`:
 * Use ```jmix.tests.ui.baseUrl``` property to define the base url for selenide browsers in ui package; 
 * Use ```jmix.tests.sampler.baseUrl``` property to define the base url for selenide browsers in sampler package; 
 
-#### SpringBoot tests
+### SpringBoot tests
 
 All tests in UI package are based on Spring Boot tests. This means that you do not need to separately launch the main 
 application. The application instance is launched along with the tests. The test application instance runs on a random port, 
