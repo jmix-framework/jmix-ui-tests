@@ -8,7 +8,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension
 
 class SpringBootExtension extends SpringExtension {
 
-    protected static final String JMIX_BASE_URL_PROPERTY = 'jmix.tests.ui.baseUrl'
+    protected static final String UI_BASE_HOST_PROPERTY = 'jmix.tests.ui.baseHost'
     protected static final String LOCAL_SERVER_PORT_PROPERTY = 'local.server.port'
     protected static final String CONTEXT_PATH_PROPERTY = 'server.servlet.contextPath'
     protected static final String SELENIDE_BASE_URL_PROPERTY = 'selenide.baseUrl'
@@ -22,7 +22,7 @@ class SpringBootExtension extends SpringExtension {
 
     protected void initSelenideBaseUrl(ApplicationContext applicationContext) {
         Environment environment = applicationContext.getEnvironment()
-        String baseUrl = environment.getProperty(JMIX_BASE_URL_PROPERTY)
+        String baseUrl = environment.getProperty(UI_BASE_HOST_PROPERTY)
         String localServerPort = environment.getProperty(LOCAL_SERVER_PORT_PROPERTY)
         String contextPath = environment.getProperty(CONTEXT_PATH_PROPERTY)
         String selenideBaseUrl = baseUrl + ':' + localServerPort + contextPath

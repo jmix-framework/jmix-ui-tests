@@ -1,7 +1,7 @@
 package io.jmix.tests.ui
 
 import io.jmix.tests.JmixUiTestsApplication
-import io.jmix.tests.base.extension.ChromeExtension
+import io.jmix.tests.extension.ChromeExtension
 import io.jmix.tests.ui.extension.SpringBootExtension
 import io.jmix.tests.ui.initializer.PostgreSQLContextInitializer
 import io.jmix.tests.ui.screen.main.MainScreen

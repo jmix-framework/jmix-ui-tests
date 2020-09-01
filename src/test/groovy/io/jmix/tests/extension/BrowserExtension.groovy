@@ -1,4 +1,4 @@
-package io.jmix.tests.base.extension
+package io.jmix.tests.extension
 
 import com.codeborne.selenide.Selenide
 import com.codeborne.selenide.WebDriverRunner
@@ -24,7 +24,6 @@ abstract class BrowserExtension implements BeforeEachCallback, AfterEachCallback
                 .withCapabilities(getCapabilities())
         browser.start()
         WebDriverRunner.setWebDriver(browser.getWebDriver())
-        Selenide.open('/')
 
         printVncRecordedUrl()
     }

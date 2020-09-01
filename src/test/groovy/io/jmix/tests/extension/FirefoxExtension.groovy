@@ -1,4 +1,4 @@
-package io.jmix.tests.base.extension
+package io.jmix.tests.extension
 
 
 import org.openqa.selenium.Capabilities

@@ -2,7 +2,7 @@ package io.jmix.tests.ui
 
 import io.jmix.masquerade.component.Notification
 import io.jmix.tests.JmixUiTestsApplication
-import io.jmix.tests.base.extension.ChromeExtension
+import io.jmix.tests.extension.ChromeExtension
 import io.jmix.tests.ui.extension.SpringBootExtension
 import io.jmix.tests.ui.initializer.PostgreSQLContextInitializer
 import org.junit.jupiter.api.DisplayName

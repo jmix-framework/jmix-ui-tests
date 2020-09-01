@@ -67,9 +67,99 @@ creates a test container with Firefox browser for each test:
 Each test browser container contains VNC recorder for debugging tests. You can find the following line in the logs when 
 starting the test:
 ```
-INFO 5504 --- [Test worker] i.j.t.base.extension.BrowserExtension : VNC recorder url: vnc://localhost:32903, password='secret'
+INFO 5504 --- [Test worker] i.j.t.extension.BrowserExtension : VNC recorder url: vnc://localhost:32903, password='secret'
 ```
 Then open the page from the URL in your browser and enter the password provided.
+
+#### Locally installed browser drivers
+
+Please note that you need to download one of the latest versions of the web driver 
+depending on the browser you want to use to testing. For Chrome browser this is 
+[chromedriver](http://chromedriver.chromium.org/downloads), for Firefox this is 
+[geckodriver](https://github.com/mozilla/geckodriver/releases). Also, you  need to 
+remove the use of `@ExtendWith(ChromeExtension)` annotation for test class.
+
+#### Locally installed Chrome browser driver
+
+If you run your tests in Chrome browser, you need to edit standard
+test configuration for the test project in IntelliJ. To do so, click the 
+*Select Run/Debug Configuration* button and select *Edit Configurations*  in the 
+drop-down list. In the VM options field, add the following:
+
+* UI package
+```
+-Dselenide.browser=chrome 
+-Dwebdriver.chrome.driver=<your_path>/chromedriver.exe 
+-Djmix.tests.ui.baseHost=http://localhost
+```
+![Ui Chrome Test Configuration](images/uiChromeTestConfiguration.png)
+
+* Sampler package
+```
+-Dselenide.browser=chrome 
+-Dwebdriver.chrome.driver=<your_path>/chromedriver.exe 
+-Djmix.tests.sampler.baseUrl=http://localhost:8080/sampler
+```
+![Sampler Chrome Test Configuration](images/samplerChromeTestConfiguration.png)
+
+where `<your_path>` is the path to the chrome driver on your computer.
+
+After that select the simple test or the test class you want to run, right 
+click on it and select *Debug* option.
+
+To run the tests using Gradle, run the following task in the terminal:
+* UI package
+```
+gradle testUi -Dselenide.browser=chrome -Dwebdriver.chrome.driver=<your_path>/chromedriver.exe -Djmix.tests.ui.baseHost=http://localhost
+```
+
+* Sampler package
+```
+gradle testSampler -Dselenide.browser=chrome -Dwebdriver.chrome.driver=<your_path>/chromedriver.exe -Djmix.tests.sampler.baseUrl=http://localhost:8080/sampler
+```
+    
+where `<your_path>` is the path to the chrome driver on your computer.
+
+#### Locally installed Firefox browser driver
+
+If you run your tests in Firefox browser, you need to edit standard
+test configuration for the test project in IntelliJ. To do so, click the 
+*Select Run/Debug Configuration* button and select *Edit Configurations*  in the 
+drop-down list. In the VM options field, add the following:
+
+* UI package
+```
+-Dselenide.browser=firefox
+-Dwebdriver.gecko.driver=<your_path>/geckodriver.exe 
+-Djmix.tests.ui.baseHost=http://localhost
+```
+![Ui Firefox Test Configuration](images/uiFirefoxTestConfiguration.png)
+
+* Sampler package
+```
+-Dselenide.browser=firefox 
+-Dwebdriver.gecko.driver=<your_path>/geckodriver.exe 
+-Djmix.tests.sampler.baseUrl=http://localhost:8080/sampler
+```
+![Sampler Firefox Test Configuration](images/samplerFirefoxTestConfiguration.png)
+
+where `<your_path>` is the path to the firefox driver on your computer.
+
+After that select the simple test or the test class you want to run, right 
+click on it and select *Debug* option.
+
+To run the tests using Gradle, run the following task in the terminal:
+* UI package
+```
+gradle testUi -Dselenide.browser=firefox -Dwebdriver.gecko.driver=<your_path>/geckodriver.exe -Djmix.tests.ui.baseHost=http://localhost
+```
+
+* Sampler package
+```
+gradle testSampler -Dselenide.browser=firefox -Dwebdriver.gecko.driver=<your_path>/geckodriver.exe -Djmix.tests.sampler.baseUrl=http://localhost:8080/sampler
+```
+    
+where `<your_path>` is the path to the firefox driver on your computer.
 
 ### Database containers
 The database containers are used from the `Testcontainers` library. For example, in order to add a container with a 

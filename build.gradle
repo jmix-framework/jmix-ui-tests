@@ -66,6 +66,22 @@ task testUi(type: Test) {
     filter {
         includeTestsMatching "io.jmix.tests.ui.*"
     }
+
+    if (System.getProperty('jmix.tests.ui.baseHost')) {
+        systemProperty 'jmix.tests.ui.baseHost', System.getProperty('jmix.tests.ui.baseHost')
+    }
+
+    if (System.getProperty('selenide.browser')) {
+        systemProperty 'selenide.browser', System.getProperty('selenide.browser')
+    }
+
+    if (System.getProperty('webdriver.chrome.driver')) {
+        systemProperty 'webdriver.chrome.driver', System.getProperty('webdriver.chrome.driver')
+    }
+
+    if (System.getProperty('webdriver.gecko.driver')) {
+        systemProperty 'webdriver.gecko.driver', System.getProperty('webdriver.gecko.driver')
+    }
 }
 
 task testSampler(type: Test) {
@@ -79,6 +95,18 @@ task testSampler(type: Test) {
         systemProperty 'selenide.baseUrl', System.getProperty('jmix.tests.sampler.baseUrl')
     } else {
         systemProperty 'selenide.baseUrl', 'http://host.docker.internal:8080/sampler'
+    }
+
+    if (System.getProperty('selenide.browser')) {
+        systemProperty 'selenide.browser', System.getProperty('selenide.browser')
+    }
+
+    if (System.getProperty('webdriver.chrome.driver')) {
+        systemProperty 'webdriver.chrome.driver', System.getProperty('webdriver.chrome.driver')
+    }
+
+    if (System.getProperty('webdriver.gecko.driver')) {
+        systemProperty 'webdriver.gecko.driver', System.getProperty('webdriver.gecko.driver')
     }
 }
 
