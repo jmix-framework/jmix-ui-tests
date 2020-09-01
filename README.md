@@ -15,7 +15,7 @@ Jmix UI test suite
 
 There are two packages in `jmix-ui-tests`:
 1. `ui`- contains UI tests for testing Jmix projects
-2. `sampler`- contains UI test for testing [Jmix Sampler project](https://github.com/Haulmont/jmix-sampler)
+2. `sampler`- contains UI tests for testing [Jmix Sampler project](https://github.com/Haulmont/jmix-sampler)
 
 #### Configuring
 * Use ```jmix.tests.ui.baseUrl``` property to define the base url for selenide browsers in ui package; 
@@ -41,8 +41,8 @@ quite feasible to have a totally fresh browser instance for every test.
 There are two browser containers in `jmix-ui-tests`:
 1. [ChromeExtension](./src/test/groovy/io/jmix/tests/base/extension/ChromeExtension.groovy) - a junit5 extension that 
 creates a test container with Chrome browser for each test:
-   ```
-   @ExtendWith(ChromeExtension.class)
+   ```groovy
+   @ExtendWith(ChromeExtension)
    class UiTest {
        @Test
        void test() {
@@ -52,8 +52,8 @@ creates a test container with Chrome browser for each test:
    ```
 2. [FirefoxExtension](./src/test/groovy/io/jmix/tests/base/extension/FirefoxExtension.groovy) - a junit5 extension that 
 creates a test container with Firefox browser for each test:
-   ```
-   @ExtendWith(FirefoxExtension.class)
+   ```groovy
+   @ExtendWith(FirefoxExtension)
    class UiTest {
        @Test
        void test() {
@@ -190,8 +190,8 @@ class UserUiTest extends BaseUiTest {
 }
 ```
 ## Sample test in Sampler package
-```
-@ExtendWith(ChromeExtension.class)
+```groovy
+@ExtendWith(ChromeExtension)
 class ButtonSamplerUiTest extends BaseSamplerUiTest {
 
     @Test

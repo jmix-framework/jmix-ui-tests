@@ -10,7 +10,7 @@ import org.junit.jupiter.api.extension.ExtendWith
 import static io.jmix.masquerade.Conditions.caption
 import static io.jmix.masquerade.Selectors.$j
 
-@ExtendWith(ChromeExtension.class)
+@ExtendWith(ChromeExtension)
 class ButtonSamplerUiTest extends BaseSamplerUiTest {
 
     @Test
