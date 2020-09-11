@@ -56,6 +56,10 @@ dependencies {
         exclude group: 'junit', module: 'junit'
     }
 
+    testImplementation('com.assertthat:selenium-shutterbug:1.2') {
+        exclude group: 'org.seleniumhq.selenium', module: 'selenium-java'
+    }
+
     testRuntime 'org.junit.jupiter:junit-jupiter-engine:5.6.2'
     testRuntime 'org.postgresql:postgresql:42.2.16'
 }
@@ -107,6 +111,22 @@ task testSampler(type: Test) {
 
     if (System.getProperty('webdriver.gecko.driver')) {
         systemProperty 'webdriver.gecko.driver', System.getProperty('webdriver.gecko.driver')
+    }
+
+    if (System.getProperty('jmix.tests.sampler.screenshot.standardFolderPath')) {
+        systemProperty 'jmix.tests.sampler.screenshot.standardFolderPath',
+                System.getProperty('jmix.tests.sampler.screenshot.standardFolderPath')
+    } else {
+        systemProperty 'jmix.tests.sampler.screenshot.standardFolderPath',
+                './src/test/resources/io/jmix/tests/sampler/screenshot/standard/'
+    }
+
+    if (System.getProperty('jmix.tests.sampler.screenshot.diffFolderPath')) {
+        systemProperty 'jmix.tests.sampler.screenshot.diffFolderPath',
+                System.getProperty('jmix.tests.sampler.screenshot.diffFolderPath')
+    } else {
+        systemProperty 'jmix.tests.sampler.screenshot.diffFolderPath',
+                "${project.buildDir}/reports/tests/testSampler/screenshot/differences/"
     }
 }
 
