@@ -26,6 +26,10 @@ class ScreenshotUiTest extends BaseScreenshotSamplerUiTest {
     @MethodSource('provideTestArguments')
     void compareScreenshotTest(String sampleId, String jTestId, String imageName) {
         openSample(sampleId)
-        assertTrue(equalsScreenshotWithStandard($j(jTestId), imageName))
+        assertTrue(
+                equalsScreenshotWithStandard($j(jTestId), imageName),
+                String.format("Component and standard screenshots are different. Go to the (%s) file to see the " +
+                        "differences", diffDirPath(imageName))
+        )
     }
 }

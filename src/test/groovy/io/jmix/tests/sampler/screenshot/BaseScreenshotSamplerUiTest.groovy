@@ -29,7 +29,7 @@ abstract class BaseScreenshotSamplerUiTest extends BaseSamplerUiTest {
         if (standardImage.exists()) {
             String diffPath = DIFF_FOLDER_PATH + DIFF_PREFIX + name
             return Shutterbug.shootElement(WebDriverRunner.webDriver, element)
-                    .equalsWithDiff(standardPath, diffPath)
+                    .equalsWithDiff(standardPath, diffPath, 5.0)
         } else {
             Shutterbug.shootElement(WebDriverRunner.webDriver, element)
                     .withName(name)
@@ -37,5 +37,15 @@ abstract class BaseScreenshotSamplerUiTest extends BaseSamplerUiTest {
 
             return true
         }
+    }
+
+    /**
+     * Returns the path to the directory where screenshots are stored, which differ from standard images.
+     *
+     * @param name the image name
+     * @return a path
+     */
+    static String diffDirPath(String name) {
+        return 'file://' + DIFF_FOLDER_PATH + DIFF_PREFIX + name + IMAGE_EXTENSION
     }
 }

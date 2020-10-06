@@ -121,13 +121,21 @@ task testSampler(type: Test) {
                 './src/test/resources/io/jmix/tests/sampler/screenshot/standard/'
     }
 
+    def diffFolderPath
     if (System.getProperty('jmix.tests.sampler.screenshot.diffFolderPath')) {
-        systemProperty 'jmix.tests.sampler.screenshot.diffFolderPath',
-                System.getProperty('jmix.tests.sampler.screenshot.diffFolderPath')
+        diffFolderPath = System.getProperty('jmix.tests.sampler.screenshot.diffFolderPath')
     } else {
-        systemProperty 'jmix.tests.sampler.screenshot.diffFolderPath',
-                "${project.buildDir}/reports/tests/testSampler/screenshot/differences/"
+        diffFolderPath = "${project.buildDir}/reports/tests/testSampler/screenshot/differences/"
     }
+
+    def diffFolder = new File(diffFolderPath)
+    if (!diffFolder.exists()) {
+        diffFolder.mkdirs()
+    } else {
+        delete diffFolder.listFiles()
+    }
+
+    systemProperty 'jmix.tests.sampler.screenshot.diffFolderPath', diffFolderPath
 }
 
 test.dependsOn testUi, testSampler
