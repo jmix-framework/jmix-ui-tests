@@ -1,6 +1,5 @@
 package io.jmix.tests.entity;
 
-import io.jmix.core.JmixEntity;
 import io.jmix.core.entity.BaseUser;
 import io.jmix.core.entity.annotation.JmixGeneratedValue;
 import io.jmix.core.entity.annotation.SystemLevel;
@@ -15,7 +14,7 @@ import java.util.UUID;
 
 @Entity(name = "tests_User")
 @Table(name = "TESTS_USER")
-public class User implements JmixEntity, BaseUser {
+public class User implements BaseUser {
 
     @Id
     @Column(name = "ID")
@@ -136,10 +135,6 @@ public class User implements JmixEntity, BaseUser {
         return enabled;
     }
 
-    @Override
-    public String getKey() {
-        return username;
-    }
 
     @InstanceName
     @Override
