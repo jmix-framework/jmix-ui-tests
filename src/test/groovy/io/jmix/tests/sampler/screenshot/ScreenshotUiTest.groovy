@@ -22,7 +22,7 @@ class ScreenshotUiTest extends BaseScreenshotSamplerUiTest {
         )
     }
 
-    @ParameterizedTest(name = "Compares a component '{1}' screenshot of sample screen '{0}' with '{2}' standard image")
+    @ParameterizedTest(name = "Compares a component {1} screenshot of sample screen {0} with {2} standard image")
     @MethodSource('provideTestArguments')
     void compareScreenshotTest(String sampleId, String jTestId, String imageName) {
         openSample(sampleId)
