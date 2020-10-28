@@ -11,11 +11,10 @@ jmix {
 }
 
 group = 'io.jmix.tests'
-version = '0.0.1-SNAPSHOT'
+version = '0.1.0-SNAPSHOT'
 sourceCompatibility = '1.8'
 
 repositories {
-    mavenLocal()
     jcenter()
     maven {
         url 'https://nexus.jmix.io/repository/public'
@@ -43,7 +42,8 @@ dependencies {
 
     runtimeOnly 'org.hsqldb:hsqldb'
 
-    testImplementation 'io.jmix.masquerade:jmix-masquerade:1.0-SNAPSHOT'
+    testImplementation "io.jmix.masquerade:jmix-masquerade:${jmix.bomVersion}"
+
     testImplementation 'com.codeborne:selenide:5.14.0'
     testImplementation 'org.codehaus.groovy:groovy:3.0.5'
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.6.2'
