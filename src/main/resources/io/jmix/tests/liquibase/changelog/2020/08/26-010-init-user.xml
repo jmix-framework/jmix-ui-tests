@@ -14,7 +14,9 @@
             <column name="VERSION" type="int">
                 <constraints nullable="false"/>
             </column>
-            <column name="USERNAME" type="varchar(255)"/>
+            <column name="USERNAME" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
             <column name="FIRST_NAME" type="varchar(255)"/>
             <column name="LAST_NAME" type="varchar(255)"/>
             <column name="PASSWORD" type="varchar(255)"/>
@@ -25,6 +27,12 @@
     </changeSet>
 
     <changeSet id="2" author="jmix-ui-tests" context="base">
+        <createIndex indexName="IDX_TESTS_USER_ON_USERNAME" tableName="TESTS_USER" unique="true">
+            <column name="USERNAME"/>
+        </createIndex>
+    </changeSet>
+
+    <changeSet id="3" author="jmix-ui-tests" context="base">
 
         <insert tableName="TESTS_USER">
             <column name="ID" value="60885987-1b61-4247-94c7-dff348347f93"/>
@@ -36,12 +44,12 @@
 
     </changeSet>
 
-    <changeSet id="3" author="jmix-ui-tests" context="base">
+    <changeSet id="4" author="jmix-ui-tests" context="base">
 
         <insert tableName="SEC_ROLE_ASSIGNMENT_ENTITY">
             <column name="ID" value="6c9e420a-2b7a-4c42-8654-a9027ee14083"/>
             <column name="VERSION" value="1"/>
-            <column name="USER_KEY" value="admin"/>
+            <column name="USERNAME" value="admin"/>
             <column name="ROLE_CODE" value="system-full-access"/>
         </insert>
 

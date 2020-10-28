@@ -5,7 +5,7 @@
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
                       http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
 
-    <changeSet id="4" author="jmix-ui-tests" context="test-role">
+    <changeSet id="5" author="jmix-ui-tests" context="test-role">
 
         <insert tableName="SEC_ROLE_ENTITY">
             <column name="ID" value="cc9e420a-2b7a-4c42-8654-a9027ee14083"/>

@@ -135,7 +135,6 @@ public class User implements BaseUser {
         return enabled;
     }
 
-
     @InstanceName
     @Override
     public String getDisplayName() {
