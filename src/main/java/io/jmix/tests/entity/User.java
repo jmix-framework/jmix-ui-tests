@@ -3,17 +3,27 @@ package io.jmix.tests.entity;
 import io.jmix.core.entity.BaseUser;
 import io.jmix.core.entity.annotation.JmixGeneratedValue;
 import io.jmix.core.entity.annotation.SystemLevel;
+import io.jmix.core.metamodel.annotation.DependsOnProperties;
 import io.jmix.core.metamodel.annotation.InstanceName;
+import io.jmix.core.metamodel.annotation.JmixEntity;
 import org.springframework.security.core.GrantedAuthority;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Index;
+import javax.persistence.Table;
+import javax.persistence.Version;
 import javax.validation.constraints.Email;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.UUID;
 
 @Entity(name = "tests_User")
-@Table(name = "TESTS_USER")
+@Table(name = "TESTS_USER", indexes = {
+        @Index(name = "IDX_TESTS_USER_ON_USERNAME", columnList = "USERNAME", unique = true)
+})
+@JmixEntity
 public class User implements BaseUser {
 
     @Id
@@ -136,8 +146,10 @@ public class User implements BaseUser {
     }
 
     @InstanceName
+    @DependsOnProperties({"firstName", "lastName", "username"})
     @Override
     public String getDisplayName() {
-        return String.join(" ", firstName, lastName);
+        return String.format("%s %s [%s]", (firstName != null ? firstName : ""),
+                (lastName != null ? lastName : ""), username);
     }
 }

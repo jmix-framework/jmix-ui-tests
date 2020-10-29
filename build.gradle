@@ -7,11 +7,11 @@ plugins {
 apply plugin: 'org.springframework.boot'
 
 jmix {
-    bomVersion = '0.1.0-SNAPSHOT'
+    bomVersion = '0.2.0-SNAPSHOT'
 }
 
 group = 'io.jmix.tests'
-version = '0.1.0-SNAPSHOT'
+version = '0.2.0-SNAPSHOT'
 sourceCompatibility = '1.8'
 
 repositories {
