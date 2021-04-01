@@ -1,11 +1,11 @@
 package io.jmix.tests.entity;
 
-import io.jmix.core.entity.BaseUser;
 import io.jmix.core.entity.annotation.JmixGeneratedValue;
 import io.jmix.core.entity.annotation.SystemLevel;
 import io.jmix.core.metamodel.annotation.DependsOnProperties;
 import io.jmix.core.metamodel.annotation.InstanceName;
 import io.jmix.core.metamodel.annotation.JmixEntity;
+import io.jmix.security.authentication.JmixUserDetails;
 import org.springframework.security.core.GrantedAuthority;
 
 import javax.persistence.Column;
@@ -13,6 +13,7 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Index;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.persistence.Version;
 import javax.validation.constraints.Email;
 import java.util.Collection;
@@ -24,7 +25,7 @@ import java.util.UUID;
         @Index(name = "IDX_TESTS_USER_ON_USERNAME", columnList = "USERNAME", unique = true)
 })
 @JmixEntity
-public class User implements BaseUser {
+public class User implements JmixUserDetails {
 
     @Id
     @Column(name = "ID")
@@ -54,6 +55,9 @@ public class User implements BaseUser {
 
     @Column(name = "ENABLED")
     protected Boolean enabled = true;
+
+    @Transient
+    protected Collection<? extends GrantedAuthority> authorities;
 
     public UUID getId() {
         return id;
@@ -122,7 +126,12 @@ public class User implements BaseUser {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return Collections.emptyList();
+        return authorities != null ? authorities : Collections.emptyList();
+    }
+
+    @Override
+    public void setAuthorities(Collection<? extends GrantedAuthority> authorities) {
+        this.authorities = authorities;
     }
 
     @Override
@@ -147,9 +156,8 @@ public class User implements BaseUser {
 
     @InstanceName
     @DependsOnProperties({"firstName", "lastName", "username"})
-    @Override
     public String getDisplayName() {
         return String.format("%s %s [%s]", (firstName != null ? firstName : ""),
-                (lastName != null ? lastName : ""), username);
+                (lastName != null ? lastName : ""), username).trim();
     }
 }

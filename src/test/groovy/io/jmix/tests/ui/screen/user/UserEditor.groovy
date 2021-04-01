@@ -25,13 +25,6 @@ class UserEditor extends Composite<UserEditor> {
     CheckBox enabledField
 
     @Wire
-    Table roleAssignmentsTable
-    @Wire
-    Button addBtn
-    @Wire
-    Button removeBtn
-
-    @Wire
     Button windowCommitAndClose
     @Wire
     Button windowClose

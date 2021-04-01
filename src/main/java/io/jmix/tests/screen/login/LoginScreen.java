@@ -4,10 +4,13 @@ import io.jmix.core.CoreProperties;
 import io.jmix.core.Messages;
 import io.jmix.core.security.ClientDetails;
 import io.jmix.core.security.SecurityContextHelper;
+import io.jmix.securityui.authentication.AuthDetails;
+import io.jmix.securityui.authentication.LoginScreenAuthenticationSupport;
 import io.jmix.ui.Notifications;
 import io.jmix.ui.ScreenBuilders;
 import io.jmix.ui.UiProperties;
 import io.jmix.ui.action.Action;
+import io.jmix.ui.component.CheckBox;
 import io.jmix.ui.component.ComboBox;
 import io.jmix.ui.component.PasswordField;
 import io.jmix.ui.component.TextField;
@@ -16,6 +19,7 @@ import io.jmix.ui.screen.*;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.authentication.DisabledException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 
@@ -28,55 +32,52 @@ import java.util.Locale;
 public class LoginScreen extends Screen {
 
     @Autowired
-    protected TextField<String> usernameField;
+    private TextField<String> usernameField;
 
     @Autowired
-    protected PasswordField passwordField;
+    private PasswordField passwordField;
 
     @Autowired
-    protected ComboBox<Locale> localesField;
+    private CheckBox rememberMeCheckBox;
 
     @Autowired
-    protected Notifications notifications;
+    private ComboBox<Locale> localesField;
 
     @Autowired
-    protected Messages messages;
+    private Notifications notifications;
 
     @Autowired
-    protected AuthenticationManager authenticationManager;
+    private Messages messages;
 
     @Autowired
-    protected CoreProperties coreProperties;
+    private LoginScreenAuthenticationSupport authenticationSupport;
 
     @Autowired
-    protected UiProperties uiProperties;
-
-    @Autowired
-    protected ScreenBuilders screenBuilders;
+    private CoreProperties coreProperties;
 
     @Subscribe
-    protected void onInit(InitEvent event) {
+    private void onInit(InitEvent event) {
         usernameField.focus();
         initLocalesField();
         initDefaultCredentials();
     }
 
-    protected void initLocalesField() {
+    private void initLocalesField() {
         localesField.setOptionsMap(coreProperties.getAvailableLocales());
         localesField.setValue(coreProperties.getAvailableLocales().values().iterator().next());
     }
 
-    protected void initDefaultCredentials() {
+    private void initDefaultCredentials() {
         usernameField.setValue("admin");
         passwordField.setValue("admin");
     }
 
     @Subscribe("submit")
-    protected void onSubmitActionPerformed(Action.ActionPerformedEvent event) {
+    private void onSubmitActionPerformed(Action.ActionPerformedEvent event) {
         login();
     }
 
-    protected void login() {
+    private void login() {
         String username = usernameField.getValue();
         String password = passwordField.getValue() != null ? passwordField.getValue() : "";
 
@@ -88,21 +89,11 @@ public class LoginScreen extends Screen {
         }
 
         try {
-            UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(username, password);
-            ClientDetails clientDetails = ClientDetails.builder()
-                    .locale(localesField.getValue())
-                    .build();
-            authenticationToken.setDetails(clientDetails);
-            Authentication authentication = authenticationManager.authenticate(authenticationToken);
-            SecurityContextHelper.setAuthentication(authentication);
-
-            String mainScreenId = uiProperties.getMainScreenId();
-            screenBuilders.screen(this)
-                    .withScreenId(mainScreenId)
-                    .withOpenMode(OpenMode.ROOT)
-                    .build()
-                    .show();
-        } catch (BadCredentialsException e) {
+            authenticationSupport.authenticate(
+                    AuthDetails.of(username, password)
+                            .withLocale(localesField.getValue())
+                            .withRememberMe(rememberMeCheckBox.isChecked()), this);
+        } catch (BadCredentialsException | DisabledException e) {
             notifications.create(Notifications.NotificationType.ERROR)
                     .withCaption(messages.getMessage(getClass(), "loginFailed"))
                     .withDescription(e.getMessage())
@@ -110,3 +101,4 @@ public class LoginScreen extends Screen {
         }
     }
 }
+

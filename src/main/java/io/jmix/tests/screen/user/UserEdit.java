@@ -4,6 +4,7 @@ import io.jmix.tests.entity.User;
 import io.jmix.core.EntityStates;
 import io.jmix.ui.Notifications;
 import io.jmix.ui.component.PasswordField;
+import io.jmix.ui.component.TextField;
 import io.jmix.ui.navigation.Route;
 import io.jmix.ui.screen.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,25 +19,29 @@ import java.util.Objects;
 public class UserEdit extends StandardEditor<User> {
 
     @Autowired
-    protected EntityStates entityStates;
+    private EntityStates entityStates;
 
     @Autowired
-    protected PasswordEncoder passwordEncoder;
+    private PasswordEncoder passwordEncoder;
 
     @Autowired
-    protected PasswordField passwordField;
+    private PasswordField passwordField;
 
     @Autowired
-    protected PasswordField confirmPasswordField;
+    private TextField usernameField;
 
     @Autowired
-    protected Notifications notifications;
+    private PasswordField confirmPasswordField;
 
     @Autowired
-    protected MessageBundle messageBundle;
+    private Notifications notifications;
+
+    @Autowired
+    private MessageBundle messageBundle;
 
     @Subscribe
     public void onInitEntity(InitEntityEvent<User> event) {
+        usernameField.setEditable(true);
         passwordField.setVisible(true);
         confirmPasswordField.setVisible(true);
     }

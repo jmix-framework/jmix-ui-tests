@@ -1,5 +1,5 @@
 plugins {
-    id 'io.jmix' version '0.1.16'
+    id 'io.jmix' version '0.9.0'
     id 'java'
     id 'groovy'
 }
@@ -7,15 +7,15 @@ plugins {
 apply plugin: 'org.springframework.boot'
 
 jmix {
-    bomVersion = '0.2.0-SNAPSHOT'
+    bomVersion = '1.0.0-SNAPSHOT'
+    projectId = 'jmix-ui-tests'
 }
 
 group = 'io.jmix.tests'
-version = '0.2.0-SNAPSHOT'
 sourceCompatibility = '1.8'
 
 repositories {
-    jcenter()
+    mavenCentral()
     maven {
         url 'https://nexus.jmix.io/repository/public'
     }
@@ -23,7 +23,7 @@ repositories {
 
 dependencies {
     implementation 'io.jmix.core:jmix-core-starter'
-    implementation 'io.jmix.data:jmix-data-starter'
+    implementation 'io.jmix.data:jmix-eclipselink-starter'
     implementation 'io.jmix.ui:jmix-ui-starter'
     implementation 'io.jmix.ui:jmix-ui-data-starter'
     implementation 'io.jmix.ui:jmix-ui-themes-compiled'
@@ -44,24 +44,24 @@ dependencies {
 
     testImplementation "io.jmix.masquerade:jmix-masquerade:${jmix.bomVersion}"
 
-    testImplementation 'com.codeborne:selenide:5.14.0'
-    testImplementation 'org.codehaus.groovy:groovy:3.0.5'
-    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.6.2'
+    testImplementation 'com.codeborne:selenide:5.20.1'
+    testImplementation 'org.codehaus.groovy:groovy:3.0.7'
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.1'
 
-    testImplementation 'org.testcontainers:selenium:1.14.3'
-    testImplementation 'org.testcontainers:junit-jupiter:1.14.3'
-    testImplementation 'org.testcontainers:postgresql:1.14.3'
+    testImplementation 'org.testcontainers:selenium:1.15.2'
+    testImplementation 'org.testcontainers:junit-jupiter:1.15.2'
+    testImplementation 'org.testcontainers:postgresql:1.15.2'
 
     testImplementation('org.springframework.boot:spring-boot-starter-test') {
         exclude group: 'junit', module: 'junit'
     }
 
-    testImplementation('com.assertthat:selenium-shutterbug:1.2') {
+    testImplementation('com.assertthat:selenium-shutterbug:1.4') {
         exclude group: 'org.seleniumhq.selenium', module: 'selenium-java'
     }
 
-    testRuntime 'org.junit.jupiter:junit-jupiter-engine:5.6.2'
-    testRuntime 'org.postgresql:postgresql:42.2.16'
+    testRuntime 'org.junit.jupiter:junit-jupiter-engine:5.7.1'
+    testRuntime 'org.postgresql:postgresql:42.2.19'
 }
 
 task testUi(type: Test) {
