@@ -73,6 +73,8 @@ task testUi(type: Test) {
 
     if (System.getProperty('jmix.tests.ui.baseHost')) {
         systemProperty 'jmix.tests.ui.baseHost', System.getProperty('jmix.tests.ui.baseHost')
+    } else {
+        systemProperty 'jmix.tests.ui.baseHost', 'http://host.docker.internal'
     }
 
     if (System.getProperty('selenide.browser')) {

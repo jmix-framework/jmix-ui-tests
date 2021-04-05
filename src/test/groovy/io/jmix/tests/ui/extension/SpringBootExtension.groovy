@@ -22,10 +22,10 @@ class SpringBootExtension extends SpringExtension {
 
     protected void initSelenideBaseUrl(ApplicationContext applicationContext) {
         Environment environment = applicationContext.getEnvironment()
-        String baseUrl = environment.getProperty(UI_BASE_HOST_PROPERTY)
+        String baseHost = environment.getProperty(UI_BASE_HOST_PROPERTY)
         String localServerPort = environment.getProperty(LOCAL_SERVER_PORT_PROPERTY)
         String contextPath = environment.getProperty(CONTEXT_PATH_PROPERTY)
-        String selenideBaseUrl = baseUrl + ':' + localServerPort + contextPath
+        String selenideBaseUrl = baseHost + ':' + localServerPort + contextPath
         System.setProperty(SELENIDE_BASE_URL_PROPERTY, selenideBaseUrl)
     }
 }
