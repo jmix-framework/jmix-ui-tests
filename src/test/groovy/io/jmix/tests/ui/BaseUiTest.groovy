@@ -2,8 +2,10 @@ package io.jmix.tests.ui
 
 import com.codeborne.selenide.Selenide
 import io.jmix.tests.ui.screen.login.LoginScreen
+import io.jmix.tests.ui.screen.main.MainScreen
+import org.junit.jupiter.api.AfterEach
 
-import static io.jmix.masquerade.Components.wire
+import static io.jmix.masquerade.Selectors.$j
 
 /**
  * Base class for UI tests in ui package
@@ -15,17 +17,14 @@ abstract class BaseUiTest {
      */
     static void loginAsAdmin() {
         Selenide.open('/')
-        wire(LoginScreen).loginAsAdmin()
+        $j(LoginScreen).loginAsAdmin()
     }
 
     /**
-     * Login by given username and password
-     *
-     * @param username username
-     * @param password user password
+     * Logout after each test
      */
-    static void login(String username, String password) {
-        Selenide.open('/')
-        wire(LoginScreen).login(username, password)
+    @AfterEach
+    void logout() {
+        $j(MainScreen).logout()
     }
 }

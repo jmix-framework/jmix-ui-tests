@@ -41,7 +41,7 @@ class UserUiTest extends BaseUiTest {
             usernameField.setValue('newUsername')
             passwordField.setValue('qO4Hn6o')
             confirmPasswordField.setValue('qO4Hn6o')
-            windowCommitAndClose.click()
+            commitAndCloseBtn.click()
         }
 
         $j(UserBrowse).usersTable

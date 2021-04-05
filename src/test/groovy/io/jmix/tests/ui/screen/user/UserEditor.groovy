@@ -25,7 +25,7 @@ class UserEditor extends Composite<UserEditor> {
     CheckBox enabledField
 
     @Wire
-    Button windowCommitAndClose
+    Button commitAndCloseBtn
     @Wire
-    Button windowClose
+    Button closeBtn
 }

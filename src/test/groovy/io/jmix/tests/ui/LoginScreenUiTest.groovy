@@ -1,10 +1,12 @@
 package io.jmix.tests.ui
 
+import com.codeborne.selenide.Selenide
 import io.jmix.masquerade.component.Notification
 import io.jmix.tests.JmixUiTestsApplication
 import io.jmix.tests.extension.ChromeExtension
 import io.jmix.tests.ui.extension.SpringBootExtension
 import io.jmix.tests.ui.initializer.PostgreSQLContextInitializer
+import io.jmix.tests.ui.screen.login.LoginScreen
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
@@ -21,14 +23,16 @@ import static io.jmix.masquerade.Selectors.$j
 @SpringBootTest(classes = JmixUiTestsApplication,
         webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @ContextConfiguration(initializers = PostgreSQLContextInitializer)
-class LoginScreenUiTest extends BaseUiTest {
+class LoginScreenUiTest {
 
     @Test
     @DisplayName("Checks that the user cannot login with incorrect credentials")
     void loginWithIncorrectCredentials() {
-        login('login', '1')
+        Selenide.open('/')
+        $j(LoginScreen).login('username', 'password')
 
         $j(Notification.class)
                 .shouldHave(caption('Login failed'))
+                .clickToClose()
     }
 }
