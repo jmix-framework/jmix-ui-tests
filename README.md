@@ -19,7 +19,7 @@ There are two packages in `jmix-ui-tests`:
 2. `sampler`- contains UI tests for testing [Jmix Sampler project](https://github.com/Haulmont/jmix-sampler)
 
 #### Properties
-* Use ```jmix.tests.ui.baseUrl``` property to define the base url for selenide browsers in ui package; 
+* Use ```jmix.tests.ui.baseHost``` property to define the base host of the main application for selenide browsers in ui package; 
 * Use ```jmix.tests.sampler.baseUrl``` property to define the base url for selenide browsers in sampler package; 
 
 ### SpringBoot tests
