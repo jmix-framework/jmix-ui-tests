@@ -16,7 +16,7 @@ abstract class BaseUiTest {
      * Login as Administrator
      */
     static void loginAsAdmin() {
-        Selenide.open('/')
+        Selenide.open('/ui-tests')
         $j(LoginScreen).loginAsAdmin()
     }
 

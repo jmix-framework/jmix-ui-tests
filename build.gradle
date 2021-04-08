@@ -8,7 +8,7 @@ apply plugin: 'org.springframework.boot'
 
 jmix {
     bomVersion = '1.0.0-SNAPSHOT'
-    projectId = 'jmix-ui-tests'
+
 }
 
 group = 'io.jmix.tests'
@@ -31,6 +31,8 @@ dependencies {
     implementation 'io.jmix.security:jmix-security-starter'
     implementation 'io.jmix.security:jmix-security-ui-starter'
     implementation 'io.jmix.security:jmix-security-data-starter'
+    implementation 'io.jmix.dynattr:jmix-dynattr-starter'
+    implementation 'io.jmix.dynattr:jmix-dynattr-ui-starter'
 
     implementation 'org.springframework.boot:spring-boot-starter-web'
 
