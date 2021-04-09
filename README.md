@@ -89,17 +89,17 @@ drop-down list. In the VM options field, add the following:
 
 * UI package
 ```
--Dselenide.browser=chrome 
--Dwebdriver.chrome.driver=<your_path>/chromedriver.exe 
--Djmix.tests.ui.baseHost=http://localhost
+-Pselenide.browser=chrome 
+-Pwebdriver.chrome.driver=<your_path>/chromedriver.exe 
+-Pjmix.tests.ui.baseHost=http://localhost
 ```
 ![Ui Chrome Test Configuration](images/uiChromeTestConfiguration.png)
 
 * Sampler package
 ```
--Dselenide.browser=chrome 
--Dwebdriver.chrome.driver=<your_path>/chromedriver.exe 
--Djmix.tests.sampler.baseUrl=http://localhost:8080/sampler
+-Pselenide.browser=chrome 
+-Pwebdriver.chrome.driver=<your_path>/chromedriver.exe 
+-Pjmix.tests.sampler.baseUrl=http://localhost:8080/sampler
 ```
 ![Sampler Chrome Test Configuration](images/samplerChromeTestConfiguration.png)
 
@@ -111,12 +111,12 @@ click on it and select *Debug* option.
 To run the tests using Gradle, run the following task in the terminal:
 * UI package
 ```
-gradle testUi -Dselenide.browser=chrome -Dwebdriver.chrome.driver=<your_path>/chromedriver.exe -Djmix.tests.ui.baseHost=http://localhost
+gradle testUi -Pselenide.browser=chrome -Pwebdriver.chrome.driver=<your_path>/chromedriver.exe -Pjmix.tests.ui.baseHost=http://localhost
 ```
 
 * Sampler package
 ```
-gradle testSampler -Dselenide.browser=chrome -Dwebdriver.chrome.driver=<your_path>/chromedriver.exe -Djmix.tests.sampler.baseUrl=http://localhost:8080/sampler
+gradle testSampler -Pselenide.browser=chrome -Pwebdriver.chrome.driver=<your_path>/chromedriver.exe -Pjmix.tests.sampler.baseUrl=http://localhost:8080/sampler
 ```
     
 where `<your_path>` is the path to the chrome driver on your computer.
@@ -130,17 +130,17 @@ drop-down list. In the VM options field, add the following:
 
 * UI package
 ```
--Dselenide.browser=firefox
--Dwebdriver.gecko.driver=<your_path>/geckodriver.exe 
--Djmix.tests.ui.baseHost=http://localhost
+-Pselenide.browser=firefox
+-Pwebdriver.gecko.driver=<your_path>/geckodriver.exe 
+-Pjmix.tests.ui.baseHost=http://localhost
 ```
 ![Ui Firefox Test Configuration](images/uiFirefoxTestConfiguration.png)
 
 * Sampler package
 ```
--Dselenide.browser=firefox 
--Dwebdriver.gecko.driver=<your_path>/geckodriver.exe 
--Djmix.tests.sampler.baseUrl=http://localhost:8080/sampler
+-Pselenide.browser=firefox 
+-Pwebdriver.gecko.driver=<your_path>/geckodriver.exe 
+-Pjmix.tests.sampler.baseUrl=http://localhost:8080/sampler
 ```
 ![Sampler Firefox Test Configuration](images/samplerFirefoxTestConfiguration.png)
 
@@ -152,12 +152,12 @@ click on it and select *Debug* option.
 To run the tests using Gradle, run the following task in the terminal:
 * UI package
 ```
-gradle testUi -Dselenide.browser=firefox -Dwebdriver.gecko.driver=<your_path>/geckodriver.exe -Djmix.tests.ui.baseHost=http://localhost
+gradle testUi -Pselenide.browser=firefox -Pwebdriver.gecko.driver=<your_path>/geckodriver.exe -Pjmix.tests.ui.baseHost=http://localhost
 ```
 
 * Sampler package
 ```
-gradle testSampler -Dselenide.browser=firefox -Dwebdriver.gecko.driver=<your_path>/geckodriver.exe -Djmix.tests.sampler.baseUrl=http://localhost:8080/sampler
+gradle testSampler -Pselenide.browser=firefox -Pwebdriver.gecko.driver=<your_path>/geckodriver.exe -Pjmix.tests.sampler.baseUrl=http://localhost:8080/sampler
 ```
     
 where `<your_path>` is the path to the firefox driver on your computer.
