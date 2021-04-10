@@ -21,7 +21,7 @@ class ButtonActionUiTest extends BaseSamplerUiTest {
         openSample('button-action')
         $j(Button.class, 'someAction')
                 .shouldBe(VISIBLE)
-                .shouldHave(caption("Click Me!"))
+                .shouldHave(caption("Click me!"))
                 .click()
         $j(Notification.class)
                 .shouldBe(VISIBLE)

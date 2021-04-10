@@ -50,7 +50,7 @@ class GroupTableAggregatableUiTest extends BaseSamplerUiTest {
                 .sendKeys(ENTER)
         // TODO https://github.com/Haulmont/jmix-ui/issues/160
         $x("//*[contains(@class, 'c-total-aggregation-textfield')]")
-                .shouldHave(value("5 300"))
+                .shouldHave(value("5,300"))
         checkRowValue(HIGH, "90")
         checkRowValue(COMMON, "60")
     }

@@ -23,7 +23,7 @@ class LinkButtonUiTest extends BaseSamplerUiTest {
         $j(Button.class, 'helloButton')
                 .shouldBe(VISIBLE)
                 .shouldHave(cssClass('v-button-link'))
-                .shouldHave(caption("Say Hello!"))
+                .shouldHave(caption("Say hello!"))
                 .click()
         $j(Notification.class)
                 .shouldBe(VISIBLE)

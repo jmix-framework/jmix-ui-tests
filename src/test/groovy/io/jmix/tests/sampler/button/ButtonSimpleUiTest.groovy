@@ -22,7 +22,7 @@ class ButtonSimpleUiTest extends BaseSamplerUiTest {
         openSample('button-simple')
 
         $j(Button.class, 'helloButton')
-                .shouldHave(caption('Say Hello!'))
+                .shouldHave(caption('Say hello!'))
                 .click()
 
         $j(Notification.class)

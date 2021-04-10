@@ -19,7 +19,7 @@ class ButtonProgrammaticActionUiTest extends BaseSamplerUiTest {
     void checkButtonProgrammaticAction() {
         openSample('button-programmatic-action')
         $j(Button.class, 'buttonAction')
-                .shouldHave(caption("Click Me!"))
+                .shouldHave(caption("Click me!"))
                 .click()
         $j(Notification.class)
                 .shouldHave(caption('Action performed'))
