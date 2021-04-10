@@ -9,8 +9,7 @@ Jmix UI test suite
 3. Testcontainers (https://www.testcontainers.org/)
 4. SpringBoot (https://spring.io/projects/spring-boot)
 5. Liquibase (https://www.liquibase.org/)
-6. Selenium Shutterbug (https://github.com/assertthat/selenium-shutterbug)
-7. Jmix Masquerade (https://github.com/Haulmont/jmix-masquerade)
+6. Jmix Masquerade (https://github.com/Haulmont/jmix-masquerade)
 
 ## Description
 
@@ -228,41 +227,6 @@ class UserUiTest extends BaseUiTest {
 }
 ```
 As a result, your tests will have data from two contexts: `base` and `test-role`.
-
-### UI component screenshot comparison
-Selenium Shutterbug allows user to compare the screenshot of UI component with a standard screenshot, that was taken 
-when the test was first run.
-* Use ```jmix.tests.sampler.screenshot.standardFolderPath``` property to define the path to the folder where the 
-standard images are stored; 
-* Use ```jmix.tests.sampler.screenshot.diffFolderPath``` property to define the path to the folder where the images 
-are stored that show the difference between the compared images; 
-```groovy
-    /**
-     * Compares the provided image with standard image. If the standard image does not exist, the method creates a
-     * standard image.
-     *
-     * @param element the web element to be photographed
-     * @param name the image name
-     * @return true if the provided image and standard image are strictly equal, or if the standard image does not exist
-     */
-    static boolean equalsScreenshotWithStandard(SelenideElement element, String name) {
-        element.shouldBe(Condition.visible)
-
-        String standardPath = STANDARD_FOLDER_PATH + name + IMAGE_EXTENSION
-        File standardImage = new File(standardPath)
-        if (standardImage.exists()) {
-            String diffPath = DIFF_FOLDER_PATH + DIFF_PREFIX + name
-            return Shutterbug.shootElement(WebDriverRunner.webDriver, element)
-                    .equalsWithDiff(standardPath, diffPath)
-        } else {
-            Shutterbug.shootElement(WebDriverRunner.webDriver, element)
-                    .withName(name)
-                    .save(STANDARD_FOLDER_PATH)
-
-            return true
-        }
-    }
-```
 
 ## Run tests
 

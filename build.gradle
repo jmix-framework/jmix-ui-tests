@@ -58,10 +58,6 @@ dependencies {
         exclude group: 'junit', module: 'junit'
     }
 
-    testImplementation('com.assertthat:selenium-shutterbug:1.4') {
-        exclude group: 'org.seleniumhq.selenium', module: 'selenium-java'
-    }
-
     testRuntime 'org.junit.jupiter:junit-jupiter-engine:5.7.1'
     testRuntime 'org.postgresql:postgresql:42.2.19'
 }
@@ -116,30 +112,6 @@ task testSampler(type: Test) {
     if (rootProject.hasProperty('webdriver.gecko.driver')) {
         systemProperty 'webdriver.gecko.driver', rootProject['webdriver.gecko.driver']
     }
-
-    if (rootProject.hasProperty('jmix.tests.sampler.screenshot.standardFolderPath')) {
-        systemProperty 'jmix.tests.sampler.screenshot.standardFolderPath',
-                rootProject['jmix.tests.sampler.screenshot.standardFolderPath']
-    } else {
-        systemProperty 'jmix.tests.sampler.screenshot.standardFolderPath',
-                './src/test/resources/io/jmix/tests/sampler/screenshot/standard/'
-    }
-
-    def diffFolderPath
-    if (rootProject.hasProperty('jmix.tests.sampler.screenshot.diffFolderPath')) {
-        diffFolderPath = rootProject['jmix.tests.sampler.screenshot.diffFolderPath']
-    } else {
-        diffFolderPath = "${project.buildDir}/reports/tests/testSampler/screenshot/differences/"
-    }
-
-    def diffFolder = new File(diffFolderPath)
-    if (!diffFolder.exists()) {
-        diffFolder.mkdirs()
-    } else {
-        delete diffFolder.listFiles()
-    }
-
-    systemProperty 'jmix.tests.sampler.screenshot.diffFolderPath', diffFolderPath
 }
 
 test.dependsOn testUi, testSampler
