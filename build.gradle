@@ -86,6 +86,13 @@ task testUi(type: Test) {
     if (rootProject.hasProperty('webdriver.gecko.driver')) {
         systemProperty 'webdriver.gecko.driver', rootProject['webdriver.gecko.driver']
     }
+
+    def envProperties = rootProject.getProperties()
+    for (def entry in envProperties.entrySet()) {
+        if (String.valueOf(entry.key).startsWith('selenide.')) {
+            systemProperty(String.valueOf(entry.key), entry.value)
+        }
+    }
 }
 
 task testSampler(type: Test) {
@@ -111,6 +118,13 @@ task testSampler(type: Test) {
 
     if (rootProject.hasProperty('webdriver.gecko.driver')) {
         systemProperty 'webdriver.gecko.driver', rootProject['webdriver.gecko.driver']
+    }
+
+    def envProperties = rootProject.getProperties()
+    for (def entry in envProperties.entrySet()) {
+        if (String.valueOf(entry.key).startsWith('selenide.')) {
+            systemProperty(String.valueOf(entry.key), entry.value)
+        }
     }
 }
 
