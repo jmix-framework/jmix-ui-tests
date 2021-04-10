@@ -74,21 +74,21 @@ task testUi(type: Test) {
     }
 
     if (rootProject.hasProperty('jmix.tests.ui.baseHost')) {
-        environment 'jmix.tests.ui.baseHost', rootProject['jmix.tests.ui.baseHost']
+        systemProperty 'jmix.tests.ui.baseHost', rootProject['jmix.tests.ui.baseHost']
     } else {
-        environment 'jmix.tests.ui.baseHost', 'http://host.docker.internal'
+        systemProperty 'jmix.tests.ui.baseHost', 'http://host.docker.internal'
     }
 
     if (rootProject.hasProperty('selenide.browser')) {
-        environment 'selenide.browser', rootProject['selenide.browser']
+        systemProperty 'selenide.browser', rootProject['selenide.browser']
     }
 
     if (rootProject.hasProperty('webdriver.chrome.driver')) {
-        environment 'webdriver.chrome.driver', rootProject['webdriver.chrome.driver']
+        systemProperty 'webdriver.chrome.driver', rootProject['webdriver.chrome.driver']
     }
 
     if (rootProject.hasProperty('webdriver.gecko.driver')) {
-        environment 'webdriver.gecko.driver', rootProject['webdriver.gecko.driver']
+        systemProperty 'webdriver.gecko.driver', rootProject['webdriver.gecko.driver']
     }
 }
 
@@ -100,28 +100,28 @@ task testSampler(type: Test) {
     }
 
     if (rootProject.hasProperty('jmix.tests.sampler.baseUrl')) {
-        environment 'selenide.baseUrl', rootProject['jmix.tests.sampler.baseUrl']
+        systemProperty 'selenide.baseUrl', rootProject['jmix.tests.sampler.baseUrl']
     } else {
-        environment 'selenide.baseUrl', 'http://host.docker.internal:8080/sampler'
+        systemProperty 'selenide.baseUrl', 'http://host.docker.internal:8080/sampler'
     }
 
     if (rootProject.hasProperty('selenide.browser')) {
-        environment 'selenide.browser', rootProject['selenide.browser']
+        systemProperty 'selenide.browser', rootProject['selenide.browser']
     }
 
     if (rootProject.hasProperty('webdriver.chrome.driver')) {
-        environment 'webdriver.chrome.driver', rootProject['webdriver.chrome.driver']
+        systemProperty 'webdriver.chrome.driver', rootProject['webdriver.chrome.driver']
     }
 
     if (rootProject.hasProperty('webdriver.gecko.driver')) {
-        environment 'webdriver.gecko.driver', rootProject['webdriver.gecko.driver']
+        systemProperty 'webdriver.gecko.driver', rootProject['webdriver.gecko.driver']
     }
 
     if (rootProject.hasProperty('jmix.tests.sampler.screenshot.standardFolderPath')) {
-        environment 'jmix.tests.sampler.screenshot.standardFolderPath',
+        systemProperty 'jmix.tests.sampler.screenshot.standardFolderPath',
                 rootProject['jmix.tests.sampler.screenshot.standardFolderPath']
     } else {
-        environment 'jmix.tests.sampler.screenshot.standardFolderPath',
+        systemProperty 'jmix.tests.sampler.screenshot.standardFolderPath',
                 './src/test/resources/io/jmix/tests/sampler/screenshot/standard/'
     }
 
@@ -139,7 +139,7 @@ task testSampler(type: Test) {
         delete diffFolder.listFiles()
     }
 
-    environment 'jmix.tests.sampler.screenshot.diffFolderPath', diffFolderPath
+    systemProperty 'jmix.tests.sampler.screenshot.diffFolderPath', diffFolderPath
 }
 
 test.dependsOn testUi, testSampler
