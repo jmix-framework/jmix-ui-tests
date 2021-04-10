@@ -25,9 +25,9 @@ class TextFieldValidatorUiTest extends BaseSamplerUiTest {
     @Test
     @DisplayName("Checks negative integer value validation")
     void checkTextFieldNegativeValidator() {
+        openSample('textfield-validator')
         def integerTextField = $j(TextField.class, 'integerTextField')
         def validateButton = $j(Button.class, 'validate')
-        openSample('textfield-validator')
         integerTextField
                 .setValue(NEGATIVE_VALUE)
         validateButton.click()
@@ -42,27 +42,27 @@ class TextFieldValidatorUiTest extends BaseSamplerUiTest {
     }
 
     @Test
-    @DisplayName("Checks boarder value validation")
-    void checkTextFieldBoarderValidator() {
+    @DisplayName("Checks border value validation")
+    void checkTextFieldBorderValidator() {
+        openSample('textfield-validator')
         def doubleTextField = $j(TextField.class, 'doubleTextField')
         def validateButton = $j(Button.class, 'validate')
-        openSample('textfield-validator')
         doubleTextField
-                .setValue('0,1')
+                .setValue('0.1')
         validateButton.click()
         $('.v-Notification-error')
                 .shouldHave(textCaseSensitive("Validation failed: " +
-                        "Value '0,1' should be greater than or equal to '1'"))
+                        "Value '0.1' should be greater than or equal to '1'"))
                 .click()
         doubleTextField
-                .setValue('100,1')
+                .setValue('100.1')
         validateButton.click()
         $('.v-Notification-error')
                 .shouldHave(textCaseSensitive("Validation failed: " +
-                        "Value '100,1' should be less than or equal to '100'"))
+                        "Value '100.1' should be less than or equal to '100'"))
                 .click()
         doubleTextField
-                .setValue('99,9')
+                .setValue('99.9')
         validateButton.click()
         $j(Notification.class)
                 .shouldHave(caption(VALIDATION_SUCCESSFUL))
