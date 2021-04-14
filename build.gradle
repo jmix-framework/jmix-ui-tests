@@ -8,7 +8,7 @@ apply plugin: 'org.springframework.boot'
 
 jmix {
     bomVersion = '1.0.0-SNAPSHOT'
-    projectId = 'jmix-ui-tests'
+    projectId = 'tests'
 }
 
 group = 'io.jmix.tests'
