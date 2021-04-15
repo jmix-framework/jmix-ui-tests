@@ -15,7 +15,7 @@ import static com.codeborne.selenide.Selenide.$
 import static io.jmix.masquerade.Conditions.caption
 import static io.jmix.masquerade.Selectors.$j
 
-//@ExtendWith(ChromeExtension)
+@ExtendWith(ChromeExtension)
 class TextFieldValidatorUiTest extends BaseSamplerUiTest {
 
     public static final String NEGATIVE_VALUE = '-123'

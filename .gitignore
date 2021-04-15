@@ -5,6 +5,7 @@ build/
 !gradle/wrapper/gradle-wrapper.jar
 !**/src/main/**
 !**/src/test/**
+jmix-studio.xml
 
 ### IntelliJ IDEA ###
 .idea
