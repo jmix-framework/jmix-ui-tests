@@ -1,4 +1,4 @@
-package io.jmix.tests.ui.screen.login
+package io.jmix.tests.ui.screen.system.login
 
 import io.jmix.masquerade.Wire
 import io.jmix.masquerade.base.Composite

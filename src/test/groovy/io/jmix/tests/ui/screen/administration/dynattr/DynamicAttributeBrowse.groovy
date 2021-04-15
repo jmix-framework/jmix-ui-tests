@@ -1,4 +1,4 @@
-package io.jmix.tests.ui.screen.dynattr.screen
+package io.jmix.tests.ui.screen.administration.dynattr
 
 import io.jmix.masquerade.Wire
 import io.jmix.masquerade.base.Composite

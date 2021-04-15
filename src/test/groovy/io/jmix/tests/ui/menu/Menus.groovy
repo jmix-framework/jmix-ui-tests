@@ -5,8 +5,8 @@
 package io.jmix.tests.ui.menu
 
 import io.jmix.masquerade.component.SideMenu
-import io.jmix.tests.ui.screen.dynattr.screen.DynamicAttributeBrowse
-import io.jmix.tests.ui.screen.user.UserBrowse
+import io.jmix.tests.ui.screen.administration.dynattr.DynamicAttributeBrowse
+import io.jmix.tests.ui.screen.application.user.UserBrowse
 
 final class Menus {
     public static final SideMenu.Menu<UserBrowse> USER_BROWSE =
