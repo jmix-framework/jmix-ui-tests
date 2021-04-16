@@ -26,7 +26,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.beans.factory.annotation.Autowired;
 import java.util.Locale;
 
-@UiController("tests_LoginScreen")
+@UiController("LoginScreen")
 @UiDescriptor("login-screen.xml")
 @Route(path = "login", root = true)
 public class LoginScreen extends Screen {

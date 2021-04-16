@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 import java.util.Collection;
 
 @Primary
-@Component("tests_UserRepository")
+@Component("UserRepository")
 public class DatabaseUserRepository extends AbstractDatabaseUserRepository<User> {
 
     @Override
