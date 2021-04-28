@@ -6,7 +6,10 @@ import io.jmix.masquerade.component.Button
 import io.jmix.masquerade.component.Table
 import io.jmix.tests.ui.screen.system.dialog.ConfirmationDialog
 
+import static io.jmix.masquerade.Conditions.VISIBLE
+import static io.jmix.masquerade.Conditions.VISIBLE
 import static io.jmix.masquerade.Selectors.$j
+import static io.jmix.masquerade.Selectors.byText
 import static io.jmix.masquerade.Selectors.withText
 
 class UserBrowse extends Composite<UserBrowse> {
@@ -43,5 +46,17 @@ class UserBrowse extends Composite<UserBrowse> {
         $j(ConfirmationDialog)
                 .yes
                 .click()
+    }
+
+    void checkRecordIsDisplayed(String username){
+        usersTable.shouldBe(VISIBLE)
+                .getRow(byText(username))
+                .shouldBe(VISIBLE)
+    }
+
+    void checkRecordIsNotDisplayed(String username){
+        usersTable.shouldBe(VISIBLE)
+                .getRow(byText(username))
+                .shouldNotBe(VISIBLE)
     }
 }

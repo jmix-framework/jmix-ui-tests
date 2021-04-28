@@ -4,6 +4,9 @@ import io.jmix.masquerade.Wire
 import io.jmix.masquerade.base.Composite
 import io.jmix.masquerade.component.Button
 
+import static io.jmix.masquerade.Conditions.ENABLED
+import static io.jmix.masquerade.Conditions.VISIBLE
+
 class ConfirmationDialog extends Composite<ConfirmationDialog> {
 
     @Wire(path = "optionDialog_yes")
@@ -11,4 +14,16 @@ class ConfirmationDialog extends Composite<ConfirmationDialog> {
 
     @Wire(path = "optionDialog_no")
     public Button no
+
+    void confirm(){
+        yes.shouldBe(VISIBLE)
+           .shouldBe(ENABLED)
+           .click()
+    }
+
+    void reject(){
+        no.shouldBe(VISIBLE)
+                .shouldBe(ENABLED)
+                .click()
+    }
 }
