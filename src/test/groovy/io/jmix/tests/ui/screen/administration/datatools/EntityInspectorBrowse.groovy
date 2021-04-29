@@ -5,13 +5,9 @@ import io.jmix.masquerade.base.Composite
 import io.jmix.masquerade.component.Button
 import io.jmix.masquerade.component.ComboBox
 import io.jmix.masquerade.component.Table
-import io.jmix.tests.ui.screen.administration.datatools.dialogs.OptionDialog
-import io.jmix.tests.ui.screen.system.dialog.ConfirmationDialog
 
 import static com.codeborne.selenide.Condition.cssClass
-import static io.jmix.masquerade.Conditions.ENABLED
-import static io.jmix.masquerade.Conditions.VISIBLE
-import static io.jmix.masquerade.Conditions.value
+import static io.jmix.masquerade.Conditions.*
 import static io.jmix.masquerade.Selectors.$j
 import static io.jmix.masquerade.Selectors.byText
 
@@ -23,7 +19,10 @@ class EntityInspectorBrowse extends Composite<EntityInspectorBrowse> {
     ComboBox showMode
 
     @Wire
-    Table UserTable_composition
+    Button create
+
+    @Wire
+    Button edit
 
     @Wire
     Button remove
@@ -34,9 +33,7 @@ class EntityInspectorBrowse extends Composite<EntityInspectorBrowse> {
     @Wire
     Button wipeOut
 
-
-
-    void findEntityByFilter(String filterValue, String finalValue){
+    void findEntityByFilter(String filterValue, String finalValue) {
         entitiesLookup.shouldBe(VISIBLE)
                 .setFilter(filterValue)
                 .getOptionsPopup()
@@ -44,54 +41,62 @@ class EntityInspectorBrowse extends Composite<EntityInspectorBrowse> {
                 .shouldHave(value(finalValue))
     }
 
-    void selectShowMode(String mode){
+    void selectShowMode(String mode) {
         showMode.shouldBe(VISIBLE)
                 .openOptionsPopup()
                 .select(byText(mode))
                 .shouldHave(value(mode))
     }
 
-    void selectRowInUserTableByUsername(String username){
-        UserTable_composition.shouldBe(VISIBLE)
-                .selectRow(byText(username))
+    static void selectRowInTableByText(String s, String path) {
+        $j(Table, path).shouldBe(VISIBLE)
+                .selectRow(byText(s))
                 .contextClick()
                 .shouldHave(cssClass('v-selected'))
     }
 
-    void clickRemoveButton(){
+    void clickRemoveButton() {
         remove.shouldBe(VISIBLE)
-              .shouldBe(ENABLED)
-              .click()
+                .shouldBe(ENABLED)
+                .click()
     }
 
-    void clickRestoreButton(){
+    void clickRestoreButton() {
         restore.shouldBe(VISIBLE)
                 .shouldBe(ENABLED)
                 .click()
     }
 
-    void clickWipeOutButton(){
+    void clickWipeOutButton() {
         wipeOut.shouldBe(VISIBLE)
                 .shouldBe(ENABLED)
                 .click()
     }
 
-    void checkRecordIsDisplayed(String username){
-        UserTable_composition.shouldBe(VISIBLE)
-                .getRow(byText(username))
+    void clickCreateButton() {
+        create.shouldBe(VISIBLE)
+                .shouldBe(ENABLED)
+                .click()
+    }
+
+    void clickEditButton() {
+        edit.shouldBe(VISIBLE)
+                .shouldBe(ENABLED)
+                .click()
+    }
+
+
+    static void checkRecordIsDisplayed(String s, String path) {
+        $j(Table, path).shouldBe(VISIBLE)
+                .getRow(byText(s))
                 .shouldBe(VISIBLE)
     }
 
-    void checkRecordIsNotDisplayed(String username){
-        UserTable_composition.shouldBe(VISIBLE)
-                .getRow(byText(username))
+    static void checkRecordIsNotDisplayed(String s, String path) {
+        $j(Table, path).shouldBe(VISIBLE)
+                .getRow(byText(s))
                 .shouldNotBe(VISIBLE)
     }
 
-    void cleanData(String username){
-        selectRowInUserTableByUsername(username);
-        clickWipeOutButton()
-        $j(OptionDialog).confirm()
-    }
 
 }

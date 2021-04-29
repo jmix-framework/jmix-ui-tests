@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<window xmlns="http://jmix.io/schema/ui/window"
+        xmlns:dynattr="http://jmix.io/schema/dynattr/ui"
+        caption="msg://atmosphereEdit.caption"
+        focusComponent="form">
+    <data>
+        <instance id="atmosphereDc"
+                  class="io.jmix.tests.entity.atmosphere.Atmosphere">
+            <fetchPlan extends="_base">
+                <property name="gases" fetchPlan="_base"/>
+            </fetchPlan>
+            <loader/>
+            <collection id="gasesDc" property="gases"/>
+        </instance>
+    </data>
+    <facets>
+        <dataLoadCoordinator auto="true"/>
+        <dynattr:dynamicAttributes/>
+        <screenSettings id="settingsFacet" auto="true"/>
+    </facets>
+    <actions>
+        <action id="windowCommitAndClose" caption="msg:///actions.Ok"
+                icon="EDITOR_OK"
+                primary="true"
+                shortcut="${COMMIT_SHORTCUT}"/>
+        <action id="windowClose"
+                caption="msg:///actions.Close"
+                icon="EDITOR_CANCEL"/>
+    </actions>
+    <dialogMode height="600"
+                width="800"/>
+    <layout spacing="true" expand="editActions">
+        <form id="form" dataContainer="atmosphereDc">
+            <column width="350px">
+                <textField id="descriptionField" property="description"/>
+                <textField id="pressureField" property="pressure"/>
+            </column>
+        </form>
+        <groupBox id="gasesBox" caption="msg://io.jmix.tests.entity.atmosphere/Atmosphere.gases">
+            <table id="gasesTable" dataContainer="gasesDc" width="100%" height="200px">
+                <actions>
+                    <action id="create" type="create"/>
+                    <action id="edit" type="edit"/>
+                    <action id="remove" type="remove"/>
+                </actions>
+                <columns>
+                    <column id="atmosphere"/>
+                    <column id="gas"/>
+                    <column id="volume"/>
+                </columns>
+                <buttonsPanel>
+                    <button action="gasesTable.create"/>
+                    <button action="gasesTable.edit"/>
+                    <button action="gasesTable.remove"/>
+                </buttonsPanel>
+            </table>
+        </groupBox>
+        <hbox id="editActions" spacing="true">
+            <button id="commitAndCloseBtn" action="windowCommitAndClose"/>
+            <button id="closeBtn" action="windowClose"/>
+        </hbox>
+    </layout>
+</window>

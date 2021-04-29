@@ -4,11 +4,9 @@ import io.jmix.core.entity.annotation.JmixGeneratedValue;
 import io.jmix.core.metamodel.annotation.InstanceName;
 import io.jmix.core.metamodel.annotation.JmixEntity;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.List;
 import java.util.UUID;
 
 @JmixEntity
@@ -24,6 +22,19 @@ public class Carrier {
     @Column(name = "NAME", nullable = false, unique = true)
     @NotNull
     private String name;
+    @JoinTable(name = "SPACE_PORT_CARRIER_LINK",
+            joinColumns = @JoinColumn(name = "CARRIER_ID"),
+            inverseJoinColumns = @JoinColumn(name = "SPACE_PORT_ID"))
+    @ManyToMany
+    private List<SpacePort> spacePorts;
+
+    public List<SpacePort> getSpacePorts() {
+        return spacePorts;
+    }
+
+    public void setSpacePorts(List<SpacePort> spacePorts) {
+        this.spacePorts = spacePorts;
+    }
 
     public String getName() {
         return name;

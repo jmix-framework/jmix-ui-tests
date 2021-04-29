@@ -9,10 +9,10 @@ import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 
 import static io.jmix.masquerade.Conditions.VISIBLE
-
 import static io.jmix.masquerade.Selectors.$j
 
-class DatatoolsEntityInfoDialogOpenUiTest extends BaseDatatoolsUiTests{
+class DatatoolsEntityInfoDialogOpenUiTest extends BaseDatatoolsUiTests {
+
     @Test
     @DisplayName("Open Entity information from deleted entity in Entity Inspector Browser")
     void openContextMenuFromDeletedEntity() {
@@ -23,19 +23,20 @@ class DatatoolsEntityInfoDialogOpenUiTest extends BaseDatatoolsUiTests{
         $j(MainScreen).openEntityInspectorBrowse()
 
         $j(EntityInspectorBrowse).with {
-            findEntityByFilter(ENTITY_NAME,USER)
+            findEntityByFilter(USER_ENTITY_NAME, USER_FULL_STRING)
             selectShowMode(REMOVED_ONLY_MODE)
-            selectRowInUserTableByUsername(USERNAME1)
+            selectRowInTableByText(USERNAME1, USER_TABLE_JTEST_ID)
         }
 
         openInspectorWindow(4)
 
         $j(EntityInformationDialog).with {
             shouldBe(VISIBLE)
-                    .checkTableAndEntityName(ENTITY_NAME)
+                    .checkTableAndEntityName(USER_ENTITY_NAME)
         }
 
         closeInspectorWindow()
+        wipeOutData(USER_ENTITY_NAME, USER_FULL_STRING, ALL_MODE, USER_TABLE_JTEST_ID, USERNAME1)
     }
 
     @Test
@@ -47,15 +48,16 @@ class DatatoolsEntityInfoDialogOpenUiTest extends BaseDatatoolsUiTests{
         $j(MainScreen).openEntityInspectorBrowse()
 
         $j(EntityInspectorBrowse).with {
-            findEntityByFilter(ENTITY_NAME,USER)
-            selectRowInUserTableByUsername(USERNAME1)
+            findEntityByFilter(USER_ENTITY_NAME, USER_FULL_STRING)
+            selectRowInTableByText(USERNAME1, USER_TABLE_JTEST_ID)
         }
 
         openInspectorWindow(4)
         $j(EntityInformationDialog).with {
             shouldBe(VISIBLE)
-                    .checkTableAndEntityName(ENTITY_NAME)
+                    .checkTableAndEntityName(USER_ENTITY_NAME)
         }
         closeInspectorWindow()
+        wipeOutData(USER_ENTITY_NAME, USER_FULL_STRING, ALL_MODE, USER_TABLE_JTEST_ID, USERNAME1)
     }
 }

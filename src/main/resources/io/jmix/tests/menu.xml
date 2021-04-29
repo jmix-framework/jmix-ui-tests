@@ -15,6 +15,7 @@
         <item screen="SpacePort.browse" caption="msg://io.jmix.tests.screen.spaceport/spacePortBrowse.caption"/>
         <item screen="WayBill.browse" caption="msg://io.jmix.tests.screen.waybill/wayBillBrowse.caption"/>
         <item screen="WayBillItem.browse" caption="msg://io.jmix.tests.screen.waybillitem/wayBillItemBrowse.caption"/>
+        <item screen="Atmosphere.browse" caption="msg://io.jmix.tests.screen.atmosphere/atmosphereBrowse.caption"/>
     </menu>
 
 </menu-config>

@@ -9,7 +9,7 @@ import org.junit.jupiter.api.Test
 
 import static io.jmix.masquerade.Selectors.$j
 
-class DatatoolsEntityInspectorShowModesUiTest extends BaseDatatoolsUiTests{
+class DatatoolsEntityInspectorShowModesUiTest extends BaseDatatoolsUiTests {
 
     @Test
     @DisplayName("Check displaying deleted User in Entity Inspector Browser in different modes")
@@ -23,22 +23,25 @@ class DatatoolsEntityInspectorShowModesUiTest extends BaseDatatoolsUiTests{
         $j(MainScreen).openEntityInspectorBrowse()
 
         $j(EntityInspectorBrowse).with {
-            findEntityByFilter(ENTITY_NAME,USER)
+            findEntityByFilter(USER_ENTITY_NAME, USER_FULL_STRING)
             selectShowMode(NON_REMOVED_ONLY_MODE)
         }
 
-        $j(EntityInspectorBrowse).checkRecordIsNotDisplayed(USERNAME1)
-        $j(EntityInspectorBrowse).checkRecordIsDisplayed(USERNAME2)
+        $j(EntityInspectorBrowse).checkRecordIsNotDisplayed(USERNAME1, USER_TABLE_JTEST_ID)
+        $j(EntityInspectorBrowse).checkRecordIsDisplayed(USERNAME2, USER_TABLE_JTEST_ID)
 
         $j(EntityInspectorBrowse).selectShowMode(REMOVED_ONLY_MODE)
 
-        $j(EntityInspectorBrowse).checkRecordIsNotDisplayed(USERNAME2)
-        $j(EntityInspectorBrowse).checkRecordIsDisplayed(USERNAME1)
+        $j(EntityInspectorBrowse).checkRecordIsNotDisplayed(USERNAME2, USER_TABLE_JTEST_ID)
+        $j(EntityInspectorBrowse).checkRecordIsDisplayed(USERNAME1, USER_TABLE_JTEST_ID)
 
         $j(EntityInspectorBrowse).selectShowMode(ALL_MODE)
 
-        $j(EntityInspectorBrowse).checkRecordIsDisplayed(USERNAME2)
-        $j(EntityInspectorBrowse).checkRecordIsDisplayed(USERNAME1)
+        $j(EntityInspectorBrowse).checkRecordIsDisplayed(USERNAME2, USER_TABLE_JTEST_ID)
+        $j(EntityInspectorBrowse).checkRecordIsDisplayed(USERNAME1, USER_TABLE_JTEST_ID)
+
+        wipeOutData(USER_ENTITY_NAME, USER_FULL_STRING, ALL_MODE, USER_TABLE_JTEST_ID, USERNAME1)
+        wipeOutData(USER_ENTITY_NAME, USER_FULL_STRING, ALL_MODE, USER_TABLE_JTEST_ID, USERNAME2)
 
     }
 }
