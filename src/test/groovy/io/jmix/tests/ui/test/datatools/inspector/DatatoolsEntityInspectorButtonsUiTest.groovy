@@ -25,7 +25,7 @@ class DatatoolsEntityInspectorButtonsUiTest extends BaseDatatoolsUiTests {
             findEntityByFilter(USER_ENTITY_NAME, USER_FULL_STRING)
             selectShowMode(NON_REMOVED_ONLY_MODE)
             selectRowInTableByText(USERNAME1, USER_TABLE_JTEST_ID)
-            clickRemoveButton()
+            clickButton(remove)
         }
         $j(ConfirmationDialog).confirm()
 
@@ -50,7 +50,7 @@ class DatatoolsEntityInspectorButtonsUiTest extends BaseDatatoolsUiTests {
             findEntityByFilter(USER_ENTITY_NAME, USER_FULL_STRING)
             selectShowMode(ALL_MODE)
             selectRowInTableByText(USERNAME1, USER_TABLE_JTEST_ID)
-            clickRestoreButton()
+            clickButton(restore)
         }
         $j(OptionDialog).confirm()
 
@@ -73,7 +73,7 @@ class DatatoolsEntityInspectorButtonsUiTest extends BaseDatatoolsUiTests {
             findEntityByFilter(USER_ENTITY_NAME, USER_FULL_STRING)
             selectShowMode(ALL_MODE)
             selectRowInTableByText(USERNAME1, USER_TABLE_JTEST_ID)
-            clickWipeOutButton()
+            clickButton(wipeOut)
         }
         $j(OptionDialog).confirm()
 

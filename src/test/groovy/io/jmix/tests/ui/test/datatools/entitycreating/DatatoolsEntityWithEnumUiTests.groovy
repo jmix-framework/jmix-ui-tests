@@ -1,0 +1,69 @@
+package io.jmix.tests.ui.test.datatools.entitycreating
+
+import io.jmix.tests.ui.screen.administration.datatools.EntityInspectorBrowse
+import io.jmix.tests.ui.screen.administration.datatools.editors.DiscountsEditor
+import io.jmix.tests.ui.test.datatools.BaseDatatoolsUiTests
+import org.junit.jupiter.api.DisplayName
+import org.junit.jupiter.api.Test
+
+import static io.jmix.masquerade.Selectors.$j
+
+class DatatoolsEntityWithEnumUiTests extends BaseDatatoolsUiTests {
+    String BRONZE_GRADE = "Bronze"
+    String SILVER_GRADE = "Silver"
+
+    @Test
+    @DisplayName("Create entity with Enum from Entity Inspector Browser")
+    void createEntity() {
+        loginAsAdmin()
+
+        openEntityCreatingScreen(DISCOUNTS_ENTITY_NAME, DISCOUNTS_FULL_STRING)
+
+        $j(DiscountsEditor).with {
+            clickButton(ok)
+            checkNotification(ALERT_NOTIFICATION_CAPTION)
+
+            fillTextField(value, NON_DECIMAL_VALUE)
+            clickButton(ok)
+            checkNotification(ALERT_NOTIFICATION_CAPTION)
+
+            fillTextField(value, FIRST_DECIMAL_VALUE)
+            clickButton(ok)
+            checkNotification(ALERT_NOTIFICATION_CAPTION)
+
+            selectGrade(BRONZE_GRADE)
+            clickButton(ok)
+        }
+
+        $j(EntityInspectorBrowse).checkRecordIsDisplayed(BRONZE_GRADE, DISCOUNTS_TABLE_JTEST_ID)
+
+        cleanData(DISCOUNTS_ENTITY_NAME, DISCOUNTS_FULL_STRING, ALL_MODE, DISCOUNTS_TABLE_JTEST_ID, BRONZE_GRADE)
+    }
+
+    @Test
+    @DisplayName("Edit entity with Enum from Entity Inspector Browser")
+    void editEntity() {
+        loginAsAdmin()
+
+        openEntityCreatingScreen(DISCOUNTS_ENTITY_NAME, DISCOUNTS_FULL_STRING)
+
+        $j(DiscountsEditor).with {
+            selectGrade(BRONZE_GRADE)
+            fillTextField(value, FIRST_DECIMAL_VALUE)
+            clickButton(ok)
+        }
+
+        $j(EntityInspectorBrowse).with {
+            checkRecordIsDisplayed(BRONZE_GRADE, DISCOUNTS_TABLE_JTEST_ID)
+            selectRowInTableByText(BRONZE_GRADE, DISCOUNTS_TABLE_JTEST_ID)
+            clickButton(edit)
+        }
+        $j(DiscountsEditor).with {
+            selectGrade(SILVER_GRADE)
+            clickButton(ok)
+        }
+        $j(EntityInspectorBrowse).checkRecordIsDisplayed(SILVER_GRADE, DISCOUNTS_TABLE_JTEST_ID)
+
+        cleanData(DISCOUNTS_ENTITY_NAME, DISCOUNTS_FULL_STRING, ALL_MODE, DISCOUNTS_TABLE_JTEST_ID, SILVER_GRADE)
+    }
+}

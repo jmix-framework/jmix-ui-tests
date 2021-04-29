@@ -2,6 +2,7 @@ package io.jmix.tests.ui.test.datatools
 
 import com.codeborne.selenide.ElementsCollection
 import com.codeborne.selenide.SelenideElement
+import io.jmix.masquerade.component.Button
 import io.jmix.masquerade.component.Notification
 import io.jmix.tests.ui.screen.administration.datatools.EntityInspectorBrowse
 import io.jmix.tests.ui.screen.application.user.UserEditor
@@ -12,25 +13,11 @@ import io.jmix.tests.ui.test.BaseUiTest
 
 import static com.codeborne.selenide.Selenide.$
 import static com.codeborne.selenide.Selenide.$$
-import static io.jmix.masquerade.Conditions.VISIBLE
-import static io.jmix.masquerade.Conditions.caption
+import static io.jmix.masquerade.Conditions.*
 import static io.jmix.masquerade.Selectors.*
 import static io.jmix.tests.ui.menu.Menus.USER_BROWSE
 
-abstract class BaseDatatoolsUiTests extends BaseUiTest {
-    String USER_ENTITY_NAME = "User"
-    String USER_FULL_STRING = "User (User)"
-    String GAS_ENTITY_NAME = "Gas"
-    String GAS_FULL_STRING = "Gas (Gas)"
-    String NON_REMOVED_ONLY_MODE = "Show non-removed records only"
-    String REMOVED_ONLY_MODE = "Show removed records only"
-    String ALL_MODE = "Show all records"
-    String ADMIN_USERNAME = "admin"
-    String USERNAME1 = "myUser"
-    String USERNAME2 = "secondUser"
-    String GAS_TABLE_JTEST_ID = "GasTable_composition"
-    String USER_TABLE_JTEST_ID = "UserTable_composition"
-
+abstract class BaseDatatoolsUiTests extends BaseUiTest implements ConstantsStrings {
 
     /**
      * Open Inspector Window
@@ -73,6 +60,16 @@ abstract class BaseDatatoolsUiTests extends BaseUiTest {
     }
 
     /**
+     * Click defined button
+     * @param button - defined button
+     */
+    static void clickButton(Button button) {
+        button.shouldBe(VISIBLE)
+                .shouldBe(ENABLED)
+                .click()
+    }
+
+    /**
      * Remove created instances with Soft Delete trait
      */
     static void wipeOutData(String entityName, String entityFullName, String showMode, String tableJTestId, String name) {
@@ -83,7 +80,7 @@ abstract class BaseDatatoolsUiTests extends BaseUiTest {
             selectShowMode(showMode)
 
             selectRowInTableByText(name, tableJTestId)
-            clickWipeOutButton()
+            clickButton(wipeOut)
             $j(OptionDialog).confirm()
         }
     }
@@ -99,8 +96,22 @@ abstract class BaseDatatoolsUiTests extends BaseUiTest {
             selectShowMode(showMode)
 
             selectRowInTableByText(name, tableJTestId)
-            clickRemoveButton()
+            clickButton(remove)
             $j(ConfirmationDialog).confirm()
+        }
+    }
+
+    /**
+     * Open entity creating screen from Entity inspector browser
+     * @param entityname
+     * @param entityFullString - full entity name string
+     */
+    static void openEntityCreatingScreen(String entityName, String entityFullString) {
+        $j(MainScreen).openEntityInspectorBrowse()
+
+        $j(EntityInspectorBrowse).with {
+            findEntityByFilter(entityName, entityFullString)
+            clickButton(create)
         }
     }
 }
