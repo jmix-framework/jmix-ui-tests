@@ -25,6 +25,7 @@ interface ConstantsStrings {
     String ATMOSPHERIC_GAS_TABLE_JTEST_ID = "AtmosphericGasTable_composition"
     String ATMOSPHERE_TABLE_JTEST_ID = "AtmosphereTable_composition"
     String USER_TABLE_JTEST_ID = "UserTable_composition"
+    String USER_BROWSER_TABLE_JTEST_ID = "usersTable_composition"
     String DISCOUNTS_TABLE_JTEST_ID = "DiscountsTable_composition"
 
     String ALERT_NOTIFICATION_CAPTION = "Alert"

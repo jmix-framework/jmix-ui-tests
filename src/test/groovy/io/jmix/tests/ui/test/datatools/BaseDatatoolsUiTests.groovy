@@ -39,6 +39,19 @@ abstract class BaseDatatoolsUiTests extends BaseUiTest implements ConstantsStrin
     }
 
     /**
+     * Export entity from Inspector Window
+     * @param formatJTestId - j-test-id of button
+     * @param tableJTestId - j-test-id of table
+     */
+    static void exportFromInspectorWindow(String formatJTestId, String tableJTestId) {
+        SelenideElement exportBtn = $(byChain(byJTestId(tableJTestId), byClassName("v-popupbutton")))
+        exportBtn.click()
+        SelenideElement formatBtn = $(byJTestId(formatJTestId))
+        formatBtn.click()
+
+    }
+
+    /**
      * Check Notification's appearing and caption
      */
     static void checkNotification(String notificationCaption) {

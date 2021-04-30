@@ -60,4 +60,23 @@ class DatatoolsEntityInfoDialogOpenUiTest extends BaseDatatoolsUiTests {
         closeInspectorWindow()
         wipeOutData(USER_ENTITY_NAME, USER_FULL_STRING, ALL_MODE, USER_TABLE_JTEST_ID, USERNAME1)
     }
+
+    @Test
+    @DisplayName("Open Entity information from non-deleted entity in User browser")
+    void openContextMenuFromUserBrowser() {
+        loginAsAdmin()
+
+        $j(MainScreen).openUserBrowse()
+
+        $j(UserBrowse).with {
+            selectRowInTableByText(ADMIN_USERNAME, USER_BROWSER_TABLE_JTEST_ID)
+        }
+
+        openInspectorWindow(6)
+        $j(EntityInformationDialog).with {
+            shouldBe(VISIBLE)
+                    .checkTableAndEntityName(USER_ENTITY_NAME)
+        }
+        closeInspectorWindow()
+    }
 }

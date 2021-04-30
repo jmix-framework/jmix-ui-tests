@@ -82,5 +82,19 @@ class DatatoolsEntityInspectorButtonsUiTest extends BaseDatatoolsUiTests {
         $j(UserBrowse).checkRecordIsNotDisplayed(USERNAME1)
     }
 
+    @Test
+    @DisplayName("Export User instance using JSON and ZIP formats from Entity Inspector Browser")
+    void exportUserFromInspector() {
+        loginAsAdmin()
+
+        $j(MainScreen).openEntityInspectorBrowse()
+
+        $j(EntityInspectorBrowse).with {
+            findEntityByFilter(USER_ENTITY_NAME, USER_FULL_STRING)
+            exportFromInspectorWindow("exportJSON",USER_TABLE_JTEST_ID)
+            exportFromInspectorWindow("exportZIP",USER_TABLE_JTEST_ID)
+        }
+
+    }
 
 }
