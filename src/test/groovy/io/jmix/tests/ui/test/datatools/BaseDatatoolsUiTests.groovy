@@ -4,6 +4,7 @@ import com.codeborne.selenide.ElementsCollection
 import com.codeborne.selenide.SelenideElement
 import io.jmix.masquerade.component.Button
 import io.jmix.masquerade.component.Notification
+import io.jmix.masquerade.component.TextField
 import io.jmix.tests.ui.screen.administration.datatools.EntityInspectorBrowse
 import io.jmix.tests.ui.screen.application.user.UserEditor
 import io.jmix.tests.ui.screen.system.dialog.ConfirmationDialog
@@ -80,6 +81,17 @@ abstract class BaseDatatoolsUiTests extends BaseUiTest implements ConstantsStrin
         button.shouldBe(VISIBLE)
                 .shouldBe(ENABLED)
                 .click()
+    }
+
+    /**
+     * Fill defined field
+     * @param field - defined field
+     * @param value - defined value
+     */
+    static void fillTextField(TextField field, String value) {
+        field.shouldBe(VISIBLE)
+                .shouldBe(EDITABLE)
+                .setValue(value)
     }
 
     /**

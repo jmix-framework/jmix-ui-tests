@@ -44,6 +44,7 @@
                 <action id="showRoleAssignments" type="showRoleAssignments"/>
                 <action id="changePassword" type="changePassword"/>
                 <action id="resetRememberMeToken" type="resetRememberMeToken"/>
+                <action id="showEntityInfo" type="showEntityInfo"/>
             </actions>
             <columns>
                 <column id="username"/>

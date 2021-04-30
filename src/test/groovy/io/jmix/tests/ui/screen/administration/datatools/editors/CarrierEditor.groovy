@@ -3,9 +3,11 @@ package io.jmix.tests.ui.screen.administration.datatools.editors
 import io.jmix.masquerade.Wire
 import io.jmix.masquerade.base.Composite
 import io.jmix.masquerade.component.Button
+import io.jmix.masquerade.component.TabSheet
 import io.jmix.masquerade.component.TextField
+import io.jmix.tests.ui.screen.administration.datatools.traits.TableActionsTrait
 
-class GasEditor extends Composite<GasEditor> {
+class CarrierEditor extends Composite<CarrierEditor> implements TableActionsTrait {
 
     @Wire(path = "windowCommitAndClose")
     Button ok
@@ -14,6 +16,13 @@ class GasEditor extends Composite<GasEditor> {
     Button cancel
 
     @Wire
+    TabSheet tablesTabSheet
+
+    @Wire
     TextField name
+
+    void openSpacePortsTab() {
+        tablesTabSheet.getTab("Carrier.spacePorts").select()
+    }
 
 }
