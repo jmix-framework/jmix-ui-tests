@@ -1,13 +1,27 @@
 package io.jmix.tests.ui.test.datatools.entitycreating
 
+import io.jmix.tests.JmixUiTestsApplication
+import io.jmix.tests.extension.ChromeExtension
+import io.jmix.tests.ui.extension.SpringBootExtension
+import io.jmix.tests.ui.initializer.PostgreSQLContextInitializer
 import io.jmix.tests.ui.screen.administration.datatools.EntityInspectorBrowse
 import io.jmix.tests.ui.screen.administration.datatools.editors.GasEditor
 import io.jmix.tests.ui.test.datatools.BaseDatatoolsUiTests
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.extension.ExtendWith
+import org.springframework.boot.test.context.SpringBootTest
+import org.springframework.test.context.ContextConfiguration
 
 import static io.jmix.masquerade.Selectors.$j
 
+@ExtendWith([
+        SpringBootExtension,
+        ChromeExtension
+])
+@SpringBootTest(classes = JmixUiTestsApplication,
+        webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+@ContextConfiguration(initializers = PostgreSQLContextInitializer)
 class DatatoolsSimpleEntityUiTests extends BaseDatatoolsUiTests {
 
     static void fillAndSaveGas(String gas) {

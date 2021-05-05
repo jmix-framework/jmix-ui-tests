@@ -61,7 +61,6 @@ dependencies {
 
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.1'
     testRuntimeOnly 'org.postgresql:postgresql:42.2.19'
-
 }
 
 task testUi(type: Test) {
