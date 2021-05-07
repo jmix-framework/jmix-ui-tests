@@ -8,7 +8,7 @@ import io.jmix.tests.ui.screen.administration.datatools.EntityInspectorBrowse
 import io.jmix.tests.ui.screen.administration.datatools.dialogs.EntityInformationDialog
 import io.jmix.tests.ui.screen.application.user.UserBrowse
 import io.jmix.tests.ui.screen.system.main.MainScreen
-import io.jmix.tests.ui.test.datatools.BaseDatatoolsUiTests
+import io.jmix.tests.ui.test.datatools.BaseDatatoolsUiTest
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
@@ -25,10 +25,10 @@ import static io.jmix.masquerade.Selectors.$j
 @SpringBootTest(classes = JmixUiTestsApplication,
         webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @ContextConfiguration(initializers = PostgreSQLContextInitializer)
-class DatatoolsEntityInfoDialogOpenUiTest extends BaseDatatoolsUiTests {
+class DatatoolsEntityInfoDialogOpenUiTest extends BaseDatatoolsUiTest {
 
     @Test
-    @DisplayName("Open Entity information from deleted entity in Entity Inspector Browser")
+    @DisplayName("Opens Entity information from deleted entity in Entity Inspector Browser")
     void openContextMenuFromDeletedEntity() {
         loginAsAdmin()
         createUser(USERNAME1)
@@ -54,7 +54,7 @@ class DatatoolsEntityInfoDialogOpenUiTest extends BaseDatatoolsUiTests {
     }
 
     @Test
-    @DisplayName("Open Entity information from non-deleted entity in Entity Inspector Browser")
+    @DisplayName("Opens Entity information from non-deleted entity in Entity Inspector Browser")
     void openContextMenuFromNonDeletedEntity() {
         loginAsAdmin()
         createUser(USERNAME1)
@@ -76,7 +76,7 @@ class DatatoolsEntityInfoDialogOpenUiTest extends BaseDatatoolsUiTests {
     }
 
     @Test
-    @DisplayName("Open Entity information from non-deleted entity in User browser")
+    @DisplayName("Opens Entity information from non-deleted entity in User browser")
     void openContextMenuFromUserBrowser() {
         loginAsAdmin()
 

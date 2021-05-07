@@ -7,7 +7,7 @@ import io.jmix.tests.ui.initializer.PostgreSQLContextInitializer
 import io.jmix.tests.ui.screen.administration.datatools.EntityInspectorBrowse
 import io.jmix.tests.ui.screen.application.user.UserBrowse
 import io.jmix.tests.ui.screen.system.main.MainScreen
-import io.jmix.tests.ui.test.datatools.BaseDatatoolsUiTests
+import io.jmix.tests.ui.test.datatools.BaseDatatoolsUiTest
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
@@ -23,10 +23,10 @@ import static io.jmix.masquerade.Selectors.$j
 @SpringBootTest(classes = JmixUiTestsApplication,
         webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @ContextConfiguration(initializers = PostgreSQLContextInitializer)
-class DatatoolsEntityInspectorShowModesUiTest extends BaseDatatoolsUiTests {
+class DatatoolsEntityInspectorShowModesUiTest extends BaseDatatoolsUiTest {
 
     @Test
-    @DisplayName("Check displaying deleted User in Entity Inspector Browser in different modes")
+    @DisplayName("Checks displaying deleted User in Entity Inspector Browser in different modes")
     void checkDifferentModes() {
         loginAsAdmin()
 

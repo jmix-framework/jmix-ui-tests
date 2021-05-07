@@ -12,9 +12,6 @@ class AtmosphereEditor extends Composite<AtmosphereEditor> {
     @Wire(path = "windowCommitAndClose")
     Button ok
 
-    @Wire(path = "windowClose")
-    Button cancel
-
     void openGasesTab() {
         tablesTabSheet.getTab("Atmosphere.gases").select()
     }
@@ -22,5 +19,4 @@ class AtmosphereEditor extends Composite<AtmosphereEditor> {
     void openGeneralTab() {
         tablesTabSheet.getTab("general").select()
     }
-
 }

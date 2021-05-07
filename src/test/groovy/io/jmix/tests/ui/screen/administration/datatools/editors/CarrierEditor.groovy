@@ -12,17 +12,10 @@ class CarrierEditor extends Composite<CarrierEditor> implements TableActionsTrai
     @Wire(path = "windowCommitAndClose")
     Button ok
 
-    @Wire(path = "windowClose")
-    Button cancel
-
     @Wire
     TabSheet tablesTabSheet
-
-    @Wire
-    TextField name
 
     void openSpacePortsTab() {
         tablesTabSheet.getTab("Carrier.spacePorts").select()
     }
-
 }

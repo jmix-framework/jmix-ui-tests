@@ -9,7 +9,7 @@ import io.jmix.tests.ui.screen.application.user.UserBrowse
 import io.jmix.tests.ui.screen.system.dialog.ConfirmationDialog
 import io.jmix.tests.ui.screen.system.dialog.OptionDialog
 import io.jmix.tests.ui.screen.system.main.MainScreen
-import io.jmix.tests.ui.test.datatools.BaseDatatoolsUiTests
+import io.jmix.tests.ui.test.datatools.BaseDatatoolsUiTest
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
@@ -25,10 +25,10 @@ import static io.jmix.masquerade.Selectors.$j
 @SpringBootTest(classes = JmixUiTestsApplication,
         webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @ContextConfiguration(initializers = PostgreSQLContextInitializer)
-class DatatoolsEntityInspectorButtonsUiTest extends BaseDatatoolsUiTests {
+class DatatoolsEntityInspectorButtonsUiTest extends BaseDatatoolsUiTest {
 
     @Test
-    @DisplayName("Delete User from Entity Inspector Browser")
+    @DisplayName("Deletes User from Entity Inspector Browser")
     void deleteUserFromInspector() {
         loginAsAdmin()
 
@@ -52,7 +52,7 @@ class DatatoolsEntityInspectorButtonsUiTest extends BaseDatatoolsUiTests {
     }
 
     @Test
-    @DisplayName("Restore User from Entity Inspector Browser")
+    @DisplayName("Restores User from Entity Inspector Browser")
     void restoreUserFromInspector() {
         loginAsAdmin()
 
@@ -76,7 +76,7 @@ class DatatoolsEntityInspectorButtonsUiTest extends BaseDatatoolsUiTests {
     }
 
     @Test
-    @DisplayName("Wipe out User from Entity Inspector Browser")
+    @DisplayName("Wipes out User from Entity Inspector Browser")
     void wipeOutUserFromInspector() {
         loginAsAdmin()
         createUser(USERNAME1)
@@ -97,7 +97,7 @@ class DatatoolsEntityInspectorButtonsUiTest extends BaseDatatoolsUiTests {
     }
 
     @Test
-    @DisplayName("Export User instance using JSON and ZIP formats from Entity Inspector Browser")
+    @DisplayName("Exports User instance using JSON and ZIP formats from Entity Inspector Browser")
     void exportUserFromInspector() {
         loginAsAdmin()
 

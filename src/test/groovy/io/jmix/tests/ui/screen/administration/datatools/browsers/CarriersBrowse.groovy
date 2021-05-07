@@ -8,7 +8,4 @@ import io.jmix.tests.ui.screen.administration.datatools.traits.TableActionsTrait
 class CarriersBrowse extends Composite<CarriersBrowse> implements TableActionsTrait {
     @Wire(path = "lookupSelectAction")
     Button ok
-
-    @Wire(path = "lookupCancelAction")
-    Button cancel
 }

@@ -6,7 +6,7 @@ import io.jmix.tests.ui.extension.SpringBootExtension
 import io.jmix.tests.ui.initializer.PostgreSQLContextInitializer
 import io.jmix.tests.ui.screen.administration.datatools.EntityInspectorBrowse
 import io.jmix.tests.ui.screen.administration.datatools.editors.GasEditor
-import io.jmix.tests.ui.test.datatools.BaseDatatoolsUiTests
+import io.jmix.tests.ui.test.datatools.BaseDatatoolsUiTest
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
@@ -22,7 +22,7 @@ import static io.jmix.masquerade.Selectors.$j
 @SpringBootTest(classes = JmixUiTestsApplication,
         webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @ContextConfiguration(initializers = PostgreSQLContextInitializer)
-class DatatoolsSimpleEntityUiTests extends BaseDatatoolsUiTests {
+class DatatoolsSimpleEntityUiTests extends BaseDatatoolsUiTest {
 
     static void fillAndSaveGas(String gas) {
         $j(GasEditor).with {
@@ -32,7 +32,7 @@ class DatatoolsSimpleEntityUiTests extends BaseDatatoolsUiTests {
     }
 
     @Test
-    @DisplayName("Create simple entity from Entity Inspector Browser")
+    @DisplayName("Creates simple entity from Entity Inspector Browser")
     void createEntity() {
         loginAsAdmin()
 
@@ -51,7 +51,7 @@ class DatatoolsSimpleEntityUiTests extends BaseDatatoolsUiTests {
     }
 
     @Test
-    @DisplayName("Edit simple entity from Entity Inspector Browser")
+    @DisplayName("Edits simple entity from Entity Inspector Browser")
     void editEntity() {
         loginAsAdmin()
 

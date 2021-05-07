@@ -15,9 +15,6 @@ class DiscountsEditor extends Composite<DiscountsEditor> {
     @Wire(path = "windowCommitAndClose")
     Button ok
 
-    @Wire(path = "windowClose")
-    Button cancel
-
     @Wire
     ComboBox grade
 
@@ -30,5 +27,4 @@ class DiscountsEditor extends Composite<DiscountsEditor> {
                 .select(byText(gradeName))
                 .shouldHave(value(gradeName))
     }
-
 }

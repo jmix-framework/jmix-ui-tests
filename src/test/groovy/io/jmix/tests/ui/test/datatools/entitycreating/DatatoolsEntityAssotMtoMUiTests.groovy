@@ -11,7 +11,7 @@ import io.jmix.tests.ui.screen.administration.datatools.browsers.CarriersBrowse
 import io.jmix.tests.ui.screen.administration.datatools.editors.CarrierEditor
 import io.jmix.tests.ui.screen.administration.datatools.editors.SpaceportEditor
 import io.jmix.tests.ui.screen.system.main.MainScreen
-import io.jmix.tests.ui.test.datatools.BaseDatatoolsUiTests
+import io.jmix.tests.ui.test.datatools.BaseDatatoolsUiTest
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
@@ -27,7 +27,7 @@ import static io.jmix.masquerade.Selectors.$j
 @SpringBootTest(classes = JmixUiTestsApplication,
         webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @ContextConfiguration(initializers = PostgreSQLContextInitializer)
-class DatatoolsEntityAssotMtoMUiTests extends BaseDatatoolsUiTests {
+class DatatoolsEntityAssotMtoMUiTests extends BaseDatatoolsUiTest {
 
     void fillSpacePortFields(String name, String latitude, String longitude) {
 
@@ -80,7 +80,7 @@ class DatatoolsEntityAssotMtoMUiTests extends BaseDatatoolsUiTests {
     }
 
     @Test
-    @DisplayName("Create entity with Assotiation Many-to-Many relationship from Entity Inspector Browser")
+    @DisplayName("Creates entity with Assotiation Many-to-Many relationship from Entity Inspector Browser")
     void createEntity() {
         loginAsAdmin()
 
@@ -95,7 +95,7 @@ class DatatoolsEntityAssotMtoMUiTests extends BaseDatatoolsUiTests {
     }
 
     @Test
-    @DisplayName("Edit entity with Assotiation Many-to-Many relationship from Entity Inspector Browser")
+    @DisplayName("Edits entity with Assotiation Many-to-Many relationship from Entity Inspector Browser")
     void editEntity() {
         loginAsAdmin()
 

@@ -8,7 +8,7 @@ import io.jmix.tests.ui.screen.administration.datatools.EntityInspectorBrowse
 import io.jmix.tests.ui.screen.administration.datatools.browsers.GasBrowse
 import io.jmix.tests.ui.screen.administration.datatools.editors.AtmosphericGasEditor
 import io.jmix.tests.ui.screen.administration.datatools.editors.GasEditor
-import io.jmix.tests.ui.test.datatools.BaseDatatoolsUiTests
+import io.jmix.tests.ui.test.datatools.BaseDatatoolsUiTest
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
@@ -24,7 +24,7 @@ import static io.jmix.masquerade.Selectors.$j
 @SpringBootTest(classes = JmixUiTestsApplication,
         webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @ContextConfiguration(initializers = PostgreSQLContextInitializer)
-class DatatoolsEntityCompOtoOUiTests extends BaseDatatoolsUiTests {
+class DatatoolsEntityCompOtoOUiTests extends BaseDatatoolsUiTest {
 
     static void fillAndSaveGas(String gas) {
         $j(GasEditor).with {
@@ -34,7 +34,7 @@ class DatatoolsEntityCompOtoOUiTests extends BaseDatatoolsUiTests {
     }
 
     @Test
-    @DisplayName("Create entity with Composition One-to-One relationship from Entity Inspector Browser")
+    @DisplayName("Creates entity with Composition One-to-One relationship from Entity Inspector Browser")
     void createEntity() {
         loginAsAdmin()
 
@@ -73,7 +73,7 @@ class DatatoolsEntityCompOtoOUiTests extends BaseDatatoolsUiTests {
     }
 
     @Test
-    @DisplayName("Edit entity with Composition One-to-One relationship from Entity Inspector Browser")
+    @DisplayName("Edits entity with Composition One-to-One relationship from Entity Inspector Browser")
     void editEntity() {
         loginAsAdmin()
 

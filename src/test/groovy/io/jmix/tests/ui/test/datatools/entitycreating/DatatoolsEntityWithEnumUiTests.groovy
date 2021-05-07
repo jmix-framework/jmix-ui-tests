@@ -6,7 +6,7 @@ import io.jmix.tests.ui.extension.SpringBootExtension
 import io.jmix.tests.ui.initializer.PostgreSQLContextInitializer
 import io.jmix.tests.ui.screen.administration.datatools.EntityInspectorBrowse
 import io.jmix.tests.ui.screen.administration.datatools.editors.DiscountsEditor
-import io.jmix.tests.ui.test.datatools.BaseDatatoolsUiTests
+import io.jmix.tests.ui.test.datatools.BaseDatatoolsUiTest
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
@@ -22,12 +22,12 @@ import static io.jmix.masquerade.Selectors.$j
 @SpringBootTest(classes = JmixUiTestsApplication,
         webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @ContextConfiguration(initializers = PostgreSQLContextInitializer)
-class DatatoolsEntityWithEnumUiTests extends BaseDatatoolsUiTests {
-    String BRONZE_GRADE = "Bronze"
-    String SILVER_GRADE = "Silver"
+class DatatoolsEntityWithEnumUiTests extends BaseDatatoolsUiTest {
+    public static final String BRONZE_GRADE = "Bronze"
+    public static final String SILVER_GRADE = "Silver"
 
     @Test
-    @DisplayName("Create entity with Enum from Entity Inspector Browser")
+    @DisplayName("Creates entity with Enum from Entity Inspector Browser")
     void createEntity() {
         loginAsAdmin()
 
@@ -55,7 +55,7 @@ class DatatoolsEntityWithEnumUiTests extends BaseDatatoolsUiTests {
     }
 
     @Test
-    @DisplayName("Edit entity with Enum from Entity Inspector Browser")
+    @DisplayName("Edits entity with Enum from Entity Inspector Browser")
     void editEntity() {
         loginAsAdmin()
 

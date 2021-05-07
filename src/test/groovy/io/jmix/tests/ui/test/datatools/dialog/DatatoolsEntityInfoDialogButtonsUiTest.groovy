@@ -7,7 +7,7 @@ import io.jmix.tests.ui.initializer.PostgreSQLContextInitializer
 import io.jmix.tests.ui.screen.administration.datatools.EntityInspectorBrowse
 import io.jmix.tests.ui.screen.administration.datatools.dialogs.EntityInformationDialog
 import io.jmix.tests.ui.screen.system.main.MainScreen
-import io.jmix.tests.ui.test.datatools.BaseDatatoolsUiTests
+import io.jmix.tests.ui.test.datatools.BaseDatatoolsUiTest
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
@@ -24,12 +24,12 @@ import static io.jmix.masquerade.Selectors.$j
 @SpringBootTest(classes = JmixUiTestsApplication,
         webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @ContextConfiguration(initializers = PostgreSQLContextInitializer)
-class DatatoolsEntityInfoDialogButtonsUiTest extends BaseDatatoolsUiTests {
-    String INSERT_BTN_CAPTION = "Script for insert"
-    String SELECT_BTN_CAPTION = "Script for select"
-    String UPDATE_BTN_CAPTION = "Script for update"
-    String NOTIFICATION_CAPTION = "Copied to clipboard"
-    String SCRIPT_AREA = "scriptArea"
+class DatatoolsEntityInfoDialogButtonsUiTest extends BaseDatatoolsUiTest {
+    public static final String INSERT_BTN_CAPTION = "Script for insert"
+    public static final String SELECT_BTN_CAPTION = "Script for select"
+    public static final String UPDATE_BTN_CAPTION = "Script for update"
+    public static final String NOTIFICATION_CAPTION = "Copied to clipboard"
+    public static final String SCRIPT_AREA = "scriptArea"
 
     void commonInspectorActions() {
         loginAsAdmin()
@@ -45,7 +45,7 @@ class DatatoolsEntityInfoDialogButtonsUiTest extends BaseDatatoolsUiTests {
     }
 
     @Test
-    @DisplayName("Check copying of Insert script from Entity Inspector Window")
+    @DisplayName("Checks copying of Insert script from Entity Inspector Window")
     void checkAndCopyInsertScript() {
         commonInspectorActions()
 
@@ -62,7 +62,7 @@ class DatatoolsEntityInfoDialogButtonsUiTest extends BaseDatatoolsUiTests {
     }
 
     @Test
-    @DisplayName("Check copying of Select script from Entity Inspector Window")
+    @DisplayName("Checks copying of Select script from Entity Inspector Window")
     void checkAndCopySelectScript() {
         commonInspectorActions()
 
@@ -79,7 +79,7 @@ class DatatoolsEntityInfoDialogButtonsUiTest extends BaseDatatoolsUiTests {
     }
 
     @Test
-    @DisplayName("Check copying of Update script from Entity Inspector Window")
+    @DisplayName("Checks copying of Update script from Entity Inspector Window")
     void checkAndCopyUpdateScript() {
         commonInspectorActions()
 

@@ -7,10 +7,4 @@ import io.jmix.masquerade.component.Button
 class AtmosphericGasBrowse extends Composite<AtmosphericGasBrowse> {
     @Wire
     Button create
-
-    @Wire
-    Button edit
-
-    @Wire
-    Button remove
 }

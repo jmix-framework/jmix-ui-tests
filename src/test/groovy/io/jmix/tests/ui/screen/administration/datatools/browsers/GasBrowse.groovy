@@ -9,8 +9,4 @@ class GasBrowse extends Composite<GasBrowse> implements TableActionsTrait {
 
     @Wire(path = "lookupSelectAction")
     Button ok
-
-    @Wire(path = "lookupCancelAction")
-    Button cancel
-
 }

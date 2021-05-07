@@ -10,10 +10,6 @@ class GasEditor extends Composite<GasEditor> {
     @Wire(path = "windowCommitAndClose")
     Button ok
 
-    @Wire(path = "windowClose")
-    Button cancel
-
     @Wire
     TextField name
-
 }

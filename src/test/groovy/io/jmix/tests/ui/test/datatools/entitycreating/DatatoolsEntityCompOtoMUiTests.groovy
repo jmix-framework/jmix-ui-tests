@@ -1,6 +1,5 @@
 package io.jmix.tests.ui.test.datatools.entitycreating
 
-import io.jmix.masquerade.component.Button
 import io.jmix.masquerade.component.TextField
 import io.jmix.tests.JmixUiTestsApplication
 import io.jmix.tests.extension.ChromeExtension
@@ -12,7 +11,8 @@ import io.jmix.tests.ui.screen.administration.datatools.browsers.GasBrowse
 import io.jmix.tests.ui.screen.administration.datatools.editors.AtmosphereEditor
 import io.jmix.tests.ui.screen.administration.datatools.editors.AtmosphericGasEditor
 import io.jmix.tests.ui.screen.administration.datatools.editors.GasEditor
-import io.jmix.tests.ui.test.datatools.BaseDatatoolsUiTests
+import io.jmix.tests.ui.test.datatools.BaseDatatoolsUiTest
+
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
@@ -28,7 +28,7 @@ import static io.jmix.masquerade.Selectors.$j
 @SpringBootTest(classes = JmixUiTestsApplication,
         webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @ContextConfiguration(initializers = PostgreSQLContextInitializer)
-class DatatoolsEntityCompOtoMUiTests extends BaseDatatoolsUiTests {
+class DatatoolsEntityCompOtoMUiTests extends BaseDatatoolsUiTest {
 
     static void fillAndSaveGas(String gas) {
         $j(GasEditor).with {
@@ -48,7 +48,7 @@ class DatatoolsEntityCompOtoMUiTests extends BaseDatatoolsUiTests {
 
     static void createAtmosphericGas(String gasName, String gasVolume) {
         $j(AtmosphericGasBrowse).with {
-            clickButton($j(Button, "create"))
+            clickButton(create)
         }
 
         $j(AtmosphericGasEditor).with {
@@ -67,7 +67,7 @@ class DatatoolsEntityCompOtoMUiTests extends BaseDatatoolsUiTests {
     }
 
     @Test
-    @DisplayName("Create entity with Composition One-to-Many relationship from Entity Inspector Browser")
+    @DisplayName("Creates entity with Composition One-to-Many relationship from Entity Inspector Browser")
     void createEntity() {
         loginAsAdmin()
 
@@ -109,7 +109,7 @@ class DatatoolsEntityCompOtoMUiTests extends BaseDatatoolsUiTests {
     }
 
     @Test
-    @DisplayName("Edit entity with Composition One-to-Many relationship from Entity Inspector Browser")
+    @DisplayName("Edits entity with Composition One-to-Many relationship from Entity Inspector Browser")
     void editEntity() {
         loginAsAdmin()
 
@@ -140,5 +140,4 @@ class DatatoolsEntityCompOtoMUiTests extends BaseDatatoolsUiTests {
         cleanData(GAS_ENTITY_NAME, GAS_FULL_STRING, ALL_MODE, GAS_TABLE_JTEST_ID, HELIUM_GAS_NAME)
 
     }
-
 }

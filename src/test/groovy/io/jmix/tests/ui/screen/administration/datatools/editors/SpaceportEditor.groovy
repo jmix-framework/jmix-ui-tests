@@ -12,22 +12,12 @@ class SpaceportEditor extends Composite<SpaceportEditor> implements TableActions
     TextField name
 
     @Wire
-    TextField latitude
-
-    @Wire
-    TextField longitude
-
-    @Wire
     TabSheet tablesTabSheet
 
     @Wire(path = "windowCommitAndClose")
     Button ok
 
-    @Wire(path = "windowClose")
-    Button cancel
-
     void openCarriersTab() {
         tablesTabSheet.getTab("SpacePort.carriers").select()
     }
-
 }
