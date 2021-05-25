@@ -31,6 +31,7 @@ class DatatoolsEntityInspectorShowModesUiTest extends BaseDatatoolsUiTest {
     void checkDifferentModes() {
         loginAsAdmin()
 
+        $j(MainScreen).openUserBrowse()
         $j(UserBrowse).removeUser(USERNAME1)
 
         $j(MainScreen).openEntityInspectorBrowse()
