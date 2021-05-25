@@ -21,7 +21,8 @@ import static io.jmix.masquerade.Selectors.$j
         ChromeExtension
 ])
 @SpringBootTest(classes = JmixUiTestsApplication,
-        webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+        webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT,
+        properties = ['jmix.liquibase.contexts=base,datatools'])
 @ContextConfiguration(initializers = PostgreSQLContextInitializer)
 class DatatoolsEntityInspectorShowModesUiTest extends BaseDatatoolsUiTest {
 
@@ -30,8 +31,6 @@ class DatatoolsEntityInspectorShowModesUiTest extends BaseDatatoolsUiTest {
     void checkDifferentModes() {
         loginAsAdmin()
 
-        createUser(USERNAME1)
-        createUser(USERNAME2)
         $j(UserBrowse).removeUser(USERNAME1)
 
         $j(MainScreen).openEntityInspectorBrowse()
@@ -53,9 +52,5 @@ class DatatoolsEntityInspectorShowModesUiTest extends BaseDatatoolsUiTest {
 
         $j(EntityInspectorBrowse).checkRecordIsDisplayed(USERNAME2, USER_TABLE_JTEST_ID)
         $j(EntityInspectorBrowse).checkRecordIsDisplayed(USERNAME1, USER_TABLE_JTEST_ID)
-
-        wipeOutData(USER_ENTITY_NAME, USER_FULL_STRING, ALL_MODE, USER_TABLE_JTEST_ID, USERNAME1)
-        wipeOutData(USER_ENTITY_NAME, USER_FULL_STRING, ALL_MODE, USER_TABLE_JTEST_ID, USERNAME2)
-
     }
 }

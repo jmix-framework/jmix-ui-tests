@@ -40,6 +40,7 @@ abstract class BaseDatatoolsUiTest extends BaseUiTest {
     public static final String ALL_MODE = "Show all records"
 
     public static final String ADMIN_USERNAME = "admin"
+    public static final String TEST_USERNAME = "Test username"
     public static final String USERNAME1 = "myUser"
     public static final String USERNAME2 = "secondUser"
 
@@ -60,10 +61,14 @@ abstract class BaseDatatoolsUiTest extends BaseUiTest {
 
     public static final String OXYGEN_GAS_NAME = "Oxygen"
     public static final String HELIUM_GAS_NAME = "Helium"
+    public static final String TEST_GAS_NAME = "Test gas"
+    public static final String TEST_GAS_1_NAME = "Test gas 1"
 
     public static final String CARRIER_FIRST_NAME = "carrier1"
+    public static final String CARRIER_TEST_NAME = "Test carrier"
     public static final String SPACEPORT_FIRST_NAME = "spaceport1"
     public static final String SPACEPORT_SECOND_NAME = "spaceport2"
+    public static final String SPACEPORT_TEST_NAME = "Test spaceport"
 
     public static final String PRESSURE = "pressure"
     public static final String DESCRIPTION = "description"

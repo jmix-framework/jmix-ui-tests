@@ -20,7 +20,8 @@ import static io.jmix.masquerade.Selectors.$j
         ChromeExtension
 ])
 @SpringBootTest(classes = JmixUiTestsApplication,
-        webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+        webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT,
+        properties = ['jmix.liquibase.contexts=base,datatools'])
 @ContextConfiguration(initializers = PostgreSQLContextInitializer)
 class DatatoolsSimpleEntityUiTests extends BaseDatatoolsUiTest {
 
@@ -55,20 +56,14 @@ class DatatoolsSimpleEntityUiTests extends BaseDatatoolsUiTest {
     void editEntity() {
         loginAsAdmin()
 
-        openEntityCreatingScreen(GAS_ENTITY_NAME, GAS_FULL_STRING)
-
-        fillAndSaveGas(OXYGEN_GAS_NAME)
-
         $j(EntityInspectorBrowse).with {
-            checkRecordIsDisplayed(OXYGEN_GAS_NAME, GAS_TABLE_JTEST_ID)
-            selectRowInTableByText(OXYGEN_GAS_NAME, GAS_TABLE_JTEST_ID)
+            checkRecordIsDisplayed(TEST_GAS_NAME, GAS_TABLE_JTEST_ID)
+            selectRowInTableByText(TEST_GAS_NAME, GAS_TABLE_JTEST_ID)
             clickButton(edit)
         }
 
         fillAndSaveGas(HELIUM_GAS_NAME)
 
         $j(EntityInspectorBrowse).checkRecordIsDisplayed(HELIUM_GAS_NAME, GAS_TABLE_JTEST_ID)
-
-        cleanData(GAS_ENTITY_NAME, GAS_FULL_STRING, ALL_MODE, GAS_TABLE_JTEST_ID, HELIUM_GAS_NAME)
     }
 }

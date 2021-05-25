@@ -23,7 +23,8 @@ import static io.jmix.masquerade.Selectors.$j
         ChromeExtension
 ])
 @SpringBootTest(classes = JmixUiTestsApplication,
-        webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+        webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT,
+        properties = ['jmix.liquibase.contexts=base,datatools'])
 @ContextConfiguration(initializers = PostgreSQLContextInitializer)
 class DatatoolsEntityInspectorButtonsUiTest extends BaseDatatoolsUiTest {
 
@@ -32,7 +33,6 @@ class DatatoolsEntityInspectorButtonsUiTest extends BaseDatatoolsUiTest {
     void deleteUserFromInspector() {
         loginAsAdmin()
 
-        createUser(USERNAME1)
         $j(MainScreen).openEntityInspectorBrowse()
 
         $j(EntityInspectorBrowse).with {
@@ -47,8 +47,6 @@ class DatatoolsEntityInspectorButtonsUiTest extends BaseDatatoolsUiTest {
 
         $j(MainScreen).openUserBrowse()
         $j(UserBrowse).checkRecordIsNotDisplayed(USERNAME1)
-
-        wipeOutData(USER_ENTITY_NAME, USER_FULL_STRING, ALL_MODE, USER_TABLE_JTEST_ID, USERNAME1)
     }
 
     @Test
@@ -56,7 +54,6 @@ class DatatoolsEntityInspectorButtonsUiTest extends BaseDatatoolsUiTest {
     void restoreUserFromInspector() {
         loginAsAdmin()
 
-        createUser(USERNAME1)
         $j(UserBrowse).removeUser(USERNAME1)
         $j(MainScreen).openEntityInspectorBrowse()
 
@@ -70,16 +67,12 @@ class DatatoolsEntityInspectorButtonsUiTest extends BaseDatatoolsUiTest {
 
         $j(MainScreen).openUserBrowse()
         $j(UserBrowse).checkRecordIsDisplayed(USERNAME1)
-
-        wipeOutData(USER_ENTITY_NAME, USER_FULL_STRING, ALL_MODE, USER_TABLE_JTEST_ID, USERNAME1)
-
     }
 
     @Test
     @DisplayName("Wipes out User from Entity Inspector Browser")
     void wipeOutUserFromInspector() {
         loginAsAdmin()
-        createUser(USERNAME1)
 
         $j(MainScreen).openEntityInspectorBrowse()
 

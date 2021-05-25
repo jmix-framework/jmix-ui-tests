@@ -22,24 +22,15 @@ import static io.jmix.masquerade.Selectors.$j
         ChromeExtension
 ])
 @SpringBootTest(classes = JmixUiTestsApplication,
-        webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+        webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT,
+        properties = ['jmix.liquibase.contexts=base,datatools'])
 @ContextConfiguration(initializers = PostgreSQLContextInitializer)
-class DatatoolsEntityCompOtoOUiTests extends BaseDatatoolsUiTest {
-
-    static void fillAndSaveGas(String gas) {
-        $j(GasEditor).with {
-            fillTextField(name, gas)
-            clickButton(ok)
-        }
-    }
+class DatatoolsEntityCompositionOtoOUiTests extends BaseDatatoolsUiTest {
 
     @Test
     @DisplayName("Creates entity with Composition One-to-One relationship from Entity Inspector Browser")
     void createEntity() {
         loginAsAdmin()
-
-        openEntityCreatingScreen(GAS_ENTITY_NAME, GAS_FULL_STRING)
-        fillAndSaveGas(OXYGEN_GAS_NAME)
 
         openEntityCreatingScreen(ATMOSPHERIC_GAS_ENTITY_NAME, ATMOSPHERIC_GAS_FULL_STRING)
 
@@ -58,7 +49,7 @@ class DatatoolsEntityCompOtoOUiTests extends BaseDatatoolsUiTest {
         }
 
         $j(GasBrowse).with {
-            selectRowInTableByText(OXYGEN_GAS_NAME, GAS_TABLE_JTEST_ID)
+            selectRowInTableByText(TEST_GAS_NAME, GAS_TABLE_JTEST_ID)
             clickButton(ok)
         }
 
@@ -66,19 +57,15 @@ class DatatoolsEntityCompOtoOUiTests extends BaseDatatoolsUiTest {
             clickButton(ok)
         }
 
-        $j(EntityInspectorBrowse).checkRecordIsDisplayed(OXYGEN_GAS_NAME, ATMOSPHERIC_GAS_TABLE_JTEST_ID)
+        $j(EntityInspectorBrowse).checkRecordIsDisplayed(TEST_GAS_NAME, ATMOSPHERIC_GAS_TABLE_JTEST_ID)
 
         cleanData(ATMOSPHERIC_GAS_ENTITY_NAME, ATMOSPHERIC_GAS_FULL_STRING, ALL_MODE, ATMOSPHERIC_GAS_TABLE_JTEST_ID, OXYGEN_GAS_NAME)
-        cleanData(GAS_ENTITY_NAME, GAS_FULL_STRING, ALL_MODE, GAS_TABLE_JTEST_ID, OXYGEN_GAS_NAME)
     }
 
     @Test
     @DisplayName("Edits entity with Composition One-to-One relationship from Entity Inspector Browser")
     void editEntity() {
         loginAsAdmin()
-
-        openEntityCreatingScreen(GAS_ENTITY_NAME, GAS_FULL_STRING)
-        fillAndSaveGas(OXYGEN_GAS_NAME)
 
         openEntityCreatingScreen(ATMOSPHERIC_GAS_ENTITY_NAME, ATMOSPHERIC_GAS_FULL_STRING)
 
@@ -88,7 +75,7 @@ class DatatoolsEntityCompOtoOUiTests extends BaseDatatoolsUiTest {
         }
 
         $j(GasBrowse).with {
-            selectRowInTableByText(OXYGEN_GAS_NAME, GAS_TABLE_JTEST_ID)
+            selectRowInTableByText(TEST_GAS_NAME, GAS_TABLE_JTEST_ID)
             clickButton(ok)
         }
 
@@ -97,8 +84,8 @@ class DatatoolsEntityCompOtoOUiTests extends BaseDatatoolsUiTest {
         }
 
         $j(EntityInspectorBrowse).with {
-            checkRecordIsDisplayed(OXYGEN_GAS_NAME, ATMOSPHERIC_GAS_TABLE_JTEST_ID)
-            selectRowInTableByText(OXYGEN_GAS_NAME, ATMOSPHERIC_GAS_TABLE_JTEST_ID)
+            checkRecordIsDisplayed(TEST_GAS_NAME, ATMOSPHERIC_GAS_TABLE_JTEST_ID)
+            selectRowInTableByText(TEST_GAS_NAME, ATMOSPHERIC_GAS_TABLE_JTEST_ID)
             clickButton(edit)
         }
 
@@ -110,6 +97,5 @@ class DatatoolsEntityCompOtoOUiTests extends BaseDatatoolsUiTest {
         $j(EntityInspectorBrowse).checkRecordIsDisplayed(SECOND_DECIMAL_VALUE, ATMOSPHERIC_GAS_TABLE_JTEST_ID)
 
         cleanData(ATMOSPHERIC_GAS_ENTITY_NAME, ATMOSPHERIC_GAS_FULL_STRING, ALL_MODE, ATMOSPHERIC_GAS_TABLE_JTEST_ID, OXYGEN_GAS_NAME)
-        cleanData(GAS_ENTITY_NAME, GAS_FULL_STRING, ALL_MODE, GAS_TABLE_JTEST_ID, OXYGEN_GAS_NAME)
     }
 }
