@@ -168,7 +168,7 @@ class TableActionUiTest extends BaseSamplerUiTest {
 
     private SelenideElement focusOnContextMenu(def row) {
         row.contextClick()
-        $x("//*[contains(@class, 'c-context-menu')]//*[contains(@class, 'v-verticallayout-c-cm-container')]")
+        $x("//*[contains(@class, 'jmix-context-menu')]//*[contains(@class, 'v-verticallayout-jmix-cm-container')]")
     }
 
     private SelenideElement selectRow() {
