@@ -308,7 +308,7 @@
     <changeSet id="33" author="jmixuitests" context="base">
         <addForeignKeyConstraint baseColumnNames="CREATOR_ID" baseTableName="WAY_BILL"
                                  constraintName="FK_WAY_BILL_ON_CREATOR" referencedColumnNames="ID"
-                                 referencedTableName="USER"/>
+                                 referencedTableName="USER_"/>
     </changeSet>
     <changeSet id="34" author="jmixuitests">
         <addForeignKeyConstraint baseColumnNames="DEPARTURE_PORT_ID" baseTableName="WAY_BILL"
@@ -321,6 +321,6 @@
                                  referencedTableName="CUSTOMER"/>
     </changeSet>
     <changeSet id="36" author="jmixuitests" context="base">
-        <dropNotNullConstraint columnDataType="int" columnName="VERSION" tableName="USER"/>
+        <dropNotNullConstraint columnDataType="int" columnName="VERSION" tableName="USER_"/>
     </changeSet>
 </databaseChangeLog>

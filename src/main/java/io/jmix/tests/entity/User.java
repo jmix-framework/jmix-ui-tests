@@ -17,11 +17,11 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.UUID;
 
-@Entity(name = "User")
-@Table(name = "USER", indexes = {
-        @Index(name = "IDX_USER_ON_USERNAME", columnList = "USERNAME", unique = true)
-})
 @JmixEntity
+@Entity
+@Table(name = "USER_", indexes = {
+        @Index(name = "IDX_USER__ON_USERNAME", columnList = "USERNAME", unique = true)
+})
 public class User implements JmixUserDetails {
 
     @Id

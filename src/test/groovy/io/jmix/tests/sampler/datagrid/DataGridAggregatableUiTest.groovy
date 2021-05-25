@@ -64,7 +64,7 @@ class DataGridAggregatableUiTest extends BaseSamplerUiTest {
     //TODO https://github.com/Haulmont/jmix-masquerade/issues/9
     protected static SelenideElement getAggregationRowCell(int index) {
         return $(byChain(byJTestId('orderDataGrid'),
-                byClassName('c-aggregation-row'),
+                byClassName('jmix-aggregation-row'),
                 byXpath("(.//th)[${index}]")))
     }
 }

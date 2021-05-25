@@ -24,7 +24,7 @@ class TableMaxLengthUiTest extends BaseSamplerUiTest {
         $j(Table.class, 'orderTable')
                 .getRow(byCells('Of...'))
                 .shouldBe(VISIBLE)
-                .findElement(byClassName('c-table-clickable-cell'))
+                .findElement(byClassName('jmix-table-clickable-cell'))
                 .click()
         $('.v-textarea-readonly')
                 .shouldBe(VISIBLE)
