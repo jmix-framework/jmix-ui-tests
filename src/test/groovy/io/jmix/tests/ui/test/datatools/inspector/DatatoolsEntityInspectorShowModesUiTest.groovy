@@ -38,20 +38,21 @@ class DatatoolsEntityInspectorShowModesUiTest extends BaseDatatoolsUiTest {
 
         $j(EntityInspectorBrowse).with {
             findEntityByFilter(USER_ENTITY_NAME, USER_FULL_STRING)
+
             selectShowMode(NON_REMOVED_ONLY_MODE)
+
+            checkRecordIsNotDisplayed(USERNAME1, USER_TABLE_JTEST_ID)
+            checkRecordIsDisplayed(USERNAME2, USER_TABLE_JTEST_ID)
+
+            selectShowMode(REMOVED_ONLY_MODE)
+
+            checkRecordIsNotDisplayed(USERNAME2, USER_TABLE_JTEST_ID)
+            checkRecordIsDisplayed(USERNAME1, USER_TABLE_JTEST_ID)
+
+            selectShowMode(ALL_MODE)
+
+            checkRecordIsDisplayed(USERNAME2, USER_TABLE_JTEST_ID)
+            checkRecordIsDisplayed(USERNAME1, USER_TABLE_JTEST_ID)
         }
-
-        $j(EntityInspectorBrowse).checkRecordIsNotDisplayed(USERNAME1, USER_TABLE_JTEST_ID)
-        $j(EntityInspectorBrowse).checkRecordIsDisplayed(USERNAME2, USER_TABLE_JTEST_ID)
-
-        $j(EntityInspectorBrowse).selectShowMode(REMOVED_ONLY_MODE)
-
-        $j(EntityInspectorBrowse).checkRecordIsNotDisplayed(USERNAME2, USER_TABLE_JTEST_ID)
-        $j(EntityInspectorBrowse).checkRecordIsDisplayed(USERNAME1, USER_TABLE_JTEST_ID)
-
-        $j(EntityInspectorBrowse).selectShowMode(ALL_MODE)
-
-        $j(EntityInspectorBrowse).checkRecordIsDisplayed(USERNAME2, USER_TABLE_JTEST_ID)
-        $j(EntityInspectorBrowse).checkRecordIsDisplayed(USERNAME1, USER_TABLE_JTEST_ID)
     }
 }
