@@ -24,7 +24,7 @@ import static io.jmix.masquerade.Selectors.$j
 @SpringBootTest(classes = JmixUiTestsApplication,
         webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @ContextConfiguration(initializers = PostgreSQLContextInitializer)
-class DatatoolsEntityInfoDialogButtonsUiTest extends BaseDatatoolsUiTest {
+class EntityInfoDialogButtonsUiTest extends BaseDatatoolsUiTest {
     public static final String INSERT_BTN_CAPTION = "Script for insert"
     public static final String SELECT_BTN_CAPTION = "Script for select"
     public static final String UPDATE_BTN_CAPTION = "Script for update"

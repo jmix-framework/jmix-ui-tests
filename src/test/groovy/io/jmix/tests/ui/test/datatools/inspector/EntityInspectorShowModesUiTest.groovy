@@ -24,7 +24,7 @@ import static io.jmix.masquerade.Selectors.$j
         webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT,
         properties = ['jmix.liquibase.contexts=base,datatools'])
 @ContextConfiguration(initializers = PostgreSQLContextInitializer)
-class DatatoolsEntityInspectorShowModesUiTest extends BaseDatatoolsUiTest {
+class EntityInspectorShowModesUiTest extends BaseDatatoolsUiTest {
 
     @Test
     @DisplayName("Checks displaying deleted User in Entity Inspector Browser in different modes")

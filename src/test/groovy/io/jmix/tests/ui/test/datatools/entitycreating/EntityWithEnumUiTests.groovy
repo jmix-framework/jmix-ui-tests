@@ -22,7 +22,7 @@ import static io.jmix.masquerade.Selectors.$j
 //@SpringBootTest(classes = JmixUiTestsApplication,
 //        webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 //@ContextConfiguration(initializers = PostgreSQLContextInitializer)
-class DatatoolsEntityWithEnumUiTests extends BaseDatatoolsUiTest {
+class EntityWithEnumUiTests extends BaseDatatoolsUiTest {
     public static final String BRONZE_GRADE = "Bronze"
     public static final String SILVER_GRADE = "Silver"
 

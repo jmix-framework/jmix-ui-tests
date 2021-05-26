@@ -25,7 +25,7 @@ import static io.jmix.masquerade.Selectors.$j
         webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT,
         properties = ['jmix.liquibase.contexts=base,datatools'])
 @ContextConfiguration(initializers = PostgreSQLContextInitializer)
-class DatatoolsEntityCompositionOtoOUiTests extends BaseDatatoolsUiTest {
+class EntityCompositionOtoOUiTests extends BaseDatatoolsUiTest {
 
     @Test
     @DisplayName("Creates entity with Composition One-to-One relationship from Entity Inspector Browser")

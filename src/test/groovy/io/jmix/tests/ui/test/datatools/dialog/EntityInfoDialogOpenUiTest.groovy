@@ -25,7 +25,7 @@ import static io.jmix.masquerade.Selectors.$j
 @SpringBootTest(classes = JmixUiTestsApplication,
         webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @ContextConfiguration(initializers = PostgreSQLContextInitializer)
-class DatatoolsEntityInfoDialogOpenUiTest extends BaseDatatoolsUiTest {
+class EntityInfoDialogOpenUiTest extends BaseDatatoolsUiTest {
 
     @Test
     @DisplayName("Opens Entity information from deleted entity in Entity Inspector Browser")

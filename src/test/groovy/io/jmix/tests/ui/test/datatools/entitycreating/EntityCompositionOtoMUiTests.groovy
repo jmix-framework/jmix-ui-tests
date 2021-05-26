@@ -29,7 +29,7 @@ import static io.jmix.masquerade.Selectors.$j
         webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT,
         properties = ['jmix.liquibase.contexts=base,datatools'])
 @ContextConfiguration(initializers = PostgreSQLContextInitializer)
-class DatatoolsEntityCompositionOtoMUiTests extends BaseDatatoolsUiTest {
+class EntityCompositionOtoMUiTests extends BaseDatatoolsUiTest {
 
     static void createAtmosphericGas(String gasName, String gasVolume) {
         $j(AtmosphericGasBrowse).with {

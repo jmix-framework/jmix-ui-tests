@@ -26,7 +26,7 @@ import static io.jmix.masquerade.Selectors.$j
         webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT,
         properties = ['jmix.liquibase.contexts=base,datatools'])
 @ContextConfiguration(initializers = PostgreSQLContextInitializer)
-class DatatoolsEntityInspectorButtonsUiTest extends BaseDatatoolsUiTest {
+class EntityInspectorButtonsUiTest extends BaseDatatoolsUiTest {
 
     @Test
     @DisplayName("Deletes User from Entity Inspector Browser")
