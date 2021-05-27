@@ -40,7 +40,6 @@ abstract class BaseDatatoolsUiTest extends BaseUiTest {
     public static final String ALL_MODE = "Show all records"
 
     public static final String ADMIN_USERNAME = "admin"
-    public static final String TEST_USERNAME = "Test username"
     public static final String USERNAME1 = "myUser"
     public static final String USERNAME2 = "secondUser"
 
@@ -81,7 +80,7 @@ abstract class BaseDatatoolsUiTest extends BaseUiTest {
      */
     static void openInspectorWindow(int index) {
         ElementsCollection elementsCollection = $$(byChain(byJTestId('cubaContextMenu'),
-                byClassName('c-cm-button')))
+                byClassName('jmix-cm-button')))
 
         elementsCollection.get(index).click()
     }

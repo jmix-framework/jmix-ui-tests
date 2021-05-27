@@ -15,13 +15,13 @@ import org.springframework.test.context.ContextConfiguration
 
 import static io.jmix.masquerade.Selectors.$j
 
-//@ExtendWith([
-//        SpringBootExtension,
-//        ChromeExtension
-//])
-//@SpringBootTest(classes = JmixUiTestsApplication,
-//        webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-//@ContextConfiguration(initializers = PostgreSQLContextInitializer)
+@ExtendWith([
+        SpringBootExtension,
+        ChromeExtension
+])
+@SpringBootTest(classes = JmixUiTestsApplication,
+        webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+@ContextConfiguration(initializers = PostgreSQLContextInitializer)
 class EntityWithEnumUiTests extends BaseDatatoolsUiTest {
     public static final String BRONZE_GRADE = "Bronze"
     public static final String SILVER_GRADE = "Silver"

@@ -6,6 +6,7 @@ import io.jmix.tests.ui.extension.SpringBootExtension
 import io.jmix.tests.ui.initializer.PostgreSQLContextInitializer
 import io.jmix.tests.ui.screen.administration.datatools.EntityInspectorBrowse
 import io.jmix.tests.ui.screen.administration.datatools.editors.GasEditor
+import io.jmix.tests.ui.screen.system.main.MainScreen
 import io.jmix.tests.ui.test.datatools.BaseDatatoolsUiTest
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
@@ -55,8 +56,10 @@ class SimpleEntityUiTests extends BaseDatatoolsUiTest {
     @DisplayName("Edits simple entity from Entity Inspector Browser")
     void editEntity() {
         loginAsAdmin()
+        $j(MainScreen).openEntityInspectorBrowse()
 
         $j(EntityInspectorBrowse).with {
+            findEntityByFilter(GAS_ENTITY_NAME, GAS_FULL_STRING)
             checkRecordIsDisplayed(TEST_GAS_NAME, GAS_TABLE_JTEST_ID)
             selectRowInTableByText(TEST_GAS_NAME, GAS_TABLE_JTEST_ID)
             clickButton(edit)

@@ -81,7 +81,7 @@ class EntityAssociationMtoMUiTests extends BaseDatatoolsUiTest {
     }
 
     @Test
-    @DisplayName("Creates entity with Assotiation Many-to-Many relationship from Entity Inspector Browser")
+    @DisplayName("Creates entity with Association Many-to-Many relationship from Entity Inspector Browser")
     void createEntity() {
         loginAsAdmin()
 
@@ -96,7 +96,7 @@ class EntityAssociationMtoMUiTests extends BaseDatatoolsUiTest {
     }
 
     @Test
-    @DisplayName("Edits entity with Assotiation Many-to-Many relationship from Entity Inspector Browser")
+    @DisplayName("Edits entity with Association Many-to-Many relationship from Entity Inspector Browser")
     void editEntity() {
         loginAsAdmin()
 
