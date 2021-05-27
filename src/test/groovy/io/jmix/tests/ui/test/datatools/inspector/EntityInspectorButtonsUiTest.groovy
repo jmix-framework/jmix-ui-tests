@@ -32,7 +32,6 @@ class EntityInspectorButtonsUiTest extends BaseDatatoolsUiTest {
     @DisplayName("Deletes User from Entity Inspector Browser")
     void deleteUserFromInspector() {
         loginAsAdmin()
-        createUser(USERNAME1)
 
         $j(MainScreen).openEntityInspectorBrowse()
 
@@ -48,51 +47,47 @@ class EntityInspectorButtonsUiTest extends BaseDatatoolsUiTest {
 
         $j(MainScreen).openUserBrowse()
         $j(UserBrowse).checkRecordIsNotDisplayed(USERNAME1)
-
-        wipeOutData(USER_ENTITY_NAME, USER_FULL_STRING, ALL_MODE, USER_TABLE_JTEST_ID, USERNAME1)
     }
 
     @Test
     @DisplayName("Restores User from Entity Inspector Browser")
     void restoreUserFromInspector() {
         loginAsAdmin()
-        createUser(USERNAME1)
+        $j(MainScreen).openUserBrowse()
 
-        $j(UserBrowse).removeUser(USERNAME1)
+        $j(UserBrowse).removeUser(USERNAME3)
         $j(MainScreen).openEntityInspectorBrowse()
 
         $j(EntityInspectorBrowse).with {
             findEntityByFilter(USER_ENTITY_NAME, USER_FULL_STRING)
             selectShowMode(ALL_MODE)
-            selectRowInTableByText(USERNAME1, USER_TABLE_JTEST_ID)
+            selectRowInTableByText(USERNAME3, USER_TABLE_JTEST_ID)
             clickButton(restore)
         }
         $j(OptionDialog).confirm()
 
         $j(MainScreen).openUserBrowse()
-        $j(UserBrowse).checkRecordIsDisplayed(USERNAME1)
-        wipeOutData(USER_ENTITY_NAME, USER_FULL_STRING, ALL_MODE, USER_TABLE_JTEST_ID, USERNAME1)
+        $j(UserBrowse).checkRecordIsDisplayed(USERNAME3)
     }
 
     @Test
     @DisplayName("Wipes out User from Entity Inspector Browser")
     void wipeOutUserFromInspector() {
         loginAsAdmin()
-        createUser(USERNAME1)
 
         $j(MainScreen).openEntityInspectorBrowse()
 
         $j(EntityInspectorBrowse).with {
             findEntityByFilter(USER_ENTITY_NAME, USER_FULL_STRING)
             selectShowMode(ALL_MODE)
-            selectRowInTableByText(USERNAME1, USER_TABLE_JTEST_ID)
+            selectRowInTableByText(USERNAME4, USER_TABLE_JTEST_ID)
             clickButton(wipeOut)
         }
         $j(OptionDialog).confirm()
 
-        $j(EntityInspectorBrowse).checkRecordIsNotDisplayed(USERNAME1, USER_TABLE_JTEST_ID)
+        $j(EntityInspectorBrowse).checkRecordIsNotDisplayed(USERNAME4, USER_TABLE_JTEST_ID)
         $j(MainScreen).openUserBrowse()
-        $j(UserBrowse).checkRecordIsNotDisplayed(USERNAME1)
+        $j(UserBrowse).checkRecordIsNotDisplayed(USERNAME4)
     }
 
     @Test
@@ -107,7 +102,6 @@ class EntityInspectorButtonsUiTest extends BaseDatatoolsUiTest {
             exportFromInspectorWindow("exportJSON",USER_TABLE_JTEST_ID)
             exportFromInspectorWindow("exportZIP",USER_TABLE_JTEST_ID)
         }
-
     }
 
 }

@@ -30,8 +30,8 @@ class EntityInspectorShowModesUiTest extends BaseDatatoolsUiTest {
     @DisplayName("Checks displaying deleted User in Entity Inspector Browser in different modes")
     void checkDifferentModes() {
         loginAsAdmin()
-        createUser(USERNAME1)
 
+        $j(MainScreen).openUserBrowse()
         $j(UserBrowse).removeUser(USERNAME1)
 
         $j(MainScreen).openEntityInspectorBrowse()
@@ -53,7 +53,6 @@ class EntityInspectorShowModesUiTest extends BaseDatatoolsUiTest {
 
             checkRecordIsDisplayed(USERNAME2, USER_TABLE_JTEST_ID)
             checkRecordIsDisplayed(USERNAME1, USER_TABLE_JTEST_ID)
-            wipeOutData(USER_ENTITY_NAME, USER_FULL_STRING, ALL_MODE, USER_TABLE_JTEST_ID, USERNAME1)
         }
     }
 }

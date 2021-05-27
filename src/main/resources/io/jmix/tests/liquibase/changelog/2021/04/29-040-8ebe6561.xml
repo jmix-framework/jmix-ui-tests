@@ -33,9 +33,27 @@
     </changeSet>
     <changeSet id="3" author="jmixuitests" context="datatools">
         <insert tableName="USER_">
+            <column name="ID" value="c74469a4-28db-629c-24d9-52d111a4a01a"/>
+            <column name="VERSION" value="1"/>
+            <column name="USERNAME" value="myUser"/>
+            <column name="PASSWORD" value="qwerty"/>
+        </insert>
+        <insert tableName="USER_">
             <column name="ID" value="c74169a4-22db-629c-24d9-52d111a4a01a"/>
             <column name="VERSION" value="1"/>
             <column name="USERNAME" value="secondUser"/>
+            <column name="PASSWORD" value="qwerty"/>
+        </insert>
+        <insert tableName="USER_">
+            <column name="ID" value="c79069a4-22db-629c-24d9-52d11167a01a"/>
+            <column name="VERSION" value="1"/>
+            <column name="USERNAME" value="thirdUser"/>
+            <column name="PASSWORD" value="qwerty"/>
+        </insert>
+        <insert tableName="USER_">
+            <column name="ID" value="c72969a4-22db-629c-24d9-52d871a4a01a"/>
+            <column name="VERSION" value="1"/>
+            <column name="USERNAME" value="forthUser"/>
             <column name="PASSWORD" value="qwerty"/>
         </insert>
     </changeSet>

@@ -23,7 +23,8 @@ import static io.jmix.masquerade.Selectors.$j
         ChromeExtension
 ])
 @SpringBootTest(classes = JmixUiTestsApplication,
-        webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+        webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT,
+        properties = ['jmix.liquibase.contexts=base,datatools'])
 @ContextConfiguration(initializers = PostgreSQLContextInitializer)
 class EntityInfoDialogOpenUiTest extends BaseDatatoolsUiTest {
 
@@ -31,7 +32,8 @@ class EntityInfoDialogOpenUiTest extends BaseDatatoolsUiTest {
     @DisplayName("Opens Entity information from deleted entity in Entity Inspector Browser")
     void openContextMenuFromDeletedEntity() {
         loginAsAdmin()
-        createUser(USERNAME1)
+
+        $j(MainScreen).openUserBrowse()
         $j(UserBrowse).removeUser(USERNAME1)
 
         $j(MainScreen).openEntityInspectorBrowse()
@@ -57,13 +59,12 @@ class EntityInfoDialogOpenUiTest extends BaseDatatoolsUiTest {
     @DisplayName("Opens Entity information from non-deleted entity in Entity Inspector Browser")
     void openContextMenuFromNonDeletedEntity() {
         loginAsAdmin()
-        createUser(USERNAME1)
 
         $j(MainScreen).openEntityInspectorBrowse()
 
         $j(EntityInspectorBrowse).with {
             findEntityByFilter(USER_ENTITY_NAME, USER_FULL_STRING)
-            selectRowInTableByText(USERNAME1, USER_TABLE_JTEST_ID)
+            selectRowInTableByText(USERNAME3, USER_TABLE_JTEST_ID)
         }
 
         openInspectorWindow(4)
@@ -72,7 +73,6 @@ class EntityInfoDialogOpenUiTest extends BaseDatatoolsUiTest {
                     .checkTableAndEntityName(USER_ENTITY_NAME)
         }
         closeInspectorWindow()
-        wipeOutData(USER_ENTITY_NAME, USER_FULL_STRING, ALL_MODE, USER_TABLE_JTEST_ID, USERNAME1)
     }
 
     @Test
