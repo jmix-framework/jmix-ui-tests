@@ -1,4 +1,4 @@
-package io.jmix.tests.ui.test.datatools.entitycreating
+package io.jmix.tests.ui.test.datatools.entity
 
 import io.jmix.masquerade.component.TextField
 import io.jmix.tests.JmixUiTestsApplication
@@ -10,7 +10,6 @@ import io.jmix.tests.ui.screen.administration.datatools.browsers.AtmosphericGasB
 import io.jmix.tests.ui.screen.administration.datatools.browsers.GasBrowse
 import io.jmix.tests.ui.screen.administration.datatools.editors.AtmosphereEditor
 import io.jmix.tests.ui.screen.administration.datatools.editors.AtmosphericGasEditor
-import io.jmix.tests.ui.screen.administration.datatools.editors.GasEditor
 import io.jmix.tests.ui.test.datatools.BaseDatatoolsUiTest
 
 import org.junit.jupiter.api.DisplayName
@@ -29,7 +28,7 @@ import static io.jmix.masquerade.Selectors.$j
         webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT,
         properties = ['jmix.liquibase.contexts=base,datatools'])
 @ContextConfiguration(initializers = PostgreSQLContextInitializer)
-class EntityCompositionOtoMUiTests extends BaseDatatoolsUiTest {
+class EntityCompositionOtoMUiTest extends BaseDatatoolsUiTest {
 
     static void createAtmosphericGas(String gasName, String gasVolume) {
         $j(AtmosphericGasBrowse).with {

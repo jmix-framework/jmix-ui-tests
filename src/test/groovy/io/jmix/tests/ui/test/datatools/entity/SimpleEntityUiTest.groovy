@@ -1,4 +1,4 @@
-package io.jmix.tests.ui.test.datatools.entitycreating
+package io.jmix.tests.ui.test.datatools.entity
 
 import io.jmix.tests.JmixUiTestsApplication
 import io.jmix.tests.extension.ChromeExtension
@@ -24,7 +24,7 @@ import static io.jmix.masquerade.Selectors.$j
         webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT,
         properties = ['jmix.liquibase.contexts=base,datatools'])
 @ContextConfiguration(initializers = PostgreSQLContextInitializer)
-class SimpleEntityUiTests extends BaseDatatoolsUiTest {
+class SimpleEntityUiTest extends BaseDatatoolsUiTest {
 
     static void fillAndSaveGas(String gas) {
         $j(GasEditor).with {

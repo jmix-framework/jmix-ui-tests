@@ -1,4 +1,4 @@
-package io.jmix.tests.ui.test.datatools.entitycreating
+package io.jmix.tests.ui.test.datatools.entity
 
 import io.jmix.tests.JmixUiTestsApplication
 import io.jmix.tests.extension.ChromeExtension
@@ -22,7 +22,7 @@ import static io.jmix.masquerade.Selectors.$j
 @SpringBootTest(classes = JmixUiTestsApplication,
         webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @ContextConfiguration(initializers = PostgreSQLContextInitializer)
-class EntityWithEnumUiTests extends BaseDatatoolsUiTest {
+class EntityWithEnumUiTest extends BaseDatatoolsUiTest {
     public static final String BRONZE_GRADE = "Bronze"
     public static final String SILVER_GRADE = "Silver"
 

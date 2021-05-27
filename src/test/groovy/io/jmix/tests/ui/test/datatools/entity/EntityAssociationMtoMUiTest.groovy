@@ -1,4 +1,4 @@
-package io.jmix.tests.ui.test.datatools.entitycreating
+package io.jmix.tests.ui.test.datatools.entity
 
 import io.jmix.masquerade.component.Button
 import io.jmix.masquerade.component.TextField
@@ -28,7 +28,7 @@ import static io.jmix.masquerade.Selectors.$j
         webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT,
         properties = ['jmix.liquibase.contexts=base,datatools'])
 @ContextConfiguration(initializers = PostgreSQLContextInitializer)
-class EntityAssociationMtoMUiTests extends BaseDatatoolsUiTest {
+class EntityAssociationMtoMUiTest extends BaseDatatoolsUiTest {
 
     void fillSpacePortFields(String name, String latitude, String longitude) {
 

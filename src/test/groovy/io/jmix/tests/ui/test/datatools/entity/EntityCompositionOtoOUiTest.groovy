@@ -1,4 +1,4 @@
-package io.jmix.tests.ui.test.datatools.entitycreating
+package io.jmix.tests.ui.test.datatools.entity
 
 import io.jmix.tests.JmixUiTestsApplication
 import io.jmix.tests.extension.ChromeExtension
@@ -7,7 +7,6 @@ import io.jmix.tests.ui.initializer.PostgreSQLContextInitializer
 import io.jmix.tests.ui.screen.administration.datatools.EntityInspectorBrowse
 import io.jmix.tests.ui.screen.administration.datatools.browsers.GasBrowse
 import io.jmix.tests.ui.screen.administration.datatools.editors.AtmosphericGasEditor
-import io.jmix.tests.ui.screen.administration.datatools.editors.GasEditor
 import io.jmix.tests.ui.test.datatools.BaseDatatoolsUiTest
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
@@ -25,7 +24,7 @@ import static io.jmix.masquerade.Selectors.$j
         webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT,
         properties = ['jmix.liquibase.contexts=base,datatools'])
 @ContextConfiguration(initializers = PostgreSQLContextInitializer)
-class EntityCompositionOtoOUiTests extends BaseDatatoolsUiTest {
+class EntityCompositionOtoOUiTest extends BaseDatatoolsUiTest {
 
     @Test
     @DisplayName("Creates entity with Composition One-to-One relationship from Entity Inspector Browser")
