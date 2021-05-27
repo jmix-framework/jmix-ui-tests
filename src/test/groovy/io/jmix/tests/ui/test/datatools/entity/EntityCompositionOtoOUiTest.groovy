@@ -48,7 +48,7 @@ class EntityCompositionOtoOUiTest extends BaseDatatoolsUiTest {
         }
 
         $j(GasBrowse).with {
-            selectRowInTableByText(TEST_GAS_NAME, GAS_TABLE_JTEST_ID)
+            selectRowInTableByText(TEST_GAS_1_NAME, GAS_TABLE_JTEST_ID)
             clickButton(ok)
         }
 
@@ -56,9 +56,9 @@ class EntityCompositionOtoOUiTest extends BaseDatatoolsUiTest {
             clickButton(ok)
         }
 
-        $j(EntityInspectorBrowse).checkRecordIsDisplayed(TEST_GAS_NAME, ATMOSPHERIC_GAS_TABLE_JTEST_ID)
+        $j(EntityInspectorBrowse).checkRecordIsDisplayed(TEST_GAS_1_NAME, ATMOSPHERIC_GAS_TABLE_JTEST_ID)
 
-        cleanData(ATMOSPHERIC_GAS_ENTITY_NAME, ATMOSPHERIC_GAS_FULL_STRING, ALL_MODE, ATMOSPHERIC_GAS_TABLE_JTEST_ID, TEST_GAS_NAME)
+        cleanData(ATMOSPHERIC_GAS_ENTITY_NAME, ATMOSPHERIC_GAS_FULL_STRING, ALL_MODE, ATMOSPHERIC_GAS_TABLE_JTEST_ID, TEST_GAS_1_NAME)
     }
 
     @Test
@@ -74,7 +74,7 @@ class EntityCompositionOtoOUiTest extends BaseDatatoolsUiTest {
         }
 
         $j(GasBrowse).with {
-            selectRowInTableByText(TEST_GAS_NAME, GAS_TABLE_JTEST_ID)
+            selectRowInTableByText(TEST_GAS_1_NAME, GAS_TABLE_JTEST_ID)
             clickButton(ok)
         }
 
@@ -83,8 +83,8 @@ class EntityCompositionOtoOUiTest extends BaseDatatoolsUiTest {
         }
 
         $j(EntityInspectorBrowse).with {
-            checkRecordIsDisplayed(TEST_GAS_NAME, ATMOSPHERIC_GAS_TABLE_JTEST_ID)
-            selectRowInTableByText(TEST_GAS_NAME, ATMOSPHERIC_GAS_TABLE_JTEST_ID)
+            checkRecordIsDisplayed(TEST_GAS_1_NAME, ATMOSPHERIC_GAS_TABLE_JTEST_ID)
+            selectRowInTableByText(TEST_GAS_1_NAME, ATMOSPHERIC_GAS_TABLE_JTEST_ID)
             clickButton(edit)
         }
 
@@ -95,6 +95,6 @@ class EntityCompositionOtoOUiTest extends BaseDatatoolsUiTest {
 
         $j(EntityInspectorBrowse).checkRecordIsDisplayed(SECOND_DECIMAL_VALUE, ATMOSPHERIC_GAS_TABLE_JTEST_ID)
 
-        cleanData(ATMOSPHERIC_GAS_ENTITY_NAME, ATMOSPHERIC_GAS_FULL_STRING, ALL_MODE, ATMOSPHERIC_GAS_TABLE_JTEST_ID, TEST_GAS_NAME)
+        cleanData(ATMOSPHERIC_GAS_ENTITY_NAME, ATMOSPHERIC_GAS_FULL_STRING, ALL_MODE, ATMOSPHERIC_GAS_TABLE_JTEST_ID, TEST_GAS_1_NAME)
     }
 }

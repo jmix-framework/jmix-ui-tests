@@ -66,16 +66,29 @@ class EntityAssociationMtoMUiTest extends BaseDatatoolsUiTest {
         }
     }
 
-    void checkAddedSpaceport(String spaceportName) {
+    void checkAddedSpaceport(String spaceportName, String carrierName) {
         $j(EntityInspectorBrowse).with {
             findEntityByFilter(CARRIER_ENTITY_NAME, CARRIER_FULL_STRING)
-            selectRowInTableByText(CARRIER_FIRST_NAME, CARRIER_TABLE_JTEST_ID)
+            selectRowInTableByText(carrierName, CARRIER_TABLE_JTEST_ID)
             clickButton(edit)
         }
 
         $j(CarrierEditor).with {
             openSpacePortsTab()
             checkRecordIsDisplayed(spaceportName, SPACEPORT_TABLE_JTEST_ID)
+            clickButton(ok)
+        }
+    }
+
+    void renameSpaceport(String oldName, String newName){
+        $j(EntityInspectorBrowse).with {
+            findEntityByFilter(SPACEPORT_ENTITY_NAME, SPACEPORT_FULL_STRING)
+            selectRowInTableByText(oldName, SPACEPORT_TABLE_JTEST_ID)
+            clickButton(edit)
+        }
+
+        $j(SpaceportEditor).with {
+            fillTextField(name, newName)
             clickButton(ok)
         }
     }
@@ -89,7 +102,7 @@ class EntityAssociationMtoMUiTest extends BaseDatatoolsUiTest {
 
         createCarrier()
         createSpaceport()
-        checkAddedSpaceport(SPACEPORT_FIRST_NAME)
+        checkAddedSpaceport(SPACEPORT_FIRST_NAME, CARRIER_FIRST_NAME)
 
         cleanData(CARRIER_ENTITY_NAME, CARRIER_FULL_STRING, ALL_MODE, CARRIER_TABLE_JTEST_ID, CARRIER_FIRST_NAME)
         cleanData(SPACEPORT_ENTITY_NAME, SPACEPORT_FULL_STRING, ALL_MODE, SPACEPORT_TABLE_JTEST_ID, SPACEPORT_FIRST_NAME)
@@ -102,16 +115,11 @@ class EntityAssociationMtoMUiTest extends BaseDatatoolsUiTest {
 
         $j(MainScreen).openEntityInspectorBrowse()
 
-        $j(EntityInspectorBrowse).with {
-            findEntityByFilter(SPACEPORT_ENTITY_NAME, SPACEPORT_FULL_STRING)
-            selectRowInTableByText(SPACEPORT_TEST_NAME, SPACEPORT_TABLE_JTEST_ID)
-            clickButton(edit)
-        }
+        renameSpaceport(SPACEPORT_TEST_NAME,SPACEPORT_SECOND_NAME)
 
-        $j(SpaceportEditor).with {
-            fillTextField(name, SPACEPORT_SECOND_NAME)
-            clickButton(ok)
-        }
-        checkAddedSpaceport(SPACEPORT_SECOND_NAME)
+        checkAddedSpaceport(SPACEPORT_SECOND_NAME, CARRIER_TEST_NAME)
+
+        renameSpaceport(SPACEPORT_SECOND_NAME,SPACEPORT_TEST_NAME)
+
     }
 }

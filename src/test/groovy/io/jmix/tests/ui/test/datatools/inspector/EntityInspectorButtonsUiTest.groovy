@@ -32,6 +32,7 @@ class EntityInspectorButtonsUiTest extends BaseDatatoolsUiTest {
     @DisplayName("Deletes User from Entity Inspector Browser")
     void deleteUserFromInspector() {
         loginAsAdmin()
+        createUser(USERNAME1)
 
         $j(MainScreen).openEntityInspectorBrowse()
 
@@ -47,12 +48,15 @@ class EntityInspectorButtonsUiTest extends BaseDatatoolsUiTest {
 
         $j(MainScreen).openUserBrowse()
         $j(UserBrowse).checkRecordIsNotDisplayed(USERNAME1)
+
+        wipeOutData(USER_ENTITY_NAME, USER_FULL_STRING, ALL_MODE, USER_TABLE_JTEST_ID, USERNAME1)
     }
 
     @Test
     @DisplayName("Restores User from Entity Inspector Browser")
     void restoreUserFromInspector() {
         loginAsAdmin()
+        createUser(USERNAME1)
 
         $j(UserBrowse).removeUser(USERNAME1)
         $j(MainScreen).openEntityInspectorBrowse()
@@ -67,12 +71,14 @@ class EntityInspectorButtonsUiTest extends BaseDatatoolsUiTest {
 
         $j(MainScreen).openUserBrowse()
         $j(UserBrowse).checkRecordIsDisplayed(USERNAME1)
+        wipeOutData(USER_ENTITY_NAME, USER_FULL_STRING, ALL_MODE, USER_TABLE_JTEST_ID, USERNAME1)
     }
 
     @Test
     @DisplayName("Wipes out User from Entity Inspector Browser")
     void wipeOutUserFromInspector() {
         loginAsAdmin()
+        createUser(USERNAME1)
 
         $j(MainScreen).openEntityInspectorBrowse()
 

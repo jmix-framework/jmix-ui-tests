@@ -73,7 +73,6 @@ class EntityCompositionOtoMUiTest extends BaseDatatoolsUiTest {
 
             openGasesTab()
         }
-        createAtmosphericGas(TEST_GAS_NAME, FIRST_DECIMAL_VALUE)
         createAtmosphericGas(TEST_GAS_1_NAME, SECOND_DECIMAL_VALUE)
 
         $j(AtmosphereEditor).with {
@@ -82,8 +81,7 @@ class EntityCompositionOtoMUiTest extends BaseDatatoolsUiTest {
 
         $j(EntityInspectorBrowse).checkRecordIsDisplayed(FIRST_DECIMAL_VALUE, ATMOSPHERE_TABLE_JTEST_ID)
 
-        cleanData(ATMOSPHERIC_GAS_ENTITY_NAME, ATMOSPHERIC_GAS_FULL_STRING, ALL_MODE, ATMOSPHERIC_GAS_TABLE_JTEST_ID, OXYGEN_GAS_NAME)
-        cleanData(ATMOSPHERIC_GAS_ENTITY_NAME, ATMOSPHERIC_GAS_FULL_STRING, ALL_MODE, ATMOSPHERIC_GAS_TABLE_JTEST_ID, HELIUM_GAS_NAME)
+        cleanData(ATMOSPHERIC_GAS_ENTITY_NAME, ATMOSPHERIC_GAS_FULL_STRING, ALL_MODE, ATMOSPHERIC_GAS_TABLE_JTEST_ID, TEST_GAS_1_NAME)
         cleanData(ATMOSPHERE_ENTITY_NAME, ATMOSPHERE_FULL_STRING, ALL_MODE, ATMOSPHERE_TABLE_JTEST_ID, FIRST_DECIMAL_VALUE)
     }
 
@@ -99,7 +97,6 @@ class EntityCompositionOtoMUiTest extends BaseDatatoolsUiTest {
             fillTextField($j(TextField, DESCRIPTION), NON_DECIMAL_VALUE)
             openGasesTab()
         }
-        createAtmosphericGas(TEST_GAS_NAME, FIRST_DECIMAL_VALUE)
         createAtmosphericGas(TEST_GAS_1_NAME, SECOND_DECIMAL_VALUE)
 
         $j(AtmosphereEditor).with {
@@ -110,8 +107,7 @@ class EntityCompositionOtoMUiTest extends BaseDatatoolsUiTest {
 
         $j(EntityInspectorBrowse).checkRecordIsDisplayed(SECOND_DECIMAL_VALUE, ATMOSPHERE_TABLE_JTEST_ID)
 
-        cleanData(ATMOSPHERIC_GAS_ENTITY_NAME, ATMOSPHERIC_GAS_FULL_STRING, ALL_MODE, ATMOSPHERIC_GAS_TABLE_JTEST_ID, OXYGEN_GAS_NAME)
-        cleanData(ATMOSPHERIC_GAS_ENTITY_NAME, ATMOSPHERIC_GAS_FULL_STRING, ALL_MODE, ATMOSPHERIC_GAS_TABLE_JTEST_ID, HELIUM_GAS_NAME)
+        cleanData(ATMOSPHERIC_GAS_ENTITY_NAME, ATMOSPHERIC_GAS_FULL_STRING, ALL_MODE, ATMOSPHERIC_GAS_TABLE_JTEST_ID, TEST_GAS_1_NAME)
         cleanData(ATMOSPHERE_ENTITY_NAME, ATMOSPHERE_FULL_STRING, ALL_MODE, ATMOSPHERE_TABLE_JTEST_ID, SECOND_DECIMAL_VALUE)
     }
 }
