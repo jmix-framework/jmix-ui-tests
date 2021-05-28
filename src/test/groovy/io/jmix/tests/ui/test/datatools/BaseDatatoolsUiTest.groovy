@@ -44,6 +44,8 @@ abstract class BaseDatatoolsUiTest extends BaseUiTest {
     public static final String USERNAME2 = "secondUser"
     public static final String USERNAME3 = "thirdUser"
     public static final String USERNAME4 = "forthUser"
+    public static final String USERNAME5 = "fifthUser"
+    public static final String USERNAME6 = "sixthUser"
 
     public static final String GAS_TABLE_JTEST_ID = "GasTable_composition"
     public static final String CARRIER_TABLE_JTEST_ID = "CarrierTable"

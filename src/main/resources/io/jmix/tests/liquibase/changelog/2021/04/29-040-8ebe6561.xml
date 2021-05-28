@@ -56,5 +56,17 @@
             <column name="USERNAME" value="forthUser"/>
             <column name="PASSWORD" value="qwerty"/>
         </insert>
+        <insert tableName="USER_">
+            <column name="ID" value="c11119a4-22db-629c-24d9-52d871a4a01a"/>
+            <column name="VERSION" value="1"/>
+            <column name="USERNAME" value="fifthUser"/>
+            <column name="PASSWORD" value="qwerty"/>
+        </insert>
+        <insert tableName="USER_">
+            <column name="ID" value="c11009a4-23db-629c-24d9-52d871a4a01a"/>
+            <column name="VERSION" value="1"/>
+            <column name="USERNAME" value="sixthUser"/>
+            <column name="PASSWORD" value="qwerty"/>
+        </insert>
     </changeSet>
 </databaseChangeLog>

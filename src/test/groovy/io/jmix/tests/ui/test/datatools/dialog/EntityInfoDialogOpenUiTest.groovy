@@ -34,14 +34,14 @@ class EntityInfoDialogOpenUiTest extends BaseDatatoolsUiTest {
         loginAsAdmin()
 
         $j(MainScreen).openUserBrowse()
-        $j(UserBrowse).removeUser(USERNAME1)
+        $j(UserBrowse).removeUser(USERNAME6)
 
         $j(MainScreen).openEntityInspectorBrowse()
 
         $j(EntityInspectorBrowse).with {
             findEntityByFilter(USER_ENTITY_NAME, USER_FULL_STRING)
             selectShowMode(REMOVED_ONLY_MODE)
-            selectRowInTableByText(USERNAME1, USER_TABLE_JTEST_ID)
+            selectRowInTableByText(USERNAME6, USER_TABLE_JTEST_ID)
         }
 
         openInspectorWindow(4)
@@ -52,7 +52,7 @@ class EntityInfoDialogOpenUiTest extends BaseDatatoolsUiTest {
         }
 
         closeInspectorWindow()
-        wipeOutData(USER_ENTITY_NAME, USER_FULL_STRING, ALL_MODE, USER_TABLE_JTEST_ID, USERNAME1)
+        wipeOutData(USER_ENTITY_NAME, USER_FULL_STRING, ALL_MODE, USER_TABLE_JTEST_ID, USERNAME6)
     }
 
     @Test
@@ -64,7 +64,7 @@ class EntityInfoDialogOpenUiTest extends BaseDatatoolsUiTest {
 
         $j(EntityInspectorBrowse).with {
             findEntityByFilter(USER_ENTITY_NAME, USER_FULL_STRING)
-            selectRowInTableByText(USERNAME3, USER_TABLE_JTEST_ID)
+            selectRowInTableByText(USERNAME2, USER_TABLE_JTEST_ID)
         }
 
         openInspectorWindow(4)
