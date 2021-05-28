@@ -9,6 +9,7 @@ import io.jmix.tests.entity.spacebody.Planet;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.List;
 import java.util.UUID;
 
 @JmixEntity
@@ -19,6 +20,12 @@ public class SpacePort {
     @Column(name = "ID", nullable = false)
     @Id
     private UUID id;
+
+    @JoinTable(name = "SPACE_PORT_CARRIER_LINK",
+            joinColumns = @JoinColumn(name = "SPACE_PORT_ID"),
+            inverseJoinColumns = @JoinColumn(name = "CARRIER_ID"))
+    @ManyToMany
+    private List<Carrier> carriers;
 
     @NotNull
     @InstanceName
@@ -36,10 +43,6 @@ public class SpacePort {
     @Column(name = "IS_DEFAULT")
     private Boolean isDefault;
 
-    @JoinColumn(name = "CARRIERS_ID")
-    @ManyToOne(fetch = FetchType.LAZY)
-    private Carrier carriers;
-
     @Embedded
     @EmbeddedParameters(nullAllowed = false)
     @AttributeOverrides({
@@ -48,20 +51,20 @@ public class SpacePort {
     })
     private Coordinates coordinates;
 
+    public List<Carrier> getCarriers() {
+        return carriers;
+    }
+
+    public void setCarriers(List<Carrier> carriers) {
+        this.carriers = carriers;
+    }
+
     public Coordinates getCoordinates() {
         return coordinates;
     }
 
     public void setCoordinates(Coordinates coordinates) {
         this.coordinates = coordinates;
-    }
-
-    public Carrier getCarriers() {
-        return carriers;
-    }
-
-    public void setCarriers(Carrier carriers) {
-        this.carriers = carriers;
     }
 
     public Boolean getIsDefault() {

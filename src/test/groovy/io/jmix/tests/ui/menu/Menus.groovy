@@ -5,6 +5,7 @@
 package io.jmix.tests.ui.menu
 
 import io.jmix.masquerade.component.SideMenu
+import io.jmix.tests.ui.screen.administration.datatools.EntityInspectorBrowse
 import io.jmix.tests.ui.screen.administration.dynattr.DynamicAttributeBrowse
 import io.jmix.tests.ui.screen.application.user.UserBrowse
 
@@ -15,4 +16,6 @@ final class Menus {
     public static final SideMenu.Menu<DynamicAttributeBrowse> DYNAMIC_ATTRIBUTES_BROWSE =
             new SideMenu.Menu<>(DynamicAttributeBrowse, 'administration', 'dynat_Category.browse')
 
+    public static final SideMenu.Menu<EntityInspectorBrowse> ENTITY_INSPECTOR_BROWSE =
+            new SideMenu.Menu<>(EntityInspectorBrowse, 'administration', 'entityInspector.browse')
 }

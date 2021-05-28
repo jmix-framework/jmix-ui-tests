@@ -7,17 +7,18 @@ import io.jmix.masquerade.component.Button
 import static io.jmix.masquerade.Conditions.ENABLED
 import static io.jmix.masquerade.Conditions.VISIBLE
 
-class ConfirmationDialog extends Composite<ConfirmationDialog> {
+class OptionDialog extends Composite<OptionDialog> {
 
-    @Wire(path = "optionDialog_yes")
-    public Button yes
+    @Wire(path = "optionDialog_ok")
+    Button ok
 
-    @Wire(path = "optionDialog_no")
-    public Button no
+    @Wire(path = "optionDialog_cancel")
+    Button cancel
 
     void confirm() {
-        yes.shouldBe(VISIBLE)
+        ok.shouldBe(VISIBLE)
                 .shouldBe(ENABLED)
                 .click()
     }
+
 }

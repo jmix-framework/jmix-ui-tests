@@ -7,6 +7,7 @@
                   class="io.jmix.tests.entity.spaceport.Carrier">
             <fetchPlan extends="_base"/>
             <loader/>
+            <collection id="spacePortsDc" property="spacePorts"/>
         </instance>
     </data>
     <facets>
@@ -30,6 +31,22 @@
                 <textField id="nameField" property="name"/>
             </column>
         </form>
+        <groupBox id="spacePortsBox" caption="msg://io.jmix.tests.entity.spaceport/Carrier.spacePorts">
+            <table id="spacePortsTable" dataContainer="spacePortsDc" width="100%" height="200px">
+                <actions>
+                    <action id="add" type="add"/>
+                    <action id="exclude" type="exclude"/>
+                </actions>
+                <columns>
+                    <column id="name"/>
+                    <column id="isDefault"/>
+                </columns>
+                <buttonsPanel>
+                    <button action="spacePortsTable.add"/>
+                    <button action="spacePortsTable.exclude"/>
+                </buttonsPanel>
+            </table>
+        </groupBox>
         <hbox id="editActions" spacing="true">
             <button id="commitAndCloseBtn" action="windowCommitAndClose"/>
             <button id="closeBtn" action="windowClose"/>

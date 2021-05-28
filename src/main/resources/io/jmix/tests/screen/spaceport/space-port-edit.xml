@@ -11,6 +11,7 @@
                 <property name="coordinates" fetchPlan="_base"/>
             </fetchPlan>
             <loader/>
+            <collection id="carriersDc" property="carriers"/>
         </instance>
     </data>
     <facets>
@@ -49,6 +50,21 @@
                 <textField id="coordinatesLongitudeField" property="coordinates.longitude"/>
             </column>
         </form>
+        <groupBox id="carriersBox" caption="msg://io.jmix.tests.entity.spaceport/SpacePort.carriers">
+            <table id="carriersTable" dataContainer="carriersDc" width="100%" height="200px">
+                <actions>
+                    <action id="add" type="add"/>
+                    <action id="exclude" type="exclude"/>
+                </actions>
+                <columns>
+                    <column id="name"/>
+                </columns>
+                <buttonsPanel>
+                    <button action="carriersTable.add"/>
+                    <button action="carriersTable.exclude"/>
+                </buttonsPanel>
+            </table>
+        </groupBox>
         <hbox id="editActions" spacing="true">
             <button id="commitAndCloseBtn" action="windowCommitAndClose"/>
             <button id="closeBtn" action="windowClose"/>

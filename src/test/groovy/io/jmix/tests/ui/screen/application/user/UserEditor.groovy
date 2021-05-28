@@ -27,4 +27,13 @@ class UserEditor extends Composite<UserEditor> {
     Button commitAndCloseBtn
     @Wire
     Button closeBtn
+
+    private String password = 'qO4Hn6o';
+
+    void fillAndSaveUser(String username){
+        usernameField.setValue(username)
+        passwordField.setValue(password)
+        confirmPasswordField.setValue(password)
+        commitAndCloseBtn.click()
+    }
 }
