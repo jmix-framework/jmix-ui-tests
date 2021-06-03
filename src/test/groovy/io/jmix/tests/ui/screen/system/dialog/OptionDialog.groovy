@@ -9,10 +9,10 @@ import static io.jmix.masquerade.Conditions.VISIBLE
 
 class OptionDialog extends Composite<OptionDialog> {
 
-    @Wire(path = "optionDialog_ok")
+    @Wire(path = 'optionDialog_ok')
     Button ok
 
-    @Wire(path = "optionDialog_cancel")
+    @Wire(path = 'optionDialog_cancel')
     Button cancel
 
     void confirm() {
@@ -20,5 +20,4 @@ class OptionDialog extends Composite<OptionDialog> {
                 .shouldBe(ENABLED)
                 .click()
     }
-
 }

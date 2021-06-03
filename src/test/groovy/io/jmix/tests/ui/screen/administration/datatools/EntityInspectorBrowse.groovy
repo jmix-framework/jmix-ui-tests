@@ -5,6 +5,7 @@ import io.jmix.masquerade.base.Composite
 import io.jmix.masquerade.component.Button
 import io.jmix.masquerade.component.ComboBox
 import io.jmix.tests.ui.screen.administration.datatools.traits.TableActionsTrait
+import io.jmix.masquerade.component.Table
 
 import static io.jmix.masquerade.Conditions.VISIBLE
 import static io.jmix.masquerade.Conditions.value
@@ -16,6 +17,9 @@ class EntityInspectorBrowse extends Composite<EntityInspectorBrowse> implements 
 
     @Wire
     ComboBox showMode
+
+    @Wire(path = 'IndividualTable_composition')
+    Table individualTable
 
     @Wire
     Button create
@@ -46,5 +50,4 @@ class EntityInspectorBrowse extends Composite<EntityInspectorBrowse> implements 
                 .select(byText(mode))
                 .shouldHave(value(mode))
     }
-
 }

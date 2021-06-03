@@ -20,4 +20,9 @@ class ConfirmationDialog extends Composite<ConfirmationDialog> {
                 .shouldBe(ENABLED)
                 .click()
     }
+
+    void confirmChanges() {
+        yes.shouldBe(VISIBLE)
+                .click()
+    }
 }
