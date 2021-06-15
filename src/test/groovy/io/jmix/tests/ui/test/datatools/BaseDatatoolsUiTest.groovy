@@ -83,7 +83,7 @@ abstract class BaseDatatoolsUiTest extends BaseUiTest {
      * Opens Inspector Window
      */
     static void openInspectorWindow(int index) {
-        ElementsCollection elementsCollection = $$(byChain(byJTestId('cubaContextMenu'),
+        ElementsCollection elementsCollection = $$(byChain(byJTestId('jmixContextMenu'),
                 byClassName('jmix-cm-button')))
 
         elementsCollection.get(index).click()

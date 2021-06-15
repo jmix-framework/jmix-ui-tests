@@ -160,7 +160,7 @@ class EntityLogBrowse extends Composite<EntityLogBrowse> {
     //https://github.com/Haulmont/jmix-masquerade/issues/12
     void setUserValue(String value) {
         $j('userField').setValue(value)
-        $(byClassName('c-suggestionfield-item')).click()
+        $(byClassName('jmix-suggestionfield-item')).click()
     }
 
     void checkRecordDoesNotDisplay(String changeType, String entity) {
