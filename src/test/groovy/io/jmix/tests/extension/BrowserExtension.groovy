@@ -10,8 +10,6 @@ import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import org.testcontainers.containers.BrowserWebDriverContainer
 
-import java.util.concurrent.TimeUnit
-
 abstract class BrowserExtension implements BeforeEachCallback, AfterEachCallback {
 
     public static final int VNC_RECORDER_PORT = 5900
@@ -25,7 +23,6 @@ abstract class BrowserExtension implements BeforeEachCallback, AfterEachCallback
         browser = new BrowserWebDriverContainer()
                 .withCapabilities(getCapabilities())
         browser.start()
-        browser.getWebDriver().manage().timeouts().pageLoadTimeout(2, TimeUnit.MINUTES)
         WebDriverRunner.setWebDriver(browser.getWebDriver())
 
         printVncRecordedUrl()
