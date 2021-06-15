@@ -13,8 +13,6 @@
             <column name="ID" value="c72469a4-22db-629c-24d9-52d068a4a01a"/>
             <column name="CREATED_BY" value="admin"/>
         </insert>
-    </changeSet>
-    <changeSet id="2" author="jmixuitests" context="entity-log">
         <insert tableName="AUDIT_LOGGED_ATTR">
             <column name="ENTITY_ID" value="c72469a4-22db-629c-24d9-52d068a4a01a"/>
             <column name="ID" value="a72469a4-22db-629c-24d9-52d068a6301a"/>
@@ -22,7 +20,7 @@
             <column name="CREATED_BY" value="admin"/>
         </insert>
     </changeSet>
-    <changeSet id="3" author="jmixuitests" context="entity-log">
+    <changeSet id="2" author="jmixuitests" context="entity-log">
         <insert tableName="AUDIT_LOGGED_ENTITY">
             <column name="AUTO" value="true"/>
             <column name="MANUAL" value="true"/>
@@ -30,24 +28,26 @@
             <column name="ID" value="c7246964-22db-629c-24d9-52d333a4a01a"/>
             <column name="CREATED_BY" value="admin"/>
         </insert>
-    </changeSet>
-    <changeSet id="4" author="jmixuitests" context="entity-log">
         <insert tableName="AUDIT_LOGGED_ATTR">
             <column name="ENTITY_ID" value="c7246964-22db-629c-24d9-52d333a4a01a"/>
             <column name="ID" value="a72469a4-229b-629c-24d9-52d998a6301a"/>
             <column name="NAME" value="firstName"/>
             <column name="CREATED_BY" value="admin"/>
         </insert>
-    </changeSet>
-    <changeSet id="5" author="jmixuitests" context="entity-log">
         <insert tableName="AUDIT_LOGGED_ATTR">
             <column name="ENTITY_ID" value="c7246964-22db-629c-24d9-52d333a4a01a"/>
             <column name="ID" value="a72469a2-22db-629c-24d9-52d998a6391a"/>
             <column name="NAME" value="lastName"/>
             <column name="CREATED_BY" value="admin"/>
         </insert>
+        <insert tableName="AUDIT_LOGGED_ATTR">
+            <column name="ENTITY_ID" value="c7246964-22db-629c-24d9-52d333a4a01a"/>
+            <column name="ID" value="a72469a2-22db-629c-24d9-52d998a6311a"/>
+            <column name="NAME" value="email"/>
+            <column name="CREATED_BY" value="admin"/>
+        </insert>
     </changeSet>
-    <changeSet id="6" author="jmixuitests" context="entity-log">
+    <changeSet id="3" author="jmixuitests" context="entity-log">
         <insert tableName="USER_">
             <column name="ID" value="60885987-1b61-4247-94c7-dff348366a93"/>
             <column name="VERSION" value="1"/>
@@ -56,7 +56,7 @@
             <column name="ENABLED" valueBoolean="true"/>
         </insert>
     </changeSet>
-    <changeSet id="7" author="jmixuitests" context="entity-log">
+    <changeSet id="4" author="jmixuitests" context="entity-log">
         <insert tableName="INDIVIDUAL">
             <column name="ID" value="c7246964-22db-629c-24d9-52d333a4a777"/>
             <column name="FIRST_NAME" value="Petr"/>
@@ -64,13 +64,12 @@
             <column name="GRADE" value="bronze grade"/>
             <column name="EMAIL" value="petrov@test.com"/>
         </insert>
-    </changeSet>
-    <changeSet id="8" author="jmixuitests" context="entity-log">
         <insert tableName="INDIVIDUAL">
             <column name="ID" value="c7246964-22db-629c-24d9-52d333a4a888"/>
             <column name="FIRST_NAME" value="Fedor"/>
             <column name="LAST_NAME" value="Fedorov"/>
             <column name="GRADE" value="bronze grade"/>
+            <column name="EMAIL" value="fedorov@test.com"/>
         </insert>
     </changeSet>
 </databaseChangeLog>
