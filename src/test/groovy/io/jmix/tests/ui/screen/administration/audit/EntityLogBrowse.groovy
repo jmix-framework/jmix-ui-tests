@@ -5,6 +5,8 @@ import io.jmix.masquerade.base.Composite
 import io.jmix.masquerade.component.*
 import io.jmix.tests.ui.screen.application.individual.IndividualBrowse
 
+import java.time.Duration
+
 import static com.codeborne.selenide.Selectors.byClassName
 import static com.codeborne.selenide.Selenide.$
 import static io.jmix.masquerade.Conditions.*
@@ -144,10 +146,10 @@ class EntityLogBrowse extends Composite<EntityLogBrowse> {
     }
 
     void selectLoggedEntity(String changeType, String entity) {
-        entityLogTable
-                .shouldBe(VISIBLE)
-                .selectRow(byCells(changeType, entity))
-                .shouldBe(VISIBLE)
+        entityLogTable.shouldBe(VISIBLE)
+                .getRow(byCells(changeType, entity))
+                .shouldBe(VISIBLE, Duration.ofSeconds(30))
+                .click()
     }
 
     void setChangeType(String changeTypeVal) {
@@ -167,7 +169,7 @@ class EntityLogBrowse extends Composite<EntityLogBrowse> {
         entityLogTable
                 .shouldBe(VISIBLE)
                 .getRow(byCells(changeType, entity))
-                .shouldNotBe(VISIBLE)
+                .shouldNotBe(VISIBLE, Duration.ofSeconds(30))
     }
 
     void setInstance(String name) {
