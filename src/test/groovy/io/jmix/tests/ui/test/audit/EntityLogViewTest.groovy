@@ -11,6 +11,7 @@ import io.jmix.tests.ui.screen.application.individual.IndividualEditor
 import io.jmix.tests.ui.screen.system.dialog.OptionDialog
 import io.jmix.tests.ui.screen.system.main.MainScreen
 import io.jmix.tests.ui.test.BaseUiTest
+import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
@@ -52,6 +53,7 @@ class EntityLogViewTest extends BaseUiTest {
 
     @Test
     @DisplayName("Checks created setup record")
+    @Disabled
     void checkCreatedRecord() {
         loginAsAdmin()
         $j(MainScreen).with {
@@ -160,6 +162,7 @@ class EntityLogViewTest extends BaseUiTest {
 
     @Test
     @DisplayName("Checks modified record for changes with logged setup")
+    @Disabled
     void checkModifiedRecordSetup() {
         loginAsAdmin()
         $j(MainScreen).with {
@@ -189,6 +192,7 @@ class EntityLogViewTest extends BaseUiTest {
 
     @Test
     @DisplayName("Checks removed and restored entity record")
+    @Disabled
     void checkRemovedAndRestoredRecord() {
         loginAsAdmin()
         //check remove entity log
