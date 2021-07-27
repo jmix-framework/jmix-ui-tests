@@ -22,8 +22,8 @@ import static io.jmix.masquerade.component.DataGrid.SortDirection.DESCENDING
 class DataGridBasicSettingsUiTest extends BaseSamplerUiTest {
 
     public static final String COLUMN_DATE = "column_date"
-    public static final String FIRST_DATE_VALUE = '01/07/2020'
-    public static final String LAST_DATE_VALUE = '30/07/2020'
+    public static final String FIRST_DATE_VALUE = '26/05/2021'
+    public static final String LAST_DATE_VALUE = '30/07/2021'
     public static final String DATA_GRID_TABLE = 'ordersDataGrid'
 
     @Test

@@ -27,8 +27,8 @@ class TableSimpleUiTest extends BaseSamplerUiTest {
 
     public static final String ORDERS_TABLE = 'ordersTable'
     public static final String COLUMN_DATE = 'column_date'
-    public static final String FIRST_DATE_VALUE = '01/07/2020'
-    public static final String LAST_DATE_VALUE = '30/07/2020'
+    public static final String FIRST_DATE_VALUE = '26/05/2021'
+    public static final String LAST_DATE_VALUE = '30/07/2021'
     public static final String FIRST_ROW_TO_SELECT = 'Katherine Potter'
     public static final String SECOND_ROW_TO_SELECT = 'John Doe'
 
@@ -62,7 +62,7 @@ class TableSimpleUiTest extends BaseSamplerUiTest {
     }
 
     @Test
-    @DisplayName("Check sortable option is on for table table")
+    @DisplayName("Check sortable option is on for table")
     void checkTableSortableOptionIsOn() {
         openSample('table-simple')
         setSortable(true)
@@ -153,9 +153,9 @@ class TableSimpleUiTest extends BaseSamplerUiTest {
                 .getRow(byText(SECOND_ROW_TO_SELECT))
                 .shouldBe(VISIBLE)
         Actions actions = new Actions(WebDriverRunner.getWebDriver())
-        actions.keyDown(Keys.LEFT_CONTROL)
+        actions.keyDown(Keys.LEFT_SHIFT)
                 .click(secondRow)
-                .keyUp(Keys.LEFT_CONTROL)
+                .keyUp(Keys.LEFT_SHIFT)
                 .build()
                 .perform()
         return secondRow
