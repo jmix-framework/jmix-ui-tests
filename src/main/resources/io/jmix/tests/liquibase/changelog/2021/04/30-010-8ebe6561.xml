@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.3.xsd"
+        objectQuotingStrategy="QUOTE_ONLY_RESERVED_WORDS">
+    <changeSet id="1" author="jmixuitests" context="reports">
+        <insert tableName="COMPANY">
+            <column name="ID" value="c12469a4-22db-629c-24d9-52d111a4a01a"/>
+            <column name="NAME" value="Test company"/>
+            <column name="EMAIL" value="test@test.ru"/>
+            <column name="GRADE" value="bronze grade"/>
+            <column name="COMPANY_TYPE" value="Business company"/>
+            <column name="REGISTRATION_ID" value="testId"/>
+        </insert>
+        <insert tableName="COMPANY">
+            <column name="ID" value="c12470a4-22db-629c-24d9-52d111a4a01a"/>
+            <column name="NAME" value="Test company 1"/>
+            <column name="EMAIL" value="test1@test.ru"/>
+            <column name="GRADE" value="silver grade"/>
+            <column name="COMPANY_TYPE" value="Travel company"/>
+            <column name="REGISTRATION_ID" value="testId1"/>
+        </insert>
+        <insert tableName="COMPANY">
+            <column name="ID" value="c12471a4-22db-629c-24d9-52d111a4a01a"/>
+            <column name="NAME" value="Test company 2"/>
+            <column name="EMAIL" value="test2@test.ru"/>
+            <column name="GRADE" value="gold grade"/>
+            <column name="COMPANY_TYPE" value="Music company"/>
+            <column name="REGISTRATION_ID" value="testId2"/>
+        </insert>
+
+    </changeSet>
+</databaseChangeLog>

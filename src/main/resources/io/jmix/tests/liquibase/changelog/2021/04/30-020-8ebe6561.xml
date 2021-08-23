@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.3.xsd"
+        objectQuotingStrategy="QUOTE_ONLY_RESERVED_WORDS">
+    <changeSet id="1"  author="jmixuitests" context="reports">
+        <insert tableName="GAS">
+            <column name="ID" value="c13569a4-22db-629c-24d9-52d111a4a01a"/>
+            <column name="NAME" value="oxygen"/>
+        </insert>
+        <insert tableName="GAS">
+            <column name="ID" value="c13669a4-22db-629c-24d9-52d111a4a01a"/>
+            <column name="NAME" value="helium"/>
+        </insert>
+        <insert tableName="ATMOSPHERE">
+            <column name="ID" value="9311f6d6-cf91-418e-ade8-02f43090dfad"/>
+            <column name="DESCRIPTION" value="test description"/>
+            <column name="PRESSURE" value="150"/>
+        </insert>
+        <insert tableName="ATMOSPHERIC_GAS">
+            <column name="ID" value="c12470a4-23db-621c-24d9-52d111a4a01a"/>
+            <column name="GAS_ID" value="c13569a4-22db-629c-24d9-52d111a4a01a"/>
+            <column name="VOLUME" value="20"/>
+            <column name="ATMOSPHERE_ID" value="9311f6d6-cf91-418e-ade8-02f43090dfad"/>
+        </insert>
+        <insert tableName="ATMOSPHERIC_GAS">
+            <column name="ID" value="c12470a4-20db-621c-24d9-52d111a4a01a"/>
+            <column name="GAS_ID" value="c13669a4-22db-629c-24d9-52d111a4a01a"/>
+            <column name="VOLUME" value="15"/>
+            <column name="ATMOSPHERE_ID" value="9311f6d6-cf91-418e-ade8-02f43090dfad"/>
+        </insert>
+    </changeSet>
+</databaseChangeLog>
