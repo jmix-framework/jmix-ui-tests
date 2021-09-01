@@ -8,6 +8,7 @@ import io.jmix.core.metamodel.annotation.DependsOnProperties;
 import io.jmix.core.metamodel.annotation.InstanceName;
 import io.jmix.core.metamodel.annotation.JmixEntity;
 import io.jmix.security.authentication.JmixUserDetails;
+import io.jmix.tests.entity.searchadvanced.PersonAdvancedMapping;
 import org.springframework.security.core.GrantedAuthority;
 
 import javax.persistence.*;
@@ -53,17 +54,25 @@ public class User implements JmixUserDetails {
     @Column(name = "ENABLED")
     protected Boolean enabled = true;
 
-    @Transient
-    protected Collection<? extends GrantedAuthority> authorities;
-
     @DeletedBy
     @Column(name = "DELETED_BY")
     private String deletedBy;
-
     @DeletedDate
     @Column(name = "DELETED_DATE")
     @Temporal(TemporalType.TIMESTAMP)
     private Date deletedDate;
+    @OneToOne(fetch = FetchType.LAZY, mappedBy = "user")
+    private PersonAdvancedMapping personAdvancedMapping;
+    @Transient
+    protected Collection<? extends GrantedAuthority> authorities;
+
+    public PersonAdvancedMapping getPersonAdvancedMapping() {
+        return personAdvancedMapping;
+    }
+
+    public void setPersonAdvancedMapping(PersonAdvancedMapping personAdvancedMapping) {
+        this.personAdvancedMapping = personAdvancedMapping;
+    }
 
     public Date getDeletedDate() {
         return deletedDate;

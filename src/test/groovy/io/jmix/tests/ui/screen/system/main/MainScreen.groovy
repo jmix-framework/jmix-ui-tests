@@ -11,6 +11,9 @@ import io.jmix.tests.ui.screen.reports.browser.ReportBrowse
 import io.jmix.tests.ui.screen.reports.browser.ReportGroupBrowse
 import io.jmix.tests.ui.screen.reports.screen.ReportRunScreen
 import io.jmix.tests.ui.screen.reports.screen.ShowReportTableScreen
+import io.jmix.tests.ui.screen.search.personAdvancedMapping.PersonAdvancedMappingBrowser
+import io.jmix.tests.ui.screen.search.personProgrammicMapping.PersonProgrammicMappingBrowser
+import io.jmix.tests.ui.screen.search.searchScreen.SearchScreen
 import io.jmix.tests.ui.screen.system.login.LoginScreen
 
 import static io.jmix.masquerade.Components.wire
@@ -48,11 +51,23 @@ class MainScreen extends Composite<MainScreen> {
         sideMenu.openItem(REPORTS_RUN_SCREEN)
     }
 
-    CompanyBrowse openCompanyBrowse(){
+    CompanyBrowse openCompanyBrowse() {
         sideMenu.openItem(COMPANY_BROWSE)
     }
 
-    ShowReportTableScreen openReportsShowTablesScreen(){
+    ShowReportTableScreen openReportsShowTablesScreen() {
         sideMenu.openItem(REPORTS_SHOW_TABLES_SCREEN)
+    }
+
+    PersonAdvancedMappingBrowser openPersonAdvancedMapping() {
+        sideMenu.openItem(PERSON_ADVANCED_MAPPING)
+    }
+
+    SearchScreen openSearchScreen() {
+        sideMenu.openItem(SEARCH_SCREEN)
+    }
+
+    PersonProgrammicMappingBrowser openPersonProgrammingMapping() {
+        sideMenu.openItem(PERSON_PROGRAMMIC_MAPPING)
     }
 }

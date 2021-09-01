@@ -15,6 +15,10 @@ import io.jmix.tests.ui.screen.reports.browser.ReportBrowse
 import io.jmix.tests.ui.screen.reports.browser.ReportGroupBrowse
 import io.jmix.tests.ui.screen.reports.screen.ReportRunScreen
 import io.jmix.tests.ui.screen.reports.screen.ShowReportTableScreen
+import io.jmix.tests.ui.screen.search.personAdvancedMapping.PersonAdvancedMappingBrowser
+import io.jmix.tests.ui.screen.search.personProgrammicMapping.PersonProgrammicMappingBrowser
+import io.jmix.tests.ui.screen.search.personProgrammicMapping.PersonProgrammicMappingEditor
+import io.jmix.tests.ui.screen.search.searchScreen.SearchScreen
 
 final class Menus {
     public static final SideMenu.Menu<UserBrowse> USER_BROWSE =
@@ -48,6 +52,16 @@ final class Menus {
 
     public static final SideMenu.Menu<ReportRunScreen> REPORTS_RUN_SCREEN =
             new SideMenu.Menu<>(ReportRunScreen, 'reports', 'report_Report.run')
+
+    public static final SideMenu.Menu<PersonAdvancedMappingBrowser> PERSON_ADVANCED_MAPPING =
+            new SideMenu.Menu<>(PersonAdvancedMappingBrowser, 'search', 'PersonAdvancedMapping.browse')
+
+    public static final SideMenu.Menu<SearchScreen> SEARCH_SCREEN =
+            new SideMenu.Menu<>(SearchScreen, 'search', 'SearchScreen')
+
+    public static final SideMenu.Menu<PersonProgrammicMappingBrowser> PERSON_PROGRAMMIC_MAPPING =
+            new SideMenu.Menu<>(PersonProgrammicMappingBrowser, 'search', 'PersonProgrammingMapping.browse')
+
 
 
 }

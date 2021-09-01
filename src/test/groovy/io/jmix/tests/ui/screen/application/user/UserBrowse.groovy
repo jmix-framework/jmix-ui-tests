@@ -25,6 +25,9 @@ class UserBrowse extends Composite<UserBrowse> implements TableActionsTrait{
     @Wire
     Table usersTable
 
+    @Wire
+    Button lookupSelectAction
+
     UserEditor createUser() {
         createBtn.click()
         new UserEditor()
