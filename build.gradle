@@ -45,6 +45,7 @@ dependencies {
         }
     }
     runtimeOnly 'org.hsqldb:hsqldb'
+
     testImplementation "io.jmix.masquerade:jmix-masquerade:1.0.0-SNAPSHOT"
 
     testImplementation 'com.codeborne:selenide:5.20.1'

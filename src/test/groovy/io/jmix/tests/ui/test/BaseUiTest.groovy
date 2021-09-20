@@ -3,6 +3,7 @@ package io.jmix.tests.ui.test
 import com.codeborne.selenide.Selenide
 import io.jmix.tests.ui.screen.system.login.LoginScreen
 import io.jmix.tests.ui.screen.system.main.MainScreen
+import org.junit.jupiter.api.AfterEach
 
 import static io.jmix.masquerade.Selectors.$j
 
@@ -20,9 +21,18 @@ abstract class BaseUiTest {
     }
 
     /**
-     * Logout
+     * Login as custom user
      */
-    static void logout() {
+    static void loginAsCustomUser(String login, String password) {
+        Selenide.open('/')
+        $j(LoginScreen).login(login, password)
+    }
+
+    /**
+     * Logout after each test
+     */
+    @AfterEach
+    void logout() {
         $j(MainScreen).logout()
     }
 }

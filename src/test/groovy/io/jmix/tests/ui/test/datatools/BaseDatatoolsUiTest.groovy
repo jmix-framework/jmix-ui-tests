@@ -2,23 +2,18 @@ package io.jmix.tests.ui.test.datatools
 
 import com.codeborne.selenide.ElementsCollection
 import com.codeborne.selenide.SelenideElement
-import io.jmix.masquerade.component.Button
-import io.jmix.masquerade.component.Notification
-import io.jmix.masquerade.component.TextField
 import io.jmix.tests.ui.screen.administration.datatools.EntityInspectorBrowse
-import io.jmix.tests.ui.screen.application.user.UserEditor
 import io.jmix.tests.ui.screen.system.dialog.ConfirmationDialog
 import io.jmix.tests.ui.screen.system.dialog.OptionDialog
 import io.jmix.tests.ui.screen.system.main.MainScreen
 import io.jmix.tests.ui.test.BaseUiTest
+import io.jmix.tests.ui.test.utils.UiHelper
 
 import static com.codeborne.selenide.Selenide.$
 import static com.codeborne.selenide.Selenide.$$
-import static io.jmix.masquerade.Conditions.*
 import static io.jmix.masquerade.Selectors.*
-import static io.jmix.tests.ui.menu.Menus.USER_BROWSE
 
-abstract class BaseDatatoolsUiTest extends BaseUiTest {
+abstract class BaseDatatoolsUiTest extends BaseUiTest implements UiHelper {
     public static final String USER_ENTITY_NAME = "User"
     public static final String GAS_ENTITY_NAME = "Gas"
     public static final String CARRIER_ENTITY_NAME = "Carrier"
@@ -108,48 +103,6 @@ abstract class BaseDatatoolsUiTest extends BaseUiTest {
         SelenideElement formatBtn = $(byJTestId(formatJTestId))
         formatBtn.click()
 
-    }
-
-    /**
-     * Checks Notification's appearing and caption
-     */
-    static void checkNotification(String notificationCaption) {
-        $j(Notification).shouldBe(VISIBLE)
-                .shouldHave(caption(notificationCaption))
-    }
-
-    /**
-     * Creates new User
-     * @param username - user's username
-     */
-    static void createUser(String username) {
-        $j(MainScreen).with {
-            sideMenu.openItem(USER_BROWSE)
-                    .createUser()
-        }
-
-        $j(UserEditor).fillAndSaveUser(username)
-    }
-
-    /**
-     * Clicks defined button
-     * @param button - defined button
-     */
-    static void clickButton(Button button) {
-        button.shouldBe(VISIBLE)
-                .shouldBe(ENABLED)
-                .click()
-    }
-
-    /**
-     * Fills defined field
-     * @param field - defined field
-     * @param value - defined value
-     */
-    static void fillTextField(TextField field, String value) {
-        field.shouldBe(VISIBLE)
-                .shouldBe(EDITABLE)
-                .setValue(value)
     }
 
     /**

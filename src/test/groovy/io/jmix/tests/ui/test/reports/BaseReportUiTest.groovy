@@ -3,7 +3,6 @@ package io.jmix.tests.ui.test.reports
 import com.codeborne.selenide.ElementsCollection
 import com.codeborne.selenide.WebDriverRunner
 import io.jmix.masquerade.component.Button
-import io.jmix.masquerade.component.Notification
 import io.jmix.tests.ui.screen.application.company.CompanyBrowse
 import io.jmix.tests.ui.screen.reports.browser.ReportBrowse
 import io.jmix.tests.ui.screen.reports.browser.ReportGroupBrowse
@@ -12,6 +11,7 @@ import io.jmix.tests.ui.screen.reports.editor.ReportEditor
 import io.jmix.tests.ui.screen.system.dialog.ConfirmationDialog
 import io.jmix.tests.ui.screen.system.main.MainScreen
 import io.jmix.tests.ui.test.BaseUiTest
+import io.jmix.tests.ui.test.utils.UiHelper
 import org.openqa.selenium.Dimension
 
 import static com.codeborne.selenide.Selenide.$
@@ -20,7 +20,7 @@ import static io.jmix.masquerade.Conditions.*
 import static io.jmix.masquerade.Selectors.$j
 import static io.jmix.masquerade.Selectors.byClassName
 
-abstract class BaseReportUiTest extends BaseUiTest {
+abstract class BaseReportUiTest extends BaseUiTest implements UiHelper {
     public static final String COMPANY_FULL_STRING = "Company (Company)"
     public static final String ATMOSPHERE_FULL_STRING = "Atmosphere (Atmosphere)"
 
@@ -112,38 +112,8 @@ abstract class BaseReportUiTest extends BaseUiTest {
         WebDriverRunner.webDriver.manage().window().setSize(new Dimension(1920, 1080))
     }
 
-    /**
-     * Clicks defined button
-     * @param button - defined button
-     */
-    static void clickButton(Button button) {
-        button.shouldBe(VISIBLE)
-                .shouldBe(ENABLED)
-                .click()
-    }
-
-    /**
-     * Checks Notification's appearing and caption
-     */
-    static void checkNotification(String notificationCaption) {
-        $j(Notification).shouldBe(VISIBLE)
-                .shouldHave(caption(notificationCaption))
-    }
-
     static String getReportBasicName(String entityName) {
         return "Report for entity \"" + entityName + "\""
-    }
-    static String getGeneratedString(){
-        int leftLimit = 97
-        int rightLimit = 122
-        int targetStringLength = 4
-        Random random = new Random()
-
-        String generatedString = random.ints(leftLimit, rightLimit + 1)
-                .limit(targetStringLength)
-                .collect(StringBuilder::new, StringBuilder::appendCodePoint, StringBuilder::append)
-                .toString()
-        return generatedString
     }
 
     static String getReportUniqueName(String entityName) {
