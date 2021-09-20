@@ -3,6 +3,7 @@ package io.jmix.tests.ui.screen.application.user
 import io.jmix.masquerade.Wire
 import io.jmix.masquerade.base.Composite
 import io.jmix.masquerade.component.Button
+import io.jmix.masquerade.component.PopupButton
 import io.jmix.masquerade.component.Table
 import io.jmix.tests.ui.screen.administration.datatools.traits.TableActionsTrait
 import io.jmix.tests.ui.screen.system.dialog.ConfirmationDialog
@@ -24,6 +25,10 @@ class UserBrowse extends Composite<UserBrowse> implements TableActionsTrait{
     Button refreshBtn
     @Wire
     Table usersTable
+    @Wire
+    Button showRoleAssignmentsBtn
+    @Wire
+    PopupButton additionalActionsBtn
 
     UserEditor createUser() {
         createBtn.click()

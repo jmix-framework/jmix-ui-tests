@@ -5,6 +5,8 @@ import io.jmix.masquerade.base.Composite
 import io.jmix.masquerade.component.Button
 import io.jmix.masquerade.component.SideMenu
 import io.jmix.tests.ui.screen.administration.datatools.EntityInspectorBrowse
+import io.jmix.tests.ui.screen.administration.datatools.browsers.AtmosphericGasBrowse
+import io.jmix.tests.ui.screen.administration.security.browser.RoleBrowse
 import io.jmix.tests.ui.screen.application.company.CompanyBrowse
 import io.jmix.tests.ui.screen.application.user.UserBrowse
 import io.jmix.tests.ui.screen.reports.browser.ReportBrowse
@@ -36,6 +38,18 @@ class MainScreen extends Composite<MainScreen> {
         sideMenu.openItem(USER_BROWSE)
     }
 
+    AtmosphericGasBrowse openAtmosphericGasBrowse() {
+        sideMenu.openItem(ATMOSPHERIC_GAS_BROWSE)
+    }
+
+    RoleBrowse openResourceRoleBrowse() {
+        sideMenu.openItem(RESOURCE_ROLE_BROWSE)
+    }
+
+    RoleBrowse openRowLevelRoleBrowse() {
+        sideMenu.openItem(ROW_LEVEL_ROLE_BROWSE)
+    }
+
     ReportBrowse openReportsBrowse() {
         sideMenu.openItem(REPORTS_BROWSE)
     }
@@ -48,11 +62,11 @@ class MainScreen extends Composite<MainScreen> {
         sideMenu.openItem(REPORTS_RUN_SCREEN)
     }
 
-    CompanyBrowse openCompanyBrowse(){
+    CompanyBrowse openCompanyBrowse() {
         sideMenu.openItem(COMPANY_BROWSE)
     }
 
-    ShowReportTableScreen openReportsShowTablesScreen(){
+    ShowReportTableScreen openReportsShowTablesScreen() {
         sideMenu.openItem(REPORTS_SHOW_TABLES_SCREEN)
     }
 }

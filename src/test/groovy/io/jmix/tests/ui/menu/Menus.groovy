@@ -8,7 +8,10 @@ import io.jmix.masquerade.component.SideMenu
 import io.jmix.tests.screen.individual.IndividualBrowse
 import io.jmix.tests.ui.screen.administration.audit.EntityLogBrowse
 import io.jmix.tests.ui.screen.administration.datatools.EntityInspectorBrowse
+import io.jmix.tests.ui.screen.administration.datatools.browsers.AtmosphericGasBrowse
 import io.jmix.tests.ui.screen.administration.dynattr.DynamicAttributeBrowse
+
+import io.jmix.tests.ui.screen.administration.security.browser.RoleBrowse
 import io.jmix.tests.ui.screen.application.company.CompanyBrowse
 import io.jmix.tests.ui.screen.application.user.UserBrowse
 import io.jmix.tests.ui.screen.reports.browser.ReportBrowse
@@ -34,8 +37,18 @@ final class Menus {
     public static final SideMenu.Menu<IndividualBrowse> INDIVIDUAL_BROWSE =
             new SideMenu.Menu<>(IndividualBrowse, 'application', 'Individual.browse')
 
+    public static final SideMenu.Menu<AtmosphericGasBrowse> ATMOSPHERIC_GAS_BROWSE =
+            new SideMenu.Menu<>(AtmosphericGasBrowse, 'application', 'AtmosphericGas.browse')
+
     public static final SideMenu.Menu<EntityInspectorBrowse> ENTITY_INSPECTOR =
             new SideMenu.Menu<>(EntityInspectorBrowse, 'administration', 'entityInspector.browse')
+
+
+    public static final SideMenu.Menu<RoleBrowse> RESOURCE_ROLE_BROWSE =
+            new SideMenu.Menu<>(RoleBrowse, 'administration', 'sec_ResourceRoleModel.browse')
+
+    public static final SideMenu.Menu<RoleBrowse> ROW_LEVEL_ROLE_BROWSE =
+            new SideMenu.Menu<>(RoleBrowse, 'administration', 'sec_RowLevelRoleModel.browse')
 
     public static final SideMenu.Menu<ReportBrowse> REPORTS_BROWSE =
             new SideMenu.Menu<>(ReportBrowse, 'reports', 'report_Report.browse')
@@ -48,6 +61,5 @@ final class Menus {
 
     public static final SideMenu.Menu<ReportRunScreen> REPORTS_RUN_SCREEN =
             new SideMenu.Menu<>(ReportRunScreen, 'reports', 'report_Report.run')
-
 
 }
