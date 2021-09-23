@@ -12,6 +12,7 @@ class OptionDialog extends Composite<OptionDialog> {
     @Wire(path = 'optionDialog_ok')
     Button ok
 
+
     @Wire(path = 'optionDialog_cancel')
     Button cancel
 

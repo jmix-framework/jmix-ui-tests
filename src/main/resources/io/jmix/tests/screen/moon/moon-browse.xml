@@ -49,7 +49,6 @@
             <columns>
                 <column id="name"/>
                 <column id="mass"/>
-                <column id="picture"/>
                 <column id="planet"/>
                 <column id="atmosphere"/>
             </columns>

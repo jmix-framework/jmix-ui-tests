@@ -36,6 +36,9 @@ class EntityInspectorBrowse extends Composite<EntityInspectorBrowse> implements 
     @Wire
     Button wipeOut
 
+    @Wire
+    Button excelExport
+
     void findEntityByFilter(String filterValue, String finalValue) {
         entitiesLookup.shouldBe(VISIBLE)
                 .setFilter(filterValue)

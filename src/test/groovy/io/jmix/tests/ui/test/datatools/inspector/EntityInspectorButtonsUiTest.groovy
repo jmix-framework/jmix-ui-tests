@@ -5,6 +5,7 @@ import io.jmix.tests.extension.ChromeExtension
 import io.jmix.tests.ui.extension.SpringBootExtension
 import io.jmix.tests.ui.initializer.PostgreSQLContextInitializer
 import io.jmix.tests.ui.screen.administration.datatools.EntityInspectorBrowse
+import io.jmix.tests.ui.screen.administration.datatools.dialogs.ConfirmExportDialog
 import io.jmix.tests.ui.screen.application.user.UserBrowse
 import io.jmix.tests.ui.screen.system.dialog.ConfirmationDialog
 import io.jmix.tests.ui.screen.system.dialog.OptionDialog
@@ -41,7 +42,7 @@ class EntityInspectorButtonsUiTest extends BaseDatatoolsUiTest {
             selectRowInTableByText(USERNAME3, USER_TABLE_JTEST_ID)
             clickButton(remove)
         }
-        $j(ConfirmationDialog).confirm()
+        $j(ConfirmationDialog).confirmChanges()
 
         $j(EntityInspectorBrowse).checkRecordIsNotDisplayed(USERNAME3, USER_TABLE_JTEST_ID)
 
@@ -99,9 +100,38 @@ class EntityInspectorButtonsUiTest extends BaseDatatoolsUiTest {
 
         $j(EntityInspectorBrowse).with {
             findEntityByFilter(USER_ENTITY_NAME, USER_FULL_STRING)
-            exportFromInspectorWindow("exportJSON",USER_TABLE_JTEST_ID)
-            exportFromInspectorWindow("exportZIP",USER_TABLE_JTEST_ID)
+            exportFromInspectorWindow("exportJSON", USER_TABLE_JTEST_ID)
+            exportFromInspectorWindow("exportZIP", USER_TABLE_JTEST_ID)
         }
     }
 
+    @Test
+    @DisplayName("Exports selected User instance using Excel export from Entity Inspector Browser")
+    void excelExportUserFromInspector() {
+        loginAsAdmin()
+
+        $j(MainScreen).openEntityInspectorBrowse()
+
+        $j(EntityInspectorBrowse).with {
+            findEntityByFilter(USER_ENTITY_NAME, USER_FULL_STRING)
+            selectRowInTableByText(USERNAME2, USER_TABLE_JTEST_ID)
+            clickButton(excelExport)
+        }
+        $j(ConfirmExportDialog).with {
+            clickButton(selectedRow)
+        }
+    }
+
+    @Test
+    @DisplayName("Exports all User instances using Excel export from Entity Inspector Browser")
+    void excelExportAllUsersFromInspector() {
+        loginAsAdmin()
+
+        $j(MainScreen).openEntityInspectorBrowse()
+
+        $j(EntityInspectorBrowse).with {
+            findEntityByFilter(USER_ENTITY_NAME, USER_FULL_STRING)
+            clickButton(excelExport)
+        }
+    }
 }

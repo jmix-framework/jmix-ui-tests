@@ -1,10 +1,8 @@
 package io.jmix.tests.entity.spacebody;
 
-import io.jmix.core.FileRef;
 import io.jmix.core.entity.annotation.JmixGeneratedValue;
 import io.jmix.core.metamodel.annotation.InstanceName;
 import io.jmix.core.metamodel.annotation.JmixEntity;
-import io.jmix.core.metamodel.annotation.PropertyDatatype;
 
 import javax.persistence.Column;
 import javax.persistence.Id;
@@ -28,18 +26,6 @@ public class AstronomicalBody {
     @Column(name = "MASS", nullable = false)
     @NotNull
     private Double mass;
-
-    @PropertyDatatype("fileRef")
-    @Column(name = "PICTURE")
-    private FileRef picture;
-
-    public FileRef getPicture() {
-        return picture;
-    }
-
-    public void setPicture(FileRef picture) {
-        this.picture = picture;
-    }
 
     public Double getMass() {
         return mass;

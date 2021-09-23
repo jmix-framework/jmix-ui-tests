@@ -33,7 +33,6 @@
             <column width="350px">
                 <textField id="nameField" property="name"/>
                 <textField id="massField" property="mass"/>
-                <fileStorageUpload id="pictureField" property="picture"/>
                 <entityPicker id="planetField" property="planet">
                     <actions>
                         <action id="lookup" type="entity_lookup"/>

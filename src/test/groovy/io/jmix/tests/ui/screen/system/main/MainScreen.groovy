@@ -5,7 +5,14 @@ import io.jmix.masquerade.base.Composite
 import io.jmix.masquerade.component.Button
 import io.jmix.masquerade.component.SideMenu
 import io.jmix.tests.ui.screen.administration.datatools.EntityInspectorBrowse
+import io.jmix.tests.ui.screen.administration.datatools.browsers.AtmosphericGasBrowse
+import io.jmix.tests.ui.screen.administration.security.browser.RoleBrowse
+import io.jmix.tests.ui.screen.administration.dynattr.DynamicAttributeBrowse
 import io.jmix.tests.ui.screen.application.company.CompanyBrowse
+import io.jmix.tests.ui.screen.application.discounts.DiscountBrowser
+import io.jmix.tests.ui.screen.application.dymanicCategories.DynamicCategoryBrowse
+import io.jmix.tests.ui.screen.application.gas.GasBrowse
+import io.jmix.tests.ui.screen.application.localizedDynamic.LocalizedDynamicBrowse
 import io.jmix.tests.ui.screen.application.user.UserBrowse
 import io.jmix.tests.ui.screen.reports.browser.ReportBrowse
 import io.jmix.tests.ui.screen.reports.browser.ReportGroupBrowse
@@ -39,6 +46,18 @@ class MainScreen extends Composite<MainScreen> {
         sideMenu.openItem(USER_BROWSE)
     }
 
+    AtmosphericGasBrowse openAtmosphericGasBrowse() {
+        sideMenu.openItem(ATMOSPHERIC_GAS_BROWSE)
+    }
+
+    RoleBrowse openResourceRoleBrowse() {
+        sideMenu.openItem(RESOURCE_ROLE_BROWSE)
+    }
+
+    RoleBrowse openRowLevelRoleBrowse() {
+        sideMenu.openItem(ROW_LEVEL_ROLE_BROWSE)
+    }
+
     ReportBrowse openReportsBrowse() {
         sideMenu.openItem(REPORTS_BROWSE)
     }
@@ -69,5 +88,25 @@ class MainScreen extends Composite<MainScreen> {
 
     PersonProgrammicMappingBrowser openPersonProgrammingMapping() {
         sideMenu.openItem(PERSON_PROGRAMMIC_MAPPING)
+    }
+
+    DynamicAttributeBrowse openDynamicAttributeBrowse() {
+        sideMenu.openItem(DYNAMIC_ATTRIBUTES_BROWSE)
+    }
+
+    GasBrowse openGasBrowse() {
+        sideMenu.openItem(GAS_BROWSE)
+    }
+
+    DynamicCategoryBrowse openDynamicCategoryBrowse() {
+        sideMenu.openItem(DYNAMIC_CATEGORY)
+    }
+
+    LocalizedDynamicBrowse openLocalizedCategoryBrowse() {
+        sideMenu.openItem(LOCALIZED_DYNAMIC)
+    }
+
+    DiscountBrowser openDiscounts() {
+        sideMenu.openItem(DISCOUNTS)
     }
 }

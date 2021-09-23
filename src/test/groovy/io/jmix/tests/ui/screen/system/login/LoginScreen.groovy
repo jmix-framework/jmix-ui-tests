@@ -6,6 +6,7 @@ import io.jmix.masquerade.component.Button
 import io.jmix.masquerade.component.ComboBox
 import io.jmix.masquerade.component.PasswordField
 import io.jmix.masquerade.component.TextField
+import io.jmix.masquerade.component.CheckBox
 
 class LoginScreen extends Composite<LoginScreen> {
 
@@ -21,6 +22,9 @@ class LoginScreen extends Composite<LoginScreen> {
     @Wire
     ComboBox localesField
 
+    @Wire
+    CheckBox rememberMeCheckBox
+
     void loginAsAdmin() {
         submit()
     }
@@ -33,5 +37,12 @@ class LoginScreen extends Composite<LoginScreen> {
 
     void submit() {
         loginButton.click()
+    }
+
+    void loginWithLocale(String locale) {
+        localesField
+                .openOptionsPopup()
+                .select(locale)
+        submit()
     }
 }
