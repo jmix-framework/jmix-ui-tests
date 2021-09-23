@@ -3,7 +3,6 @@
 
     <menu id="application" caption="msg://io.jmix.tests/menu.application" insertBefore="administration">
         <item screen="User.browse" caption="msg://io.jmix.tests.screen.user/UserBrowse.caption"/>
-        <item screen="Gas.browse" caption="msg://io.jmix.tests.screen.gas/gasBrowse.caption"/>
         <item screen="AtmosphericGas.browse"
               caption="msg://io.jmix.tests.screen.atmosphericgas/atmosphericGasBrowse.caption"/>
         <item screen="Discounts.browse" caption="msg://io.jmix.tests.screen.discounts/discountsBrowse.caption"/>
@@ -16,6 +15,11 @@
         <item screen="WayBill.browse" caption="msg://io.jmix.tests.screen.waybill/wayBillBrowse.caption"/>
         <item screen="WayBillItem.browse" caption="msg://io.jmix.tests.screen.waybillitem/wayBillItemBrowse.caption"/>
         <item screen="Atmosphere.browse" caption="msg://io.jmix.tests.screen.atmosphere/atmosphereBrowse.caption"/>
+        <item screen="Gas.browse" caption="msg://io.jmix.tests/menu_config.Gas.browse"/>
+        <item screen="DynamicCategory.browse"
+              caption="msg://io.jmix.tests.screen.dynamiccategory/dynamicCategoryBrowse.menu"/>
+        <item screen="LocalizedDynamic.browse"
+              caption="msg://io.jmix.tests.screen.localizeddynamic/localizedDynamicBrowse.menu"/>
     </menu>
 
 </menu-config>

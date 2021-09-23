@@ -15,14 +15,9 @@ class ConfirmationDialog extends Composite<ConfirmationDialog> {
     @Wire(path = "optionDialog_no")
     public Button no
 
-    void confirm() {
-        yes.shouldBe(VISIBLE)
-                .shouldBe(ENABLED)
-                .click()
-    }
-
     void confirmChanges() {
         yes.shouldBe(VISIBLE)
+                .shouldBe(ENABLED)
                 .click()
     }
 }

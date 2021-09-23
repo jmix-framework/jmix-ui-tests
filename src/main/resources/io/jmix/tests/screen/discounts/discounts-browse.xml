@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <window xmlns="http://jmix.io/schema/ui/window"
+        xmlns:dynattr="http://jmix.io/schema/dynattr/ui"
         xmlns:c="http://jmix.io/schema/ui/jpql-condition"
         caption="msg://discountsBrowse.caption"
         focusComponent="discountsesTable">
@@ -17,6 +18,7 @@
     <facets>
         <dataLoadCoordinator auto="true"/>
         <screenSettings id="settingsFacet" auto="true"/>
+        <dynattr:dynamicAttributes/>
     </facets>
     <actions>
         <action id="lookupSelectAction"

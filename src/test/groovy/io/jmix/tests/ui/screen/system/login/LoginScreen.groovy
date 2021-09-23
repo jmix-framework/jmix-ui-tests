@@ -38,4 +38,11 @@ class LoginScreen extends Composite<LoginScreen> {
     void submit() {
         loginButton.click()
     }
+
+    void loginWithLocale(String locale) {
+        localesField
+                .openOptionsPopup()
+                .select(locale)
+        submit()
+    }
 }

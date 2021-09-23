@@ -133,7 +133,7 @@ abstract class BaseDatatoolsUiTest extends BaseUiTest implements UiHelper {
 
             selectRowInTableByText(name, tableJTestId)
             clickButton(remove)
-            $j(ConfirmationDialog).confirm()
+            $j(ConfirmationDialog).confirmChanges()
         }
     }
 

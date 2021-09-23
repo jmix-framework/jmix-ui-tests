@@ -12,6 +12,10 @@ import io.jmix.tests.ui.screen.administration.datatools.browsers.AtmosphericGasB
 import io.jmix.tests.ui.screen.administration.dynattr.DynamicAttributeBrowse
 
 import io.jmix.tests.ui.screen.administration.security.browser.RoleBrowse
+import io.jmix.tests.ui.screen.application.discounts.DiscountBrowser
+import io.jmix.tests.ui.screen.application.dymanicCategories.DynamicCategoryBrowse
+import io.jmix.tests.ui.screen.application.gas.GasBrowse
+import io.jmix.tests.ui.screen.application.localizedDynamic.LocalizedDynamicBrowse
 import io.jmix.tests.ui.screen.application.company.CompanyBrowse
 import io.jmix.tests.ui.screen.application.user.UserBrowse
 import io.jmix.tests.ui.screen.reports.browser.ReportBrowse
@@ -28,6 +32,9 @@ final class Menus {
 
     public static final SideMenu.Menu<DynamicAttributeBrowse> DYNAMIC_ATTRIBUTES_BROWSE =
             new SideMenu.Menu<>(DynamicAttributeBrowse, 'administration', 'dynat_Category.browse')
+
+    public static final SideMenu.Menu<GasBrowse> GAS_BROWSE =
+            new SideMenu.Menu<>(GasBrowse, 'application', 'Gas.browse')
 
     public static final SideMenu.Menu<EntityInspectorBrowse> ENTITY_INSPECTOR_BROWSE =
             new SideMenu.Menu<>(EntityInspectorBrowse, 'administration', 'entityInspector.browse')
@@ -61,5 +68,17 @@ final class Menus {
 
     public static final SideMenu.Menu<ReportRunScreen> REPORTS_RUN_SCREEN =
             new SideMenu.Menu<>(ReportRunScreen, 'reports', 'report_Report.run')
+
+
+
+    public static final SideMenu.Menu<DynamicCategoryBrowse> DYNAMIC_CATEGORY =
+            new SideMenu.Menu<>(DynamicCategoryBrowse, 'application', 'DynamicCategory.browse')
+
+    public static final SideMenu.Menu<LocalizedDynamicBrowse> LOCALIZED_DYNAMIC =
+            new SideMenu.Menu<>(LocalizedDynamicBrowse, 'application', 'LocalizedDynamic.browse')
+
+
+    public static final SideMenu.Menu<DiscountBrowser> DISCOUNTS =
+            new SideMenu.Menu<>(DiscountBrowser, 'application', 'Discounts.browse')
 
 }

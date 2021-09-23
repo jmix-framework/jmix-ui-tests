@@ -48,7 +48,6 @@
             <columns>
                 <column id="name"/>
                 <column id="mass"/>
-                <column id="picture"/>
                 <column id="semiMajorAxes"/>
                 <column id="orbitalPeriod"/>
                 <column id="rotationPeriod"/>

@@ -13,7 +13,7 @@ import static io.jmix.masquerade.Selectors.$j
 import static io.jmix.masquerade.Selectors.byText
 import static io.jmix.masquerade.Selectors.withText
 
-class UserBrowse extends Composite<UserBrowse> implements TableActionsTrait{
+class UserBrowse extends Composite<UserBrowse> implements TableActionsTrait {
 
     @Wire
     Button createBtn
@@ -29,6 +29,9 @@ class UserBrowse extends Composite<UserBrowse> implements TableActionsTrait{
     Button showRoleAssignmentsBtn
     @Wire
     PopupButton additionalActionsBtn
+
+    @Wire
+    Button lookupSelectAction
 
     UserEditor createUser() {
         createBtn.click()
@@ -53,15 +56,21 @@ class UserBrowse extends Composite<UserBrowse> implements TableActionsTrait{
                 .click()
     }
 
-    void checkRecordIsDisplayed(String username){
+    void checkRecordIsDisplayed(String username) {
         usersTable.shouldBe(VISIBLE)
                 .getRow(byText(username))
                 .shouldBe(VISIBLE)
     }
 
-    void checkRecordIsNotDisplayed(String username){
+    void checkRecordIsNotDisplayed(String username) {
         usersTable.shouldBe(VISIBLE)
                 .getRow(byText(username))
                 .shouldNotBe(VISIBLE)
+    }
+
+    void select() {
+        lookupSelectAction
+                .shouldBe(VISIBLE)
+                .click()
     }
 }
