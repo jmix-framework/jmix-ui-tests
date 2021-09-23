@@ -6,8 +6,8 @@ import io.jmix.masquerade.component.Button
 import io.jmix.masquerade.component.SideMenu
 import io.jmix.tests.ui.screen.administration.datatools.EntityInspectorBrowse
 import io.jmix.tests.ui.screen.administration.datatools.browsers.AtmosphericGasBrowse
-import io.jmix.tests.ui.screen.administration.security.browser.RoleBrowse
 import io.jmix.tests.ui.screen.administration.dynattr.DynamicAttributeBrowse
+import io.jmix.tests.ui.screen.administration.security.browser.RoleBrowse
 import io.jmix.tests.ui.screen.application.company.CompanyBrowse
 import io.jmix.tests.ui.screen.application.discounts.DiscountBrowser
 import io.jmix.tests.ui.screen.application.dymanicCategories.DynamicCategoryBrowse
@@ -24,7 +24,6 @@ import io.jmix.tests.ui.screen.search.searchScreen.SearchScreen
 import io.jmix.tests.ui.screen.system.login.LoginScreen
 
 import static io.jmix.masquerade.Components.wire
-import static io.jmix.tests.ui.menu.Menus.*
 
 class MainScreen extends Composite<MainScreen> {
 

@@ -37,6 +37,7 @@ import static io.jmix.masquerade.Selectors.*
                 'spring.quartz.jdbc.initialize-schema=always',
                 'main.datasource.studio.liquibase.excludePrefixes = qrtz_',
                 'logging.level.io.jmix.search = debug',
+                'spring.quartz.properties.org.quartz.jobStore.driverDelegateClass=org.quartz.impl.jdbcjobstore.PostgreSQLDelegate',
                 'jmix.localfs.storageDir = resources/io/jmix/tests/attaches',
                 'jmix.liquibase.contexts=base,search'])
 @ContextConfiguration(initializers = PostgreSQLContextInitializer)
