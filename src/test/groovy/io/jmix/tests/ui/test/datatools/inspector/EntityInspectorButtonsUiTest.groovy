@@ -41,7 +41,7 @@ class EntityInspectorButtonsUiTest extends BaseDatatoolsUiTest {
             selectRowInTableByText(USERNAME3, USER_TABLE_JTEST_ID)
             clickButton(remove)
         }
-        $j(ConfirmationDialog).confirm()
+        $j(ConfirmationDialog).confirmChanges()
 
         $j(EntityInspectorBrowse).checkRecordIsNotDisplayed(USERNAME3, USER_TABLE_JTEST_ID)
 

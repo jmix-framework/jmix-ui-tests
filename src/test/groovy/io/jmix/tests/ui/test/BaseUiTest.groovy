@@ -21,6 +21,14 @@ abstract class BaseUiTest {
     }
 
     /**
+     * Login as Administrator with Russian locale
+     */
+    static void loginAsAdminRus() {
+        Selenide.open('/')
+        $j(LoginScreen).loginWithLocale('Russian')
+    }
+
+    /**
      * Login as custom user
      */
     static void loginAsCustomUser(String login, String password) {
