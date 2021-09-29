@@ -424,7 +424,7 @@ class ResourceRoleActionsUiTest extends BaseSecurityUiTest {
             clickButton(remove)
         }
 
-        $j(ConfirmationDialog).confirm()
+        $j(ConfirmationDialog).confirmChanges()
 
         $j(ResourceRoleEditor).checkRecordIsNotDisplayed(CREATE_ACTION, RESOURCE_POLICIES_TABLE_JTEST_ID)
 

@@ -750,7 +750,7 @@ class DynamicAttributeWithDifferentTypesTest extends BaseUiTest {
             fixedPoint
                     .shouldBe(VISIBLE)
                     .shouldHave(value(FORMATTED_VALUE))
-            clickButton(closeBtn)
+            close()
         }
         //edit fixed-point number attribute with is collection = true, required = false, remove default value, format
         $j(MainScreen).openDynamicAttributeBrowse()

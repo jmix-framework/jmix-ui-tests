@@ -1,6 +1,5 @@
 package io.jmix.tests.ui.test.reports.groupediting
 
-import io.jmix.masquerade.component.Notification
 import io.jmix.tests.JmixUiTestsApplication
 import io.jmix.tests.extension.ChromeExtension
 import io.jmix.tests.ui.extension.PostgreSQLExtension
@@ -179,7 +178,6 @@ class ReportGroupActionUiTest extends BaseReportUiTest {
         }
 
         checkNotification(SYSTEM_GROUP_REMOVING_NOTIFICATION)
-        $j(Notification).clickToClose()
 
         makeGroupNonSystem(groupName)
 
@@ -262,7 +260,6 @@ class ReportGroupActionUiTest extends BaseReportUiTest {
         }
 
         checkNotification(NON_EMPTY_GROUP_REMOVING_NOTIFICATION)
-        $j(Notification).clickToClose()
 
         $j(MainScreen).with {
             openReportsBrowse()
@@ -278,5 +275,4 @@ class ReportGroupActionUiTest extends BaseReportUiTest {
         }
         removeNonSystemGroup(groupName)
     }
-
 }
