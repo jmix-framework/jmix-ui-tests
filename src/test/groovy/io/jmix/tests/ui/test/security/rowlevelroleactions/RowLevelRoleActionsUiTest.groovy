@@ -217,7 +217,7 @@ class RowLevelRoleActionsUiTest extends BaseSecurityUiTest {
             selectRowInTableByText(JPQL_CONDITION, ROW_LEVEL_POLICIES_TABLE_JTEST_ID)
             clickButton(remove)
         }
-        $j(ConfirmationDialog).confirm()
+        $j(ConfirmationDialog).confirmChanges()
         $j(RowLevelRoleEditor).checkRecordIsNotDisplayed(JPQL_CONDITION, ROW_LEVEL_POLICIES_TABLE_JTEST_ID)
 
         interruptRoleCreating()

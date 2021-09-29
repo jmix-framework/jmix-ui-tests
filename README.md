@@ -167,33 +167,51 @@ The database containers are used from the `Testcontainers` library. For example,
 * `testRuntime 'org.postgresql:postgresql:42.2.16'` - a PostgreSql database implmentation;
 * `testImplementation 'org.testcontainers:postgresql:1.14.3'` - a test container implementation.
 
-A fresh database is created for each test. In order to determine what data should be initialized in the database, 
+A fresh database is created for each test class. In order to determine what data should be initialized in the database, 
 liquibase contexts are used. The context for main application is **"base"**, it must always be added to the list of 
 contexts for the application to work correctly.
 
 To create UI test that uses a test dataset in addition to the base dataset, you need to follow these steps:
-1. Create a database Spring Initializer to define datasource properties:
+1. Create an extension to define database test container:
 ```
-class PostgreSQLContextInitializer implements ApplicationContextInitializer<ConfigurableApplicationContext> {
+class PostgreSQLExtension extends SpringExtension {
 
-    static PostgreSQLContainer postgreSQL = new PostgreSQLContainer()
-            .withDatabaseName("postgres-test-db")
-            .withUsername("test")
-            .withPassword("pass")
+    private PostgreSQLContainer postgreSQLContainer
+
+    @Override
+    void beforeAll(ExtensionContext context) throws Exception {
+        postgreSQLContainer = new PostgreSQLContainer()
+                .withDatabaseName("postgres-test-db")
+                .withUsername("test")
+                .withPassword("pass")
+        postgreSQLContainer.start()
+
+        getApplicationContext(context).getBean(JmixLiquibase).afterPropertiesSet()
+    }
+
+    @Override
+    void afterAll(ExtensionContext context) throws Exception {
+        postgreSQLContainer.stop()
+    }
+}
+```
+2. Create a Spring Initializer or `application.properties` file  to define datasource properties:
+```
+class TestContextInitializer implements ApplicationContextInitializer<ConfigurableApplicationContext> {
 
     @Override
     void initialize(ConfigurableApplicationContext applicationContext) {
-        postgreSQL.start()
         TestPropertyValues.of(
-                "main.datasource.jdbcUrl=" + postgreSQL.getJdbcUrl(),
-                "main.datasource.username=" + postgreSQL.getUsername(),
-                "main.datasource.password=" + postgreSQL.getPassword(),
-                "jmix.data.dbmsType=postgres"
+                "main.datasource.jdbcUrl=jdbc:tc:postgresql:9.6.12:///postgres-test-db",
+                "main.datasource.username=test",
+                "main.datasource.password=pass",
+                "jmix.data.dbmsType=postgres",
+                "jmix.liquibase.dropFirst=true"
         ).applyTo(applicationContext.getEnvironment())
     }
 }
 ```
-2. Create a [changeSet](./src/main/resources/io/jmix/tests/liquibase/changelog/test/2020/08/31-010-init-selenium-role.xml) 
+3. Create a [changeSet](./src/main/resources/io/jmix/tests/liquibase/changelog/test/2020/08/31-010-init-selenium-role.xml) 
 and define a context for it:
 ```
     <changeSet id="4" author="jmix-ui-tests" context="test-role">
@@ -208,16 +226,17 @@ and define a context for it:
     </changeSet>
 ```
 In the above example, we have created a change set with the `test-role` context.
-3. Create a Spring Boot test, define `jmix.liquibase.contexts` property inside `@SpringBootTest` annotation and define 
+4. Create a Spring Boot test, define `jmix.liquibase.contexts` property inside `@SpringBootTest` annotation and define 
 the initializer class inside `@ContextConfiguration` annotation:
 ```
 @ExtendWith([
-        SpringBootExtension
+        SpringBootExtension,
+        PostgreSQLExtension
 ])
 @SpringBootTest(classes = JmixUiTestsApplication,
         webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT,
         properties = ['jmix.liquibase.contexts=base,test-role'])
-@ContextConfiguration(initializers = PostgreSQLContextInitializer)
+@ContextConfiguration(initializers = TestContextInitializer)
 class UserUiTest extends BaseUiTest {
 
     @Test

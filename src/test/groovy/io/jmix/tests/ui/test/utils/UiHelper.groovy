@@ -46,7 +46,6 @@ trait UiHelper {
         $j(Notification).shouldBe(VISIBLE)
                 .shouldHave(caption(capt))
         $j(Notification).clickToClose()
-
     }
 
     /**
