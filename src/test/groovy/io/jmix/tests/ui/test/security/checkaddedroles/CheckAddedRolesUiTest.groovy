@@ -4,15 +4,11 @@ import com.codeborne.selenide.Condition
 import io.jmix.masquerade.component.Button
 import io.jmix.tests.JmixUiTestsApplication
 import io.jmix.tests.extension.ChromeExtension
+import io.jmix.tests.ui.extension.PostgreSQLExtension
 import io.jmix.tests.ui.extension.SpringBootExtension
-import io.jmix.tests.ui.initializer.PostgreSQLContextInitializer
+import io.jmix.tests.ui.initializer.TestContextInitializer
 import io.jmix.tests.ui.screen.administration.datatools.browsers.AtmosphericGasBrowse
-import io.jmix.tests.ui.screen.administration.security.editor.EntityAttributePolicyEditor
-import io.jmix.tests.ui.screen.administration.security.editor.EntityPolicyEditor
-import io.jmix.tests.ui.screen.administration.security.editor.ResourceRoleEditor
-import io.jmix.tests.ui.screen.administration.security.editor.RoleAssigmentEditor
-import io.jmix.tests.ui.screen.administration.security.editor.RowLevelRoleEditor
-import io.jmix.tests.ui.screen.administration.security.editor.ScreenPolicyEditor
+import io.jmix.tests.ui.screen.administration.security.editor.*
 import io.jmix.tests.ui.screen.application.user.UserBrowse
 import io.jmix.tests.ui.screen.system.main.MainScreen
 import io.jmix.tests.ui.test.security.BaseSecurityUiTest
@@ -21,17 +17,19 @@ import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.test.context.ContextConfiguration
+
 import static io.jmix.masquerade.Conditions.READONLY
 import static io.jmix.masquerade.Selectors.$j
 
 @ExtendWith([
         SpringBootExtension,
-        ChromeExtension
+        ChromeExtension,
+        PostgreSQLExtension
 ])
 @SpringBootTest(classes = JmixUiTestsApplication,
         webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT,
         properties = ['jmix.liquibase.contexts=base,security'])
-@ContextConfiguration(initializers = PostgreSQLContextInitializer)
+@ContextConfiguration(initializers = TestContextInitializer)
 class CheckAddedRolesUiTest extends BaseSecurityUiTest {
     private static String ATMOSPHERIC_GAS_BROWSER_SCREEN_FULL_STRING = "Atmospheric gas browser (AtmosphericGas.browse)"
     private static String ATMOSPHERIC_GAS_BROWSER_MENU_ITEM_FULL_STRING = "Application > Atmospheric gas browser (AtmosphericGas.browse)"
@@ -121,7 +119,7 @@ class CheckAddedRolesUiTest extends BaseSecurityUiTest {
         removeRole(rowRoleName)
     }
 
-    @Test
+    /*@Test
     @DisplayName("Checks user's permissions with added row level role with predicate policy")
     void checkAddedRowLevelRoleWithPredicatePolicy() {
         loginAsAdmin()
@@ -209,5 +207,5 @@ class CheckAddedRolesUiTest extends BaseSecurityUiTest {
         removeRole(resourceRoleName)
         $j(MainScreen).openRowLevelRoleBrowse()
         removeRole(rowRoleName)
-    }
+    }*/
 }
