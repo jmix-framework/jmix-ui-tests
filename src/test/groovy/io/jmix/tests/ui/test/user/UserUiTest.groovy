@@ -2,8 +2,9 @@ package io.jmix.tests.ui.test.user
 
 import io.jmix.tests.JmixUiTestsApplication
 import io.jmix.tests.extension.ChromeExtension
+import io.jmix.tests.ui.extension.PostgreSQLExtension
 import io.jmix.tests.ui.extension.SpringBootExtension
-import io.jmix.tests.ui.initializer.PostgreSQLContextInitializer
+import io.jmix.tests.ui.initializer.TestContextInitializer
 import io.jmix.tests.ui.screen.system.main.MainScreen
 import io.jmix.tests.ui.screen.application.user.UserBrowse
 import io.jmix.tests.ui.screen.application.user.UserEditor
@@ -21,11 +22,12 @@ import static io.jmix.tests.ui.menu.Menus.USER_BROWSE
 
 @ExtendWith([
         SpringBootExtension,
-        ChromeExtension
+        ChromeExtension,
+        PostgreSQLExtension
 ])
 @SpringBootTest(classes = JmixUiTestsApplication,
         webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-@ContextConfiguration(initializers = PostgreSQLContextInitializer)
+@ContextConfiguration(initializers = TestContextInitializer)
 class UserUiTest extends BaseUiTest {
 
     @Test

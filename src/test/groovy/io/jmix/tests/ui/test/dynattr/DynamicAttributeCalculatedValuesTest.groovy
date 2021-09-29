@@ -2,8 +2,9 @@ package io.jmix.tests.ui.test.dynattr
 
 import io.jmix.tests.JmixUiTestsApplication
 import io.jmix.tests.extension.ChromeExtension
+import io.jmix.tests.ui.extension.PostgreSQLExtension
 import io.jmix.tests.ui.extension.SpringBootExtension
-import io.jmix.tests.ui.initializer.PostgreSQLContextInitializer
+import io.jmix.tests.ui.initializer.TestContextInitializer
 import io.jmix.tests.ui.screen.administration.dynattr.CategoryAttributeEditor
 import io.jmix.tests.ui.screen.administration.dynattr.CategoryEditor
 import io.jmix.tests.ui.screen.application.gas.GasEditor
@@ -25,12 +26,13 @@ import static io.jmix.tests.ui.test.dynattr.TargetScreenActionsTest.GAS_FORM
 
 @ExtendWith([
         SpringBootExtension,
-        ChromeExtension
+        ChromeExtension,
+        PostgreSQLExtension
 ])
 @SpringBootTest(classes = JmixUiTestsApplication,
         webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT,
         properties = ['jmix.liquibase.contexts=base,dynattr'])
-@ContextConfiguration(initializers = PostgreSQLContextInitializer)
+@ContextConfiguration(initializers = TestContextInitializer)
 class DynamicAttributeCalculatedValuesTest extends BaseUiTest {
 
     public static final String CALCULATED_ATTRIBUTE_NAME = "Calculated"

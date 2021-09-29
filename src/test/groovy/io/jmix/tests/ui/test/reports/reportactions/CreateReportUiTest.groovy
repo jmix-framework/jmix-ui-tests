@@ -4,8 +4,9 @@ import io.jmix.masquerade.component.Button
 import io.jmix.masquerade.component.ComboBox
 import io.jmix.tests.JmixUiTestsApplication
 import io.jmix.tests.extension.ChromeExtension
+import io.jmix.tests.ui.extension.PostgreSQLExtension
 import io.jmix.tests.ui.extension.SpringBootExtension
-import io.jmix.tests.ui.initializer.PostgreSQLContextInitializer
+import io.jmix.tests.ui.initializer.TestContextInitializer
 import io.jmix.tests.ui.screen.reports.browser.ReportBrowse
 import io.jmix.tests.ui.screen.reports.dialog.InputParametersDialog
 import io.jmix.tests.ui.screen.reports.dialog.JPQLQueryEditorDialog
@@ -25,12 +26,13 @@ import static io.jmix.masquerade.Conditions.*
 
 @ExtendWith([
         SpringBootExtension,
-        ChromeExtension
+        ChromeExtension,
+        PostgreSQLExtension
 ])
 @SpringBootTest(classes = JmixUiTestsApplication,
         webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT,
         properties = ['jmix.liquibase.contexts=base,reports'])
-@ContextConfiguration(initializers = PostgreSQLContextInitializer)
+@ContextConfiguration(initializers = TestContextInitializer)
 class CreateReportUiTest extends BaseReportUiTest {
 
     public static final String EDIT_BUTTON_JTEST_ID = "edit"

@@ -2,8 +2,9 @@ package io.jmix.tests.ui.test.datatools.dialog
 
 import io.jmix.tests.JmixUiTestsApplication
 import io.jmix.tests.extension.ChromeExtension
+import io.jmix.tests.ui.extension.PostgreSQLExtension
 import io.jmix.tests.ui.extension.SpringBootExtension
-import io.jmix.tests.ui.initializer.PostgreSQLContextInitializer
+import io.jmix.tests.ui.initializer.TestContextInitializer
 import io.jmix.tests.ui.screen.administration.datatools.EntityInspectorBrowse
 import io.jmix.tests.ui.screen.administration.datatools.dialogs.EntityInformationDialog
 import io.jmix.tests.ui.screen.system.main.MainScreen
@@ -19,11 +20,12 @@ import static io.jmix.masquerade.Selectors.$j
 
 @ExtendWith([
         SpringBootExtension,
-        ChromeExtension
+        ChromeExtension,
+        PostgreSQLExtension
 ])
 @SpringBootTest(classes = JmixUiTestsApplication,
         webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-@ContextConfiguration(initializers = PostgreSQLContextInitializer)
+@ContextConfiguration(initializers = TestContextInitializer)
 class EntityInfoDialogButtonsUiTest extends BaseDatatoolsUiTest {
     public static final String INSERT_BTN_CAPTION = "Script for insert"
     public static final String SELECT_BTN_CAPTION = "Script for select"

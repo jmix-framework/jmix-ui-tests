@@ -4,8 +4,9 @@ package io.jmix.tests.ui.test.dynattr
 import io.jmix.masquerade.component.*
 import io.jmix.tests.JmixUiTestsApplication
 import io.jmix.tests.extension.ChromeExtension
+import io.jmix.tests.ui.extension.PostgreSQLExtension
 import io.jmix.tests.ui.extension.SpringBootExtension
-import io.jmix.tests.ui.initializer.PostgreSQLContextInitializer
+import io.jmix.tests.ui.initializer.TestContextInitializer
 import io.jmix.tests.ui.screen.administration.dynattr.CategoryAttributeEditor
 import io.jmix.tests.ui.screen.administration.dynattr.CategoryEditor
 import io.jmix.tests.ui.screen.application.gas.GasBrowse
@@ -31,12 +32,13 @@ import static java.lang.Boolean.TRUE
 
 @ExtendWith([
         SpringBootExtension,
-        ChromeExtension
+        ChromeExtension,
+        PostgreSQLExtension
 ])
 @SpringBootTest(classes = JmixUiTestsApplication,
         webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT,
         properties = ['jmix.liquibase.contexts=base,dynattr'])
-@ContextConfiguration(initializers = PostgreSQLContextInitializer)
+@ContextConfiguration(initializers = TestContextInitializer)
 class DynamicAttributeWithDifferentTypesTest extends BaseUiTest {
 
     public static final String ADD_BUTTON = 'add'

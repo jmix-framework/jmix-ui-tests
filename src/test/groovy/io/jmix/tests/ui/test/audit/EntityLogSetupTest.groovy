@@ -3,8 +3,9 @@ package io.jmix.tests.ui.test.audit
 import io.jmix.masquerade.component.CheckBox
 import io.jmix.tests.JmixUiTestsApplication
 import io.jmix.tests.extension.ChromeExtension
+import io.jmix.tests.ui.extension.PostgreSQLExtension
 import io.jmix.tests.ui.extension.SpringBootExtension
-import io.jmix.tests.ui.initializer.PostgreSQLContextInitializer
+import io.jmix.tests.ui.initializer.TestContextInitializer
 import io.jmix.tests.ui.screen.administration.audit.EntityLogBrowse
 import io.jmix.tests.ui.screen.system.dialog.ConfirmationDialog
 import io.jmix.tests.ui.screen.system.main.MainScreen
@@ -23,12 +24,13 @@ import static io.jmix.tests.ui.menu.Menus.ENTITY_LOG_BROWSE
 
 @ExtendWith([
         SpringBootExtension,
-        ChromeExtension
+        ChromeExtension,
+        PostgreSQLExtension
 ])
 @SpringBootTest(classes = JmixUiTestsApplication,
         webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT,
         properties = ['jmix.liquibase.contexts=base,entity-log'])
-@ContextConfiguration(initializers = PostgreSQLContextInitializer)
+@ContextConfiguration(initializers = TestContextInitializer)
 class EntityLogSetupTest extends BaseUiTest {
 
     public static final String ATMOSPHERE = 'Atmosphere (Atmosphere)'

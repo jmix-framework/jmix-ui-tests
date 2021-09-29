@@ -3,8 +3,9 @@ package io.jmix.tests.ui.test.reports.groupediting
 import io.jmix.masquerade.component.Notification
 import io.jmix.tests.JmixUiTestsApplication
 import io.jmix.tests.extension.ChromeExtension
+import io.jmix.tests.ui.extension.PostgreSQLExtension
 import io.jmix.tests.ui.extension.SpringBootExtension
-import io.jmix.tests.ui.initializer.PostgreSQLContextInitializer
+import io.jmix.tests.ui.initializer.TestContextInitializer
 import io.jmix.tests.ui.screen.reports.browser.ReportBrowse
 import io.jmix.tests.ui.screen.reports.browser.ReportGroupBrowse
 import io.jmix.tests.ui.screen.reports.editor.ReportGroupEditor
@@ -21,12 +22,13 @@ import static io.jmix.masquerade.Selectors.$j
 
 @ExtendWith([
         SpringBootExtension,
-        ChromeExtension
+        ChromeExtension,
+        PostgreSQLExtension
 ])
 @SpringBootTest(classes = JmixUiTestsApplication,
         webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT,
         properties = ['jmix.liquibase.contexts=base,reports'])
-@ContextConfiguration(initializers = PostgreSQLContextInitializer)
+@ContextConfiguration(initializers = TestContextInitializer)
 class ReportGroupActionUiTest extends BaseReportUiTest {
 
     static void createSimpleNonSystemGroup(String groupName) {
