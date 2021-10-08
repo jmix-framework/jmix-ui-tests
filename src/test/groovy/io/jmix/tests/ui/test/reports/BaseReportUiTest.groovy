@@ -1,6 +1,7 @@
 package io.jmix.tests.ui.test.reports
 
 import com.codeborne.selenide.ElementsCollection
+import com.codeborne.selenide.Selenide
 import com.codeborne.selenide.WebDriverRunner
 import io.jmix.masquerade.component.Button
 import io.jmix.tests.ui.screen.application.company.CompanyBrowse
@@ -13,11 +14,9 @@ import io.jmix.tests.ui.screen.system.main.MainScreen
 import io.jmix.tests.ui.test.BaseUiTest
 import io.jmix.tests.ui.test.utils.UiHelper
 import org.openqa.selenium.Dimension
-import org.openqa.selenium.interactions.Actions
 
 import static com.codeborne.selenide.Selenide.$
 import static com.codeborne.selenide.Selenide.$$
-import static com.codeborne.selenide.WebDriverRunner.getWebDriver
 import static io.jmix.masquerade.Conditions.*
 import static io.jmix.masquerade.Selectors.$j
 import static io.jmix.masquerade.Selectors.byClassName
@@ -234,9 +233,7 @@ abstract class BaseReportUiTest extends BaseUiTest implements UiHelper {
             closeWindow()
         }
 
-        new Actions(getWebDriver())
-                .pause(200)
-                .perform()
+        Selenide.sleep(200)
 
         $j(ConfirmationDialog).with {
             clickButton($j(Button, OPTION_DIALOG_OK_BUTTON_JTEST_ID))

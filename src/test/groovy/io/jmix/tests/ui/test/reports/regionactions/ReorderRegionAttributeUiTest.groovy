@@ -1,5 +1,6 @@
 package io.jmix.tests.ui.test.reports.regionactions
 
+import com.codeborne.selenide.Selenide
 import io.jmix.masquerade.component.PopupButton
 import io.jmix.tests.JmixUiTestsApplication
 import io.jmix.tests.extension.ChromeExtension
@@ -108,9 +109,7 @@ class ReorderRegionAttributeUiTest extends BaseReportUiTest {
             clickButton(ok)
         }
 
-        new Actions(getWebDriver())
-                .pause(200)
-                .perform()
+        Selenide.sleep(200)
 
         interruptReportCreating()
     }
