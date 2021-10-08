@@ -75,29 +75,7 @@ class RowLevelRoleActionsUiTest extends BaseSecurityUiTest {
     }
 
     @Test
-    @DisplayName("Creates a row level role")
-    void createRowLevelRole() {
-        loginAsAdmin()
-        openRowLevelRoleEditor()
-
-        def roleName = getUniqueName(RESOURCE_ROLE)
-        def roleCode = getUniqueName(RESOURCE_ROLE_CODE)
-
-        $j(RowLevelRoleEditor).with {
-            nameField.shouldBe(REQUIRED, VISIBLE, ENABLED)
-            codeField.shouldBe(REQUIRED, VISIBLE, ENABLED)
-            clickButton(ok)
-            checkNotification(ALERT_NOTIFICATION_CAPTION, REQUIRED_NAME_AND_CODE_NOTIFICATION_CAPTION)
-        }
-        setNameAndCodeValuesAndSaveRole(roleName, roleCode)
-
-        $j(RoleBrowse).checkRecordIsDisplayed(roleName, ROLE_MODELS_TABLE_JTEST_ID)
-
-        removeRole(roleName)
-    }
-
-    @Test
-    @DisplayName("Edits a row level role")
+    @DisplayName("Creates, edits and removes a row level role")
     void editRowLevelRole() {
         loginAsAdmin()
         openRowLevelRoleEditor()
@@ -107,9 +85,8 @@ class RowLevelRoleActionsUiTest extends BaseSecurityUiTest {
 
         setNameAndCodeValuesAndSaveRole(roleName, roleCode)
 
-        $j(RoleBrowse).checkRecordIsDisplayed(roleName, ROLE_MODELS_TABLE_JTEST_ID)
-
         $j(RoleBrowse).with {
+            checkRecordIsDisplayed(roleName, ROLE_MODELS_TABLE_JTEST_ID)
             selectRowInTableByText(roleName, ROLE_MODELS_TABLE_JTEST_ID)
             clickButton(editBtn)
         }
@@ -126,23 +103,22 @@ class RowLevelRoleActionsUiTest extends BaseSecurityUiTest {
     }
 
     @Test
-    @DisplayName("Removes a row level role")
-    void removeRowLevelRole() {
+    @DisplayName("Adds a predicate policy to row level role")
+    void addPredicatePolicy() {
         loginAsAdmin()
         openRowLevelRoleEditor()
+        addRowLevelPredicatePolicy()
+        $j(RowLevelRoleEditor).with {
+            checkRecordIsDisplayed(USER_ENTITY_NAME, ROW_LEVEL_POLICIES_TABLE_JTEST_ID)
+            checkRecordIsDisplayed(ROW_LEVEL_POLICY_PREDICATE_TYPE, ROW_LEVEL_POLICIES_TABLE_JTEST_ID)
+        }
 
-        def roleName = getUniqueName(RESOURCE_ROLE)
-        def roleCode = getUniqueName(RESOURCE_ROLE_CODE)
-
-        setNameAndCodeValuesAndSaveRole(roleName, roleCode)
-        $j(RoleBrowse).checkRecordIsDisplayed(roleName, ROLE_MODELS_TABLE_JTEST_ID)
-
-        removeRole(roleName)
+        interruptRoleCreating()
     }
 
     @Test
-    @DisplayName("Adds a JPQL policy to row level role")
-    void addJPQLPolicy() {
+    @DisplayName("Adds, edits and removes a JPQL policy of row level role")
+    void editJPQLPolicy() {
         loginAsAdmin()
         openRowLevelRoleEditor()
         $j(RowLevelRoleEditor).with {
@@ -164,34 +140,9 @@ class RowLevelRoleActionsUiTest extends BaseSecurityUiTest {
             $j(TextArea, WHERE_CLAUSE_TEXTAREA_JTEST_ID).setValue(JPQL_CONDITION)
             clickButton(ok)
         }
-        $j(RowLevelRoleEditor).checkRecordIsDisplayed(JPQL_CONDITION, ROW_LEVEL_POLICIES_TABLE_JTEST_ID)
-
-        interruptRoleCreating()
-    }
-
-    @Test
-    @DisplayName("Adds a predicate policy to row level role")
-    void addPredicatePolicy() {
-        loginAsAdmin()
-        openRowLevelRoleEditor()
-        addRowLevelPredicatePolicy()
-        $j(RowLevelRoleEditor).with {
-            checkRecordIsDisplayed(USER_ENTITY_NAME, ROW_LEVEL_POLICIES_TABLE_JTEST_ID)
-            checkRecordIsDisplayed(ROW_LEVEL_POLICY_PREDICATE_TYPE, ROW_LEVEL_POLICIES_TABLE_JTEST_ID)
-        }
-
-        interruptRoleCreating()
-    }
-
-    @Test
-    @DisplayName("Edits an JPQL policy of row level role")
-    void editJPQLPolicy() {
-        loginAsAdmin()
-        openRowLevelRoleEditor()
-        addRowLevelJPQLPolicy()
-        $j(RowLevelRoleEditor).checkRecordIsDisplayed(JPQL_CONDITION, ROW_LEVEL_POLICIES_TABLE_JTEST_ID)
 
         $j(RowLevelRoleEditor).with {
+            checkRecordIsDisplayed(JPQL_CONDITION, ROW_LEVEL_POLICIES_TABLE_JTEST_ID)
             selectRowInTableByText(JPQL_CONDITION, ROW_LEVEL_POLICIES_TABLE_JTEST_ID)
             clickButton(edit)
         }
@@ -200,25 +151,13 @@ class RowLevelRoleActionsUiTest extends BaseSecurityUiTest {
             $j(TextArea, WHERE_CLAUSE_TEXTAREA_JTEST_ID).setValue(JPQL_CONDITION_1)
             clickButton(ok)
         }
-        $j(RowLevelRoleEditor).checkRecordIsDisplayed(JPQL_CONDITION_1, ROW_LEVEL_POLICIES_TABLE_JTEST_ID)
-
-        interruptRoleCreating()
-    }
-
-    @Test
-    @DisplayName("Removes an JPQL policy from row level role")
-    void removeJPQLPolicy() {
-        loginAsAdmin()
-        openRowLevelRoleEditor()
-        addRowLevelJPQLPolicy()
-        $j(RowLevelRoleEditor).checkRecordIsDisplayed(JPQL_CONDITION, ROW_LEVEL_POLICIES_TABLE_JTEST_ID)
-
         $j(RowLevelRoleEditor).with {
-            selectRowInTableByText(JPQL_CONDITION, ROW_LEVEL_POLICIES_TABLE_JTEST_ID)
+            checkRecordIsDisplayed(JPQL_CONDITION_1, ROW_LEVEL_POLICIES_TABLE_JTEST_ID)
+            selectRowInTableByText(JPQL_CONDITION_1, ROW_LEVEL_POLICIES_TABLE_JTEST_ID)
             clickButton(remove)
         }
         $j(ConfirmationDialog).confirmChanges()
-        $j(RowLevelRoleEditor).checkRecordIsNotDisplayed(JPQL_CONDITION, ROW_LEVEL_POLICIES_TABLE_JTEST_ID)
+        $j(RowLevelRoleEditor).checkRecordIsNotDisplayed(JPQL_CONDITION_1, ROW_LEVEL_POLICIES_TABLE_JTEST_ID)
 
         interruptRoleCreating()
     }
@@ -231,9 +170,9 @@ class RowLevelRoleActionsUiTest extends BaseSecurityUiTest {
         def roleName = getUniqueName(RESOURCE_ROLE)
         def roleCode = getUniqueName(RESOURCE_ROLE_CODE)
         createRowLevelRole(roleName, roleCode)
-        $j(RoleBrowse).checkRecordIsDisplayed(roleName, ROLE_MODELS_TABLE_JTEST_ID)
 
         $j(RoleBrowse).with {
+            checkRecordIsDisplayed(roleName, ROLE_MODELS_TABLE_JTEST_ID)
             clickButton(createBtn)
         }
         def roleName1 = getUniqueName(RESOURCE_ROLE)
@@ -253,9 +192,9 @@ class RowLevelRoleActionsUiTest extends BaseSecurityUiTest {
         def roleName = getUniqueName(RESOURCE_ROLE)
         def roleCode = getUniqueName(RESOURCE_ROLE_CODE)
         createRowLevelRole(roleName, roleCode)
-        $j(RoleBrowse).checkRecordIsDisplayed(roleName, ROLE_MODELS_TABLE_JTEST_ID)
 
         $j(RoleBrowse).with {
+            checkRecordIsDisplayed(roleName, ROLE_MODELS_TABLE_JTEST_ID)
             clickButton(createBtn)
         }
         def roleName1 = getUniqueName(RESOURCE_ROLE)
