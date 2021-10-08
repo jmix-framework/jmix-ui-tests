@@ -27,6 +27,14 @@ class DataGridDescriptionProviderUiTest extends BaseSamplerUiTest {
     @DisplayName("Check description for DataGrid column")
     void checkDataGridDescriptionProvider() {
         openSample('datagrid-description-provider')
+
+        def dataGrid = $j(DataGrid.class, 'customersDataGrid')
+                .sort('column_name', ASCENDING)
+
+        def actions = new Actions(getWebDriver())
+        // DataGrid may show a tooltip therefore we need to move the cursor out to hide it
+        actions.moveToElement($x("//*[contains(@class, 'v-grid-sidebar-button')]"))
+                .perform()
         [
                 [FULL_NAME, 0],
                 [FULL_NAME, 1],
@@ -34,12 +42,8 @@ class DataGridDescriptionProviderUiTest extends BaseSamplerUiTest {
                 [IS_ACTIVE_DESCRIPTION, 3],
                 [GRADE_DESCRIPTION, 4]
         ].each {
-            def nameCell = $j(DataGrid.class, 'customersDataGrid')
-                    .sort('column_name', ASCENDING)
-                    .getCell(byRowColIndexes(0, it[1] as int))
-            Actions actions = new Actions(getWebDriver())
-            actions
-                    .moveToElement(nameCell)
+            def nameCell = dataGrid.getCell(byRowColIndexes(0, it[1] as int))
+            actions.moveToElement(nameCell)
                     .perform()
             $x("//*[contains(@class, 'v-tooltip-text')]")
                     .shouldHave(exactText(it[0] as String))

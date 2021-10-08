@@ -13,9 +13,11 @@ import io.jmix.tests.ui.screen.system.main.MainScreen
 import io.jmix.tests.ui.test.BaseUiTest
 import io.jmix.tests.ui.test.utils.UiHelper
 import org.openqa.selenium.Dimension
+import org.openqa.selenium.interactions.Actions
 
 import static com.codeborne.selenide.Selenide.$
 import static com.codeborne.selenide.Selenide.$$
+import static com.codeborne.selenide.WebDriverRunner.getWebDriver
 import static io.jmix.masquerade.Conditions.*
 import static io.jmix.masquerade.Selectors.$j
 import static io.jmix.masquerade.Selectors.byClassName
@@ -231,6 +233,10 @@ abstract class BaseReportUiTest extends BaseUiTest implements UiHelper {
         $j(ReportRegionsDialog).with {
             closeWindow()
         }
+
+        new Actions(getWebDriver())
+                .pause(200)
+                .perform()
 
         $j(ConfirmationDialog).with {
             clickButton($j(Button, OPTION_DIALOG_OK_BUTTON_JTEST_ID))

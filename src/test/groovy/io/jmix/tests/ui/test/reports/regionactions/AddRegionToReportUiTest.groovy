@@ -13,9 +13,11 @@ import io.jmix.tests.ui.test.reports.BaseReportUiTest
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
+import org.openqa.selenium.interactions.Actions
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.test.context.ContextConfiguration
 
+import static com.codeborne.selenide.WebDriverRunner.getWebDriver
 import static io.jmix.masquerade.Selectors.$j
 
 @ExtendWith([
@@ -86,6 +88,10 @@ class AddRegionToReportUiTest extends BaseReportUiTest {
             def list1 = [ATMOSPHERIC_GAS_VOLUME, GAS_NAME]
             chooseFieldsForReport(list1)
         }
+
+        new Actions(getWebDriver())
+                .pause(200)
+                .perform()
 
         interruptReportCreating()
     }

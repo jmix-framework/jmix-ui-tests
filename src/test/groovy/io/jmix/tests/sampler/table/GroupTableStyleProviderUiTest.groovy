@@ -6,8 +6,10 @@ import io.jmix.tests.sampler.BaseSamplerUiTest
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
+import org.openqa.selenium.interactions.Actions
 
 import static com.codeborne.selenide.Condition.cssValue
+import static com.codeborne.selenide.WebDriverRunner.getWebDriver
 import static io.jmix.masquerade.Conditions.VISIBLE
 import static io.jmix.masquerade.Selectors.$j
 import static io.jmix.masquerade.Selectors.byText
@@ -26,6 +28,11 @@ class GroupTableStyleProviderUiTest extends BaseSamplerUiTest {
     @DisplayName("Check expand and collapse all rows with style provider of group table")
     void checkGroupTableExpandCollapseRowsWithStyleProvider() {
         openSample('grouptable-style-provider')
+        // Wait for the screen will be completely loaded
+        new Actions(getWebDriver())
+                .pause(200)
+                .perform()
+
         def table = $j(GroupTable.class, 'customerTable')
         checkBackgroundColor(table)
         table.expandAll()

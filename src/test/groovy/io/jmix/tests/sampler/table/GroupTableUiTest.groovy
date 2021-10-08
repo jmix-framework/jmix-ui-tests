@@ -6,7 +6,9 @@ import io.jmix.tests.sampler.BaseSamplerUiTest
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
+import org.openqa.selenium.interactions.Actions
 
+import static com.codeborne.selenide.WebDriverRunner.getWebDriver
 import static io.jmix.masquerade.Conditions.VISIBLE
 import static io.jmix.masquerade.Selectors.*
 
@@ -20,6 +22,11 @@ class GroupTableUiTest extends BaseSamplerUiTest {
     @DisplayName("Checks expand and collapse all rows of group table")
     void checkGroupTableExpandCollapseRows() {
         openSample('grouptable-simple')
+        // Wait for the screen will be completely loaded
+        new Actions(getWebDriver())
+                .pause(200)
+                .perform()
+
         def table = $j(GroupTable.class, 'customerTable')
         table.expandAll()
         def row = table
