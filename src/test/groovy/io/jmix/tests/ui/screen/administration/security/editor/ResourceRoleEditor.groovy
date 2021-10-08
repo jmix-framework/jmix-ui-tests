@@ -2,11 +2,7 @@ package io.jmix.tests.ui.screen.administration.security.editor
 
 import io.jmix.masquerade.Wire
 import io.jmix.masquerade.base.Composite
-import io.jmix.masquerade.component.Button
-import io.jmix.masquerade.component.OptionsGroup
-import io.jmix.masquerade.component.PopupButton
-import io.jmix.masquerade.component.TabSheet
-import io.jmix.masquerade.component.TextField
+import io.jmix.masquerade.component.*
 import io.jmix.tests.ui.screen.administration.datatools.traits.TableActionsTrait
 
 class ResourceRoleEditor extends Composite<ResourceRoleEditor> implements TableActionsTrait {
@@ -31,6 +27,9 @@ class ResourceRoleEditor extends Composite<ResourceRoleEditor> implements TableA
 
     @Wire
     TextField codeField
+
+    @Wire
+    TextArea descriptionField
 
     @Wire
     OptionsGroup scopesField

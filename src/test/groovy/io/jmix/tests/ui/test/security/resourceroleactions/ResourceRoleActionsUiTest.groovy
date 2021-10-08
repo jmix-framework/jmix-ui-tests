@@ -9,12 +9,7 @@ import io.jmix.tests.ui.extension.SpringBootExtension
 import io.jmix.tests.ui.initializer.TestContextInitializer
 import io.jmix.tests.ui.screen.administration.security.browser.RoleBrowse
 import io.jmix.tests.ui.screen.administration.security.dialog.EntityResourcePolicyDialog
-import io.jmix.tests.ui.screen.administration.security.editor.EntityAttributePolicyEditor
-import io.jmix.tests.ui.screen.administration.security.editor.EntityPolicyEditor
-import io.jmix.tests.ui.screen.administration.security.editor.MenuPolicyEditor
-import io.jmix.tests.ui.screen.administration.security.editor.ResourceRoleEditor
-import io.jmix.tests.ui.screen.administration.security.editor.ScreenPolicyEditor
-import io.jmix.tests.ui.screen.administration.security.editor.SpecificPolicyEditor
+import io.jmix.tests.ui.screen.administration.security.editor.*
 import io.jmix.tests.ui.screen.system.dialog.ConfirmationDialog
 import io.jmix.tests.ui.screen.system.dialog.UnsavedChangesDialog
 import io.jmix.tests.ui.test.security.BaseSecurityUiTest
@@ -24,8 +19,8 @@ import org.junit.jupiter.api.extension.ExtendWith
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.test.context.ContextConfiguration
 
-import static io.jmix.masquerade.Selectors.$j
 import static io.jmix.masquerade.Conditions.*
+import static io.jmix.masquerade.Selectors.$j
 
 @ExtendWith([
         SpringBootExtension,
@@ -44,6 +39,7 @@ class ResourceRoleActionsUiTest extends BaseSecurityUiTest {
     private static String ATMOSPHERE_BROWSER_SCREEN_FULL_STRING = "Atmosphere browser (Atmosphere.browse)"
     private static String ATMOSPHERE_BROWSER_MENU_ITEM_FULL_STRING = "Application > Atmosphere browser (Atmosphere.browse)"
     private static String ATMOSPHERE_BROWSER_SCREEN_KEY = "Atmosphere.browse"
+    private static String DESCRIPTION_TEXT = "Test description"
 
     static void setNameAndCodeValuesAndSaveRole(String nameValue, String codeValue) {
         $j(ResourceRoleEditor).with {
@@ -86,24 +82,26 @@ class ResourceRoleActionsUiTest extends BaseSecurityUiTest {
         }
     }
 
-    @Test
-    @DisplayName("Creates a UI resource role")
-    void createResourceUIRole() {
-        loginAsAdmin()
-        openResourceRoleEditor()
-
-        def roleName = getUniqueName(RESOURCE_ROLE)
-        def roleCode = getUniqueName(RESOURCE_ROLE_CODE)
-
+    static void addEntityPolicyToRole() {
         $j(ResourceRoleEditor).with {
-            nameField.shouldBe(REQUIRED, VISIBLE, ENABLED)
-            codeField.shouldBe(REQUIRED, VISIBLE, ENABLED)
+            createResourceBtn.click(ENTITY_POLICY)
         }
-        setNameAndCodeValuesAndSaveRole(roleName, roleCode)
-        $j(RoleBrowse).checkRecordIsDisplayed(roleName, ROLE_MODELS_TABLE_JTEST_ID)
 
-        removeRole(roleName)
+        $j(EntityPolicyEditor).with {
+            clickButton(commit)
+            checkNotification(ALERT_NOTIFICATION_CAPTION, EMPTY_ENTITY_AND_ACTIONS_NOTIFICATION_CAPTION)
 
+            selectValueInComboBox(entityField, ATMOSPHERE_FULL_STRING)
+
+            policyGroupField.shouldHave(Condition.value(ATMOSPHERE_ENTITY_NAME))
+
+            clickButton(commit)
+            checkNotification(ALERT_NOTIFICATION_CAPTION, EMPTY_ACTIONS_NOTIFICATION_CAPTION)
+
+            createCheckBox.setChecked(true)
+
+            clickButton(commit)
+        }
     }
 
     @Test
@@ -120,9 +118,9 @@ class ResourceRoleActionsUiTest extends BaseSecurityUiTest {
             codeField.shouldBe(REQUIRED, VISIBLE, ENABLED)
         }
         setNameAndCodeValuesAndSaveRole(roleName, roleCode)
-        $j(RoleBrowse).checkRecordIsDisplayed(roleName, ROLE_MODELS_TABLE_JTEST_ID)
 
         $j(RoleBrowse).with {
+            checkRecordIsDisplayed(roleName, ROLE_MODELS_TABLE_JTEST_ID)
             clickButton(createBtn)
         }
 
@@ -137,7 +135,7 @@ class ResourceRoleActionsUiTest extends BaseSecurityUiTest {
     }
 
     @Test
-    @DisplayName("Creates a database resource role")
+    @DisplayName("Creates an API resource role")
     void createResourceDatabaseRole() {
         loginAsAdmin()
         openResourceRoleEditor()
@@ -160,7 +158,7 @@ class ResourceRoleActionsUiTest extends BaseSecurityUiTest {
     }
 
     @Test
-    @DisplayName("Edits a resource role")
+    @DisplayName("Creates, edits and removes a UI resource role")
     void editResourceRole() {
         loginAsAdmin()
         openResourceRoleEditor()
@@ -171,11 +169,13 @@ class ResourceRoleActionsUiTest extends BaseSecurityUiTest {
         $j(ResourceRoleEditor).with {
             nameField.shouldBe(REQUIRED, VISIBLE, ENABLED)
             codeField.shouldBe(REQUIRED, VISIBLE, ENABLED)
+            descriptionField.setValue(DESCRIPTION_TEXT)
         }
         setNameAndCodeValuesAndSaveRole(roleName, roleCode)
-        $j(RoleBrowse).checkRecordIsDisplayed(roleName, ROLE_MODELS_TABLE_JTEST_ID)
 
         $j(RoleBrowse).with {
+            checkRecordIsDisplayed(roleName, ROLE_MODELS_TABLE_JTEST_ID)
+            checkRecordIsDisplayed(DESCRIPTION_TEXT, ROLE_MODELS_TABLE_JTEST_ID)
             selectRowInTableByText(roleName, ROLE_MODELS_TABLE_JTEST_ID)
             clickButton(editBtn)
         }
@@ -187,21 +187,6 @@ class ResourceRoleActionsUiTest extends BaseSecurityUiTest {
         $j(RoleBrowse).checkRecordIsDisplayed(roleName1, ROLE_MODELS_TABLE_JTEST_ID)
 
         removeRole(roleName1)
-    }
-
-    @Test
-    @DisplayName("Removes a resource role")
-    void removeResourceRole() {
-        loginAsAdmin()
-        openResourceRoleEditor()
-
-        def roleName = getUniqueName(RESOURCE_ROLE)
-        def roleCode = getUniqueName(RESOURCE_ROLE_CODE)
-
-        setNameAndCodeValuesAndSaveRole(roleName, roleCode)
-        $j(RoleBrowse).checkRecordIsDisplayed(roleName, ROLE_MODELS_TABLE_JTEST_ID)
-
-        removeRole(roleName)
     }
 
     @Test
@@ -258,43 +243,6 @@ class ResourceRoleActionsUiTest extends BaseSecurityUiTest {
     }
 
     @Test
-    @DisplayName("Adds an entity policy to resource role")
-    void addEntityPolicy() {
-        loginAsAdmin()
-        openResourceRoleEditor()
-
-        $j(ResourceRoleEditor).with {
-            createResourceBtn.click(ENTITY_POLICY)
-        }
-
-        $j(EntityPolicyEditor).with {
-            clickButton(commit)
-            checkNotification(ALERT_NOTIFICATION_CAPTION, EMPTY_ENTITY_AND_ACTIONS_NOTIFICATION_CAPTION)
-
-            selectValueInComboBox(entityField, ATMOSPHERE_FULL_STRING)
-
-            policyGroupField.shouldHave(Condition.value(ATMOSPHERE_ENTITY_NAME))
-
-            clickButton(commit)
-            checkNotification(ALERT_NOTIFICATION_CAPTION, EMPTY_ACTIONS_NOTIFICATION_CAPTION)
-
-            allActionsCheckBox.setChecked(true)
-
-            clickButton(commit)
-        }
-
-        $j(ResourceRoleEditor).with {
-            checkRecordIsDisplayed(CREATE_ACTION, RESOURCE_POLICIES_TABLE_JTEST_ID)
-            checkRecordIsDisplayed(READ_ACTION, RESOURCE_POLICIES_TABLE_JTEST_ID)
-            checkRecordIsDisplayed(UPDATE_ACTION, RESOURCE_POLICIES_TABLE_JTEST_ID)
-            checkRecordIsDisplayed(DELETE_ACTION, RESOURCE_POLICIES_TABLE_JTEST_ID)
-        }
-
-        interruptRoleCreating()
-
-    }
-
-    @Test
     @DisplayName("Adds an entity attribute policy to resource role")
     void addEntityAttributePolicy() {
         loginAsAdmin()
@@ -342,38 +290,29 @@ class ResourceRoleActionsUiTest extends BaseSecurityUiTest {
         }
         $j(ResourceRoleEditor).checkRecordIsDisplayed(RESOURCE_POLICY_NAME, RESOURCE_POLICIES_TABLE_JTEST_ID)
 
-        interruptRoleCreating()
+        def roleName = getUniqueName(RESOURCE_ROLE)
+        def roleCode = getUniqueName(RESOURCE_ROLE_CODE)
+
+        $j(ResourceRoleEditor).with {
+            nameField.shouldBe(REQUIRED, VISIBLE, ENABLED)
+            codeField.shouldBe(REQUIRED, VISIBLE, ENABLED)
+        }
+        setNameAndCodeValuesAndSaveRole(roleName, roleCode)
+        $j(RoleBrowse).checkRecordIsDisplayed(roleName, ROLE_MODELS_TABLE_JTEST_ID)
+
+        removeRole(roleName)
     }
 
-
     @Test
-    @DisplayName("Edits an entity policy of resource role")
+    @DisplayName("Adds, edits and removes an entity policy of resource role")
     void editEntityPolicy() {
         loginAsAdmin()
         openResourceRoleEditor()
 
-        $j(ResourceRoleEditor).with {
-            createResourceBtn.click(ENTITY_POLICY)
-        }
-
-        $j(EntityPolicyEditor).with {
-            clickButton(commit)
-            checkNotification(ALERT_NOTIFICATION_CAPTION, EMPTY_ENTITY_AND_ACTIONS_NOTIFICATION_CAPTION)
-
-            entityField.openOptionsPopup()
-                    .select(ATMOSPHERE_FULL_STRING)
-            policyGroupField.shouldHave(Condition.value(ATMOSPHERE_ENTITY_NAME))
-
-            clickButton(commit)
-            checkNotification(ALERT_NOTIFICATION_CAPTION, EMPTY_ACTIONS_NOTIFICATION_CAPTION)
-
-            createCheckBox.setChecked(true)
-
-            clickButton(commit)
-        }
-        $j(ResourceRoleEditor).checkRecordIsDisplayed(CREATE_ACTION, RESOURCE_POLICIES_TABLE_JTEST_ID)
+        addEntityPolicyToRole()
 
         $j(ResourceRoleEditor).with {
+            checkRecordIsDisplayed(CREATE_ACTION, RESOURCE_POLICIES_TABLE_JTEST_ID)
             selectRowInTableByText(CREATE_ACTION, RESOURCE_POLICIES_TABLE_JTEST_ID)
             clickButton(edit)
         }
@@ -387,46 +326,15 @@ class ResourceRoleActionsUiTest extends BaseSecurityUiTest {
                     .select(READ_ACTION)
             clickButton(ok)
         }
-        $j(ResourceRoleEditor).checkRecordIsDisplayed(READ_ACTION, RESOURCE_POLICIES_TABLE_JTEST_ID)
-
-        interruptRoleCreating()
-    }
-
-    @Test
-    @DisplayName("Removes an entity policy from resource role")
-    void removeEntityPolicy() {
-        loginAsAdmin()
-        openResourceRoleEditor()
-
         $j(ResourceRoleEditor).with {
-            createResourceBtn.click(ENTITY_POLICY)
-        }
-
-        $j(EntityPolicyEditor).with {
-            clickButton(commit)
-            checkNotification(ALERT_NOTIFICATION_CAPTION, EMPTY_ENTITY_AND_ACTIONS_NOTIFICATION_CAPTION)
-
-            entityField.openOptionsPopup()
-                    .select(ATMOSPHERE_FULL_STRING)
-            policyGroupField.shouldHave(Condition.value(ATMOSPHERE_ENTITY_NAME))
-
-            clickButton(commit)
-            checkNotification(ALERT_NOTIFICATION_CAPTION, EMPTY_ACTIONS_NOTIFICATION_CAPTION)
-
-            createCheckBox.setChecked(true)
-
-            clickButton(commit)
-        }
-        $j(ResourceRoleEditor).checkRecordIsDisplayed(CREATE_ACTION, RESOURCE_POLICIES_TABLE_JTEST_ID)
-
-        $j(ResourceRoleEditor).with {
-            selectRowInTableByText(CREATE_ACTION, RESOURCE_POLICIES_TABLE_JTEST_ID)
+            checkRecordIsDisplayed(READ_ACTION, RESOURCE_POLICIES_TABLE_JTEST_ID)
+            selectRowInTableByText(READ_ACTION, RESOURCE_POLICIES_TABLE_JTEST_ID)
             clickButton(remove)
         }
 
         $j(ConfirmationDialog).confirmChanges()
 
-        $j(ResourceRoleEditor).checkRecordIsNotDisplayed(CREATE_ACTION, RESOURCE_POLICIES_TABLE_JTEST_ID)
+        $j(ResourceRoleEditor).checkRecordIsNotDisplayed(READ_ACTION, RESOURCE_POLICIES_TABLE_JTEST_ID)
 
         interruptRoleCreating()
     }
