@@ -1,5 +1,6 @@
 package io.jmix.tests.sampler.table
 
+import com.codeborne.selenide.Selenide
 import io.jmix.masquerade.component.GroupTable
 import io.jmix.tests.extension.ChromeExtension
 import io.jmix.tests.sampler.BaseSamplerUiTest
@@ -26,6 +27,9 @@ class GroupTableStyleProviderUiTest extends BaseSamplerUiTest {
     @DisplayName("Check expand and collapse all rows with style provider of group table")
     void checkGroupTableExpandCollapseRowsWithStyleProvider() {
         openSample('grouptable-style-provider')
+        // Wait for the screen will be completely loaded
+        Selenide.sleep(200)
+
         def table = $j(GroupTable.class, 'customerTable')
         checkBackgroundColor(table)
         table.expandAll()

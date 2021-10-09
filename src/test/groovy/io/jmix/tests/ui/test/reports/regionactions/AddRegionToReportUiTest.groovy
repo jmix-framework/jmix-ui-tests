@@ -1,5 +1,6 @@
 package io.jmix.tests.ui.test.reports.regionactions
 
+import com.codeborne.selenide.Selenide
 import io.jmix.masquerade.component.PopupButton
 import io.jmix.tests.JmixUiTestsApplication
 import io.jmix.tests.extension.ChromeExtension
@@ -86,6 +87,8 @@ class AddRegionToReportUiTest extends BaseReportUiTest {
             def list1 = [ATMOSPHERIC_GAS_VOLUME, GAS_NAME]
             chooseFieldsForReport(list1)
         }
+
+        Selenide.sleep(200)
 
         interruptReportCreating()
     }

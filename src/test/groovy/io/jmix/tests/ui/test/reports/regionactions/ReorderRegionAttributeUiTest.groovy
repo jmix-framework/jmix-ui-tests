@@ -1,5 +1,6 @@
 package io.jmix.tests.ui.test.reports.regionactions
 
+import com.codeborne.selenide.Selenide
 import io.jmix.masquerade.component.PopupButton
 import io.jmix.tests.JmixUiTestsApplication
 import io.jmix.tests.extension.ChromeExtension
@@ -13,9 +14,11 @@ import io.jmix.tests.ui.test.reports.BaseReportUiTest
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
+import org.openqa.selenium.interactions.Actions
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.test.context.ContextConfiguration
 
+import static com.codeborne.selenide.WebDriverRunner.getWebDriver
 import static io.jmix.masquerade.Selectors.$j
 
 @ExtendWith([
@@ -105,6 +108,8 @@ class ReorderRegionAttributeUiTest extends BaseReportUiTest {
             getOrderInGroupBox(secondList)
             clickButton(ok)
         }
+
+        Selenide.sleep(200)
 
         interruptReportCreating()
     }

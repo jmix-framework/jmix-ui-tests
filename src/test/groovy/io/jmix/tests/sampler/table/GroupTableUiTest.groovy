@@ -1,5 +1,6 @@
 package io.jmix.tests.sampler.table
 
+import com.codeborne.selenide.Selenide
 import io.jmix.masquerade.component.GroupTable
 import io.jmix.tests.extension.ChromeExtension
 import io.jmix.tests.sampler.BaseSamplerUiTest
@@ -20,6 +21,9 @@ class GroupTableUiTest extends BaseSamplerUiTest {
     @DisplayName("Checks expand and collapse all rows of group table")
     void checkGroupTableExpandCollapseRows() {
         openSample('grouptable-simple')
+        // Wait for the screen will be completely loaded
+        Selenide.sleep(200)
+
         def table = $j(GroupTable.class, 'customerTable')
         table.expandAll()
         def row = table

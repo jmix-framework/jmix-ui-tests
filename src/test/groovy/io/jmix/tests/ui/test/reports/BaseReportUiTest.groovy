@@ -1,6 +1,7 @@
 package io.jmix.tests.ui.test.reports
 
 import com.codeborne.selenide.ElementsCollection
+import com.codeborne.selenide.Selenide
 import com.codeborne.selenide.WebDriverRunner
 import io.jmix.masquerade.component.Button
 import io.jmix.tests.ui.screen.application.company.CompanyBrowse
@@ -231,6 +232,8 @@ abstract class BaseReportUiTest extends BaseUiTest implements UiHelper {
         $j(ReportRegionsDialog).with {
             closeWindow()
         }
+
+        Selenide.sleep(200)
 
         $j(ConfirmationDialog).with {
             clickButton($j(Button, OPTION_DIALOG_OK_BUTTON_JTEST_ID))
