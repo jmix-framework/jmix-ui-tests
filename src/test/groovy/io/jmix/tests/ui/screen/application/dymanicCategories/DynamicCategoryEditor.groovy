@@ -7,7 +7,7 @@ import io.jmix.masquerade.component.TextField
 
 
 class DynamicCategoryEditor extends Composite<DynamicCategoryEditor> {
-    @Wire (path = 'categoryField')
+    @Wire (path = 'dynamicAttributesPanel_categoryField')
     ComboBox category
 
     @Wire(path = '+DynamiccategoryCategorized')
