@@ -22,7 +22,7 @@ public class UiTestsDynamicAttributesPanel extends DynamicAttributesPanel {
     public void setId(@Nullable String id) {
         super.setId(id);
 
-        updateComponentIds();
+        updateComponentIds(getComposition());
     }
 
     @Override
