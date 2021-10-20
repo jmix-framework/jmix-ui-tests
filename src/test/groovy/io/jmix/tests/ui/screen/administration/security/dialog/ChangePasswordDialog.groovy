@@ -8,12 +8,12 @@ import io.jmix.masquerade.component.TextField
 class ChangePasswordDialog extends Composite<ChangePasswordDialog> {
 
     @Wire
-    TextField password
+    TextField passwordField
 
     @Wire
-    TextField confirmPassword
+    TextField confirmPasswordField
 
     @Wire
-    Button ok
+    Button okBtn
 
 }

@@ -37,7 +37,9 @@ class UserActionsUiTest extends BaseSecurityUiTest {
     private final String ALERT_NOTIFICATION_CAPTION = "Alert"
     private final String PASSWD_SUCCESS_CHANGED_NOTIFICATION_CAPTION = "Password successfully changed"
     private final String PASSWD_DONT_MATCH_NOTIFICATION_CAPTION = "Passwords don't match"
-    private final String PASSWD_CANNOT_BE_BLANK_NOTIFICATION_CAPTION = "Password can not be blank"
+    private final String CONF_PASSWD_REQUIRED_NOTIFICATION_DESCRIPTION = "Confirmed password can not be blank"
+    private final String PASSWDS_REQUIRED_NOTIFICATION_DESCRIPTION =
+            "Password can not be blank" + "\n" + CONF_PASSWD_REQUIRED_NOTIFICATION_DESCRIPTION
     private final String TOKENS_REMOVED_NOTIFICATION_CAPTION = "'Remember me' tokens have been removed"
     private final String INACTIVE_USER_NOTIFICATION_CAPTION = "Login failed"
     private final String INACTIVE_USER_NOTIFICATION_DESCRIPTION = "Unknown login name or bad password"
@@ -57,18 +59,18 @@ class UserActionsUiTest extends BaseSecurityUiTest {
             additionalActionsBtn.click(CHANGE_PASSWORD)
         }
         $j(ChangePasswordDialog).with {
-            clickButton(ok)
-            checkNotification(ALERT_NOTIFICATION_CAPTION, PASSWD_CANNOT_BE_BLANK_NOTIFICATION_CAPTION)
-            password.setValue(NEW_PASSWORD)
-            clickButton(ok)
+            clickButton(okBtn)
+            checkNotification(ALERT_NOTIFICATION_CAPTION, PASSWDS_REQUIRED_NOTIFICATION_DESCRIPTION)
+            passwordField.setValue(NEW_PASSWORD)
+            clickButton(okBtn)
+            checkNotification(ALERT_NOTIFICATION_CAPTION, CONF_PASSWD_REQUIRED_NOTIFICATION_DESCRIPTION)
+
+            confirmPasswordField.setValue(USER_PASSWORD)
+            clickButton(okBtn)
             checkNotification(ALERT_NOTIFICATION_CAPTION, PASSWD_DONT_MATCH_NOTIFICATION_CAPTION)
 
-            confirmPassword.setValue(USER_PASSWORD)
-            clickButton(ok)
-            checkNotification(ALERT_NOTIFICATION_CAPTION, PASSWD_DONT_MATCH_NOTIFICATION_CAPTION)
-
-            confirmPassword.setValue(NEW_PASSWORD)
-            clickButton(ok)
+            confirmPasswordField.setValue(NEW_PASSWORD)
+            clickButton(okBtn)
         }
         checkNotification(PASSWD_SUCCESS_CHANGED_NOTIFICATION_CAPTION)
         logout()
@@ -85,9 +87,9 @@ class UserActionsUiTest extends BaseSecurityUiTest {
             additionalActionsBtn.click(CHANGE_PASSWORD)
         }
         $j(ChangePasswordDialog).with {
-            password.setValue(USER_PASSWORD)
-            confirmPassword.setValue(USER_PASSWORD)
-            clickButton(ok)
+            passwordField.setValue(USER_PASSWORD)
+            confirmPasswordField.setValue(USER_PASSWORD)
+            clickButton(okBtn)
         }
         checkNotification(PASSWD_SUCCESS_CHANGED_NOTIFICATION_CAPTION)
     }
