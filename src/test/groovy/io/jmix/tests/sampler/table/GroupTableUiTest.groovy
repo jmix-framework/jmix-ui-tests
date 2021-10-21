@@ -4,6 +4,7 @@ import com.codeborne.selenide.Selenide
 import io.jmix.masquerade.component.GroupTable
 import io.jmix.tests.extension.ChromeExtension
 import io.jmix.tests.sampler.BaseSamplerUiTest
+import io.jmix.tests.sampler.test_support.component.grouptable.SamplerGroupTable
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
@@ -24,13 +25,13 @@ class GroupTableUiTest extends BaseSamplerUiTest {
         // Wait for the screen will be completely loaded
         Selenide.sleep(200)
 
-        def table = $j(GroupTable.class, 'customerTable')
-        table.expandAll()
+        def table = $j(SamplerGroupTable.class, 'customerTable')
+        table.expandAllWithInterval(200)
         def row = table
                 .asTable()
                 .getRow(byText(POTTER))
         row.shouldBe(VISIBLE)
-        table.collapseAll()
+        table.collapseAllWithInterval(200)
         row.shouldNotBe(VISIBLE)
     }
 

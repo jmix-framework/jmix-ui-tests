@@ -3,6 +3,7 @@ package io.jmix.tests.sampler.table
 import io.jmix.masquerade.component.GroupTable
 import io.jmix.tests.extension.ChromeExtension
 import io.jmix.tests.sampler.BaseSamplerUiTest
+import io.jmix.tests.sampler.test_support.component.grouptable.SamplerGroupTable
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
@@ -56,7 +57,8 @@ class GroupTableAggregatableUiTest extends BaseSamplerUiTest {
     }
 
     private void checkRowValue(String expirience, String salary) {
-        $j(GroupTable.class, 'employeesTable').expandAll()
+        $j(SamplerGroupTable.class, 'employeesTable')
+                .expandAllWithInterval(200)
                 .asTable()
                 .getRow(byText(expirience))
                 .shouldHave(text(salary))
