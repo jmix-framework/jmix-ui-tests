@@ -2,7 +2,6 @@ package io.jmix.tests.ui.test.reports
 
 import com.codeborne.selenide.ElementsCollection
 import com.codeborne.selenide.Selenide
-import com.codeborne.selenide.WebDriverRunner
 import io.jmix.masquerade.component.Button
 import io.jmix.tests.ui.screen.application.company.CompanyBrowse
 import io.jmix.tests.ui.screen.reports.browser.ReportBrowse
@@ -10,14 +9,14 @@ import io.jmix.tests.ui.screen.reports.browser.ReportGroupBrowse
 import io.jmix.tests.ui.screen.reports.dialog.*
 import io.jmix.tests.ui.screen.reports.editor.ReportEditor
 import io.jmix.tests.ui.screen.system.dialog.ConfirmationDialog
-import io.jmix.tests.ui.screen.system.main.MainScreen
 import io.jmix.tests.ui.test.BaseUiTest
 import io.jmix.tests.ui.test.utils.UiHelper
-import org.openqa.selenium.Dimension
 
+import static com.codeborne.selenide.Selectors.withText
 import static com.codeborne.selenide.Selenide.$
 import static com.codeborne.selenide.Selenide.$$
-import static io.jmix.masquerade.Conditions.*
+import static io.jmix.masquerade.Conditions.DISABLED
+import static io.jmix.masquerade.Conditions.VISIBLE
 import static io.jmix.masquerade.Selectors.$j
 import static io.jmix.masquerade.Selectors.byClassName
 
@@ -65,6 +64,7 @@ abstract class BaseReportUiTest extends BaseUiTest implements UiHelper {
 
     public static final String GROUP_TEST_NAME = "Test group"
     public static final String GROUP_TEST_CODE = "testgroup"
+    public static final String GROUP_GENERAL_NAME = "General"
 
     public static final String COMPANY_TABLE_JTEST_ID = "companiesTable"
     public static final String REGIONS_TABLE_JTEST_ID = "regionsTable"
@@ -106,12 +106,9 @@ abstract class BaseReportUiTest extends BaseUiTest implements UiHelper {
     public static final String REPORT_TYPE_LIST_ENTITIES = "Report for list of entities"
     public static final String REPORT_TYPE_LIST_ENTITIES_QUERY = "Report for list of entities, selected by query"
 
-    /**
-     * Sets window size to 1920x1080
-     */
-    static void maximizeWindowSize() {
-        WebDriverRunner.webDriver.manage().window().setSize(new Dimension(1920, 1080))
-    }
+    public static final String RESOURCES_PATH = "src/main/resources/"
+    public static final String IMPORTED_REPORT_NAME = "Report for entity \"Company\""
+    public static final String REPORT_FILE_NAME = "report.zip"
 
     static String getReportBasicName(String entityName) {
         return "Report for entity \"" + entityName + "\""
@@ -145,16 +142,14 @@ abstract class BaseReportUiTest extends BaseUiTest implements UiHelper {
     }
 
     static void openReportCreationWizard() {
-        $j(MainScreen).openReportsBrowse()
         $j(ReportBrowse).with {
-            chooseCreatingType(USING_WIZARD_MODE)
+            chooseCreatingTypeInCreatePopupButton(USING_WIZARD_MODE)
         }
     }
 
-    static void openReportEditor() {
-        $j(MainScreen).openReportsBrowse()
+    static void openNewReportEditor() {
         $j(ReportBrowse).with {
-            chooseCreatingType(NEW_MODE)
+            chooseCreatingTypeInCreatePopupButton(NEW_MODE)
         }
     }
 
@@ -186,8 +181,8 @@ abstract class BaseReportUiTest extends BaseUiTest implements UiHelper {
         }
     }
 
-    static void expandReportGroup(String className) {
-        $(byClassName(className))
+    static void expandReportGroup(String groupName) {
+        $(withText(groupName))
                 .shouldBe(VISIBLE)
                 .click()
     }
@@ -279,6 +274,27 @@ abstract class BaseReportUiTest extends BaseUiTest implements UiHelper {
         $j(InputParametersDialog).with {
             clickButton(printReportButton)
             clickButton(cancelButton)
+        }
+    }
+
+    static void cleanTempFile(String fileNamePath) {
+        File file = new File(fileNamePath)
+        file.delete()
+    }
+
+    static void importReportFile(String reportBaseFilePath, String reportNewFilePath, String reportFileName) {
+        $j(ReportBrowse).with {
+            clickButton(importBtn)
+        }
+
+        $j(ReportImportDialog).with {
+            uploadNewDocument(fileUploadField, reportBaseFilePath, reportNewFilePath)
+            checkUploadedFilename(reportFileName)
+            clickButton(commitBtn)
+            Selenide.sleep(300)
+            if (commitBtn.exists()){
+                clickButton(commitBtn)
+            }
         }
     }
 }

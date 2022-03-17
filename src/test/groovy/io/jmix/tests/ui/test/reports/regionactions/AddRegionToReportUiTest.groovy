@@ -10,7 +10,10 @@ import io.jmix.tests.ui.initializer.TestContextInitializer
 import io.jmix.tests.ui.screen.reports.dialog.ReportRegionsDialog
 import io.jmix.tests.ui.screen.reports.dialog.ReportSimpleRegionDialog
 import io.jmix.tests.ui.screen.reports.dialog.ReportTabulatedRegionParamsDialog
+import io.jmix.tests.ui.screen.system.main.MainScreen
 import io.jmix.tests.ui.test.reports.BaseReportUiTest
+import org.junit.jupiter.api.AfterEach
+import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
@@ -30,13 +33,22 @@ import static io.jmix.masquerade.Selectors.$j
 @ContextConfiguration(initializers = TestContextInitializer)
 class AddRegionToReportUiTest extends BaseReportUiTest {
 
+    @BeforeEach
+    void beforeEach() {
+        loginAsAdmin()
+        maximizeWindowSize()
+        $j(MainScreen).openReportsBrowse()
+        openReportCreationWizard()
+    }
+
+    @AfterEach
+    void afterEach() {
+        interruptReportCreating()
+    }
+
     @Test
     @DisplayName("Adds a simple region to report")
     void addSimpleRegionToReport() {
-        loginAsAdmin()
-        maximizeWindowSize()
-        openReportCreationWizard()
-
         chooseReportEntity(COMPANY_FULL_STRING, COMPANY_ENTITY_NAME)
 
         def list = [COMPANY_TYPE, COMPANY_EMAIL, COMPANY_GRADE]
@@ -55,16 +67,11 @@ class AddRegionToReportUiTest extends BaseReportUiTest {
         $j(ReportRegionsDialog).with {
             checkRecordIsDisplayed(str1, REGIONS_TABLE_JTEST_ID)
         }
-        interruptReportCreating()
     }
 
     @Test
     @DisplayName("Adds a tabulated region to report")
     void addTabulatedRegionToReport() {
-        loginAsAdmin()
-        maximizeWindowSize()
-
-        openReportCreationWizard()
         chooseReportEntity(ATMOSPHERE_FULL_STRING, ATMOSPHERE_ENTITY_NAME)
         def list = [ATMOSPHERE_DESCRIPTION, ATMOSPHERE_PRESSURE]
         def str = getString(list)
@@ -89,7 +96,5 @@ class AddRegionToReportUiTest extends BaseReportUiTest {
         }
 
         Selenide.sleep(200)
-
-        interruptReportCreating()
     }
 }

@@ -11,8 +11,11 @@ import io.jmix.tests.ui.screen.reports.editor.ReportGroupEditor
 import io.jmix.tests.ui.screen.reports.editor.ReportEditor
 import io.jmix.tests.ui.screen.system.main.MainScreen
 import io.jmix.tests.ui.test.reports.BaseReportUiTest
+import org.junit.jupiter.api.BeforeAll
+import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.TestInstance
 import org.junit.jupiter.api.extension.ExtendWith
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.test.context.ContextConfiguration
@@ -28,7 +31,34 @@ import static io.jmix.masquerade.Selectors.$j
         webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT,
         properties = ['jmix.liquibase.contexts=base,reports'])
 @ContextConfiguration(initializers = TestContextInitializer)
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 class ReportGroupActionUiTest extends BaseReportUiTest {
+
+    public static final String GENERAL_GROUP_NAME = "General"
+    public String reportName = ""
+
+    @BeforeAll
+    void beforeAll() {
+        loginAsAdmin()
+        maximizeWindowSize()
+        $j(MainScreen).openReportsBrowse()
+
+        reportName = getReportUniqueName(COMPANY_ENTITY_NAME)
+        createBasicReportForCompanyEntity(reportName)
+
+        $j(ReportBrowse).with {
+            checkRecordIsDisplayed(reportName, REPORTS_TABLE_JTEST_ID)
+        }
+
+        $j(MainScreen).logout()
+    }
+
+    @BeforeEach
+    void beforeEach() {
+        loginAsAdmin()
+        maximizeWindowSize()
+        $j(MainScreen).openReportsGroupBrowse()
+    }
 
     static void createSimpleNonSystemGroup(String groupName) {
         $j(ReportGroupBrowse).with {
@@ -68,11 +98,6 @@ class ReportGroupActionUiTest extends BaseReportUiTest {
     @Test
     @DisplayName("Creates a non-system report group")
     void createNonSystemReportGroup() {
-        loginAsAdmin()
-        maximizeWindowSize()
-        $j(MainScreen).with {
-            openReportsGroupBrowse()
-        }
         def groupName = getGroupUniqueName(GROUP_TEST_NAME)
         createSimpleNonSystemGroup(groupName)
 
@@ -87,12 +112,6 @@ class ReportGroupActionUiTest extends BaseReportUiTest {
     @Test
     @DisplayName("Creates a system report group")
     void createSystemReportGroup() {
-        loginAsAdmin()
-        maximizeWindowSize()
-        $j(MainScreen).with {
-            openReportsGroupBrowse()
-        }
-
         def groupName = getGroupUniqueName(GROUP_TEST_NAME)
         def groupCode = getGroupUniqueName(GROUP_TEST_CODE)
 
@@ -103,18 +122,12 @@ class ReportGroupActionUiTest extends BaseReportUiTest {
         }
 
         makeGroupNonSystem(groupName)
-
         removeNonSystemGroup(groupName)
     }
 
     @Test
     @DisplayName("Edits a report group")
     void editReportGroup() {
-        loginAsAdmin()
-        maximizeWindowSize()
-        $j(MainScreen).with {
-            openReportsGroupBrowse()
-        }
         def groupName = getGroupUniqueName(GROUP_TEST_NAME)
 
         createSimpleNonSystemGroup(groupName)
@@ -142,11 +155,6 @@ class ReportGroupActionUiTest extends BaseReportUiTest {
     @Test
     @DisplayName("Removes a non-system report group without reports")
     void removeNonSystemReportGroup() {
-        loginAsAdmin()
-        maximizeWindowSize()
-        $j(MainScreen).with {
-            openReportsGroupBrowse()
-        }
         def groupName = getGroupUniqueName(GROUP_TEST_NAME)
 
         createSimpleNonSystemGroup(groupName)
@@ -161,11 +169,6 @@ class ReportGroupActionUiTest extends BaseReportUiTest {
     @Test
     @DisplayName("Removes a system report group")
     void removeSystemReportGroup() {
-        loginAsAdmin()
-        maximizeWindowSize()
-        $j(MainScreen).with {
-            openReportsGroupBrowse()
-        }
         def groupName = getGroupUniqueName(GROUP_TEST_NAME)
         def groupCode = getGroupUniqueName(GROUP_TEST_CODE)
 
@@ -180,80 +183,67 @@ class ReportGroupActionUiTest extends BaseReportUiTest {
         checkNotification(SYSTEM_GROUP_REMOVING_NOTIFICATION)
 
         makeGroupNonSystem(groupName)
-
         removeNonSystemGroup(groupName)
     }
 
     @Test
     @DisplayName("Adds a report to report group")
     void addReportToReportGroup() {
-        loginAsAdmin()
-        maximizeWindowSize()
-        $j(MainScreen).with {
-            openReportsGroupBrowse()
-        }
         def groupName = getGroupUniqueName(GROUP_TEST_NAME)
 
         createSimpleNonSystemGroup(groupName)
-        $j(MainScreen).with {
-            openReportsBrowse()
-        }
-        def reportName = getReportUniqueName(COMPANY_ENTITY_NAME)
 
-        createBasicReportForCompanyEntity(reportName)
+        $j(MainScreen).openReportsBrowse()
 
         $j(ReportBrowse).with {
+            expandReportGroup(GROUP_GENERAL_NAME)
             selectRowInTableByText(reportName, REPORTS_TABLE_JTEST_ID)
             clickButton(edit)
         }
 
         $j(ReportEditor).with {
-            group.openOptionsPopup().select(groupName)
+            selectValueWithoutFilterInComboBox(group, groupName)
             clickButton(ok)
         }
 
         $j(ReportBrowse).with {
-            expandReportGroup(REPORT_TABLE_EXPAND_SELECTOR)
+            expandReportGroup(groupName)
+            checkRecordIsDisplayed(reportName, REPORTS_TABLE_JTEST_ID)
+            selectRowInTableByText(reportName, REPORTS_TABLE_JTEST_ID)
+            clickButton(edit)
         }
 
-        removeReport(reportName)
-        $j(MainScreen).with {
-            openReportsGroupBrowse()
+        $j(ReportEditor).with {
+            selectValueWithoutFilterInComboBox(group, GENERAL_GROUP_NAME)
+            clickButton(ok)
         }
+
+        $j(MainScreen).openReportsGroupBrowse()
+
         removeNonSystemGroup(groupName)
     }
 
     @Test
     @DisplayName("Removes report group with reports")
     void removeSimpleReportGroupWithReports() {
-        loginAsAdmin()
-        maximizeWindowSize()
-        $j(MainScreen).with {
-            openReportsGroupBrowse()
-        }
         def groupName = getGroupUniqueName(GROUP_TEST_NAME)
 
         createSimpleNonSystemGroup(groupName)
-        $j(MainScreen).with {
-            openReportsBrowse()
-        }
-        def reportName = getReportUniqueName(COMPANY_ENTITY_NAME)
-
-        createBasicReportForCompanyEntity(reportName)
+        $j(MainScreen).openReportsBrowse()
 
         $j(ReportBrowse).with {
+            expandReportGroup(GROUP_GENERAL_NAME)
             selectRowInTableByText(reportName, REPORTS_TABLE_JTEST_ID)
             clickButton(edit)
         }
 
         $j(ReportEditor).with {
-            group.openOptionsPopup().select(groupName)
+            selectValueWithoutFilterInComboBox(group, groupName)
             clickButton(ok)
         }
 
-        $j(MainScreen).with {
-            openReportsGroupBrowse()
-        }
+        $j(MainScreen).openReportsGroupBrowse()
+
         $j(ReportGroupBrowse).with {
             selectRowInTableByText(groupName, REPORTS_GROUPS_TABLE_JTEST_ID)
             clickButton(remove)
@@ -261,18 +251,21 @@ class ReportGroupActionUiTest extends BaseReportUiTest {
 
         checkNotification(NON_EMPTY_GROUP_REMOVING_NOTIFICATION)
 
-        $j(MainScreen).with {
-            openReportsBrowse()
-        }
+        $j(MainScreen).openReportsBrowse()
 
         $j(ReportBrowse).with {
-            expandReportGroup(REPORT_TABLE_EXPAND_SELECTOR)
+            expandReportGroup(groupName)
+            selectRowInTableByText(reportName, REPORTS_TABLE_JTEST_ID)
+            clickButton(edit)
         }
-        removeReport(reportName)
 
-        $j(MainScreen).with {
-            openReportsGroupBrowse()
+        $j(ReportEditor).with {
+            selectValueWithoutFilterInComboBox(group, GENERAL_GROUP_NAME)
+            clickButton(ok)
         }
+
+        $j(MainScreen).openReportsGroupBrowse()
+
         removeNonSystemGroup(groupName)
     }
 }

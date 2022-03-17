@@ -10,15 +10,16 @@ import io.jmix.tests.ui.initializer.TestContextInitializer
 import io.jmix.tests.ui.screen.reports.dialog.ReportRegionsDialog
 import io.jmix.tests.ui.screen.reports.dialog.ReportSimpleRegionDialog
 import io.jmix.tests.ui.screen.reports.dialog.ReportTabulatedRegionParamsDialog
+import io.jmix.tests.ui.screen.system.main.MainScreen
 import io.jmix.tests.ui.test.reports.BaseReportUiTest
+import org.junit.jupiter.api.AfterEach
+import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
-import org.openqa.selenium.interactions.Actions
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.test.context.ContextConfiguration
 
-import static com.codeborne.selenide.WebDriverRunner.getWebDriver
 import static io.jmix.masquerade.Selectors.$j
 
 @ExtendWith([
@@ -32,12 +33,22 @@ import static io.jmix.masquerade.Selectors.$j
 @ContextConfiguration(initializers = TestContextInitializer)
 class ReorderRegionAttributeUiTest extends BaseReportUiTest {
 
+    @BeforeEach
+    void beforeEach() {
+        loginAsAdmin()
+        maximizeWindowSize()
+        $j(MainScreen).openReportsBrowse()
+        openReportCreationWizard()
+    }
+
+    @AfterEach
+    void afterEach() {
+        interruptReportCreating()
+    }
+
     @Test
     @DisplayName("Reorders attributes in a simple region")
     void reorderAttributesInSimpleRegion() {
-        loginAsAdmin()
-        maximizeWindowSize()
-        openReportCreationWizard()
         chooseReportEntity(COMPANY_FULL_STRING, COMPANY_ENTITY_NAME)
 
         def company = "$COMPANY_ENTITY_NAME."
@@ -63,17 +74,11 @@ class ReorderRegionAttributeUiTest extends BaseReportUiTest {
         $j(ReportRegionsDialog).with {
             checkRecordIsDisplayed(reOrderStr, REGIONS_TABLE_JTEST_ID)
         }
-
-        interruptReportCreating()
     }
 
     @Test
     @DisplayName("Reorders attributes in a tabulated region")
     void reorderAttributesInTabulatedRegion() {
-        loginAsAdmin()
-        maximizeWindowSize()
-
-        openReportCreationWizard()
         chooseReportEntity(ATMOSPHERE_FULL_STRING, ATMOSPHERE_ENTITY_NAME)
         def list = [ATMOSPHERE_DESCRIPTION, ATMOSPHERE_PRESSURE]
         def str = getString(list)
@@ -110,8 +115,6 @@ class ReorderRegionAttributeUiTest extends BaseReportUiTest {
         }
 
         Selenide.sleep(200)
-
-        interruptReportCreating()
     }
 
 }

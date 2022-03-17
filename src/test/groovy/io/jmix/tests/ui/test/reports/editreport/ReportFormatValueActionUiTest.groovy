@@ -10,7 +10,10 @@ import io.jmix.tests.ui.screen.system.dialog.UnsavedChangesDialog
 import io.jmix.tests.ui.screen.reports.editor.ValueFormatEditor
 import io.jmix.tests.ui.screen.reports.editor.ReportEditor
 import io.jmix.tests.ui.screen.system.dialog.ConfirmationDialog
+import io.jmix.tests.ui.screen.system.main.MainScreen
 import io.jmix.tests.ui.test.reports.BaseReportUiTest
+import org.junit.jupiter.api.AfterEach
+import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
@@ -30,91 +33,73 @@ import static io.jmix.masquerade.Selectors.$j
 @ContextConfiguration(initializers = TestContextInitializer)
 class ReportFormatValueActionUiTest extends BaseReportUiTest {
 
-    @Test
-    @DisplayName("Creates format value")
-    void createFormatValue() {
+    @BeforeEach
+    void beforeEach() {
         loginAsAdmin()
         maximizeWindowSize()
-        openReportEditor()
+        $j(MainScreen).openReportsBrowse()
+        openNewReportEditor()
+    }
 
+    @AfterEach
+    void afterEach() {
+        $j(ReportEditor).with {
+            clickButton(cancel)
+        }
+        $j(UnsavedChangesDialog).with {
+            clickButton(doNotSave)
+        }
+    }
+
+    static void openValueFormatEditor() {
         $j(ReportEditor).with {
             openTab(PARAMETERS_AND_FORMATS_JTEST_ID)
             clickButton($j(Button, VALUE_CREATE_BUTTON_JTEST_ID))
         }
+    }
 
+    static void setNameAndHTMLFormatToValue(String name) {
         $j(ValueFormatEditor).with {
-            valueNameField.setValue(COMPANY_NAME)
-            formatField.openOptionsPopup().select(FORMAT_OPTION_HTML)
+            valueNameField.setValue(name)
+            selectValueWithoutFilterInComboBox(formatField, FORMAT_OPTION_HTML)
             clickButton(ok)
         }
+    }
+
+    @Test
+    @DisplayName("Creates format value")
+    void createFormatValue() {
+        openValueFormatEditor()
+        setNameAndHTMLFormatToValue(COMPANY_NAME)
 
         $j(ReportEditor).with {
             checkRecordIsDisplayed(COMPANY_NAME, VALUES_FORMATS_TABLE_JTEST_ID)
-            clickButton(cancel)
-        }
-
-        $j(UnsavedChangesDialog).with {
-            clickButton(doNotSave)
         }
     }
 
     @Test
     @DisplayName("Edits format value")
     void editFormatValue() {
-        loginAsAdmin()
-        maximizeWindowSize()
-        openReportEditor()
-
-        $j(ReportEditor).with {
-            openTab(PARAMETERS_AND_FORMATS_JTEST_ID)
-            clickButton($j(Button, VALUE_CREATE_BUTTON_JTEST_ID))
-        }
-
-        $j(ValueFormatEditor).with {
-            valueNameField.setValue(COMPANY_NAME)
-            formatField.openOptionsPopup().select(FORMAT_OPTION_HTML)
-            clickButton(ok)
-        }
+        openValueFormatEditor()
+        setNameAndHTMLFormatToValue(COMPANY_NAME)
 
         $j(ReportEditor).with {
             checkRecordIsDisplayed(COMPANY_NAME, VALUES_FORMATS_TABLE_JTEST_ID)
             selectRowInTableByText(COMPANY_NAME, VALUES_FORMATS_TABLE_JTEST_ID)
             clickButton($j(Button, VALUE_EDIT_BUTTON_JTEST_ID))
         }
-
-        $j(ValueFormatEditor).with {
-            valueNameField.setValue(COMPANY_GRADE)
-            formatField.openOptionsPopup().select(FORMAT_OPTION_HTML)
-            clickButton(ok)
-        }
+        setNameAndHTMLFormatToValue(COMPANY_GRADE)
 
         $j(ReportEditor).with {
             checkRecordIsDisplayed(COMPANY_GRADE, VALUES_FORMATS_TABLE_JTEST_ID)
-            clickButton(cancel)
-        }
-
-        $j(UnsavedChangesDialog).with {
-            clickButton(doNotSave)
         }
     }
 
     @Test
     @DisplayName("Removes format value")
     void removeFormatValue() {
-        loginAsAdmin()
-        maximizeWindowSize()
-        openReportEditor()
-
-        $j(ReportEditor).with {
-            openTab(PARAMETERS_AND_FORMATS_JTEST_ID)
-            clickButton($j(Button, VALUE_CREATE_BUTTON_JTEST_ID))
-        }
-
-        $j(ValueFormatEditor).with {
-            valueNameField.setValue(COMPANY_NAME)
-            formatField.openOptionsPopup().select(FORMAT_OPTION_HTML)
-            clickButton(ok)
-        }
+        openValueFormatEditor()
+        setNameAndHTMLFormatToValue(COMPANY_NAME)
 
         $j(ReportEditor).with {
             checkRecordIsDisplayed(COMPANY_NAME, VALUES_FORMATS_TABLE_JTEST_ID)
@@ -128,11 +113,6 @@ class ReportFormatValueActionUiTest extends BaseReportUiTest {
 
         $j(ReportEditor).with {
             checkRecordIsNotDisplayed(COMPANY_GRADE, VALUES_FORMATS_TABLE_JTEST_ID)
-            clickButton(cancel)
-        }
-
-        $j(UnsavedChangesDialog).with {
-            clickButton(doNotSave)
         }
     }
 }

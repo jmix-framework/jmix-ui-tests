@@ -2,6 +2,7 @@ package io.jmix.tests.ui.test.reports.reportactions
 
 import io.jmix.masquerade.component.Button
 import io.jmix.masquerade.component.ComboBox
+import io.jmix.masquerade.component.TextField
 import io.jmix.tests.JmixUiTestsApplication
 import io.jmix.tests.extension.ChromeExtension
 import io.jmix.tests.ui.extension.PostgreSQLExtension
@@ -11,10 +12,13 @@ import io.jmix.tests.ui.screen.reports.browser.ReportBrowse
 import io.jmix.tests.ui.screen.reports.dialog.InputParametersDialog
 import io.jmix.tests.ui.screen.reports.dialog.JPQLQueryEditorDialog
 import io.jmix.tests.ui.screen.reports.dialog.ReportRegionsDialog
+import io.jmix.tests.ui.screen.reports.editor.ReportParameterEditor
 import io.jmix.tests.ui.screen.reports.editor.ReportTemplateEditor
 import io.jmix.tests.ui.screen.reports.dialog.SaveReportDialog
 import io.jmix.tests.ui.screen.reports.editor.ReportEditor
+import io.jmix.tests.ui.screen.system.main.MainScreen
 import io.jmix.tests.ui.test.reports.BaseReportUiTest
+import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
@@ -23,6 +27,8 @@ import org.springframework.test.context.ContextConfiguration
 
 import static io.jmix.masquerade.Selectors.$j
 import static io.jmix.masquerade.Conditions.*
+import static io.jmix.masquerade.Selectors.byChain
+import static io.jmix.masquerade.Selectors.byJTestId
 
 @ExtendWith([
         SpringBootExtension,
@@ -37,13 +43,94 @@ class CreateReportUiTest extends BaseReportUiTest {
 
     public static final String EDIT_BUTTON_JTEST_ID = "edit"
     public static final String COMBOBOX_OUTPUT_TYPE_JTEST_ID = "outputTypeComboBox"
+    public static final String TEMPLATE_BASIC_FILE_NAME = "template.docx"
+    public static final String ENTITY_FIELD_J_TEST_ID = "metaClassField"
+    public static final String ENTITY_SCREEN_FIELD_J_TEST_ID = "screenField"
+    public static final String SCREEN_VALUE = "Company browser (Company.browse)"
+    public static final String PARAMETERS_AND_FORMATS_TAB_J_TEST_ID = "parametersAndFormatsTab"
+    public static final String ENTITY_LOW_CASE_STR = "entity"
+    public static final String ENTITY_CAPITALIZED_STRING = "Entity"
+    public static final String GENERAL_TAB_J_TEST_ID = "generalTab"
+    public static final String DATASET_TYPE_COMBOBOX_J_TEST_ID = "type"
+    public static final String BAND_DETAILS_BOX_J_TEST_ID = "bandDetailsBox"
+    public static final String ENTITY_PARAM_NAME_COMBOBOX_J_TEST_ID = "entityParamField"
+    public static final String NEW_BAND_J_TEST_ID = "newBand1"
+    public static final String DATASET_NAME_FIELD_J_TEST_ID = "name"
+    public static final String TEMPLATE_FILE_NAME = "template.docx"
+
+    static void openReportParameterEditor() {
+        $j(ReportEditor).with {
+            clickButton($j(Button, PARAMETER_CREATE_BUTTON_JTEST_ID))
+        }
+    }
+
+    @BeforeEach
+    void beforeEach() {
+        loginAsAdmin()
+        maximizeWindowSize()
+        $j(MainScreen).openReportsBrowse()
+    }
+
+    @Test
+    @DisplayName("Creates a report for one entity without using wizard")
+    void createReportForOneEntityWithoutWizard() {
+        def reportName = getReportUniqueName(COMPANY_ENTITY_NAME)
+
+        def templateFileName = getGeneratedString() + TEMPLATE_FILE_NAME
+        def templateFilePath = RESOURCES_PATH + TEMPLATE_BASIC_FILE_NAME
+        def templateUniqueFilePath = RESOURCES_PATH + templateFileName
+        openNewReportEditor()
+        $j(ReportEditor).with {
+            fillTextField(name, reportName)
+            clickButton(createTemplate)
+        }
+
+        $j(ReportTemplateEditor).with {
+            uploadNewDocument(templateUploadField, templateFilePath, templateUniqueFilePath)
+            checkUploadedFilename(templateFileName)
+            clickButton(ok)
+        }
+
+        $j(ReportEditor).with {
+            openTab(PARAMETERS_AND_FORMATS_TAB_J_TEST_ID)
+            openReportParameterEditor()
+        }
+
+        $j(ReportParameterEditor).with {
+            name.setValue(ENTITY_LOW_CASE_STR)
+            alias.setValue(ENTITY_LOW_CASE_STR)
+            selectValueWithoutFilterInComboBox(parameterTypeField, ENTITY_CAPITALIZED_STRING)
+            selectValueWithoutFilterInComboBox($j(ComboBox, ENTITY_FIELD_J_TEST_ID), COMPANY_FULL_STRING)
+            selectValueWithoutFilterInComboBox($j(ComboBox, ENTITY_SCREEN_FIELD_J_TEST_ID), SCREEN_VALUE)
+            clickButton(ok)
+        }
+
+        $j(ReportEditor).with {
+            checkRecordIsDisplayed(ENTITY_LOW_CASE_STR, PARAMETERS_TABLE_JTEST_ID)
+        }
+
+        $j(ReportEditor).with {
+            openTab(GENERAL_TAB_J_TEST_ID)
+            fillTextField(name, reportName)
+            clickButton(createReportBand)
+            clickBandsTreeNode(NEW_BAND_J_TEST_ID)
+            clickButton(createBand)
+            selectValueWithoutFilterInComboBox($j(ComboBox, DATASET_TYPE_COMBOBOX_J_TEST_ID), ENTITY_CAPITALIZED_STRING)
+            fillTextField($j(TextField, byChain(byJTestId(BAND_DETAILS_BOX_J_TEST_ID), byJTestId(DATASET_NAME_FIELD_J_TEST_ID))), "Set")
+            selectValueWithoutFilterInComboBox($j(ComboBox, ENTITY_PARAM_NAME_COMBOBOX_J_TEST_ID), ENTITY_LOW_CASE_STR)
+            clickButton(ok)
+        }
+
+        $j(ReportBrowse).with {
+            checkRecordIsDisplayed(reportName, REPORTS_TABLE_JTEST_ID)
+        }
+        removeReport(reportName)
+        cleanTempFile(templateUniqueFilePath)
+    }
 
     @Test
     @DisplayName("Creates a report for one entity using wizard")
     void createReportForOneEntity() {
-        loginAsAdmin()
-        maximizeWindowSize()
-
         def reportName = getReportUniqueName(COMPANY_ENTITY_NAME)
         createBasicReportForCompanyEntity(reportName)
 
@@ -56,8 +143,6 @@ class CreateReportUiTest extends BaseReportUiTest {
     @Test
     @DisplayName("Creates a report for one entity using Copy button")
     void createReportByCopying() {
-        loginAsAdmin()
-        maximizeWindowSize()
         def reportName = getReportUniqueName(COMPANY_ENTITY_NAME)
         createBasicReportForCompanyEntity(reportName)
 
@@ -74,9 +159,6 @@ class CreateReportUiTest extends BaseReportUiTest {
     @Test
     @DisplayName("Creates a report for entities list using wizard")
     void createReportForEntitiesList() {
-        loginAsAdmin()
-        maximizeWindowSize()
-
         openReportCreationWizard()
         selectReportType(REPORT_TYPE_LIST_ENTITIES)
         chooseReportEntity(COMPANY_FULL_STRING, COMPANY_ENTITY_NAME)
@@ -110,9 +192,6 @@ class CreateReportUiTest extends BaseReportUiTest {
     @Test
     @DisplayName("Creates a report for entities list by query using wizard")
     void createReportForEntitiesListByQuery() {
-        loginAsAdmin()
-        maximizeWindowSize()
-
         openReportCreationWizard()
         selectReportType(REPORT_TYPE_LIST_ENTITIES_QUERY)
         chooseReportEntity(COMPANY_FULL_STRING, COMPANY_ENTITY_NAME)
@@ -150,9 +229,6 @@ class CreateReportUiTest extends BaseReportUiTest {
     @Test
     @DisplayName("Creates a report for entities list using table type")
     void createReportUsingTableType() {
-        loginAsAdmin()
-        maximizeWindowSize()
-
         openReportCreationWizard()
         selectReportType(REPORT_TYPE_LIST_ENTITIES)
         chooseReportTemplateType(TABLE_TYPE)
@@ -186,9 +262,6 @@ class CreateReportUiTest extends BaseReportUiTest {
     @Test
     @DisplayName("Creates a report for entities list using serial chart type")
     void createReportUsingSerialChartType() {
-        loginAsAdmin()
-        maximizeWindowSize()
-
         openReportCreationWizard()
         selectReportType(REPORT_TYPE_LIST_ENTITIES)
         chooseReportTemplateType(CHART_TYPE)
@@ -203,9 +276,7 @@ class CreateReportUiTest extends BaseReportUiTest {
         }
 
         $j(SaveReportDialog).with {
-            $j(ComboBox, COMBOBOX_DIAGRAM_TYPE_JTEST_ID)
-                    .openOptionsPopup()
-                    .select(SERIAL_TYPE)
+            selectValueWithoutFilterInComboBox($j(ComboBox, COMBOBOX_DIAGRAM_TYPE_JTEST_ID), SERIAL_TYPE)
             save()
         }
 
@@ -225,9 +296,6 @@ class CreateReportUiTest extends BaseReportUiTest {
     @Test
     @DisplayName("Creates a report for entities list using pie chart type")
     void createReportUsingPieChartType() {
-        loginAsAdmin()
-        maximizeWindowSize()
-
         openReportCreationWizard()
         selectReportType(REPORT_TYPE_LIST_ENTITIES)
         chooseReportTemplateType(CHART_TYPE)
@@ -242,9 +310,7 @@ class CreateReportUiTest extends BaseReportUiTest {
         }
 
         $j(SaveReportDialog).with {
-            $j(ComboBox, COMBOBOX_DIAGRAM_TYPE_JTEST_ID)
-                    .openOptionsPopup()
-                    .select(PIE_TYPE)
+            selectValueWithoutFilterInComboBox($j(ComboBox, COMBOBOX_DIAGRAM_TYPE_JTEST_ID), PIE_TYPE)
             save()
         }
 
@@ -264,9 +330,6 @@ class CreateReportUiTest extends BaseReportUiTest {
     @Test
     @DisplayName("Creates report with alterable output")
     void createReportWithAlterableOutput() {
-        loginAsAdmin()
-        maximizeWindowSize()
-
         openReportCreationWizard()
         chooseReportEntity(COMPANY_FULL_STRING, COMPANY_ENTITY_NAME)
 
@@ -325,7 +388,6 @@ class CreateReportUiTest extends BaseReportUiTest {
                     .shouldBe(ENABLED)
             clickButton(cancelButton)
         }
-
         removeReport(reportName)
     }
 

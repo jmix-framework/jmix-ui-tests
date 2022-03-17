@@ -28,10 +28,13 @@ class ReportBrowse extends Composite<ReportBrowse> implements TableActionsTrait 
     @Wire
     Button export
 
+    @Wire(path = "import")
+    Button importBtn
+
     @Wire
     Button executionsButton
 
-    void chooseCreatingType(String typeString) {
+    void chooseCreatingTypeInCreatePopupButton(String typeString) {
         popupCreateBtn
                 .shouldBe(VISIBLE)
                 .openPopupContent()

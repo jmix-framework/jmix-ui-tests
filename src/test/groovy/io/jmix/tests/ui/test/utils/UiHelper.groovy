@@ -1,10 +1,15 @@
 package io.jmix.tests.ui.test.utils
 
+import com.codeborne.selenide.Condition
+import io.jmix.masquerade.Selectors
 import io.jmix.masquerade.component.Button
 import io.jmix.masquerade.component.ComboBox
+import io.jmix.masquerade.component.FileUploadField
 import io.jmix.masquerade.component.Notification
 import io.jmix.masquerade.component.TextField
+import org.testcontainers.shaded.org.apache.commons.io.FileUtils
 
+import static com.codeborne.selenide.Selenide.$
 import static io.jmix.masquerade.Conditions.EDITABLE
 import static io.jmix.masquerade.Conditions.ENABLED
 import static io.jmix.masquerade.Conditions.VISIBLE
@@ -12,6 +17,10 @@ import static io.jmix.masquerade.Conditions.caption
 import static io.jmix.masquerade.Conditions.description
 import static io.jmix.masquerade.Conditions.value
 import static io.jmix.masquerade.Selectors.$j
+import static io.jmix.masquerade.Selectors.byChain
+import static io.jmix.masquerade.Selectors.byClassName
+import static io.jmix.masquerade.Selectors.byClassName
+import static io.jmix.masquerade.Selectors.withText
 
 trait UiHelper {
 
@@ -66,13 +75,24 @@ trait UiHelper {
     }
 
     /**
-     * Selects param in defined Combobox by string value
+     * Selects param in defined Combobox by string value with setting filter
      * @param comboBox
      * @param strValue
      */
     static void selectValueInComboBox(ComboBox comboBox, String strValue) {
         comboBox.setFilter(strValue)
                 .getOptionsPopup()
+                .select(strValue)
+                .shouldHave(value(strValue))
+    }
+
+    /**
+     * Selects param in defined Combobox by string value without filter
+     * @param comboBox
+     * @param strValue
+     */
+    static void selectValueWithoutFilterInComboBox(ComboBox comboBox, String strValue) {
+        comboBox.openOptionsPopup()
                 .select(strValue)
                 .shouldHave(value(strValue))
     }
@@ -86,6 +106,29 @@ trait UiHelper {
         field.shouldBe(VISIBLE)
                 .shouldBe(EDITABLE)
                 .setValue(value)
+    }
+
+    /**
+     * Uploads renamed copy of defined file
+     * @param fileUploadField - FileUploadField component
+     * @param filePath - path to file in the 'resource' directory
+     * @param newFilePath - new file name
+     */
+    static void uploadNewDocument(FileUploadField fileUploadField, String filePath, String newFilePath) {
+        File file = new File(filePath)
+        File newFile = new File(newFilePath)
+        FileUtils.copyFile(file, newFile)
+
+        fileUploadField.upload(newFile)
+    }
+
+    /**
+     * Checks displayed name of uploaded file
+     * @param fileName - name of uploaded file
+     */
+    static void checkUploadedFilename(String fileName) {
+        $(byChain(byClassName("v-button-jmix-fileupload-filename"), byClassName("v-button-caption")))
+                .shouldHave(Condition.text(fileName))
     }
 
 }

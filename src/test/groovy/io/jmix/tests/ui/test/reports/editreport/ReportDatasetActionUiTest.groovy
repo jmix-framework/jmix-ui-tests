@@ -11,6 +11,7 @@ import io.jmix.tests.ui.extension.SpringBootExtension
 import io.jmix.tests.ui.initializer.TestContextInitializer
 import io.jmix.tests.ui.screen.system.dialog.UnsavedChangesDialog
 import io.jmix.tests.ui.screen.reports.editor.ReportEditor
+import io.jmix.tests.ui.screen.system.main.MainScreen
 import io.jmix.tests.ui.test.reports.BaseReportUiTest
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
@@ -49,12 +50,6 @@ class ReportDatasetActionUiTest extends BaseReportUiTest {
     public static final String DATASET_ENTITIES_LIST_OPTION = "List of entities"
     public static final String DATASET_JSON_OPTION = "JSON"
 
-    static void selectDatasetType(String type) {
-        $j(ComboBox, COMBOBOX_DATASETS_TYPE_JTEST_ID)
-                .openOptionsPopup()
-                .select(type)
-    }
-
     static void checkComboboxVisibility(String jTestId) {
         $j(ComboBox, jTestId)
                 .shouldBe(VISIBLE)
@@ -71,7 +66,8 @@ class ReportDatasetActionUiTest extends BaseReportUiTest {
     void checkAvailableDatasetsInReport() {
         loginAsAdmin()
         maximizeWindowSize()
-        openReportEditor()
+        $j(MainScreen).openReportsBrowse()
+        openNewReportEditor()
         $j(ReportEditor).with {
             clickButton($j(Button, DATASET_TABLE_J_TEST_ID, DATASET_CREATE_BUTTON_J_TEST_ID))
             $j(TextField, DATASET_TABLE_J_TEST_ID, DATASET_NAME_J_TEST_ID)
@@ -80,25 +76,25 @@ class ReportDatasetActionUiTest extends BaseReportUiTest {
             checkComboboxVisibility(COMBOBOX_DATASETS_TYPE_JTEST_ID)
 
             // select SQL type
-            selectDatasetType(DATASET_SQL_OPTION)
+            selectValueWithoutFilterInComboBox($j(ComboBox, COMBOBOX_DATASETS_TYPE_JTEST_ID),DATASET_SQL_OPTION)
             checkComboboxVisibility(COMBOBOX_DATASTORES_JTEST_ID)
 
             // select JPQL type
-            selectDatasetType(DATASET_JPQL_OPTION)
+            selectValueWithoutFilterInComboBox($j(ComboBox, COMBOBOX_DATASETS_TYPE_JTEST_ID),DATASET_JPQL_OPTION)
             checkComboboxVisibility(COMBOBOX_DATASTORES_JTEST_ID)
 
             // select Entity type
-            selectDatasetType(DATASET_ENTITY_OPTION)
+            selectValueWithoutFilterInComboBox($j(ComboBox, COMBOBOX_DATASETS_TYPE_JTEST_ID),DATASET_ENTITY_OPTION)
             checkComboboxVisibility(COMBOBOX_ENTITY_J_TEST_ID)
             checkFetchPlanButtonIsEnabled()
 
             // select List of entities type
-            selectDatasetType(DATASET_ENTITIES_LIST_OPTION)
+            selectValueWithoutFilterInComboBox($j(ComboBox, COMBOBOX_DATASETS_TYPE_JTEST_ID),DATASET_ENTITIES_LIST_OPTION)
             checkComboboxVisibility(COMBOBOX_ENTITIES_LIST_J_TEST_ID)
             checkFetchPlanButtonIsEnabled()
 
             // select JSON type
-            selectDatasetType(DATASET_JSON_OPTION)
+            selectValueWithoutFilterInComboBox($j(ComboBox, COMBOBOX_DATASETS_TYPE_JTEST_ID),DATASET_JSON_OPTION)
             checkComboboxVisibility(JSON_SOURCE_TYPES_J_TEST_ID)
 
             $j(TextArea, JSON_TEXTAREA_J_TEST_ID)

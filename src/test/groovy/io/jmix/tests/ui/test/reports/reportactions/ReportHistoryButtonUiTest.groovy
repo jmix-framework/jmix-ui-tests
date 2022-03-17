@@ -10,8 +10,12 @@ import io.jmix.tests.ui.screen.reports.browser.ReportExecutionBrowse
 import io.jmix.tests.ui.screen.reports.dialog.HistoryParametersDialog
 import io.jmix.tests.ui.screen.system.main.MainScreen
 import io.jmix.tests.ui.test.reports.BaseReportUiTest
+import org.junit.jupiter.api.AfterAll
+import org.junit.jupiter.api.BeforeAll
+import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.TestInstance
 import org.junit.jupiter.api.extension.ExtendWith
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.test.context.ContextConfiguration
@@ -27,106 +31,99 @@ import static io.jmix.masquerade.Selectors.$j
         webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT,
         properties = ['jmix.liquibase.contexts=base,reports'])
 @ContextConfiguration(initializers = TestContextInitializer)
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 class ReportHistoryButtonUiTest extends BaseReportUiTest {
 
-    static void openReportsBrowserAndRemoveReport(String reportName) {
-        $j(MainScreen).openReportsBrowse()
-        $j(ReportBrowse).with {
-            expandReportGroup(REPORT_TABLE_EXPAND_SELECTOR)
-        }
+    public String reportName = ""
 
-        removeReport(reportName)
-    }
-
-    @Test
-    @DisplayName("Downloads report's file")
-    void downloadReportDocument() {
+    @BeforeAll
+    void beforeAll() {
         loginAsAdmin()
         maximizeWindowSize()
-        def reportName = getReportUniqueName(COMPANY_ENTITY_NAME)
+        $j(MainScreen).openReportsBrowse()
 
+        reportName = getReportUniqueName(COMPANY_ENTITY_NAME)
         createBasicReportForCompanyEntity(reportName)
+
+        $j(ReportBrowse).with {
+            checkRecordIsDisplayed(reportName, REPORTS_TABLE_JTEST_ID)
+        }
+
+        $j(MainScreen).logout()
+    }
+
+    @BeforeEach
+    void beforeEach() {
+        loginAsAdmin()
+        maximizeWindowSize()
+        $j(MainScreen).openReportsBrowse()
+        expandReportGroup(GROUP_GENERAL_NAME)
 
         $j(ReportBrowse).with {
             checkRecordIsDisplayed(reportName, REPORTS_TABLE_JTEST_ID)
             selectRowInTableByText(reportName, REPORTS_TABLE_JTEST_ID)
             clickButton(run)
         }
-        chooseParameterForReport()
 
+        chooseParameterForReport()
         runReportAndCloseInputParamsDialog()
 
         $j(ReportBrowse).with {
             clickButton(executionsButton)
         }
+    }
+
+    @AfterAll
+    void afterAll() {
+        loginAsAdmin()
+        maximizeWindowSize()
+
+        $j(MainScreen).openReportsBrowse()
+        expandReportGroup(GROUP_GENERAL_NAME)
+
+        removeReport(reportName)
+        $j(MainScreen).logout()
+    }
+
+    @Test
+    @DisplayName("Downloads report's file")
+    void downloadReportDocument() {
 
         $j(ReportExecutionBrowse).with {
             checkRecordIsDisplayed(reportName, REPORTS_EXECUTIONS_TABLE_JTEST_ID)
             selectRowInTableByText(reportName, REPORTS_EXECUTIONS_TABLE_JTEST_ID)
             clickButton(download)
         }
-        openReportsBrowserAndRemoveReport(reportName)
     }
 
     @Test
     @DisplayName("Downloads report's execution history via Excel file")
     void downloadAllHistoryRecordsExcel() {
-        loginAsAdmin()
-        maximizeWindowSize()
-        def reportName = getReportUniqueName(COMPANY_ENTITY_NAME)
-
-        createBasicReportForCompanyEntity(reportName)
-        $j(ReportBrowse).with {
-            checkRecordIsDisplayed(reportName, REPORTS_TABLE_JTEST_ID)
-            selectRowInTableByText(reportName, REPORTS_TABLE_JTEST_ID)
-            clickButton(run)
-        }
-        chooseParameterForReport()
-        runReportAndCloseInputParamsDialog()
-
-        $j(ReportBrowse).with {
-            selectRowInTableByText(reportName, REPORTS_TABLE_JTEST_ID)
-            clickButton(run)
-        }
-        chooseParameterForReport()
-        runReportAndCloseInputParamsDialog()
-
-        $j(ReportBrowse).with {
-            clickButton(executionsButton)
-        }
 
         $j(ReportExecutionBrowse).with {
             checkRecordIsDisplayed(reportName, REPORTS_EXECUTIONS_TABLE_JTEST_ID)
             selectRowInTableByText(reportName, REPORTS_EXECUTIONS_TABLE_JTEST_ID)
             clickButton(excel)
         }
+
         $j(HistoryParametersDialog).with {
             clickButton(all)
         }
-
-        openReportsBrowserAndRemoveReport(reportName)
     }
 
     @Test
     @DisplayName("Downloads selected report's execution history via Excel file")
     void downloadSelectedHistoryRecordsExcel() {
-        loginAsAdmin()
-        maximizeWindowSize()
-        def reportName = getReportUniqueName(COMPANY_ENTITY_NAME)
 
-        createBasicReportForCompanyEntity(reportName)
+        $j(MainScreen).openReportsBrowse()
+        expandReportGroup(GROUP_GENERAL_NAME)
+
         $j(ReportBrowse).with {
             checkRecordIsDisplayed(reportName, REPORTS_TABLE_JTEST_ID)
             selectRowInTableByText(reportName, REPORTS_TABLE_JTEST_ID)
             clickButton(run)
         }
-        chooseParameterForReport()
-        runReportAndCloseInputParamsDialog()
 
-        $j(ReportBrowse).with {
-            selectRowInTableByText(reportName, REPORTS_TABLE_JTEST_ID)
-            clickButton(run)
-        }
         chooseParameterForReport()
         runReportAndCloseInputParamsDialog()
 
@@ -139,10 +136,9 @@ class ReportHistoryButtonUiTest extends BaseReportUiTest {
             selectRowInTableByText(reportName, REPORTS_EXECUTIONS_TABLE_JTEST_ID)
             clickButton(excel)
         }
+
         $j(HistoryParametersDialog).with {
             clickButton(selected)
         }
-
-        openReportsBrowserAndRemoveReport(reportName)
     }
 }

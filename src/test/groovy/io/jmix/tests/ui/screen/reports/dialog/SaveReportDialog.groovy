@@ -16,6 +16,6 @@ class SaveReportDialog extends Composite<SaveReportDialog> {
         saveBtn.shouldBe(VISIBLE)
                 .shouldBe(ENABLED)
                 .click()
-        Selenide.sleep(5000)
+        Selenide.sleep(1000)
     }
 }

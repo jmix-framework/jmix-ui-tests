@@ -11,7 +11,10 @@ import io.jmix.tests.ui.screen.reports.editor.ReportParameterEditor
 import io.jmix.tests.ui.screen.system.dialog.UnsavedChangesDialog
 import io.jmix.tests.ui.screen.reports.editor.ReportEditor
 import io.jmix.tests.ui.screen.system.dialog.ConfirmationDialog
+import io.jmix.tests.ui.screen.system.main.MainScreen
 import io.jmix.tests.ui.test.reports.BaseReportUiTest
+import org.junit.jupiter.api.AfterEach
+import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
@@ -48,130 +51,107 @@ class ReportParameterActionUiTest extends BaseReportUiTest {
     public static final String ENUM_VALUE = "CustomerGrade (CustomerGrade)"
     public static final String SCREEN_VALUE = "Company browser (Company.browse)"
 
-
-    @Test
-    @DisplayName("Creates report parameter with simple types")
-    void createReportParameterSimpleTypes() {
+    @BeforeEach
+    void beforeEach() {
         loginAsAdmin()
         maximizeWindowSize()
-        openReportEditor()
+        $j(MainScreen).openReportsBrowse()
+        openNewReportEditor()
 
         $j(ReportEditor).with {
             openTab(PARAMETERS_AND_FORMATS_JTEST_ID)
         }
+    }
+
+    @AfterEach
+    void afterEach() {
+        $j(ReportEditor).with {
+            clickButton(cancel)
+        }
+        $j(UnsavedChangesDialog).with {
+            clickButton(doNotSave)
+        }
+    }
+
+    static void setNameAndAliasToParameterAndSave(String paramName, String paramAlias) {
+        $j(ReportParameterEditor).with {
+            name.setValue(paramName)
+            alias.setValue(paramAlias)
+            clickButton(ok)
+        }
+    }
+
+    static void openReportParameterEditor() {
+        $j(ReportEditor).with {
+            clickButton($j(Button, PARAMETER_CREATE_BUTTON_JTEST_ID))
+        }
+    }
+
+    @Test
+    @DisplayName("Creates report parameter with simple types")
+    void createReportParameterSimpleTypes() {
 
         def params = [STRING_PARAM, NUMBER_PARAM, BOOLEAN_PARAM, DATE_PARAM, DATETIME_PARAM, TIME_PARAM]
         for (int i = 0; i < params.size(); i++) {
-            $j(ReportEditor).with {
-                clickButton($j(Button, PARAMETER_CREATE_BUTTON_JTEST_ID))
-            }
+            openReportParameterEditor()
 
             $j(ReportParameterEditor).with {
                 name.setValue(params[i])
                 alias.setValue(params[i].substring(0, 4).toLowerCase().concat(i as String))
-                parameterTypeField.openOptionsPopup().select(params[i])
+                selectValueWithoutFilterInComboBox(parameterTypeField, params[i])
                 clickButton(ok)
             }
             $j(ReportEditor).with {
                 checkRecordIsDisplayed(params[i], PARAMETERS_TABLE_JTEST_ID)
             }
-        }
-
-        $j(ReportEditor).with {
-            clickButton(cancel)
-        }
-
-        $j(UnsavedChangesDialog).with {
-            clickButton(doNotSave)
         }
     }
 
     @Test
     @DisplayName("Creates report parameter with Enumeration type")
     void createReportParameterEnum() {
-        loginAsAdmin()
-        maximizeWindowSize()
-        openReportEditor()
-
-        $j(ReportEditor).with {
-            openTab(PARAMETERS_AND_FORMATS_JTEST_ID)
-            clickButton($j(Button, PARAMETER_CREATE_BUTTON_JTEST_ID))
-        }
+        openReportParameterEditor()
 
         $j(ReportParameterEditor).with {
             name.setValue(ENUM_PARAM)
             alias.setValue(ENUM_PARAM)
-            parameterTypeField.openOptionsPopup().select(ENUM_PARAM)
-            $j(ComboBox, ENUM_FIELD_J_TEST_ID).openOptionsPopup().select(ENUM_VALUE)
+            selectValueWithoutFilterInComboBox(parameterTypeField, ENUM_PARAM)
+            selectValueWithoutFilterInComboBox($j(ComboBox, ENUM_FIELD_J_TEST_ID), ENUM_VALUE)
             clickButton(ok)
         }
 
         $j(ReportEditor).with {
             checkRecordIsDisplayed(ENUM_PARAM, PARAMETERS_TABLE_JTEST_ID)
-            clickButton(cancel)
-        }
-
-        $j(UnsavedChangesDialog).with {
-            clickButton(doNotSave)
         }
     }
 
     @Test
     @DisplayName("Creates report parameter with Entity and Entities List types")
     void createReportParameterEntityAndEntitiesList() {
-        loginAsAdmin()
-        maximizeWindowSize()
-        openReportEditor()
-
-        $j(ReportEditor).with {
-            openTab(PARAMETERS_AND_FORMATS_JTEST_ID)
-        }
-
         def params = [ENTITY_PARAM, ENTITIES_LIST_PARAM]
         for (int i = 0; i < params.size(); i++) {
 
-            $j(ReportEditor).with {
-                clickButton($j(Button, PARAMETER_CREATE_BUTTON_JTEST_ID))
-            }
+            openReportParameterEditor()
+
             $j(ReportParameterEditor).with {
                 name.setValue(params[i])
                 alias.setValue(params[i].substring(0, 4).toLowerCase().concat(i as String))
-                parameterTypeField.openOptionsPopup().select(params[i])
-                $j(ComboBox, ENTITY_FIELD_J_TEST_ID).openOptionsPopup().select(COMPANY_FULL_STRING)
-                $j(ComboBox, ENTITY_SCREEN_FIELD_J_TEST_ID).openOptionsPopup().select(SCREEN_VALUE)
+                selectValueWithoutFilterInComboBox(parameterTypeField, params[i])
+                selectValueWithoutFilterInComboBox($j(ComboBox, ENTITY_FIELD_J_TEST_ID), COMPANY_FULL_STRING)
+                selectValueWithoutFilterInComboBox($j(ComboBox, ENTITY_SCREEN_FIELD_J_TEST_ID), SCREEN_VALUE)
                 clickButton(ok)
             }
             $j(ReportEditor).with {
                 checkRecordIsDisplayed(params[i], PARAMETERS_TABLE_JTEST_ID)
             }
         }
-
-        $j(ReportEditor).with {
-            clickButton(cancel)
-        }
-
-        $j(UnsavedChangesDialog).with {
-            clickButton(doNotSave)
-        }
     }
 
     @Test
     @DisplayName("Edits report parameter")
     void editReportParameter() {
-        loginAsAdmin()
-        maximizeWindowSize()
-        openReportEditor()
-
-        $j(ReportEditor).with {
-            openTab(PARAMETERS_AND_FORMATS_JTEST_ID)
-            clickButton($j(Button, PARAMETER_CREATE_BUTTON_JTEST_ID))
-        }
-
-        $j(ReportParameterEditor).with {
-            name.setValue(COMPANY_NAME)
-            alias.setValue(COMPANY_NAME)
-            clickButton(ok)
-        }
+        openReportParameterEditor()
+        setNameAndAliasToParameterAndSave(COMPANY_NAME, COMPANY_NAME)
 
         $j(ReportEditor).with {
             checkRecordIsDisplayed(COMPANY_NAME, PARAMETERS_TABLE_JTEST_ID)
@@ -179,39 +159,18 @@ class ReportParameterActionUiTest extends BaseReportUiTest {
             clickButton($j(Button, PARAMETER_EDIT_BUTTON_JTEST_ID))
         }
 
-        $j(ReportParameterEditor).with {
-            name.setValue(COMPANY_GRADE)
-            alias.setValue(COMPANY_GRADE)
-            clickButton(ok)
-        }
+        setNameAndAliasToParameterAndSave(COMPANY_GRADE, COMPANY_GRADE)
 
         $j(ReportEditor).with {
             checkRecordIsDisplayed(COMPANY_GRADE, PARAMETERS_TABLE_JTEST_ID)
-            clickButton(cancel)
-        }
-
-        $j(UnsavedChangesDialog).with {
-            clickButton(doNotSave)
         }
     }
 
     @Test
     @DisplayName("Removes report parameter")
     void removeReportParameter() {
-        loginAsAdmin()
-        maximizeWindowSize()
-        openReportEditor()
-
-        $j(ReportEditor).with {
-            openTab(PARAMETERS_AND_FORMATS_JTEST_ID)
-            clickButton($j(Button, PARAMETER_CREATE_BUTTON_JTEST_ID))
-        }
-
-        $j(ReportParameterEditor).with {
-            name.setValue(COMPANY_NAME)
-            alias.setValue(COMPANY_NAME)
-            clickButton(ok)
-        }
+        openReportParameterEditor()
+        setNameAndAliasToParameterAndSave(COMPANY_NAME, COMPANY_NAME)
 
         $j(ReportEditor).with {
             checkRecordIsDisplayed(COMPANY_NAME, PARAMETERS_TABLE_JTEST_ID)
@@ -225,11 +184,6 @@ class ReportParameterActionUiTest extends BaseReportUiTest {
 
         $j(ReportEditor).with {
             checkRecordIsNotDisplayed(COMPANY_NAME, PARAMETERS_TABLE_JTEST_ID)
-            clickButton(cancel)
-        }
-
-        $j(UnsavedChangesDialog).with {
-            clickButton(doNotSave)
         }
     }
 }
