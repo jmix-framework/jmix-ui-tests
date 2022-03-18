@@ -14,9 +14,20 @@ class SpringBootExtension extends SpringExtension {
     protected static final String SELENIDE_BASE_URL_PROPERTY = 'selenide.baseUrl'
 
     @Override
+    void beforeAll(ExtensionContext context) throws Exception {
+        super.beforeAll(context)
+        initSelenideBaseUrl(getApplicationContext(context))
+    }
+
+    @Override
     void beforeEach(ExtensionContext context) throws Exception {
         super.beforeEach(context)
+        initSelenideBaseUrl(getApplicationContext(context))
+    }
 
+    @Override
+    void afterEach(ExtensionContext context) throws Exception {
+        super.afterEach(context)
         initSelenideBaseUrl(getApplicationContext(context))
     }
 

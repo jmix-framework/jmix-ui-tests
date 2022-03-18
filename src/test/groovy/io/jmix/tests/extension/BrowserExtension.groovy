@@ -2,15 +2,13 @@ package io.jmix.tests.extension
 
 import com.codeborne.selenide.Selenide
 import com.codeborne.selenide.WebDriverRunner
-import org.junit.jupiter.api.extension.AfterEachCallback
-import org.junit.jupiter.api.extension.BeforeEachCallback
-import org.junit.jupiter.api.extension.ExtensionContext
+import org.junit.jupiter.api.extension.*
 import org.openqa.selenium.Capabilities
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import org.testcontainers.containers.BrowserWebDriverContainer
 
-abstract class BrowserExtension implements BeforeEachCallback, AfterEachCallback {
+abstract class BrowserExtension implements BeforeAllCallback, BeforeEachCallback, AfterEachCallback, AfterAllCallback {
 
     public static final int VNC_RECORDER_PORT = 5900
 
@@ -19,7 +17,26 @@ abstract class BrowserExtension implements BeforeEachCallback, AfterEachCallback
     private BrowserWebDriverContainer browser
 
     @Override
+    void beforeAll(ExtensionContext context) throws Exception {
+        startBrowser()
+    }
+
+    @Override
     void beforeEach(ExtensionContext context) throws Exception {
+        refreshBrowser()
+    }
+
+    @Override
+    void afterEach(ExtensionContext context) throws Exception {
+        refreshBrowser()
+    }
+
+    @Override
+    void afterAll(ExtensionContext context) throws Exception {
+        stopBrowser()
+    }
+
+    void startBrowser() {
         browser = new BrowserWebDriverContainer()
                 .withCapabilities(getCapabilities())
         browser.start()
@@ -28,11 +45,19 @@ abstract class BrowserExtension implements BeforeEachCallback, AfterEachCallback
         printVncRecordedUrl()
     }
 
-    @Override
-    void afterEach(ExtensionContext context) throws Exception {
+    void stopBrowser() {
         WebDriverRunner.webDriver.manage().deleteAllCookies()
         Selenide.closeWebDriver()
         browser.stop()
+        browser = null
+    }
+
+    void refreshBrowser() {
+        if (browser != null) {
+            stopBrowser()
+        }
+
+        startBrowser()
     }
 
     abstract Capabilities getCapabilities()
