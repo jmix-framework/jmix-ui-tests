@@ -109,17 +109,24 @@ trait UiHelper {
     }
 
     /**
-     * Uploads renamed copy of defined file
-     * @param fileUploadField - FileUploadField component
-     * @param filePath - path to file in the 'resource' directory
-     * @param newFilePath - new file name
+     * Creates a renamed copy of defined file
+     * @param filePath - basic file path string
+     * @param newFilePath - new file path string
      */
-    static void uploadNewDocument(FileUploadField fileUploadField, String filePath, String newFilePath) {
+    static File createNewFile(String filePath, String newFilePath){
         File file = new File(filePath)
         File newFile = new File(newFilePath)
         FileUtils.copyFile(file, newFile)
+        return newFile
+    }
 
-        fileUploadField.upload(newFile)
+    /**
+     * Uploads renamed copy of defined file
+     * @param fileUploadField - FileUploadField component
+     * @param file - uploaded File file
+     */
+    static void uploadNewDocument(FileUploadField fileUploadField, File file) {
+        fileUploadField.upload(file)
     }
 
     /**

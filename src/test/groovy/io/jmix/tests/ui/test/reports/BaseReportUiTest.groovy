@@ -282,13 +282,13 @@ abstract class BaseReportUiTest extends BaseUiTest implements UiHelper {
         file.delete()
     }
 
-    static void importReportFile(String reportBaseFilePath, String reportNewFilePath, String reportFileName) {
+    static void importReportFile(File reportFile, String reportFileName) {
         $j(ReportBrowse).with {
             clickButton(importBtn)
         }
 
         $j(ReportImportDialog).with {
-            uploadNewDocument(fileUploadField, reportBaseFilePath, reportNewFilePath)
+            uploadNewDocument(fileUploadField, reportFile)
             checkUploadedFilename(reportFileName)
             clickButton(commitBtn)
             Selenide.sleep(300)

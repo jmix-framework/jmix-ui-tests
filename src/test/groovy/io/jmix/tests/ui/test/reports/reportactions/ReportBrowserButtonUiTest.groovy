@@ -86,8 +86,9 @@ class ReportBrowserButtonUiTest extends BaseReportUiTest {
         def reportFileName = getGeneratedString() + REPORT_FILE_NAME
         def reportBasePath = RESOURCES_PATH + REPORT_FILE_NAME
         def reportUniqueFilePath = RESOURCES_PATH + reportFileName
+        def reportFile = createNewFile(reportBasePath, reportUniqueFilePath)
 
-        importReportFile(reportBasePath, reportUniqueFilePath, reportFileName)
+        importReportFile(reportFile, reportFileName)
 
         expandReportGroup(GROUP_GENERAL_NAME)
 

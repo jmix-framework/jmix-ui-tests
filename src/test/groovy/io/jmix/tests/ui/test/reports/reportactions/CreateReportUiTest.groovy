@@ -79,6 +79,8 @@ class CreateReportUiTest extends BaseReportUiTest {
         def templateFileName = getGeneratedString() + TEMPLATE_FILE_NAME
         def templateFilePath = RESOURCES_PATH + TEMPLATE_BASIC_FILE_NAME
         def templateUniqueFilePath = RESOURCES_PATH + templateFileName
+        def templateFile = createNewFile(templateFilePath, templateUniqueFilePath)
+
         openNewReportEditor()
         $j(ReportEditor).with {
             fillTextField(name, reportName)
@@ -86,7 +88,7 @@ class CreateReportUiTest extends BaseReportUiTest {
         }
 
         $j(ReportTemplateEditor).with {
-            uploadNewDocument(templateUploadField, templateFilePath, templateUniqueFilePath)
+            uploadNewDocument(templateUploadField, templateFile)
             checkUploadedFilename(templateFileName)
             clickButton(ok)
         }
