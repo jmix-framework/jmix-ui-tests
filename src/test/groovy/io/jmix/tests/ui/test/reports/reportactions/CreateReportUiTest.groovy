@@ -19,6 +19,7 @@ import io.jmix.tests.ui.screen.reports.editor.ReportEditor
 import io.jmix.tests.ui.screen.system.main.MainScreen
 import io.jmix.tests.ui.test.reports.BaseReportUiTest
 import org.junit.jupiter.api.BeforeEach
+import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
@@ -72,6 +73,7 @@ class CreateReportUiTest extends BaseReportUiTest {
     }
 
     @Test
+    @Disabled
     @DisplayName("Creates a report for one entity without using wizard")
     void createReportForOneEntityWithoutWizard() {
         def reportName = getReportUniqueName(COMPANY_ENTITY_NAME)
