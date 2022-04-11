@@ -19,7 +19,6 @@ import io.jmix.tests.ui.screen.reports.editor.ReportEditor
 import io.jmix.tests.ui.screen.system.main.MainScreen
 import io.jmix.tests.ui.test.reports.BaseReportUiTest
 import org.junit.jupiter.api.BeforeEach
-import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
@@ -73,15 +72,12 @@ class CreateReportUiTest extends BaseReportUiTest {
     }
 
     @Test
-    @Disabled
     @DisplayName("Creates a report for one entity without using wizard")
     void createReportForOneEntityWithoutWizard() {
         def reportName = getReportUniqueName(COMPANY_ENTITY_NAME)
 
-        def templateFileName = getGeneratedString() + TEMPLATE_FILE_NAME
         def templateFilePath = RESOURCES_PATH + TEMPLATE_BASIC_FILE_NAME
-        def templateUniqueFilePath = RESOURCES_PATH + templateFileName
-        def templateFile = createNewFile(templateFilePath, templateUniqueFilePath)
+        def templateFile = new File(templateFilePath)
 
         openNewReportEditor()
         $j(ReportEditor).with {
@@ -91,7 +87,7 @@ class CreateReportUiTest extends BaseReportUiTest {
 
         $j(ReportTemplateEditor).with {
             uploadNewDocument(templateUploadField, templateFile)
-            checkUploadedFilename(templateFileName)
+            checkUploadedFilename(TEMPLATE_FILE_NAME)
             clickButton(ok)
         }
 
@@ -129,7 +125,6 @@ class CreateReportUiTest extends BaseReportUiTest {
             checkRecordIsDisplayed(reportName, REPORTS_TABLE_JTEST_ID)
         }
         removeReport(reportName)
-        cleanTempFile(templateUniqueFilePath)
     }
 
     @Test
