@@ -4,6 +4,8 @@ import com.codeborne.selenide.Selenide
 import com.codeborne.selenide.WebDriverRunner
 import org.junit.jupiter.api.extension.*
 import org.openqa.selenium.Capabilities
+import org.openqa.selenium.remote.LocalFileDetector
+import org.openqa.selenium.remote.RemoteWebDriver
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import org.testcontainers.containers.BrowserWebDriverContainer
@@ -28,7 +30,7 @@ abstract class BrowserExtension implements BeforeAllCallback, BeforeEachCallback
 
     @Override
     void afterEach(ExtensionContext context) throws Exception {
-        refreshBrowser()
+//        refreshBrowser()
     }
 
     @Override
@@ -40,7 +42,9 @@ abstract class BrowserExtension implements BeforeAllCallback, BeforeEachCallback
         browser = new BrowserWebDriverContainer()
                 .withCapabilities(getCapabilities())
         browser.start()
-        WebDriverRunner.setWebDriver(browser.getWebDriver())
+        RemoteWebDriver remoteWebDriver = browser.getWebDriver()
+        remoteWebDriver.setFileDetector(new LocalFileDetector())
+        WebDriverRunner.setWebDriver(remoteWebDriver)
 
         printVncRecordedUrl()
     }
