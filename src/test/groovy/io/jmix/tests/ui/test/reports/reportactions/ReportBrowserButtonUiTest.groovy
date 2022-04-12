@@ -12,6 +12,7 @@ import io.jmix.tests.ui.test.reports.BaseReportUiTest
 import org.junit.jupiter.api.AfterAll
 import org.junit.jupiter.api.BeforeAll
 import org.junit.jupiter.api.BeforeEach
+import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.TestInstance
@@ -81,12 +82,15 @@ class ReportBrowserButtonUiTest extends BaseReportUiTest {
     }
 
     @Test
+    @Disabled
     @DisplayName("Imports and removes imported report")
     void importReport() {
+        def reportFileName = getGeneratedString() + REPORT_FILE_NAME
         def reportBasePath = RESOURCES_PATH + REPORT_FILE_NAME
-        def reportFile = new File(reportBasePath)
+        def reportUniqueFilePath = RESOURCES_PATH + reportFileName
+        def reportFile = createNewFile(reportBasePath, reportUniqueFilePath)
 
-        importReportFile(reportFile, REPORT_FILE_NAME)
+        importReportFile(reportFile, reportFileName)
 
         expandReportGroup(GROUP_GENERAL_NAME)
 
@@ -95,6 +99,7 @@ class ReportBrowserButtonUiTest extends BaseReportUiTest {
         }
 
         removeReport(IMPORTED_REPORT_NAME)
+        cleanTempFile(reportUniqueFilePath)
     }
 
     @Test
