@@ -9,6 +9,7 @@ import io.jmix.tests.ui.screen.reports.browser.ReportGroupBrowse
 import io.jmix.tests.ui.screen.reports.dialog.*
 import io.jmix.tests.ui.screen.reports.editor.ReportEditor
 import io.jmix.tests.ui.screen.system.dialog.ConfirmationDialog
+import io.jmix.tests.ui.screen.system.dialog.UnsavedChangesDialog
 import io.jmix.tests.ui.test.BaseUiTest
 import io.jmix.tests.ui.test.utils.UiHelper
 
@@ -295,6 +296,15 @@ abstract class BaseReportUiTest extends BaseUiTest implements UiHelper {
             if (commitBtn.exists()){
                 clickButton(commitBtn)
             }
+        }
+    }
+
+    static void closeEditorWithoutSaving(){
+        $j(ReportEditor).with {
+            clickButton(cancel)
+        }
+        $j(UnsavedChangesDialog).with {
+            clickButton(doNotSave)
         }
     }
 }
