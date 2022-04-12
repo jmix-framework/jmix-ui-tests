@@ -1,5 +1,6 @@
 package io.jmix.tests.ui.test.reports.reportactions
 
+import com.codeborne.selenide.Selenide
 import io.jmix.masquerade.component.Button
 import io.jmix.masquerade.component.ComboBox
 import io.jmix.masquerade.component.Table
@@ -197,6 +198,7 @@ class RunReportUiTest extends BaseReportUiTest {
         runReportAndCloseInputParamsDialog()
 
         $j(ReportEditor).with {
+            Selenide.refresh()
             clickButton(ok)
         }
     }
