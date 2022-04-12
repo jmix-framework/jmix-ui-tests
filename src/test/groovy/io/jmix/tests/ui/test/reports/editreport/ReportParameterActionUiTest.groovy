@@ -63,16 +63,6 @@ class ReportParameterActionUiTest extends BaseReportUiTest {
         }
     }
 
-    @AfterEach
-    void afterEach() {
-        $j(ReportEditor).with {
-            clickButton(cancel)
-        }
-        $j(UnsavedChangesDialog).with {
-            clickButton(doNotSave)
-        }
-    }
-
     static void setNameAndAliasToParameterAndSave(String paramName, String paramAlias) {
         $j(ReportParameterEditor).with {
             name.setValue(paramName)
@@ -105,6 +95,7 @@ class ReportParameterActionUiTest extends BaseReportUiTest {
                 checkRecordIsDisplayed(params[i], PARAMETERS_TABLE_JTEST_ID)
             }
         }
+        closeEditorWithoutSaving()
     }
 
     @Test
@@ -123,6 +114,7 @@ class ReportParameterActionUiTest extends BaseReportUiTest {
         $j(ReportEditor).with {
             checkRecordIsDisplayed(ENUM_PARAM, PARAMETERS_TABLE_JTEST_ID)
         }
+        closeEditorWithoutSaving()
     }
 
     @Test
@@ -145,6 +137,7 @@ class ReportParameterActionUiTest extends BaseReportUiTest {
                 checkRecordIsDisplayed(params[i], PARAMETERS_TABLE_JTEST_ID)
             }
         }
+        closeEditorWithoutSaving()
     }
 
     @Test
@@ -164,6 +157,7 @@ class ReportParameterActionUiTest extends BaseReportUiTest {
         $j(ReportEditor).with {
             checkRecordIsDisplayed(COMPANY_GRADE, PARAMETERS_TABLE_JTEST_ID)
         }
+        closeEditorWithoutSaving()
     }
 
     @Test
@@ -185,5 +179,6 @@ class ReportParameterActionUiTest extends BaseReportUiTest {
         $j(ReportEditor).with {
             checkRecordIsNotDisplayed(COMPANY_NAME, PARAMETERS_TABLE_JTEST_ID)
         }
+        closeEditorWithoutSaving()
     }
 }

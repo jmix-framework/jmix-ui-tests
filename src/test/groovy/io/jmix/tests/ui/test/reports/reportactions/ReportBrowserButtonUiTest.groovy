@@ -82,7 +82,6 @@ class ReportBrowserButtonUiTest extends BaseReportUiTest {
     }
 
     @Test
-    @Disabled
     @DisplayName("Imports and removes imported report")
     void importReport() {
         def reportFileName = getGeneratedString() + REPORT_FILE_NAME

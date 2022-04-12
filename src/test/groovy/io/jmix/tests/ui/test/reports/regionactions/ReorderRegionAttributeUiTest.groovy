@@ -41,11 +41,6 @@ class ReorderRegionAttributeUiTest extends BaseReportUiTest {
         openReportCreationWizard()
     }
 
-    @AfterEach
-    void afterEach() {
-        interruptReportCreating()
-    }
-
     @Test
     @DisplayName("Reorders attributes in a simple region")
     void reorderAttributesInSimpleRegion() {
@@ -74,6 +69,7 @@ class ReorderRegionAttributeUiTest extends BaseReportUiTest {
         $j(ReportRegionsDialog).with {
             checkRecordIsDisplayed(reOrderStr, REGIONS_TABLE_JTEST_ID)
         }
+        interruptReportCreating()
     }
 
     @Test
@@ -115,6 +111,7 @@ class ReorderRegionAttributeUiTest extends BaseReportUiTest {
         }
 
         Selenide.sleep(200)
+        interruptReportCreating()
     }
 
 }

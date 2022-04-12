@@ -41,11 +41,6 @@ class AddRegionToReportUiTest extends BaseReportUiTest {
         openReportCreationWizard()
     }
 
-    @AfterEach
-    void afterEach() {
-        interruptReportCreating()
-    }
-
     @Test
     @DisplayName("Adds a simple region to report")
     void addSimpleRegionToReport() {
@@ -67,6 +62,7 @@ class AddRegionToReportUiTest extends BaseReportUiTest {
         $j(ReportRegionsDialog).with {
             checkRecordIsDisplayed(str1, REGIONS_TABLE_JTEST_ID)
         }
+        interruptReportCreating()
     }
 
     @Test
@@ -96,5 +92,6 @@ class AddRegionToReportUiTest extends BaseReportUiTest {
         }
 
         Selenide.sleep(200)
+        interruptReportCreating()
     }
 }

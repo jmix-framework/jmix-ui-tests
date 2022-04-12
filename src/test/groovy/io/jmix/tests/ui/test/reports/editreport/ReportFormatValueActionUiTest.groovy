@@ -41,16 +41,6 @@ class ReportFormatValueActionUiTest extends BaseReportUiTest {
         openNewReportEditor()
     }
 
-    @AfterEach
-    void afterEach() {
-        $j(ReportEditor).with {
-            clickButton(cancel)
-        }
-        $j(UnsavedChangesDialog).with {
-            clickButton(doNotSave)
-        }
-    }
-
     static void openValueFormatEditor() {
         $j(ReportEditor).with {
             openTab(PARAMETERS_AND_FORMATS_JTEST_ID)
@@ -75,6 +65,7 @@ class ReportFormatValueActionUiTest extends BaseReportUiTest {
         $j(ReportEditor).with {
             checkRecordIsDisplayed(COMPANY_NAME, VALUES_FORMATS_TABLE_JTEST_ID)
         }
+        closeEditorWithoutSaving()
     }
 
     @Test
@@ -93,6 +84,8 @@ class ReportFormatValueActionUiTest extends BaseReportUiTest {
         $j(ReportEditor).with {
             checkRecordIsDisplayed(COMPANY_GRADE, VALUES_FORMATS_TABLE_JTEST_ID)
         }
+        closeEditorWithoutSaving()
+
     }
 
     @Test
@@ -114,5 +107,7 @@ class ReportFormatValueActionUiTest extends BaseReportUiTest {
         $j(ReportEditor).with {
             checkRecordIsNotDisplayed(COMPANY_GRADE, VALUES_FORMATS_TABLE_JTEST_ID)
         }
+        closeEditorWithoutSaving()
+
     }
 }

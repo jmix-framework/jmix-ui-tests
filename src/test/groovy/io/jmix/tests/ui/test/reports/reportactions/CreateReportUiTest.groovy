@@ -73,7 +73,6 @@ class CreateReportUiTest extends BaseReportUiTest {
     }
 
     @Test
-    @Disabled
     @DisplayName("Creates a report for one entity without using wizard")
     void createReportForOneEntityWithoutWizard() {
         def reportName = getReportUniqueName(COMPANY_ENTITY_NAME)

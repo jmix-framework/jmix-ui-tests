@@ -44,16 +44,6 @@ class SelectingRoleScreenUiTest extends BaseReportUiTest {
         }
     }
 
-    @AfterEach
-    void afterEach() {
-        $j(ReportEditor).with {
-            clickButton(cancel)
-        }
-        $j(UnsavedChangesDialog).with {
-            clickButton(doNotSave)
-        }
-    }
-
     @Test
     @DisplayName("Selects role for report")
     void selectRoleForReport() {
@@ -63,6 +53,7 @@ class SelectingRoleScreenUiTest extends BaseReportUiTest {
 
             checkRecordIsDisplayed(REPORT_ROLE_NAME, REPORTS_ROLES_JTEST_ID)
         }
+        closeEditorWithoutSaving()
     }
 
     @Test
@@ -74,5 +65,6 @@ class SelectingRoleScreenUiTest extends BaseReportUiTest {
 
             checkRecordIsDisplayed(REPORT_SCREEN_NAME, REPORTS_SCREENS_JTEST_ID)
         }
+        closeEditorWithoutSaving()
     }
 }
