@@ -20,6 +20,10 @@
               caption="msg://io.jmix.tests.screen.dynamiccategory/dynamicCategoryBrowse.menu"/>
         <item screen="LocalizedDynamic.browse"
               caption="msg://io.jmix.tests.screen.localizeddynamic/localizedDynamicBrowse.menu"/>
+        <item screen="EnabledVersEntity.browse"
+              caption="msg://io.jmix.tests.screen.enabledversentity/enabledVersEntityBrowse.menu"/>
+        <item screen="DisabledVersEntity.browse"
+              caption="msg://io.jmix.tests.screen.disabledversentity/disabledVersEntityBrowse.menu"/>
     </menu>
 
 </menu-config>

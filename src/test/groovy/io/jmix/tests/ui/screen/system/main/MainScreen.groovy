@@ -8,12 +8,15 @@ import io.jmix.tests.ui.screen.administration.datatools.EntityInspectorBrowse
 import io.jmix.tests.ui.screen.administration.datatools.browsers.AtmosphericGasBrowse
 import io.jmix.tests.ui.screen.administration.security.browser.RoleBrowse
 import io.jmix.tests.ui.screen.administration.dynattr.DynamicAttributeBrowse
+import io.jmix.tests.ui.screen.administration.webdav.browse.WebDAVDocumentBrowse
 import io.jmix.tests.ui.screen.application.company.CompanyBrowse
 import io.jmix.tests.ui.screen.application.discounts.DiscountBrowser
 import io.jmix.tests.ui.screen.application.dymanicCategories.DynamicCategoryBrowse
 import io.jmix.tests.ui.screen.application.gas.GasBrowse
 import io.jmix.tests.ui.screen.application.localizedDynamic.LocalizedDynamicBrowse
 import io.jmix.tests.ui.screen.application.user.UserBrowse
+import io.jmix.tests.ui.screen.application.wddisabledentity.WDDisabledEntityBrowse
+import io.jmix.tests.ui.screen.application.wdenabledentity.WDEnabledEntityBrowse
 import io.jmix.tests.ui.screen.reports.browser.ReportBrowse
 import io.jmix.tests.ui.screen.reports.browser.ReportGroupBrowse
 import io.jmix.tests.ui.screen.reports.screen.ReportRunScreen
@@ -93,5 +96,17 @@ class MainScreen extends Composite<MainScreen> {
 
     DiscountBrowser openDiscounts() {
         sideMenu.openItem(DISCOUNTS)
+    }
+
+    WDEnabledEntityBrowse openWDEnabledEntityBrowse(){
+        sideMenu.openItem(WD_ENABLED_ENTITIES_BROWSE)
+    }
+
+    WDDisabledEntityBrowse openWDDisabledEntityBrowse(){
+        sideMenu.openItem(WD_DISABLED_ENTITIES_BROWSE)
+    }
+
+    WebDAVDocumentBrowse openWebDAVDocumentBrowse() {
+        sideMenu.openItem(WEBDAV_DOCUMENT_BROWSE)
     }
 }

@@ -1,7 +1,6 @@
 package io.jmix.tests.ui.test.utils
 
 import com.codeborne.selenide.Condition
-import io.jmix.masquerade.Selectors
 import io.jmix.masquerade.component.Button
 import io.jmix.masquerade.component.ComboBox
 import io.jmix.masquerade.component.FileUploadField
@@ -19,8 +18,6 @@ import static io.jmix.masquerade.Conditions.value
 import static io.jmix.masquerade.Selectors.$j
 import static io.jmix.masquerade.Selectors.byChain
 import static io.jmix.masquerade.Selectors.byClassName
-import static io.jmix.masquerade.Selectors.byClassName
-import static io.jmix.masquerade.Selectors.withText
 
 trait UiHelper {
 
@@ -54,6 +51,16 @@ trait UiHelper {
     static void checkNotification(String capt) {
         $j(Notification).shouldBe(VISIBLE)
                 .shouldHave(caption(capt))
+        $j(Notification).clickToClose()
+    }
+
+    /**
+     * Checks Notification's appearing and description
+     * @param descr - expected caption
+     */
+    static void checkNotificationDescription(String descr) {
+        $j(Notification).shouldBe(VISIBLE)
+                .shouldHave(description(descr))
         $j(Notification).clickToClose()
     }
 

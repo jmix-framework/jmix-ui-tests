@@ -12,12 +12,15 @@ import io.jmix.tests.ui.screen.administration.datatools.browsers.AtmosphericGasB
 import io.jmix.tests.ui.screen.administration.dynattr.DynamicAttributeBrowse
 
 import io.jmix.tests.ui.screen.administration.security.browser.RoleBrowse
+import io.jmix.tests.ui.screen.administration.webdav.browse.WebDAVDocumentBrowse
 import io.jmix.tests.ui.screen.application.discounts.DiscountBrowser
 import io.jmix.tests.ui.screen.application.dymanicCategories.DynamicCategoryBrowse
 import io.jmix.tests.ui.screen.application.gas.GasBrowse
 import io.jmix.tests.ui.screen.application.localizedDynamic.LocalizedDynamicBrowse
 import io.jmix.tests.ui.screen.application.company.CompanyBrowse
 import io.jmix.tests.ui.screen.application.user.UserBrowse
+import io.jmix.tests.ui.screen.application.wddisabledentity.WDDisabledEntityBrowse
+import io.jmix.tests.ui.screen.application.wdenabledentity.WDEnabledEntityBrowse
 import io.jmix.tests.ui.screen.reports.browser.ReportBrowse
 import io.jmix.tests.ui.screen.reports.browser.ReportGroupBrowse
 import io.jmix.tests.ui.screen.reports.screen.ReportRunScreen
@@ -77,8 +80,16 @@ final class Menus {
     public static final SideMenu.Menu<LocalizedDynamicBrowse> LOCALIZED_DYNAMIC =
             new SideMenu.Menu<>(LocalizedDynamicBrowse, 'application', 'LocalizedDynamic.browse')
 
-
     public static final SideMenu.Menu<DiscountBrowser> DISCOUNTS =
             new SideMenu.Menu<>(DiscountBrowser, 'application', 'Discounts.browse')
+
+    public static final SideMenu.Menu<WDEnabledEntityBrowse> WD_ENABLED_ENTITIES_BROWSE =
+            new SideMenu.Menu<>(WDEnabledEntityBrowse, 'application', 'EnabledVersEntity.browse')
+
+    public static final SideMenu.Menu<WDDisabledEntityBrowse> WD_DISABLED_ENTITIES_BROWSE =
+            new SideMenu.Menu<>(WDDisabledEntityBrowse, 'application', 'DisabledVersEntity.browse')
+
+    public static final SideMenu.Menu<WebDAVDocumentBrowse> WEBDAV_DOCUMENT_BROWSE =
+            new SideMenu.Menu<>(WebDAVDocumentBrowse, 'administration', 'webdav_WebdavDocument.browse')
 
 }
