@@ -14,6 +14,12 @@ trait TableActionsTrait {
                 .click()
     }
 
+    static void openContextMenuFromSelectedRow(String s, String path) {
+        $j(Table, path).shouldBe(VISIBLE)
+                .selectRow(byText(s))
+                .contextClick()
+    }
+
     static void checkRecordIsDisplayed(String s, String path) {
         $j(Table, path).shouldBe(VISIBLE)
                 .getRow(byText(s))

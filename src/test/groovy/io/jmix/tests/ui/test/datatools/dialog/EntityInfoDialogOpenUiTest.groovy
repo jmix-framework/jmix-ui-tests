@@ -43,7 +43,7 @@ class EntityInfoDialogOpenUiTest extends BaseDatatoolsUiTest {
         $j(EntityInspectorBrowse).with {
             findEntityByFilter(USER_ENTITY_NAME, USER_FULL_STRING)
             selectShowMode(REMOVED_ONLY_MODE)
-            selectRowInTableByText(USERNAME6, USER_TABLE_JTEST_ID)
+            openContextMenuFromSelectedRow(USERNAME6, USER_TABLE_JTEST_ID)
         }
 
         openInspectorWindow(4)
@@ -66,7 +66,7 @@ class EntityInfoDialogOpenUiTest extends BaseDatatoolsUiTest {
 
         $j(EntityInspectorBrowse).with {
             findEntityByFilter(USER_ENTITY_NAME, USER_FULL_STRING)
-            selectRowInTableByText(USERNAME2, USER_TABLE_JTEST_ID)
+            openContextMenuFromSelectedRow(USERNAME2, USER_TABLE_JTEST_ID)
         }
 
         openInspectorWindow(4)
@@ -85,7 +85,7 @@ class EntityInfoDialogOpenUiTest extends BaseDatatoolsUiTest {
         $j(MainScreen).openUserBrowse()
 
         $j(UserBrowse).with {
-            selectRowInTableByText(ADMIN_USERNAME, USER_BROWSER_TABLE_JTEST_ID)
+            openContextMenuFromSelectedRow(ADMIN_USERNAME, USER_BROWSER_TABLE_JTEST_ID)
         }
 
         openInspectorWindow(6)

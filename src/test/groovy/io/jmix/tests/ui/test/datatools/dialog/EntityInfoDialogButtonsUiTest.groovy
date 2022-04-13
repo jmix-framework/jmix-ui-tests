@@ -9,6 +9,7 @@ import io.jmix.tests.ui.screen.administration.datatools.EntityInspectorBrowse
 import io.jmix.tests.ui.screen.administration.datatools.dialogs.EntityInformationDialog
 import io.jmix.tests.ui.screen.system.main.MainScreen
 import io.jmix.tests.ui.test.datatools.BaseDatatoolsUiTest
+import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
@@ -33,14 +34,15 @@ class EntityInfoDialogButtonsUiTest extends BaseDatatoolsUiTest {
     public static final String NOTIFICATION_CAPTION = "Copied to clipboard"
     public static final String SCRIPT_AREA = "scriptArea"
 
-    void commonInspectorActions() {
+    @BeforeEach
+    void beforeEach() {
         loginAsAdmin()
 
         $j(MainScreen).openEntityInspectorBrowse()
 
         $j(EntityInspectorBrowse).with {
             findEntityByFilter(USER_ENTITY_NAME, USER_FULL_STRING)
-            selectRowInTableByText(ADMIN_USERNAME, USER_TABLE_JTEST_ID)
+            openContextMenuFromSelectedRow(ADMIN_USERNAME, USER_TABLE_JTEST_ID)
         }
 
         openInspectorWindow(4)
@@ -49,15 +51,13 @@ class EntityInfoDialogButtonsUiTest extends BaseDatatoolsUiTest {
     @Test
     @DisplayName("Checks copying of Insert script from Entity Inspector Window")
     void checkAndCopyInsertScript() {
-        commonInspectorActions()
-
         $j(EntityInformationDialog).with {
             shouldBe(VISIBLE)
                     .checkTableAndEntityName(USER_ENTITY_NAME)
 
-            checkAndClickInsertBtn(INSERT_BTN_CAPTION)
+            checkBtnCaptionAndClick(insertBtn, INSERT_BTN_CAPTION)
             checkScriptArea(SCRIPT_AREA, "insert")
-            checkAndClickCopyBtn()
+            clickButton(copyBtn)
         }
         checkNotification(NOTIFICATION_CAPTION)
         closeInspectorWindow()
@@ -66,15 +66,13 @@ class EntityInfoDialogButtonsUiTest extends BaseDatatoolsUiTest {
     @Test
     @DisplayName("Checks copying of Select script from Entity Inspector Window")
     void checkAndCopySelectScript() {
-        commonInspectorActions()
-
         $j(EntityInformationDialog).with {
             shouldBe(VISIBLE)
                     .checkTableAndEntityName(USER_ENTITY_NAME)
 
-            checkAndClickSelectBtn(SELECT_BTN_CAPTION)
+            checkBtnCaptionAndClick(selectBtn, SELECT_BTN_CAPTION)
             checkScriptArea(SCRIPT_AREA, "select")
-            checkAndClickCopyBtn()
+            clickButton(copyBtn)
         }
         checkNotification(NOTIFICATION_CAPTION)
         closeInspectorWindow()
@@ -83,15 +81,13 @@ class EntityInfoDialogButtonsUiTest extends BaseDatatoolsUiTest {
     @Test
     @DisplayName("Checks copying of Update script from Entity Inspector Window")
     void checkAndCopyUpdateScript() {
-        commonInspectorActions()
-
         $j(EntityInformationDialog).with {
             shouldBe(VISIBLE)
                     .checkTableAndEntityName(USER_ENTITY_NAME)
 
-            checkAndClickUpdateBtn(UPDATE_BTN_CAPTION)
+            checkBtnCaptionAndClick(updateBtn, UPDATE_BTN_CAPTION)
             checkScriptArea(SCRIPT_AREA, "update")
-            checkAndClickCopyBtn()
+            clickButton(copyBtn)
         }
         checkNotification(NOTIFICATION_CAPTION)
         closeInspectorWindow()

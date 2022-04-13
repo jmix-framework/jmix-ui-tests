@@ -32,30 +32,13 @@ class EntityInformationDialog extends Composite<EntityInformationDialog> {
                 .shouldBe(VISIBLE)
     }
 
-    void checkAndClickInsertBtn(String btnCaption) {
-        insertBtn.shouldBe(VISIBLE)
+    static void checkBtnCaptionAndClick(Button button, String btnCaption) {
+        button.shouldBe(VISIBLE)
                 .shouldHave(caption(btnCaption))
                 .click()
     }
 
-    void checkAndClickSelectBtn(String btnCaption) {
-        selectBtn.shouldBe(VISIBLE)
-                .shouldHave(caption(btnCaption))
-                .click()
-    }
-
-    void checkAndClickUpdateBtn(String btnCaption) {
-        updateBtn.shouldBe(VISIBLE)
-                .shouldHave(caption(btnCaption))
-                .click()
-    }
-
-    void checkAndClickCopyBtn() {
-        copyBtn.shouldBe(VISIBLE)
-                .shouldBe(ENABLED).click()
-    }
-
-    void checkScriptArea(String jTestId, String value) {
+    static void checkScriptArea(String jTestId, String value) {
         $j(TextArea, jTestId).shouldBe(VISIBLE)
                 .shouldHave(valueContains(value))
     }
