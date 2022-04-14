@@ -55,7 +55,6 @@ class EntityLogViewTest extends BaseUiTest {
 
     @Test
     @DisplayName("Checks created setup record")
-    @Disabled
     void checkCreatedRecord() {
         loginAsAdmin()
         $j(MainScreen).with {
@@ -164,7 +163,6 @@ class EntityLogViewTest extends BaseUiTest {
 
     @Test
     @DisplayName("Checks modified record for changes with logged setup")
-    @Disabled
     void checkModifiedRecordSetup() {
         loginAsAdmin()
         $j(MainScreen).with {
@@ -194,7 +192,6 @@ class EntityLogViewTest extends BaseUiTest {
 
     @Test
     @DisplayName("Checks removed and restored entity record")
-    @Disabled
     void checkRemovedAndRestoredRecord() {
         loginAsAdmin()
         //check remove entity log
