@@ -9,11 +9,13 @@ import io.jmix.tests.ui.screen.administration.webdav.browse.WebDAVDocumentBrowse
 import io.jmix.tests.ui.screen.system.dialog.ConfirmationDialog
 import io.jmix.tests.ui.screen.system.main.MainScreen
 import io.jmix.tests.ui.test.webdav.WebDAVBaseUITest
+import io.jmix.webdav.WebdavProperties
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.TestInstance
 import org.junit.jupiter.api.extension.ExtendWith
+import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.test.context.ContextConfiguration
 
@@ -31,6 +33,9 @@ import static io.jmix.masquerade.Selectors.$j
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 class WDUniqueNamesPropertyDisabledUiTest extends WebDAVBaseUITest {
 
+    @Autowired
+    WebdavProperties webdavProperties
+
     @BeforeEach
     void beforeEachTest() {
         loginAsAdmin()
@@ -40,6 +45,7 @@ class WDUniqueNamesPropertyDisabledUiTest extends WebDAVBaseUITest {
     @Test
     @DisplayName("Uploads files with same name with disabled property 'auto-generate-unique-resource-uri'")
     void uploadFilesWithSameNameInWDBrowser() {
+        println("jmix.webdav.auto-generate-unique-resource-uri=" + webdavProperties.isAutoGenerateUniqueResourceUri())
         def uniqueFileName = getUniqueName(BASE_FILENAME)
         def uniqueFileNamePath = RESOURCES_PATH + uniqueFileName
 
