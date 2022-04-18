@@ -1,5 +1,7 @@
 package io.jmix.tests.ui.test.webdav.wdproperties
 
+import io.jmix.core.DataManager
+import io.jmix.core.security.SystemAuthenticator
 import io.jmix.tests.JmixUiTestsApplication
 import io.jmix.tests.extension.ChromeExtension
 import io.jmix.tests.ui.extension.PostgreSQLExtension
@@ -10,11 +12,14 @@ import io.jmix.tests.ui.screen.system.dialog.ConfirmationDialog
 import io.jmix.tests.ui.screen.system.main.MainScreen
 import io.jmix.tests.ui.test.webdav.WebDAVBaseUITest
 import io.jmix.webdav.WebdavProperties
+import io.jmix.webdav.entity.WebdavDocument
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.TestInstance
 import org.junit.jupiter.api.extension.ExtendWith
+import org.slf4j.Logger
+import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.test.context.ContextConfiguration
@@ -36,6 +41,14 @@ class WDUniqueNamesPropertyDisabledUiTest extends WebDAVBaseUITest {
     @Autowired
     WebdavProperties webdavProperties
 
+    @Autowired
+    private SystemAuthenticator authenticator
+
+    @Autowired
+    private DataManager dataManager
+
+    private static final Logger log = LoggerFactory.getLogger(WDUniqueNamesPropertyDisabledUiTest)
+
     @BeforeEach
     void beforeEachTest() {
         loginAsAdmin()
@@ -56,6 +69,12 @@ class WDUniqueNamesPropertyDisabledUiTest extends WebDAVBaseUITest {
             checkRecordIsDisplayed(uniqueFileName, WEBDAV_DOCUMENTS_TABLE_J_TEST_ID)
 
             uploadNewDocument(uploadBtn, uniqueFile)
+            authenticator.withSystem(() -> {
+                dataManager.load(WebdavDocument.class)
+                        .all()
+                        .list()
+                        .forEach(doc -> log.info("Full path: " + doc.getFullPath()))
+            })
             checkNotificationDescription("The document name is already taken. Please choose a different name.")
 
             selectRowInTableByText(uniqueFileName, WEBDAV_DOCUMENTS_TABLE_J_TEST_ID)
