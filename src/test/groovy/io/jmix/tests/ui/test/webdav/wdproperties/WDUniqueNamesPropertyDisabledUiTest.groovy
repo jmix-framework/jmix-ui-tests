@@ -58,7 +58,9 @@ class WDUniqueNamesPropertyDisabledUiTest extends WebDAVBaseUITest {
     @Test
     @DisplayName("Uploads files with same name with disabled property 'auto-generate-unique-resource-uri'")
     void uploadFilesWithSameNameInWDBrowser() {
-        println("jmix.webdav.auto-generate-unique-resource-uri=" + webdavProperties.isAutoGenerateUniqueResourceUri())
+        log.debug("WebdavProperties: '{}'. jmix.webdav.auto-generate-unique-resource-uri: '{}'", webdavProperties,
+                webdavProperties.isAutoGenerateUniqueResourceUri())
+
         def uniqueFileName = getUniqueName(BASE_FILENAME)
         def uniqueFileNamePath = RESOURCES_PATH + uniqueFileName
 
@@ -73,7 +75,7 @@ class WDUniqueNamesPropertyDisabledUiTest extends WebDAVBaseUITest {
                 dataManager.load(WebdavDocument.class)
                         .all()
                         .list()
-                        .forEach(doc -> log.info("Full path: " + doc.getFullPath()))
+                        .forEach(doc -> log.debug("Full path: " + doc.getFullPath()))
             })
             checkNotificationDescription("The document name is already taken. Please choose a different name.")
 
