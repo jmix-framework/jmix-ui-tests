@@ -23,6 +23,8 @@ import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.test.context.ContextConfiguration
+import org.springframework.test.context.DynamicPropertyRegistry
+import org.springframework.test.context.DynamicPropertySource
 
 import static io.jmix.masquerade.Selectors.$j
 
@@ -32,8 +34,8 @@ import static io.jmix.masquerade.Selectors.$j
         PostgreSQLExtension
 ])
 @SpringBootTest(classes = JmixUiTestsApplication,
-        webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT,
-        properties = ["jmix.webdav.auto-generate-unique-resource-uri=false"])
+        webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT/*,
+        properties = ["jmix.webdav.auto-generate-unique-resource-uri=false"]*/)
 @ContextConfiguration(initializers = TestContextInitializer)
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 class WDUniqueNamesPropertyDisabledUiTest extends WebDAVBaseUITest {
@@ -48,6 +50,12 @@ class WDUniqueNamesPropertyDisabledUiTest extends WebDAVBaseUITest {
     private DataManager dataManager
 
     private static final Logger log = LoggerFactory.getLogger(WDUniqueNamesPropertyDisabledUiTest)
+
+    @DynamicPropertySource
+    static void dynamicProperties(DynamicPropertyRegistry registry) {
+        registry.add("jmix.webdav.auto-generate-unique-resource-uri", () -> false)
+        log.debug("dynamicProperties invoked")
+    }
 
     @BeforeEach
     void beforeEachTest() {
