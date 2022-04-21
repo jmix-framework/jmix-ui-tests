@@ -6,6 +6,7 @@ import io.jmix.masquerade.component.Button
 import io.jmix.masquerade.component.SideMenu
 import io.jmix.tests.ui.screen.administration.datatools.EntityInspectorBrowse
 import io.jmix.tests.ui.screen.administration.datatools.browsers.AtmosphericGasBrowse
+import io.jmix.tests.ui.screen.administration.emailtemplates.browse.EmailTemplateBrowse
 import io.jmix.tests.ui.screen.administration.security.browser.RoleBrowse
 import io.jmix.tests.ui.screen.administration.dynattr.DynamicAttributeBrowse
 import io.jmix.tests.ui.screen.administration.webdav.browse.WebDAVDocumentBrowse
@@ -108,5 +109,9 @@ class MainScreen extends Composite<MainScreen> {
 
     WebDAVDocumentBrowse openWebDAVDocumentBrowse() {
         sideMenu.openItem(WEBDAV_DOCUMENT_BROWSE)
+    }
+
+    EmailTemplateBrowse openEmailTemplateBrowse() {
+        sideMenu.openItem(EMAIL_TEMPLATE_BROWSE)
     }
 }

@@ -259,6 +259,30 @@ abstract class BaseReportUiTest extends BaseUiTest implements UiHelper {
         }
     }
 
+    static void createBasicHTMLReportForCompanyEntity(String reportUniqueName) {
+        openReportCreationWizard()
+        chooseReportTemplateType("HTML")
+        chooseReportEntity(COMPANY_FULL_STRING, COMPANY_ENTITY_NAME)
+
+        def list = [COMPANY_TYPE, COMPANY_EMAIL, COMPANY_GRADE]
+        def str = getString(list)
+        chooseFieldsForReport(list)
+
+        $j(ReportRegionsDialog).with {
+            checkRecordIsDisplayed(str, REGIONS_TABLE_JTEST_ID)
+            clickButton(nextBtn)
+        }
+
+        $j(SaveReportDialog).with {
+            save()
+        }
+
+        $j(ReportEditor).with {
+            name.setValue(reportUniqueName)
+            clickButton(ok)
+        }
+    }
+
     static void chooseParameterForReport() {
         $j(InputParametersDialog).with {
             clickButton(entityPicker)

@@ -4,6 +4,7 @@ import io.jmix.masquerade.component.Table
 
 import static io.jmix.masquerade.Conditions.VISIBLE
 import static io.jmix.masquerade.Selectors.$j
+import static io.jmix.masquerade.Selectors.byCells
 import static io.jmix.masquerade.Selectors.byText
 
 trait TableActionsTrait {
@@ -23,6 +24,12 @@ trait TableActionsTrait {
     static void checkRecordIsDisplayed(String s, String path) {
         $j(Table, path).shouldBe(VISIBLE)
                 .getRow(byText(s))
+                .shouldBe(VISIBLE)
+    }
+
+    static void checkRecordByTwoCellsIsDisplayed(String cell1, String cell2, String path) {
+        $j(Table, path).shouldBe(VISIBLE)
+                .getRow(byCells(cell1, cell2))
                 .shouldBe(VISIBLE)
     }
 

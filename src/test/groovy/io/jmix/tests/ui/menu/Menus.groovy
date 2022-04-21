@@ -10,7 +10,7 @@ import io.jmix.tests.ui.screen.administration.audit.EntityLogBrowse
 import io.jmix.tests.ui.screen.administration.datatools.EntityInspectorBrowse
 import io.jmix.tests.ui.screen.administration.datatools.browsers.AtmosphericGasBrowse
 import io.jmix.tests.ui.screen.administration.dynattr.DynamicAttributeBrowse
-
+import io.jmix.tests.ui.screen.administration.emailtemplates.browse.EmailTemplateBrowse
 import io.jmix.tests.ui.screen.administration.security.browser.RoleBrowse
 import io.jmix.tests.ui.screen.administration.webdav.browse.WebDAVDocumentBrowse
 import io.jmix.tests.ui.screen.application.discounts.DiscountBrowser
@@ -53,12 +53,14 @@ final class Menus {
     public static final SideMenu.Menu<EntityInspectorBrowse> ENTITY_INSPECTOR =
             new SideMenu.Menu<>(EntityInspectorBrowse, 'administration', 'entityInspector.browse')
 
-
     public static final SideMenu.Menu<RoleBrowse> RESOURCE_ROLE_BROWSE =
             new SideMenu.Menu<>(RoleBrowse, 'administration', 'sec_ResourceRoleModel.browse')
 
     public static final SideMenu.Menu<RoleBrowse> ROW_LEVEL_ROLE_BROWSE =
             new SideMenu.Menu<>(RoleBrowse, 'administration', 'sec_RowLevelRoleModel.browse')
+
+    public static final SideMenu.Menu<EmailTemplateBrowse> EMAIL_TEMPLATE_BROWSE =
+            new SideMenu.Menu<>(EmailTemplateBrowse, 'administration', 'emltmp_EmailTemplate.browse')
 
     public static final SideMenu.Menu<ReportBrowse> REPORTS_BROWSE =
             new SideMenu.Menu<>(ReportBrowse, 'reports', 'report_Report.browse')
@@ -71,8 +73,6 @@ final class Menus {
 
     public static final SideMenu.Menu<ReportRunScreen> REPORTS_RUN_SCREEN =
             new SideMenu.Menu<>(ReportRunScreen, 'reports', 'report_Report.run')
-
-
 
     public static final SideMenu.Menu<DynamicCategoryBrowse> DYNAMIC_CATEGORY =
             new SideMenu.Menu<>(DynamicCategoryBrowse, 'application', 'DynamicCategory.browse')

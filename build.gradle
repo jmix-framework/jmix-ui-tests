@@ -80,6 +80,8 @@ dependencies {
     implementation("io.jmix.webdav:jmix-webdav-rest-starter")
     implementation("io.jmix.webdav:jmix-webdav-starter")
     implementation("io.jmix.webdav:jmix-webdav-ui-starter")
+    implementation("io.jmix.emailtemplates:jmix-emailtemplates-starter")
+    implementation("io.jmix.emailtemplates:jmix-emailtemplates-ui-starter")
 }
 
 task testUi(type: Test) {

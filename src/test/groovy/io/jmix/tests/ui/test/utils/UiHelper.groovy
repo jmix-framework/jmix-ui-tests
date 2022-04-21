@@ -11,6 +11,7 @@ import org.testcontainers.shaded.org.apache.commons.io.FileUtils
 import static com.codeborne.selenide.Selenide.$
 import static io.jmix.masquerade.Conditions.EDITABLE
 import static io.jmix.masquerade.Conditions.ENABLED
+import static io.jmix.masquerade.Conditions.REQUIRED
 import static io.jmix.masquerade.Conditions.VISIBLE
 import static io.jmix.masquerade.Conditions.caption
 import static io.jmix.masquerade.Conditions.description
@@ -116,11 +117,23 @@ trait UiHelper {
     }
 
     /**
+     * Fills defined field
+     * @param field - defined field
+     * @param value - defined value
+     */
+    static void fillRequiredTextField(TextField field, String value) {
+        field.shouldBe(VISIBLE)
+                .shouldBe(EDITABLE)
+                .shouldBe(REQUIRED)
+                .setValue(value)
+    }
+
+    /**
      * Creates a renamed copy of defined file
      * @param filePath - basic file path string
      * @param newFilePath - new file path string
      */
-    static File createNewFile(String filePath, String newFilePath){
+    static File createNewFile(String filePath, String newFilePath) {
         File file = new File(filePath)
         File newFile = new File(newFilePath)
         FileUtils.copyFile(file, newFile)
