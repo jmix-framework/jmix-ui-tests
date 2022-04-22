@@ -11,16 +11,13 @@ import io.jmix.tests.ui.screen.administration.webdav.browse.WebDAVDocumentBrowse
 import io.jmix.tests.ui.screen.system.dialog.ConfirmationDialog
 import io.jmix.tests.ui.screen.system.main.MainScreen
 import io.jmix.tests.ui.test.webdav.WebDAVBaseUITest
-import io.jmix.tests.ui.test.webdav.WebDavContextInitializer
-import io.jmix.webdav.WebdavProperties
 import io.jmix.webdav.entity.WebdavDocument
 import org.junit.jupiter.api.BeforeEach
+import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.TestInstance
 import org.junit.jupiter.api.extension.ExtendWith
-import org.slf4j.Logger
-import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.test.context.ContextConfiguration
@@ -32,23 +29,21 @@ import static io.jmix.masquerade.Selectors.$j
         ChromeExtension,
         PostgreSQLExtension
 ])
-@SpringBootTest(classes = JmixUiTestsApplication,
-        webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT/*,
-        properties = ["jmix.webdav.auto-generate-unique-resource-uri=false"]*/)
-@ContextConfiguration(initializers = [TestContextInitializer, WebDavContextInitializer])
+@Disabled
+// need to recreate context to enable property overriding see @DirtiesContext
+//@DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_CLASS)
+@SpringBootTest(classes = [JmixUiTestsApplication],
+        webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT,
+        properties = ["jmix.webdav.auto-generate-unique-resource-uri=false"])
+@ContextConfiguration(initializers = [TestContextInitializer])
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 class WDUniqueNamesPropertyDisabledUiTest extends WebDAVBaseUITest {
-
-    @Autowired
-    WebdavProperties webdavProperties
 
     @Autowired
     private SystemAuthenticator authenticator
 
     @Autowired
     private DataManager dataManager
-
-    private static final Logger log = LoggerFactory.getLogger(WDUniqueNamesPropertyDisabledUiTest)
 
     @BeforeEach
     void beforeEachTest() {
@@ -59,9 +54,6 @@ class WDUniqueNamesPropertyDisabledUiTest extends WebDAVBaseUITest {
     @Test
     @DisplayName("Uploads files with same name with disabled property 'auto-generate-unique-resource-uri'")
     void uploadFilesWithSameNameInWDBrowser() {
-        log.debug("WebdavProperties: '{}'. jmix.webdav.auto-generate-unique-resource-uri: '{}'", webdavProperties,
-                webdavProperties.isAutoGenerateUniqueResourceUri())
-
         def uniqueFileName = getUniqueName(BASE_FILENAME)
         def uniqueFileNamePath = RESOURCES_PATH + uniqueFileName
 
