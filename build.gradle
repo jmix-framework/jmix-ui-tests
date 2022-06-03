@@ -27,6 +27,15 @@ repositories {
     }
 }
 
+configurations {
+    all*.exclude group: 'org.seleniumhq.selenium', module: 'selenium-edge-driver'
+    all*.exclude group: 'org.seleniumhq.selenium', module: 'selenium-ie-driver'
+    all*.exclude group: 'org.seleniumhq.selenium', module: 'selenium-opera-driver'
+    all*.exclude group: 'org.seleniumhq.selenium', module: 'selenium-safari-driver'
+    all*.exclude group: 'org.seleniumhq.selenium', module: 'selenium-json'
+    all*.exclude group: 'org.seleniumhq.selenium', module: 'selenium-http'
+}
+
 dependencies {
     implementation 'io.jmix.core:jmix-core-starter'
     implementation 'io.jmix.data:jmix-eclipselink-starter'
@@ -56,6 +65,38 @@ dependencies {
     testImplementation "io.jmix.masquerade:jmix-masquerade:1.0.0-SNAPSHOT"
 
     testImplementation 'com.codeborne:selenide:5.20.1'
+
+    testImplementation('org.seleniumhq.selenium:selenium-api') {
+        version {
+            strictly '3.141.59'
+        }
+    }
+    testImplementation('org.seleniumhq.selenium:selenium-java') {
+        version {
+            strictly '3.141.59'
+        }
+    }
+    testImplementation('org.seleniumhq.selenium:selenium-support') {
+        version {
+            strictly '3.141.59'
+        }
+    }
+    testImplementation('org.seleniumhq.selenium:selenium-chrome-driver') {
+        version {
+            strictly '3.141.59'
+        }
+    }
+    testImplementation('org.seleniumhq.selenium:selenium-firefox-driver') {
+        version {
+            strictly '3.141.59'
+        }
+    }
+    testImplementation('org.seleniumhq.selenium:selenium-remote-driver') {
+        version {
+            strictly '3.141.59'
+        }
+    }
+
     testImplementation 'org.codehaus.groovy:groovy:3.0.10'
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.2'
 
