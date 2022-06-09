@@ -13,6 +13,7 @@ import io.jmix.tests.ui.screen.administration.security.editor.RowLevelRoleEditor
 import io.jmix.tests.ui.screen.system.dialog.ConfirmationDialog
 import io.jmix.tests.ui.screen.system.dialog.UnsavedChangesDialog
 import io.jmix.tests.ui.test.security.BaseSecurityUiTest
+import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
@@ -102,6 +103,7 @@ class RowLevelRoleActionsUiTest extends BaseSecurityUiTest {
         removeRole(roleName1)
     }
 
+    @Disabled("RowLevelPolicyModelEdit uses SourceCodeEditor that do not support setValue and some conditions")
     @Test
     @DisplayName("Adds a predicate policy to row level role")
     void addPredicatePolicy() {
@@ -116,6 +118,7 @@ class RowLevelRoleActionsUiTest extends BaseSecurityUiTest {
         interruptRoleCreating()
     }
 
+    @Disabled("RowLevelPolicyModelEdit uses SourceCodeEditor that do not support setValue and some conditions")
     @Test
     @DisplayName("Adds, edits and removes a JPQL policy of row level role")
     void editJPQLPolicy() {
@@ -162,6 +165,7 @@ class RowLevelRoleActionsUiTest extends BaseSecurityUiTest {
         interruptRoleCreating()
     }
 
+    @Disabled("RowLevelPolicyModelEdit uses SourceCodeEditor that do not support setValue and some conditions")
     @Test
     @DisplayName("Adds a child role to row level role")
     void addChildRoleToResourceRole() {
@@ -184,6 +188,7 @@ class RowLevelRoleActionsUiTest extends BaseSecurityUiTest {
         removeRole(roleName1)
     }
 
+    @Disabled("RowLevelPolicyModelEdit uses SourceCodeEditor that do not support setValue and some conditions")
     @Test
     @DisplayName("Removes a child role from row level role")
     void removeChildRoleFromResourceRole() {

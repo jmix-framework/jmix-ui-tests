@@ -12,6 +12,7 @@ import io.jmix.tests.ui.screen.administration.security.editor.*
 import io.jmix.tests.ui.screen.application.user.UserBrowse
 import io.jmix.tests.ui.screen.system.main.MainScreen
 import io.jmix.tests.ui.test.security.BaseSecurityUiTest
+import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
@@ -21,6 +22,7 @@ import org.springframework.test.context.ContextConfiguration
 import static io.jmix.masquerade.Conditions.READONLY
 import static io.jmix.masquerade.Selectors.$j
 
+@Disabled("RowLevelPolicyModelEdit uses SourceCodeEditor that do not support setValue and some conditions")
 @ExtendWith([
         SpringBootExtension,
         ChromeExtension,
