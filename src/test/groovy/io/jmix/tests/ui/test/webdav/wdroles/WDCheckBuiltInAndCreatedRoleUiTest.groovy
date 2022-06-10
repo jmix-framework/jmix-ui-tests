@@ -18,13 +18,11 @@ import io.jmix.tests.ui.screen.application.user.UserBrowse
 import io.jmix.tests.ui.screen.system.dialog.ConfirmationDialog
 import io.jmix.tests.ui.screen.system.main.MainScreen
 import io.jmix.tests.ui.test.webdav.WebDAVBaseUITest
+import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
-import org.junit.jupiter.api.TestInstance
 import org.junit.jupiter.api.extension.ExtendWith
-import org.openqa.selenium.Dimension
 import org.openqa.selenium.Keys
-import org.openqa.selenium.WebDriver
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.test.context.ContextConfiguration
 
@@ -35,6 +33,7 @@ import static io.jmix.masquerade.Conditions.REQUIRED
 import static io.jmix.masquerade.Conditions.VISIBLE
 import static io.jmix.masquerade.Selectors.$j
 
+@Disabled("RowLevelPolicyModelEdit uses SourceCodeEditor that do not support setValue and some conditions")
 @ExtendWith([
         SpringBootExtension,
         ChromeExtension,
