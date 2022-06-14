@@ -46,7 +46,7 @@ class EntityInfoDialogOpenUiTest extends BaseDatatoolsUiTest {
             openContextMenuFromSelectedRow(USERNAME6, USER_TABLE_JTEST_ID)
         }
 
-        openInspectorWindow(4)
+        openInspectorWindow(5)
 
         $j(EntityInformationDialog).with {
             shouldBe(VISIBLE)
@@ -69,7 +69,7 @@ class EntityInfoDialogOpenUiTest extends BaseDatatoolsUiTest {
             openContextMenuFromSelectedRow(USERNAME2, USER_TABLE_JTEST_ID)
         }
 
-        openInspectorWindow(4)
+        openInspectorWindow(5)
         $j(EntityInformationDialog).with {
             shouldBe(VISIBLE)
                     .checkTableAndEntityName(USER_ENTITY_NAME)

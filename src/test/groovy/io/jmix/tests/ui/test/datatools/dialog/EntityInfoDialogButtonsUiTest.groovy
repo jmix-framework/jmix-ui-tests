@@ -45,7 +45,7 @@ class EntityInfoDialogButtonsUiTest extends BaseDatatoolsUiTest {
             openContextMenuFromSelectedRow(ADMIN_USERNAME, USER_TABLE_JTEST_ID)
         }
 
-        openInspectorWindow(4)
+        openInspectorWindow(5)
     }
 
     @Test
