@@ -11,7 +11,6 @@ jmix {
 }
 
 group = 'io.jmix.tests'
-sourceCompatibility = '1.8'
 
 repositories {
     mavenCentral()
@@ -55,7 +54,7 @@ dependencies {
 
     testImplementation "io.jmix.masquerade:jmix-masquerade:1.1.0-SNAPSHOT"
 
-    testImplementation 'com.codeborne:selenide:6.5.2'
+    testImplementation 'com.codeborne:selenide:6.6.1'
 
     testImplementation 'org.codehaus.groovy:groovy:3.0.10'
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.2'
