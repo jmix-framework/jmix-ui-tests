@@ -6,12 +6,13 @@ import io.jmix.tests.ui.screen.administration.businesscalendars.browse.BusinessC
 import io.jmix.tests.ui.screen.administration.businesscalendars.dialogs.HolidayEditor
 import io.jmix.tests.ui.screen.administration.businesscalendars.editor.BusinessCalendarEditor
 import io.jmix.tests.ui.screen.system.dialog.ConfirmationDialog
-import io.jmix.tests.ui.test.BaseUiTest;
-import io.jmix.tests.ui.test.utils.UiHelper
 
 import static com.codeborne.selenide.Condition.cssClass
 import static io.jmix.masquerade.Conditions.VISIBLE
 import static io.jmix.masquerade.Selectors.$j
+
+import io.jmix.tests.ui.test.BaseUiTest;
+import io.jmix.tests.ui.test.utils.UiHelper;
 
 class BusinessCalendarBaseUiTest extends BaseUiTest implements UiHelper {
 
@@ -20,8 +21,7 @@ class BusinessCalendarBaseUiTest extends BaseUiTest implements UiHelper {
     protected static final String BUSINESS_CALENDAR_SOURCE = "Database"
     protected businessCalendars = []
 
-    protected static final String DESCRIPTION_FIELD = "Test Description 1 !"
-    protected static final String ANOTHER_DESCRIPTION_FIELD = "tstng-dscrptn"
+    protected static final String DESCRIPTION_FIELD_VALUE = "Test Description 1 !"
 
     protected static final String BUSINESS_CALENDARS_TABLE_J_TEST_ID = "businessCalendarsTable"
     protected static final String HOLIDAYS_TABLE_J_TEST_ID = "holidaysTable"
