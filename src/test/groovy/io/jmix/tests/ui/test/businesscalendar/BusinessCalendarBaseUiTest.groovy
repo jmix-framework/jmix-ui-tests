@@ -77,7 +77,7 @@ class BusinessCalendarBaseUiTest extends BaseUiTest implements UiHelper {
                     .select(DAY_OF_WEEK_SUNDAY)
 
             descriptionField.shouldNotBe(Conditions.REQUIRED)
-            fillTextField(descriptionField, DESCRIPTION_FIELD)
+            fillTextField(descriptionField, DESCRIPTION_FIELD_VALUE)
             clickButton(commitAndCloseBtn)
         }
     }
