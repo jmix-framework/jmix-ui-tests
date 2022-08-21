@@ -34,11 +34,6 @@ import static io.jmix.masquerade.Selectors.$j
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 class SmokeBusinessCalendarEntityUiTest extends BusinessCalendarBaseUiTest {
 
-    static final String BUSINESS_CALENDAR_NAME = "Business Calendar"
-    static final String BUSINESS_CALENDAR_CODE = "code-business-calendar"
-    static final String BUSINESS_CALENDAR_SOURCE = "Database"
-    public businessCalendars = []
-
     @BeforeEach
     void beforeEachTest() {
         loginAsAdmin()
@@ -63,9 +58,9 @@ class SmokeBusinessCalendarEntityUiTest extends BusinessCalendarBaseUiTest {
     @Test
     @DisplayName("Create Business Calendar")
     void createBusinessCalendar() {
-        def businessCalendarNameFirst = getUniqueName(BUSINESS_CALENDAR_NAME)
-        def businessCalendarCode = getUniqueName(BUSINESS_CALENDAR_CODE)
-        def businessCalendarSource = BUSINESS_CALENDAR_SOURCE
+        String businessCalendarNameFirst = getUniqueName(BUSINESS_CALENDAR_NAME)
+        String businessCalendarCode = getUniqueName(BUSINESS_CALENDAR_CODE)
+        String businessCalendarSource = BUSINESS_CALENDAR_SOURCE
         businessCalendars.add(businessCalendarNameFirst)
 
         $j(BusinessCalendarsBrowse).with {
@@ -74,15 +69,13 @@ class SmokeBusinessCalendarEntityUiTest extends BusinessCalendarBaseUiTest {
             $j(BusinessCalendarEditor).with {
                 clickButton(ok)
                 checkNotification(ALERT_NOTIFICATION_CAPTION, REQUIRED_NAME_AND_CODE_NOTIFICATION_CAPTION)
-
-                nameField.shouldBe(Conditions.REQUIRED)
-                fillTextField(nameField, businessCalendarNameFirst)
-
-                codeField.shouldBe(Conditions.REQUIRED)
-                fillTextField(codeField, businessCalendarCode)
-
-                clickButton(ok)
+                clickButton(close)
             }
+        }
+
+        createEntity(businessCalendarNameFirst, businessCalendarCode)
+
+        $j(BusinessCalendarsBrowse).with {
             checkRecordIsDisplayed(businessCalendarNameFirst, BUSINESS_CALENDARS_TABLE_J_TEST_ID)
             checkRecordIsDisplayed(businessCalendarSource, BUSINESS_CALENDARS_TABLE_J_TEST_ID)
         }
@@ -91,24 +84,15 @@ class SmokeBusinessCalendarEntityUiTest extends BusinessCalendarBaseUiTest {
     @Test
     @DisplayName("Edit Business Calendar")
     void editBusinessCalendar() {
-        def businessCalendarNameSecond = getUniqueName(BUSINESS_CALENDAR_NAME)
-        def businessCalendarNameAnotherSecond = getUniqueName(BUSINESS_CALENDAR_NAME)
-        def businessCalendarCode = getUniqueName(BUSINESS_CALENDAR_CODE)
-        def businessCalendarSource = BUSINESS_CALENDAR_SOURCE
-        businessCalendars.add(businessCalendarNameSecond)
+        String businessCalendarNameSecond = getUniqueName(BUSINESS_CALENDAR_NAME)
+        String businessCalendarNameAnotherSecond = getUniqueName(BUSINESS_CALENDAR_NAME)
+        String businessCalendarCode = getUniqueName(BUSINESS_CALENDAR_CODE)
+        String businessCalendarSource = BUSINESS_CALENDAR_SOURCE
+        businessCalendars.add(businessCalendarNameAnotherSecond)
+
+        createEntity(businessCalendarNameSecond, businessCalendarCode)
 
         $j(BusinessCalendarsBrowse).with {
-            clickButton(createBtn)
-
-            $j(BusinessCalendarEditor).with {
-                nameField.shouldBe(Conditions.REQUIRED)
-                fillTextField(nameField, businessCalendarNameSecond)
-
-                codeField.shouldBe(Conditions.REQUIRED)
-                fillTextField(codeField, businessCalendarCode)
-
-                clickButton(ok)
-            }
             checkRecordIsDisplayed(businessCalendarNameSecond, BUSINESS_CALENDARS_TABLE_J_TEST_ID)
             checkRecordIsDisplayed(businessCalendarSource, BUSINESS_CALENDARS_TABLE_J_TEST_ID)
 
@@ -127,24 +111,15 @@ class SmokeBusinessCalendarEntityUiTest extends BusinessCalendarBaseUiTest {
     }
 
     @Test
-    @DisplayName("Edit Business Calendar")
+    @DisplayName("Remove Business Calendar")
     void removeBusinessCalendar() {
-        def businessCalendarNameThird = getUniqueName(BUSINESS_CALENDAR_NAME)
-        def businessCalendarCode = getUniqueName(BUSINESS_CALENDAR_CODE)
-        def businessCalendarSource = BUSINESS_CALENDAR_SOURCE
+        String businessCalendarNameThird = getUniqueName(BUSINESS_CALENDAR_NAME)
+        String businessCalendarCode = getUniqueName(BUSINESS_CALENDAR_CODE)
+        String businessCalendarSource = BUSINESS_CALENDAR_SOURCE
+
+        createEntity(businessCalendarNameThird, businessCalendarCode)
 
         $j(BusinessCalendarsBrowse).with {
-            clickButton(createBtn)
-
-            $j(BusinessCalendarEditor).with {
-                nameField.shouldBe(Conditions.REQUIRED)
-                fillTextField(nameField, businessCalendarNameThird)
-
-                codeField.shouldBe(Conditions.REQUIRED)
-                fillTextField(codeField, businessCalendarCode)
-
-                clickButton(ok)
-            }
             checkRecordIsDisplayed(businessCalendarNameThird, BUSINESS_CALENDARS_TABLE_J_TEST_ID)
             checkRecordIsDisplayed(businessCalendarSource, BUSINESS_CALENDARS_TABLE_J_TEST_ID)
 

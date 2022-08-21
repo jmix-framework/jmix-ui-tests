@@ -16,6 +16,15 @@ class BusinessCalendarEditor extends Composite<BusinessCalendarEditor> {
     @Wire
     TextField sourceField
 
+    @Wire
+    Button create
+
+    @Wire
+    Button edit
+
+    @Wire
+    Button remove
+
     @Wire(path = 'commitAndCloseBtn')
     Button ok
 
