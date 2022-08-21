@@ -1,5 +1,7 @@
 package io.jmix.tests.ui.test.businesscalendar.crud
 
+import io.jmix.masquerade.Conditions
+import io.jmix.masquerade.component.OptionsGroup
 import io.jmix.tests.JmixUiTestsApplication
 import io.jmix.tests.extension.ChromeExtension
 import io.jmix.tests.ui.extension.PostgreSQLExtension
@@ -20,6 +22,8 @@ import org.junit.jupiter.api.extension.ExtendWith
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.test.context.ContextConfiguration
 
+import static com.codeborne.selenide.Condition.cssClass
+import static io.jmix.masquerade.Conditions.VISIBLE
 import static io.jmix.masquerade.Selectors.$j
 
 @ExtendWith([
@@ -46,9 +50,9 @@ class HolidaysBusinessCalendarUiTest extends BusinessCalendarBaseUiTest {
         removeAllBusinessCalendars()
         $j(MainScreen).logout()
     }
-
+    
     @Test
-    @DisplayName("Create a Business Calendar with holidays where type is a Day of week")
+    @DisplayName("Create Business Calendar with holiday type")
     void createBusinessCalendarWithDayOfWeek() {
         String name = getUniqueName(BUSINESS_CALENDAR_NAME)
         String code = getUniqueName(BUSINESS_CALENDAR_CODE)
@@ -73,7 +77,7 @@ class HolidaysBusinessCalendarUiTest extends BusinessCalendarBaseUiTest {
 
                 checkRecordIsDisplayed(DAY_OF_WEEK_SATURDAY, HOLIDAYS_TABLE_J_TEST_ID)
                 checkRecordIsDisplayed(DAY_OF_WEEK_SUNDAY, HOLIDAYS_TABLE_J_TEST_ID)
-                checkRecordIsDisplayed(DESCRIPTION_FIELD, HOLIDAYS_TABLE_J_TEST_ID)
+                checkRecordIsDisplayed(DESCRIPTION_FIELD_VALUE, HOLIDAYS_TABLE_J_TEST_ID)
 
                 clickButton(ok)
             }
@@ -96,19 +100,26 @@ class HolidaysBusinessCalendarUiTest extends BusinessCalendarBaseUiTest {
                 fillTextField(codeField, code)
 
                 clickButton(create)
-                createHolidaysWithDayOfWeek()
-
-                selectRowInTableByText(DAY_OF_WEEK_SUNDAY, HOLIDAYS_TABLE_J_TEST_ID)
-                clickButton(edit)
 
                 $j(HolidayEditor).with {
-                    fillTextField(descriptionField, ANOTHER_DESCRIPTION_FIELD)
-                    selectValueWithoutFilterInComboBox(dayOfWeek, DAY_OF_WEEK_MONDAY)
-                    clickButton(commitAndCloseBtn)
+                    selectValueWithoutFilterInComboBox(holidayType, HOLIDAY_TYPE_DAY_OF_WEEK)
+
+                    def optionsGroup = $j(OptionsGroup.class, 'dayOfWeekCheckboxGroup')
+                            .shouldBe(VISIBLE)
+                    optionsGroup
+                            .shouldNotHave(cssClass('v-select-optiongroup-horizontal'))
+                            .select(DAY_OF_WEEK_SATURDAY)
+                            .select(DAY_OF_WEEK_SUNDAY)
+
+                    descriptionField.shouldNotBe(Conditions.REQUIRED)
+                    fillTextField(descriptionField, DESCRIPTION_FIELD_VALUE)
+                    clickButton(ok)
                 }
-                clickButton(ok)
+                checkRecordIsDisplayed(DAY_OF_WEEK_SATURDAY, HOLIDAYS_TABLE_J_TEST_ID)
+                checkRecordIsDisplayed(DAY_OF_WEEK_SUNDAY, HOLIDAYS_TABLE_J_TEST_ID)
+
+                checkRecordIsDisplayed(DESCRIPTION_FIELD_VALUE, HOLIDAYS_TABLE_J_TEST_ID)
             }
-            checkRecordIsDisplayed(name, BUSINESS_CALENDARS_TABLE_J_TEST_ID)
         }
     }
 
