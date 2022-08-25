@@ -1,7 +1,6 @@
 package io.jmix.tests.ui.test.businesscalendar.crud
 
-import io.jmix.masquerade.Conditions
-import io.jmix.masquerade.component.OptionsGroup
+import com.codeborne.selenide.SelenideElement
 import io.jmix.tests.JmixUiTestsApplication
 import io.jmix.tests.extension.ChromeExtension
 import io.jmix.tests.ui.extension.PostgreSQLExtension
@@ -22,11 +21,9 @@ import org.junit.jupiter.api.extension.ExtendWith
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.test.context.ContextConfiguration
 
-import static com.codeborne.selenide.Condition.cssClass
+import static com.codeborne.selenide.Selenide.$x
 import static io.jmix.masquerade.Conditions.VISIBLE
-import static io.jmix.masquerade.Conditions.value
 import static io.jmix.masquerade.Selectors.$j
-import static io.jmix.tests.ui.screen.administration.dynattr.CategoryAttributeEditor.RED
 
 @ExtendWith([
         SpringBootExtension,
@@ -38,8 +35,10 @@ import static io.jmix.tests.ui.screen.administration.dynattr.CategoryAttributeEd
 @ContextConfiguration(initializers = TestContextInitializer)
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 class HolidaysBusinessCalendarUiTest extends BusinessCalendarBaseUiTest {
-
-    public static final boolean checkedCheckbox = true;
+    private static final SelenideElement okBtn = $x("//*[@class=\'v-horizontallayout v-layout v-horizontal v-widget v-has-height\']" +
+            "//*[span=\'OK\']")
+    private static final SelenideElement closeBtn = $x("//*[@class=\'v-horizontallayout v-layout v-horizontal v-widget v-has-height\']" +
+            "//*[span=\'Close\']")
 
     @BeforeEach
     void beforeEachTest() {
@@ -51,19 +50,12 @@ class HolidaysBusinessCalendarUiTest extends BusinessCalendarBaseUiTest {
     void afterAll() {
         loginAsAdmin()
         $j(MainScreen).openBusinessCalendarsBrowse()
-
-        // removing all business calendars
-        businessCalendars.forEach(businessCalendar -> {
-            $j(BusinessCalendarsBrowse).with {
-                selectRowInTableByText(businessCalendar as String, BUSINESS_CALENDARS_TABLE_J_TEST_ID)
-                clickButton(removeBtn)
-            }
-            $j(ConfirmationDialog).confirmChanges()
-        })
+        removeAllBusinessCalendars()
+        $j(MainScreen).logout()
     }
 
     @Test
-    @DisplayName("Create Business Calendar with holiday type")
+    @DisplayName("Create a Business Calendar with holidays where type is a Day of week")
     void createBusinessCalendarWithDayOfWeek() {
         String businessCalendarName = getUniqueName(BUSINESS_CALENDAR_NAME)
         String businessCalendarCode = getUniqueName(BUSINESS_CALENDAR_CODE)
@@ -79,24 +71,80 @@ class HolidaysBusinessCalendarUiTest extends BusinessCalendarBaseUiTest {
                 clickButton(create)
 
                 $j(HolidayEditor).with {
-                    selectValueWithoutFilterInComboBox(holidayType, HOLIDAY_TYPE_DAY_OF_WEEK)
-
-                    def optionsGroup = $j(OptionsGroup.class, 'dayOfWeekCheckboxGroup')
-                            .shouldBe(VISIBLE)
-                    optionsGroup
-                            .shouldNotHave(cssClass('v-select-optiongroup-horizontal'))
-                            .select(DAY_OF_WEEK_SATURDAY)
-                            .select(DAY_OF_WEEK_SUNDAY)
-
-                    descriptionField.shouldNotBe(Conditions.REQUIRED)
-                    fillTextField(descriptionField, DESCRIPTION_FIELD)
-                    clickButton(ok)
+                    okBtn.click()
+                    checkNotification(ALERT_NOTIFICATION_CAPTION, REQUIRED_HOLIDAY_TYPE_NOTIFICATION_CAPTION)
+                    closeBtn.shouldBe(VISIBLE)
+                            .click()
                 }
+                clickButton(create)
+                createHolidaysWithDayOfWeek(okBtn)
+
                 checkRecordIsDisplayed(DAY_OF_WEEK_SATURDAY, HOLIDAYS_TABLE_J_TEST_ID)
                 checkRecordIsDisplayed(DAY_OF_WEEK_SUNDAY, HOLIDAYS_TABLE_J_TEST_ID)
-
                 checkRecordIsDisplayed(DESCRIPTION_FIELD, HOLIDAYS_TABLE_J_TEST_ID)
+
+                clickButton(ok)
             }
+            checkRecordIsDisplayed(businessCalendarName, BUSINESS_CALENDARS_TABLE_J_TEST_ID)
+        }
+    }
+
+    @Test
+    @DisplayName("Edit holidays with a day of the week")
+    void editBusinessCalendarWithDayOfWeek() {
+        String businessCalendarName = getUniqueName(BUSINESS_CALENDAR_NAME)
+        String businessCalendarCode = getUniqueName(BUSINESS_CALENDAR_CODE)
+        businessCalendars.add(businessCalendarName)
+
+        $j(BusinessCalendarsBrowse).with {
+            clickButton(createBtn)
+
+            $j(BusinessCalendarEditor).with {
+                fillTextField(nameField, businessCalendarName)
+                fillTextField(codeField, businessCalendarCode)
+
+                clickButton(create)
+                createHolidaysWithDayOfWeek(okBtn)
+
+                selectRowInTableByText(DAY_OF_WEEK_SUNDAY, HOLIDAYS_TABLE_J_TEST_ID)
+                clickButton(edit)
+
+                $j(HolidayEditor).with {
+                    fillTextField(descriptionField, ANOTHER_DESCRIPTION_FIELD)
+                    selectValueWithoutFilterInComboBox(dayOfWeek, DAY_OF_WEEK_MONDAY)
+                    okBtn.click()
+                }
+                clickButton(ok)
+            }
+            checkRecordIsDisplayed(businessCalendarName, BUSINESS_CALENDARS_TABLE_J_TEST_ID)
+        }
+    }
+
+    @Test
+    @DisplayName("Remove holidays with a day of the week")
+    void removeBusinessCalendarWithDayOfWeek() {
+        String businessCalendarName = getUniqueName(BUSINESS_CALENDAR_NAME)
+        String businessCalendarCode = getUniqueName(BUSINESS_CALENDAR_CODE)
+        businessCalendars.add(businessCalendarName)
+
+        $j(BusinessCalendarsBrowse).with {
+            clickButton(createBtn)
+
+            $j(BusinessCalendarEditor).with {
+                fillTextField(nameField, businessCalendarName)
+                fillTextField(codeField, businessCalendarCode)
+
+                clickButton(create)
+                createHolidaysWithDayOfWeek(okBtn)
+
+                selectRowInTableByText(DAY_OF_WEEK_SATURDAY, HOLIDAYS_TABLE_J_TEST_ID)
+                clickButton(remove)
+                $j(ConfirmationDialog).confirmChanges()
+                checkRecordIsNotDisplayed(DAY_OF_WEEK_SATURDAY, HOLIDAYS_TABLE_J_TEST_ID)
+
+                clickButton(ok)
+            }
+            checkRecordIsDisplayed(businessCalendarName, BUSINESS_CALENDARS_TABLE_J_TEST_ID)
         }
     }
 }

@@ -32,7 +32,7 @@ import static io.jmix.masquerade.Selectors.$j
         webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @ContextConfiguration(initializers = TestContextInitializer)
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
-class SmokeBusinessCalendarEntityUiTest extends BusinessCalendarBaseUiTest {
+class BusinessCalendarEntityUiTest extends BusinessCalendarBaseUiTest {
 
     @BeforeEach
     void beforeEachTest() {
@@ -44,15 +44,8 @@ class SmokeBusinessCalendarEntityUiTest extends BusinessCalendarBaseUiTest {
     void afterAll() {
         loginAsAdmin()
         $j(MainScreen).openBusinessCalendarsBrowse()
-
-        // removing all business calendars
-        businessCalendars.forEach(businessCalendar -> {
-            $j(BusinessCalendarsBrowse).with {
-                selectRowInTableByText(businessCalendar as String, BUSINESS_CALENDARS_TABLE_J_TEST_ID)
-                clickButton(removeBtn)
-            }
-            $j(ConfirmationDialog).confirmChanges()
-        })
+        removeAllBusinessCalendars()
+        $j(MainScreen).logout()
     }
 
     @Test
