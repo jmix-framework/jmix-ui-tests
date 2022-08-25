@@ -7,12 +7,12 @@ import io.jmix.tests.ui.screen.administration.businesscalendars.dialogs.HolidayE
 import io.jmix.tests.ui.screen.administration.businesscalendars.editor.BusinessCalendarEditor
 import io.jmix.tests.ui.screen.system.dialog.ConfirmationDialog
 
+import io.jmix.tests.ui.test.BaseUiTest;
+import io.jmix.tests.ui.test.utils.UiHelper
+
 import static com.codeborne.selenide.Condition.cssClass
 import static io.jmix.masquerade.Conditions.VISIBLE
 import static io.jmix.masquerade.Selectors.$j
-
-import io.jmix.tests.ui.test.BaseUiTest;
-import io.jmix.tests.ui.test.utils.UiHelper
 
 class BusinessCalendarBaseUiTest extends BaseUiTest implements UiHelper {
 

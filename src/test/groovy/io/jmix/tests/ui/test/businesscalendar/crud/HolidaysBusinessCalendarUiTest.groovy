@@ -50,7 +50,7 @@ class HolidaysBusinessCalendarUiTest extends BusinessCalendarBaseUiTest {
         removeAllBusinessCalendars()
         $j(MainScreen).logout()
     }
-    
+
     @Test
     @DisplayName("Create Business Calendar with holiday type")
     void createBusinessCalendarWithDayOfWeek() {

@@ -17,7 +17,7 @@ class HolidayEditor extends Composite<HolidayEditor> {
 
     @Wire
     TextField descriptionField
-    
+
     @FindBy(xpath = '//*[@class=\'v-horizontallayout v-layout v-horizontal v-widget v-has-height\']//*[span=\'OK\']')
     Button commitAndCloseBtn
 
