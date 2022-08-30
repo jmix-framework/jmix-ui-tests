@@ -51,10 +51,9 @@ class BusinessCalendarEntityUiTest extends BusinessCalendarBaseUiTest {
     @Test
     @DisplayName("Create Business Calendar")
     void createBusinessCalendar() {
-        String businessCalendarNameFirst = getUniqueName(BUSINESS_CALENDAR_NAME)
-        String businessCalendarCode = getUniqueName(BUSINESS_CALENDAR_CODE)
-        String businessCalendarSource = BUSINESS_CALENDAR_SOURCE
-        businessCalendars.add(businessCalendarNameFirst)
+        String name = getUniqueName(BUSINESS_CALENDAR_NAME)
+        String code = getUniqueName(BUSINESS_CALENDAR_CODE)
+        businessCalendars.add(name)
 
         $j(BusinessCalendarsBrowse).with {
             clickButton(createBtn)
@@ -66,62 +65,60 @@ class BusinessCalendarEntityUiTest extends BusinessCalendarBaseUiTest {
             }
         }
 
-        createEntity(businessCalendarNameFirst, businessCalendarCode)
+        createEntity(name, code)
 
         $j(BusinessCalendarsBrowse).with {
-            checkRecordIsDisplayed(businessCalendarNameFirst, BUSINESS_CALENDARS_TABLE_J_TEST_ID)
-            checkRecordIsDisplayed(businessCalendarSource, BUSINESS_CALENDARS_TABLE_J_TEST_ID)
+            checkRecordIsDisplayed(name, BUSINESS_CALENDARS_TABLE_J_TEST_ID)
+            checkRecordIsDisplayed(BUSINESS_CALENDAR_SOURCE, BUSINESS_CALENDARS_TABLE_J_TEST_ID)
         }
     }
 
     @Test
     @DisplayName("Edit Business Calendar")
     void editBusinessCalendar() {
-        String businessCalendarNameSecond = getUniqueName(BUSINESS_CALENDAR_NAME)
-        String businessCalendarNameAnotherSecond = getUniqueName(BUSINESS_CALENDAR_NAME)
-        String businessCalendarCode = getUniqueName(BUSINESS_CALENDAR_CODE)
-        String businessCalendarSource = BUSINESS_CALENDAR_SOURCE
-        businessCalendars.add(businessCalendarNameAnotherSecond)
+        String name = getUniqueName(BUSINESS_CALENDAR_NAME)
+        String modifiedName = getUniqueName(BUSINESS_CALENDAR_NAME)
+        String code = getUniqueName(BUSINESS_CALENDAR_CODE)
+        businessCalendars.add(modifiedName)
 
-        createEntity(businessCalendarNameSecond, businessCalendarCode)
+        createEntity(name, code)
 
         $j(BusinessCalendarsBrowse).with {
-            checkRecordIsDisplayed(businessCalendarNameSecond, BUSINESS_CALENDARS_TABLE_J_TEST_ID)
-            checkRecordIsDisplayed(businessCalendarSource, BUSINESS_CALENDARS_TABLE_J_TEST_ID)
+            checkRecordIsDisplayed(name, BUSINESS_CALENDARS_TABLE_J_TEST_ID)
+            checkRecordIsDisplayed(BUSINESS_CALENDAR_SOURCE, BUSINESS_CALENDARS_TABLE_J_TEST_ID)
 
-            selectRowInTableByText(businessCalendarNameSecond, BUSINESS_CALENDARS_TABLE_J_TEST_ID)
+            selectRowInTableByText(name, BUSINESS_CALENDARS_TABLE_J_TEST_ID)
             clickButton(editBtn)
 
             $j(BusinessCalendarEditor).with {
-                nameField.shouldBe(Conditions.REQUIRED).shouldHave(value(businessCalendarNameSecond))
-                fillTextField(nameField, businessCalendarNameAnotherSecond)
+                nameField.shouldBe(Conditions.REQUIRED).shouldHave(value(name))
+                fillTextField(nameField, modifiedName)
                 clickButton(ok)
             }
 
-            checkRecordIsDisplayed(businessCalendarNameAnotherSecond, BUSINESS_CALENDARS_TABLE_J_TEST_ID)
-            checkRecordIsDisplayed(businessCalendarSource, BUSINESS_CALENDARS_TABLE_J_TEST_ID)
+            checkRecordIsDisplayed(modifiedName, BUSINESS_CALENDARS_TABLE_J_TEST_ID)
+            checkRecordIsDisplayed(BUSINESS_CALENDAR_SOURCE, BUSINESS_CALENDARS_TABLE_J_TEST_ID)
         }
     }
 
     @Test
     @DisplayName("Remove Business Calendar")
     void removeBusinessCalendar() {
-        String businessCalendarNameThird = getUniqueName(BUSINESS_CALENDAR_NAME)
-        String businessCalendarCode = getUniqueName(BUSINESS_CALENDAR_CODE)
-        String businessCalendarSource = BUSINESS_CALENDAR_SOURCE
+        String name = getUniqueName(BUSINESS_CALENDAR_NAME)
+        String code = getUniqueName(BUSINESS_CALENDAR_CODE)
 
-        createEntity(businessCalendarNameThird, businessCalendarCode)
+        createEntity(name, code)
 
         $j(BusinessCalendarsBrowse).with {
-            checkRecordIsDisplayed(businessCalendarNameThird, BUSINESS_CALENDARS_TABLE_J_TEST_ID)
-            checkRecordIsDisplayed(businessCalendarSource, BUSINESS_CALENDARS_TABLE_J_TEST_ID)
+            checkRecordIsDisplayed(name, BUSINESS_CALENDARS_TABLE_J_TEST_ID)
+            checkRecordIsDisplayed(BUSINESS_CALENDAR_SOURCE, BUSINESS_CALENDARS_TABLE_J_TEST_ID)
 
-            selectRowInTableByText(businessCalendarNameThird, BUSINESS_CALENDARS_TABLE_J_TEST_ID)
+            selectRowInTableByText(name, BUSINESS_CALENDARS_TABLE_J_TEST_ID)
             clickButton(removeBtn)
 
             $j(ConfirmationDialog).confirmChanges()
 
-            checkRecordIsNotDisplayed(businessCalendarNameThird, BUSINESS_CALENDARS_TABLE_J_TEST_ID)
+            checkRecordIsNotDisplayed(name, BUSINESS_CALENDARS_TABLE_J_TEST_ID)
         }
     }
 }

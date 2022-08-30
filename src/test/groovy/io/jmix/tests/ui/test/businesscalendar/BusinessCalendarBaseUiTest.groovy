@@ -1,6 +1,5 @@
 package io.jmix.tests.ui.test.businesscalendar
 
-import com.codeborne.selenide.SelenideElement
 import io.jmix.masquerade.Conditions
 import io.jmix.masquerade.component.OptionsGroup
 import io.jmix.tests.ui.screen.administration.businesscalendars.browse.BusinessCalendarsBrowse
@@ -66,7 +65,7 @@ class BusinessCalendarBaseUiTest extends BaseUiTest implements UiHelper {
         }
     }
 
-    protected static void createHolidaysWithDayOfWeek(SelenideElement button) {
+    protected static void createHolidaysWithDayOfWeek() {
         $j(HolidayEditor).with {
             selectValueWithoutFilterInComboBox(holidayType, HOLIDAY_TYPE_DAY_OF_WEEK)
 
@@ -79,8 +78,7 @@ class BusinessCalendarBaseUiTest extends BaseUiTest implements UiHelper {
 
             descriptionField.shouldNotBe(Conditions.REQUIRED)
             fillTextField(descriptionField, DESCRIPTION_FIELD)
-            button.shouldBe(VISIBLE)
-                    .click()
+            clickButton(commitAndCloseBtn)
         }
     }
 }
