@@ -120,6 +120,7 @@ class HolidaysBusinessCalendarUiTest extends BusinessCalendarBaseUiTest {
 
                 checkRecordIsDisplayed(DESCRIPTION_FIELD_VALUE, HOLIDAYS_TABLE_J_TEST_ID)
             }
+            checkRecordIsDisplayed(name, BUSINESS_CALENDARS_TABLE_J_TEST_ID)
         }
     }
 
