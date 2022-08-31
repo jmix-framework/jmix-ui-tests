@@ -7,6 +7,7 @@ package io.jmix.tests.ui.menu
 import io.jmix.masquerade.component.SideMenu
 import io.jmix.tests.screen.individual.IndividualBrowse
 import io.jmix.tests.ui.screen.administration.audit.EntityLogBrowse
+import io.jmix.tests.ui.screen.administration.businesscalendars.browse.BusinessCalendarsBrowse
 import io.jmix.tests.ui.screen.administration.datatools.EntityInspectorBrowse
 import io.jmix.tests.ui.screen.administration.datatools.browsers.AtmosphericGasBrowse
 import io.jmix.tests.ui.screen.administration.dynattr.DynamicAttributeBrowse
@@ -91,5 +92,8 @@ final class Menus {
 
     public static final SideMenu.Menu<WebDAVDocumentBrowse> WEBDAV_DOCUMENT_BROWSE =
             new SideMenu.Menu<>(WebDAVDocumentBrowse, 'administration', 'webdav_WebdavDocument.browse')
+
+    public static final SideMenu.Menu<BusinessCalendarsBrowse> BUSINESS_CALENDARS_BROWSE =
+            new SideMenu.Menu<>(BusinessCalendarsBrowse, 'administration', 'buscal_BusinessCalendarModel.browse')
 
 }
