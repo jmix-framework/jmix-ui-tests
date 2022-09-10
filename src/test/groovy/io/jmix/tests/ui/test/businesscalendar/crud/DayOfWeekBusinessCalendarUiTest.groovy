@@ -35,7 +35,7 @@ import static io.jmix.masquerade.Selectors.$j
         webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @ContextConfiguration(initializers = TestContextInitializer)
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
-class HolidaysBusinessCalendarUiTest extends BusinessCalendarBaseUiTest {
+class DayOfWeekBusinessCalendarUiTest extends BusinessCalendarBaseUiTest {
 
     @BeforeEach
     void beforeEachTest() {
@@ -52,7 +52,7 @@ class HolidaysBusinessCalendarUiTest extends BusinessCalendarBaseUiTest {
     }
 
     @Test
-    @DisplayName("Create Business Calendar with holiday type")
+    @DisplayName("Create a Business Calendar with holidays where type is a Day of week")
     void createBusinessCalendarWithDayOfWeek() {
         String name = getUniqueName(BUSINESS_CALENDAR_NAME)
         String code = getUniqueName(BUSINESS_CALENDAR_CODE)
@@ -73,7 +73,7 @@ class HolidaysBusinessCalendarUiTest extends BusinessCalendarBaseUiTest {
                     clickButton(closeBtn)
                 }
                 clickButton(create)
-                createHolidaysWithDayOfWeek()
+                createDayOfWeekHoliday()
 
                 checkRecordIsDisplayed(DAY_OF_WEEK_SATURDAY, HOLIDAYS_TABLE_J_TEST_ID)
                 checkRecordIsDisplayed(DAY_OF_WEEK_SUNDAY, HOLIDAYS_TABLE_J_TEST_ID)
@@ -100,6 +100,10 @@ class HolidaysBusinessCalendarUiTest extends BusinessCalendarBaseUiTest {
                 fillTextField(codeField, code)
 
                 clickButton(create)
+                createDayOfWeekHoliday()
+
+                selectRowInTableByText(DAY_OF_WEEK_SUNDAY, HOLIDAYS_TABLE_J_TEST_ID)
+                clickButton(edit)
 
                 $j(HolidayEditor).with {
                     selectValueWithoutFilterInComboBox(holidayType, HOLIDAY_TYPE_DAY_OF_WEEK)
@@ -139,12 +143,16 @@ class HolidaysBusinessCalendarUiTest extends BusinessCalendarBaseUiTest {
                 fillTextField(codeField, code)
 
                 clickButton(create)
-                createHolidaysWithDayOfWeek()
+                createDayOfWeekHoliday()
 
                 selectRowInTableByText(DAY_OF_WEEK_SATURDAY, HOLIDAYS_TABLE_J_TEST_ID)
                 clickButton(remove)
                 $j(ConfirmationDialog).confirmChanges()
+                selectRowInTableByText(DAY_OF_WEEK_SUNDAY, HOLIDAYS_TABLE_J_TEST_ID)
+                clickButton(remove)
+                $j(ConfirmationDialog).confirmChanges()
                 checkRecordIsNotDisplayed(DAY_OF_WEEK_SATURDAY, HOLIDAYS_TABLE_J_TEST_ID)
+                checkRecordIsNotDisplayed(DAY_OF_WEEK_SUNDAY, HOLIDAYS_TABLE_J_TEST_ID)
 
                 clickButton(ok)
             }
