@@ -1,4 +1,4 @@
-package io.jmix.tests.ui.test.businesscalendar.crud
+package io.jmix.tests.ui.test.businesscalendar.crud.holidays
 
 import io.jmix.tests.JmixUiTestsApplication
 import io.jmix.tests.extension.ChromeExtension
@@ -27,7 +27,7 @@ import static io.jmix.masquerade.Selectors.$j
         webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @ContextConfiguration(initializers = TestContextInitializer)
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
-class SpecificDateBusinessCalendarUiTest extends BusinessCalendarBaseUiTest {
+class AnnualHolidayBusinessCalendarUiTest extends BusinessCalendarBaseUiTest {
 
     @BeforeEach
     void beforeEachTest() {
@@ -44,8 +44,8 @@ class SpecificDateBusinessCalendarUiTest extends BusinessCalendarBaseUiTest {
     }
 
     @Test
-    @DisplayName("Create a Business Calendar with holidays where type is a Specific date holiday")
-    void createBusinessCalendarWithSpecificDate() {
+    @DisplayName("Create a Business Calendar with holidays where type is a annual holiday")
+    void createBusinessCalendarWithAnnualHoliday() {
         String name = getUniqueName(BUSINESS_CALENDAR_NAME)
         String code = getUniqueName(BUSINESS_CALENDAR_CODE)
         businessCalendars.add(name)
@@ -59,10 +59,10 @@ class SpecificDateBusinessCalendarUiTest extends BusinessCalendarBaseUiTest {
 
                 clickButton(create)
 
-                createSpecificDateHoliday()
+                createAnnualHoliday()
 
-                checkRecordIsDisplayed(HOLIDAY_TYPE_SPECIFIC_DATE, HOLIDAYS_TABLE_J_TEST_ID)
-                checkRecordIsDisplayed(DATE_VALUE_FIELD, HOLIDAYS_TABLE_J_TEST_ID)
+                checkRecordIsDisplayed(HOLIDAY_TYPE_ANNUAL, HOLIDAYS_TABLE_J_TEST_ID)
+                checkRecordIsDisplayed(ANNUAL_MONTH_DAY_VALUE, HOLIDAYS_TABLE_J_TEST_ID)
                 checkRecordIsDisplayed(DESCRIPTION_FIELD, HOLIDAYS_TABLE_J_TEST_ID)
 
                 clickButton(ok)
@@ -72,8 +72,8 @@ class SpecificDateBusinessCalendarUiTest extends BusinessCalendarBaseUiTest {
     }
 
     @Test
-    @DisplayName("Edit holidays with a Specific date holiday")
-    void editBusinessCalendarWithSpecificDate() {
+    @DisplayName("Edit holidays with a annual holiday")
+    void editBusinessCalendarWithAnnualHoliday() {
         String name = getUniqueName(BUSINESS_CALENDAR_NAME)
         String code = getUniqueName(BUSINESS_CALENDAR_CODE)
         businessCalendars.add(name)
@@ -86,22 +86,22 @@ class SpecificDateBusinessCalendarUiTest extends BusinessCalendarBaseUiTest {
                 fillTextField(codeField, code)
 
                 clickButton(create)
-                createSpecificDateHoliday()
+                createAnnualHoliday()
 
-                selectRowInTableByText(DATE_VALUE_FIELD, HOLIDAYS_TABLE_J_TEST_ID)
+                selectRowInTableByText(ANNUAL_MONTH_DAY_VALUE, HOLIDAYS_TABLE_J_TEST_ID)
                 clickButton(edit)
 
                 $j(HolidayEditor).with {
+                    selectValueWithoutFilterInComboBox(monthField, ANNUAL_APRIL)
+                    selectValueWithoutFilterInComboBox(dayField, ANNUAL_FIRST_DAY)
                     fillTextField(descriptionField, ANOTHER_DESCRIPTION_FIELD)
-                    fixedDateField.setDateValue(ANOTHER_DATE_FIELD)
                     clickButton(commitAndCloseBtn)
                 }
 
                 clickButton(edit)
                 $j(HolidayEditor).with {
-                    selectValueWithoutFilterInComboBox(holidayType, HOLIDAY_TYPE_DAY_OF_WEEK)
-                    selectValueWithoutFilterInComboBox(dayOfWeek, DAY_OF_WEEK_MONDAY)
-                    fillTextField(descriptionField, ANOTHER_DESCRIPTION_FIELD)
+                    selectValueWithoutFilterInComboBox(holidayType, HOLIDAY_TYPE_SPECIFIC_DATE)
+                    fixedDateField.setDateValue(ANOTHER_DATE_FIELD)
                     clickButton(commitAndCloseBtn)
                 }
 
@@ -112,8 +112,8 @@ class SpecificDateBusinessCalendarUiTest extends BusinessCalendarBaseUiTest {
     }
 
     @Test
-    @DisplayName("Remove holidays with a Specific date holiday")
-    void removeBusinessCalendarWithSpecificDate() {
+    @DisplayName("Remove holidays with a annual holiday")
+    void removeBusinessCalendarWithAnnualHoliday() {
         String name = getUniqueName(BUSINESS_CALENDAR_NAME)
         String code = getUniqueName(BUSINESS_CALENDAR_CODE)
         businessCalendars.add(name)
@@ -126,12 +126,12 @@ class SpecificDateBusinessCalendarUiTest extends BusinessCalendarBaseUiTest {
                 fillTextField(codeField, code)
 
                 clickButton(create)
-                createSpecificDateHoliday()
+                createAnnualHoliday()
 
-                selectRowInTableByText(DATE_VALUE_FIELD, HOLIDAYS_TABLE_J_TEST_ID)
+                selectRowInTableByText(ANNUAL_MONTH_DAY_VALUE, HOLIDAYS_TABLE_J_TEST_ID)
                 clickButton(remove)
                 $j(ConfirmationDialog).confirmChanges()
-                checkRecordIsNotDisplayed(DATE_VALUE_FIELD, HOLIDAYS_TABLE_J_TEST_ID)
+                checkRecordIsNotDisplayed(ANNUAL_MONTH_DAY_VALUE, HOLIDAYS_TABLE_J_TEST_ID)
 
                 clickButton(ok)
             }

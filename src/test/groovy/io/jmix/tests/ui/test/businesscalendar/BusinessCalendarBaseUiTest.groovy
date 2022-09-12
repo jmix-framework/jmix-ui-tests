@@ -4,6 +4,7 @@ import io.jmix.masquerade.Conditions
 import io.jmix.masquerade.component.OptionsGroup
 import io.jmix.tests.ui.screen.administration.businesscalendars.browse.BusinessCalendarsBrowse
 import io.jmix.tests.ui.screen.administration.businesscalendars.dialogs.HolidayEditor
+import io.jmix.tests.ui.screen.administration.businesscalendars.dialogs.WorkingScheduleEditor
 import io.jmix.tests.ui.screen.administration.businesscalendars.editor.BusinessCalendarEditor
 import io.jmix.tests.ui.screen.system.dialog.ConfirmationDialog
 import io.jmix.tests.ui.test.BaseUiTest;
@@ -36,6 +37,10 @@ class BusinessCalendarBaseUiTest extends BaseUiTest implements UiHelper {
     protected static final String REQUIRED_HOLIDAY_DATE_NOTIFICATION_CAPTION = "Date required"
     protected static final String REQUIRED_MONTH_AND_DAY_NOTIFICATION_CAPTION = "The 'Month' field is required\nDay required"
     protected static final String REQUIRED_CRON_NOTIFICATION_CAPTION = "Cron expression required"
+
+    protected static final String REQUIRED_DAY_HOURS_NOTIFICATION_CAPTION = "The 'Day of week' field is required" +
+            "\nThe field is required" +
+            "\nThe field is required"
 
     protected static final String HOLIDAY_TYPE_DAY_OF_WEEK = "Day of week"
     protected static final String DAY_OF_WEEK_MONDAY = "Monday"
@@ -171,6 +176,13 @@ class BusinessCalendarBaseUiTest extends BaseUiTest implements UiHelper {
             fillTextField(cronExpressionField, VALID_CRON_EXPRESSION)
             descriptionField.shouldNotBe(Conditions.REQUIRED)
             fillTextField(descriptionField, DESCRIPTION_FIELD)
+            clickButton(commitAndCloseBtn)
+        }
+    }
+
+    protected static void createWorkingSchedule() {
+        $j(WorkingScheduleEditor).with {
+            /// here
             clickButton(commitAndCloseBtn)
         }
     }
