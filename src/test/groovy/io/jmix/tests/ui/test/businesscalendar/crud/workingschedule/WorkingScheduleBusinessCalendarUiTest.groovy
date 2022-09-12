@@ -1,5 +1,6 @@
-package io.jmix.tests.ui.test.businesscalendar.crud
+package io.jmix.tests.ui.test.businesscalendar.crud.workingschedule
 
+import io.jmix.masquerade.component.TabSheet
 import io.jmix.tests.JmixUiTestsApplication
 import io.jmix.tests.extension.ChromeExtension
 import io.jmix.tests.ui.extension.PostgreSQLExtension
@@ -7,6 +8,7 @@ import io.jmix.tests.ui.extension.SpringBootExtension
 import io.jmix.tests.ui.initializer.TestContextInitializer
 import io.jmix.tests.ui.screen.administration.businesscalendars.browse.BusinessCalendarsBrowse
 import io.jmix.tests.ui.screen.administration.businesscalendars.dialogs.HolidayEditor
+import io.jmix.tests.ui.screen.administration.businesscalendars.dialogs.WorkingScheduleEditor
 import io.jmix.tests.ui.screen.administration.businesscalendars.editor.BusinessCalendarEditor
 import io.jmix.tests.ui.screen.system.dialog.ConfirmationDialog
 import io.jmix.tests.ui.screen.system.main.MainScreen
@@ -16,18 +18,19 @@ import org.junit.jupiter.api.extension.ExtendWith
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.test.context.ContextConfiguration
 
+import static io.jmix.masquerade.Conditions.VISIBLE
 import static io.jmix.masquerade.Selectors.$j
 
-@ExtendWith([
-        SpringBootExtension,
-        ChromeExtension,
-        PostgreSQLExtension
-])
-@SpringBootTest(classes = JmixUiTestsApplication,
-        webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-@ContextConfiguration(initializers = TestContextInitializer)
+//@ExtendWith([
+//        SpringBootExtension,
+//        ChromeExtension,
+//        PostgreSQLExtension
+//])
+//@SpringBootTest(classes = JmixUiTestsApplication,
+//        webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+//@ContextConfiguration(initializers = TestContextInitializer)
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
-class CronBasedBusinessCalendarUiTest extends BusinessCalendarBaseUiTest {
+class WorkingScheduleBusinessCalendarUiTest extends BusinessCalendarBaseUiTest {
 
     @BeforeEach
     void beforeEachTest() {
@@ -44,8 +47,8 @@ class CronBasedBusinessCalendarUiTest extends BusinessCalendarBaseUiTest {
     }
 
     @Test
-    @DisplayName("Create a Business Calendar with holidays where type is a cron-based holiday")
-    void createBusinessCalendarWithCronBased() {
+    @DisplayName("Create a Business Calendar with working schedule")
+    void createBusinessCalendarWithDayOfWeek() {
         String name = getUniqueName(BUSINESS_CALENDAR_NAME)
         String code = getUniqueName(BUSINESS_CALENDAR_CODE)
         businessCalendars.add(name)
@@ -57,12 +60,22 @@ class CronBasedBusinessCalendarUiTest extends BusinessCalendarBaseUiTest {
                 fillTextField(nameField, name)
                 fillTextField(codeField, code)
 
+                workingScheduleTabId.shouldBe(VISIBLE)
+                        .getDelegate()
+                        .click()
+
                 clickButton(create)
 
-                createCronBasedHolidayWithAllChecks()
+                $j(WorkingScheduleEditor).with {
+                    clickButton(commitAndCloseBtn)
+                    checkNotification(ALERT_NOTIFICATION_CAPTION, REQUIRED_DAY_HOURS_NOTIFICATION_CAPTION)
+                    clickButton(closeBtn)
+                }
+                clickButton(create)
+                createDayOfWeekHoliday()
 
-                checkRecordIsDisplayed(HOLIDAY_TYPE_CRON_BASED, HOLIDAYS_TABLE_J_TEST_ID)
-                checkRecordIsDisplayed(VALID_CRON_EXPRESSION, HOLIDAYS_TABLE_J_TEST_ID)
+                checkRecordIsDisplayed(DAY_OF_WEEK_SATURDAY, HOLIDAYS_TABLE_J_TEST_ID)
+                checkRecordIsDisplayed(DAY_OF_WEEK_SUNDAY, HOLIDAYS_TABLE_J_TEST_ID)
                 checkRecordIsDisplayed(DESCRIPTION_FIELD, HOLIDAYS_TABLE_J_TEST_ID)
 
                 clickButton(ok)
@@ -72,8 +85,8 @@ class CronBasedBusinessCalendarUiTest extends BusinessCalendarBaseUiTest {
     }
 
     @Test
-    @DisplayName("Edit holidays with a cron-based holiday")
-    void editBusinessCalendarWithCronBased() {
+    @DisplayName("Edit holidays with a day of the week")
+    void editBusinessCalendarWithDayOfWeek() {
         String name = getUniqueName(BUSINESS_CALENDAR_NAME)
         String code = getUniqueName(BUSINESS_CALENDAR_CODE)
         businessCalendars.add(name)
@@ -86,26 +99,16 @@ class CronBasedBusinessCalendarUiTest extends BusinessCalendarBaseUiTest {
                 fillTextField(codeField, code)
 
                 clickButton(create)
-                createCronBasedHoliday()
+                createDayOfWeekHoliday()
 
-                selectRowInTableByText(VALID_CRON_EXPRESSION, HOLIDAYS_TABLE_J_TEST_ID)
+                selectRowInTableByText(DAY_OF_WEEK_SUNDAY, HOLIDAYS_TABLE_J_TEST_ID)
                 clickButton(edit)
 
                 $j(HolidayEditor).with {
-                    fillTextField(cronExpressionField, ANOTHER_VALID_CRON_EXPRESSION)
                     fillTextField(descriptionField, ANOTHER_DESCRIPTION_FIELD)
+                    selectValueWithoutFilterInComboBox(dayOfWeek, DAY_OF_WEEK_MONDAY)
                     clickButton(commitAndCloseBtn)
                 }
-
-                clickButton(edit)
-                $j(HolidayEditor).with {
-                    selectValueWithoutFilterInComboBox(holidayType, HOLIDAY_TYPE_ANNUAL)
-                    selectValueInComboBox(monthField, ANNUAL_DECEMBER)
-                    selectValueWithoutFilterInComboBox(dayField, ANNUAL_FIRST_DAY)
-                    fillTextField(descriptionField, ANOTHER_DESCRIPTION_FIELD)
-                    clickButton(commitAndCloseBtn)
-                }
-
                 clickButton(ok)
             }
             checkRecordIsDisplayed(name, BUSINESS_CALENDARS_TABLE_J_TEST_ID)
@@ -113,8 +116,8 @@ class CronBasedBusinessCalendarUiTest extends BusinessCalendarBaseUiTest {
     }
 
     @Test
-    @DisplayName("Remove holidays with a cron-based holiday")
-    void removeBusinessCalendarWithCronBased() {
+    @DisplayName("Remove holidays with a day of the week")
+    void removeBusinessCalendarWithDayOfWeek() {
         String name = getUniqueName(BUSINESS_CALENDAR_NAME)
         String code = getUniqueName(BUSINESS_CALENDAR_CODE)
         businessCalendars.add(name)
@@ -127,12 +130,16 @@ class CronBasedBusinessCalendarUiTest extends BusinessCalendarBaseUiTest {
                 fillTextField(codeField, code)
 
                 clickButton(create)
-                createCronBasedHoliday()
+                createDayOfWeekHoliday()
 
-                selectRowInTableByText(VALID_CRON_EXPRESSION, HOLIDAYS_TABLE_J_TEST_ID)
+                selectRowInTableByText(DAY_OF_WEEK_SATURDAY, HOLIDAYS_TABLE_J_TEST_ID)
                 clickButton(remove)
                 $j(ConfirmationDialog).confirmChanges()
-                checkRecordIsNotDisplayed(VALID_CRON_EXPRESSION, HOLIDAYS_TABLE_J_TEST_ID)
+                selectRowInTableByText(DAY_OF_WEEK_SUNDAY, HOLIDAYS_TABLE_J_TEST_ID)
+                clickButton(remove)
+                $j(ConfirmationDialog).confirmChanges()
+                checkRecordIsNotDisplayed(DAY_OF_WEEK_SATURDAY, HOLIDAYS_TABLE_J_TEST_ID)
+                checkRecordIsNotDisplayed(DAY_OF_WEEK_SUNDAY, HOLIDAYS_TABLE_J_TEST_ID)
 
                 clickButton(ok)
             }

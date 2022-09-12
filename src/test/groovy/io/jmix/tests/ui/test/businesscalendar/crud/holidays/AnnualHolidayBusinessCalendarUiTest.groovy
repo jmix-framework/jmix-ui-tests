@@ -1,4 +1,4 @@
-package io.jmix.tests.ui.test.businesscalendar.crud
+package io.jmix.tests.ui.test.businesscalendar.crud.holidays
 
 import io.jmix.tests.JmixUiTestsApplication
 import io.jmix.tests.extension.ChromeExtension
