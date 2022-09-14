@@ -62,7 +62,7 @@ class SpecificDateBusinessCalendarUiTest extends BusinessCalendarBaseUiTest {
                 createSpecificDateHoliday()
 
                 checkRecordIsDisplayed(HOLIDAY_TYPE_SPECIFIC_DATE, HOLIDAYS_TABLE_J_TEST_ID)
-                checkRecordIsDisplayed(DATE_VALUE_FIELD, HOLIDAYS_TABLE_J_TEST_ID)
+                checkRecordIsDisplayed(DATE_FIELD_FORMATTED_VALUE, HOLIDAYS_TABLE_J_TEST_ID)
                 checkRecordIsDisplayed(DESCRIPTION_FIELD, HOLIDAYS_TABLE_J_TEST_ID)
 
                 clickButton(ok)
@@ -88,12 +88,12 @@ class SpecificDateBusinessCalendarUiTest extends BusinessCalendarBaseUiTest {
                 clickButton(create)
                 createSpecificDateHoliday()
 
-                selectRowInTableByText(DATE_VALUE_FIELD, HOLIDAYS_TABLE_J_TEST_ID)
+                selectRowInTableByText(DATE_FIELD_FORMATTED_VALUE, HOLIDAYS_TABLE_J_TEST_ID)
                 clickButton(edit)
 
                 $j(HolidayEditor).with {
                     fillTextField(descriptionField, ANOTHER_DESCRIPTION_FIELD)
-                    fixedDateField.setDateValue(ANOTHER_DATE_FIELD)
+                    fixedDateField.setDateValue(FIXED_DATE_FIELD_RAW_VALUE)
                     clickButton(commitAndCloseBtn)
                 }
 
@@ -128,10 +128,10 @@ class SpecificDateBusinessCalendarUiTest extends BusinessCalendarBaseUiTest {
                 clickButton(create)
                 createSpecificDateHoliday()
 
-                selectRowInTableByText(DATE_VALUE_FIELD, HOLIDAYS_TABLE_J_TEST_ID)
+                selectRowInTableByText(DATE_FIELD_FORMATTED_VALUE, HOLIDAYS_TABLE_J_TEST_ID)
                 clickButton(remove)
                 $j(ConfirmationDialog).confirmChanges()
-                checkRecordIsNotDisplayed(DATE_VALUE_FIELD, HOLIDAYS_TABLE_J_TEST_ID)
+                checkRecordIsNotDisplayed(DATE_FIELD_FORMATTED_VALUE, HOLIDAYS_TABLE_J_TEST_ID)
 
                 clickButton(ok)
             }

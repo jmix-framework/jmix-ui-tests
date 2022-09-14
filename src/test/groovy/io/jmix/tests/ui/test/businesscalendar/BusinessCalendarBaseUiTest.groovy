@@ -4,7 +4,6 @@ import io.jmix.masquerade.Conditions
 import io.jmix.masquerade.component.OptionsGroup
 import io.jmix.tests.ui.screen.administration.businesscalendars.browse.BusinessCalendarsBrowse
 import io.jmix.tests.ui.screen.administration.businesscalendars.dialogs.HolidayEditor
-import io.jmix.tests.ui.screen.administration.businesscalendars.dialogs.WorkingScheduleEditor
 import io.jmix.tests.ui.screen.administration.businesscalendars.editor.BusinessCalendarEditor
 import io.jmix.tests.ui.screen.system.dialog.ConfirmationDialog
 import io.jmix.tests.ui.test.BaseUiTest;
@@ -24,9 +23,9 @@ class BusinessCalendarBaseUiTest extends BaseUiTest implements UiHelper {
     protected static final String DESCRIPTION_FIELD = "Test Description 1 !"
     protected static final String ANOTHER_DESCRIPTION_FIELD = "tstng-dscrptn"
 
-    protected static final String DATE_FIELD = "01012022"
-    protected static final String DATE_VALUE_FIELD = "2022-01-01"
-    protected static final String ANOTHER_DATE_FIELD = "29042022"
+    protected static final String DATE_FIELD_RAW_VALUE = "01012022"
+    protected static final String DATE_FIELD_FORMATTED_VALUE = "2022-01-01"
+    protected static final String FIXED_DATE_FIELD_RAW_VALUE = "29042022"
 
     protected static final String BUSINESS_CALENDARS_TABLE_J_TEST_ID = "businessCalendarsTable"
     protected static final String HOLIDAYS_TABLE_J_TEST_ID = "holidaysTable"
@@ -37,10 +36,6 @@ class BusinessCalendarBaseUiTest extends BaseUiTest implements UiHelper {
     protected static final String REQUIRED_HOLIDAY_DATE_NOTIFICATION_CAPTION = "Date required"
     protected static final String REQUIRED_MONTH_AND_DAY_NOTIFICATION_CAPTION = "The 'Month' field is required\nDay required"
     protected static final String REQUIRED_CRON_NOTIFICATION_CAPTION = "Cron expression required"
-
-    protected static final String REQUIRED_DAY_HOURS_NOTIFICATION_CAPTION = "The 'Day of week' field is required" +
-            "\nThe field is required" +
-            "\nThe field is required"
 
     protected static final String HOLIDAY_TYPE_DAY_OF_WEEK = "Day of week"
     protected static final String DAY_OF_WEEK_MONDAY = "Monday"
@@ -57,20 +52,13 @@ class BusinessCalendarBaseUiTest extends BaseUiTest implements UiHelper {
     protected static final String ANNUAL_MONTH_DAY_VALUE = "December 31"
 
     protected static final String HOLIDAY_TYPE_CRON_BASED = "Cron-based holiday"
-    protected static final String VALID_CRON_EXPRESSION = "* * * L * ?"
-    protected static final String ANOTHER_VALID_CRON_EXPRESSION = "* * * ? * SUN"
+    protected static final String LAST_DAY_MONTH_CRON_EXPRESSION = "* * * L * ?"
+    protected static final String EVERY_SUNDAY_CRON_EXPRESSION = "* * * ? * SUN"
     protected static final String NOT_VALID_CRON_EXPRESSION = "* ! * L * ?"
     protected static final String TEXT_NOT_VALID_CRON_EXPRESSION = "not valid cron"
     protected static final String NUMBER_NOT_VALID_CRON_EXPRESSION = "6699"
     protected static final String INCORRECT_CRON_NOTIFICATION = "Incorrect cron expression"
     protected static final String SPECIFY_VALID_EXPRESSION_NOTIFICATION = "Please specify valid quartz cron expression"
-
-    protected static final String SCHEDULED_BUSINESS_DAYS_TABLE = "scheduledBusinessDaysTable"
-
-    protected static final String INCORRECT_TIME_NOTIFICATION = "Incorrect time settings"
-    protected static final String VALID_TIME_EXPRESSION_NOTIFICATION = "Start time should be before End time"
-    protected static final String START_TIME_VALUE = "1200"
-    protected static final String END_TIME_VALUE = "1700"
 
     protected static String getUniqueName(String baseString) {
         return baseString + getGeneratedString()
@@ -127,7 +115,7 @@ class BusinessCalendarBaseUiTest extends BaseUiTest implements UiHelper {
             checkNotification(ALERT_NOTIFICATION_CAPTION, REQUIRED_HOLIDAY_DATE_NOTIFICATION_CAPTION)
 
             fixedDateField.shouldBe(VISIBLE)
-                    .setDateValue(DATE_FIELD)
+                    .setDateValue(DATE_FIELD_RAW_VALUE)
 
             descriptionField.shouldNotBe(Conditions.REQUIRED)
             fillTextField(descriptionField, DESCRIPTION_FIELD)
@@ -154,7 +142,7 @@ class BusinessCalendarBaseUiTest extends BaseUiTest implements UiHelper {
     protected static void createCronBasedHoliday() {
         $j(HolidayEditor).with {
             selectValueWithoutFilterInComboBox(holidayType, HOLIDAY_TYPE_CRON_BASED)
-            fillTextField(cronExpressionField, VALID_CRON_EXPRESSION)
+            fillTextField(cronExpressionField, LAST_DAY_MONTH_CRON_EXPRESSION)
             fillTextField(descriptionField, DESCRIPTION_FIELD)
             clickButton(commitAndCloseBtn)
         }
@@ -180,33 +168,9 @@ class BusinessCalendarBaseUiTest extends BaseUiTest implements UiHelper {
             clickButton(commitAndCloseBtn)
             checkNotification(INCORRECT_CRON_NOTIFICATION, SPECIFY_VALID_EXPRESSION_NOTIFICATION)
 
-            fillTextField(cronExpressionField, VALID_CRON_EXPRESSION)
+            fillTextField(cronExpressionField, LAST_DAY_MONTH_CRON_EXPRESSION)
             descriptionField.shouldNotBe(Conditions.REQUIRED)
             fillTextField(descriptionField, DESCRIPTION_FIELD)
-            clickButton(commitAndCloseBtn)
-        }
-    }
-
-    protected static void createWorkingSchedule() {
-        $j(WorkingScheduleEditor).with {
-            def optionsGroup = $j(OptionsGroup.class, 'dayOfWeekCheckBoxGroup')
-                    .shouldBe(VISIBLE)
-            optionsGroup
-                    .shouldNotHave(cssClass('v-select-optiongroup-horizontal'))
-                    .select(DAY_OF_WEEK_MONDAY)
-                    .select(DAY_OF_WEEK_SATURDAY)
-                    .select(DAY_OF_WEEK_SUNDAY)
-
-            startTimeField.shouldBe(Conditions.REQUIRED)
-            startTimeField.setTimeValue(END_TIME_VALUE)
-            endTimeField.shouldBe(Conditions.REQUIRED)
-            endTimeField.setTimeValue(START_TIME_VALUE)
-            clickButton(commitAndCloseBtn)
-            checkNotification(INCORRECT_TIME_NOTIFICATION, VALID_TIME_EXPRESSION_NOTIFICATION)
-
-            startTimeField.setTimeValue(START_TIME_VALUE)
-            endTimeField.setTimeValue(END_TIME_VALUE)
-
             clickButton(commitAndCloseBtn)
         }
     }
