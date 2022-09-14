@@ -101,7 +101,7 @@ class AnnualHolidayBusinessCalendarUiTest extends BusinessCalendarBaseUiTest {
                 clickButton(edit)
                 $j(HolidayEditor).with {
                     selectValueWithoutFilterInComboBox(holidayType, HOLIDAY_TYPE_SPECIFIC_DATE)
-                    fixedDateField.setDateValue(ANOTHER_DATE_FIELD)
+                    fixedDateField.setDateValue(FIXED_DATE_FIELD_RAW_VALUE)
                     clickButton(commitAndCloseBtn)
                 }
 

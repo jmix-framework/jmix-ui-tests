@@ -62,7 +62,7 @@ class CronBasedBusinessCalendarUiTest extends BusinessCalendarBaseUiTest {
                 createCronBasedHolidayWithAllChecks()
 
                 checkRecordIsDisplayed(HOLIDAY_TYPE_CRON_BASED, HOLIDAYS_TABLE_J_TEST_ID)
-                checkRecordIsDisplayed(VALID_CRON_EXPRESSION, HOLIDAYS_TABLE_J_TEST_ID)
+                checkRecordIsDisplayed(LAST_DAY_MONTH_CRON_EXPRESSION, HOLIDAYS_TABLE_J_TEST_ID)
                 checkRecordIsDisplayed(DESCRIPTION_FIELD, HOLIDAYS_TABLE_J_TEST_ID)
 
                 clickButton(ok)
@@ -88,11 +88,11 @@ class CronBasedBusinessCalendarUiTest extends BusinessCalendarBaseUiTest {
                 clickButton(create)
                 createCronBasedHoliday()
 
-                selectRowInTableByText(VALID_CRON_EXPRESSION, HOLIDAYS_TABLE_J_TEST_ID)
+                selectRowInTableByText(LAST_DAY_MONTH_CRON_EXPRESSION, HOLIDAYS_TABLE_J_TEST_ID)
                 clickButton(edit)
 
                 $j(HolidayEditor).with {
-                    fillTextField(cronExpressionField, ANOTHER_VALID_CRON_EXPRESSION)
+                    fillTextField(cronExpressionField, EVERY_SUNDAY_CRON_EXPRESSION)
                     fillTextField(descriptionField, ANOTHER_DESCRIPTION_FIELD)
                     clickButton(commitAndCloseBtn)
                 }
@@ -129,10 +129,10 @@ class CronBasedBusinessCalendarUiTest extends BusinessCalendarBaseUiTest {
                 clickButton(create)
                 createCronBasedHoliday()
 
-                selectRowInTableByText(VALID_CRON_EXPRESSION, HOLIDAYS_TABLE_J_TEST_ID)
+                selectRowInTableByText(LAST_DAY_MONTH_CRON_EXPRESSION, HOLIDAYS_TABLE_J_TEST_ID)
                 clickButton(remove)
                 $j(ConfirmationDialog).confirmChanges()
-                checkRecordIsNotDisplayed(VALID_CRON_EXPRESSION, HOLIDAYS_TABLE_J_TEST_ID)
+                checkRecordIsNotDisplayed(LAST_DAY_MONTH_CRON_EXPRESSION, HOLIDAYS_TABLE_J_TEST_ID)
 
                 clickButton(ok)
             }
