@@ -65,6 +65,13 @@ class BusinessCalendarBaseUiTest extends BaseUiTest implements UiHelper {
     protected static final String INCORRECT_CRON_NOTIFICATION = "Incorrect cron expression"
     protected static final String SPECIFY_VALID_EXPRESSION_NOTIFICATION = "Please specify valid quartz cron expression"
 
+    protected static final String SCHEDULED_BUSINESS_DAYS_TABLE = "scheduledBusinessDaysTable"
+
+    protected static final String INCORRECT_TIME_NOTIFICATION = "Incorrect time settings"
+    protected static final String VALID_TIME_EXPRESSION_NOTIFICATION = "Start time should be before End time"
+    protected static final String START_TIME_VALUE = "1200"
+    protected static final String END_TIME_VALUE = "1700"
+
     protected static String getUniqueName(String baseString) {
         return baseString + getGeneratedString()
     }
@@ -182,7 +189,24 @@ class BusinessCalendarBaseUiTest extends BaseUiTest implements UiHelper {
 
     protected static void createWorkingSchedule() {
         $j(WorkingScheduleEditor).with {
-            /// here
+            def optionsGroup = $j(OptionsGroup.class, 'dayOfWeekCheckBoxGroup')
+                    .shouldBe(VISIBLE)
+            optionsGroup
+                    .shouldNotHave(cssClass('v-select-optiongroup-horizontal'))
+                    .select(DAY_OF_WEEK_MONDAY)
+                    .select(DAY_OF_WEEK_SATURDAY)
+                    .select(DAY_OF_WEEK_SUNDAY)
+
+            startTimeField.shouldBe(Conditions.REQUIRED)
+            startTimeField.setTimeValue(END_TIME_VALUE)
+            endTimeField.shouldBe(Conditions.REQUIRED)
+            endTimeField.setTimeValue(START_TIME_VALUE)
+            clickButton(commitAndCloseBtn)
+            checkNotification(INCORRECT_TIME_NOTIFICATION, VALID_TIME_EXPRESSION_NOTIFICATION)
+
+            startTimeField.setTimeValue(START_TIME_VALUE)
+            endTimeField.setTimeValue(END_TIME_VALUE)
+
             clickButton(commitAndCloseBtn)
         }
     }
