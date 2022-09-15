@@ -73,7 +73,7 @@ class DayOfWeekBusinessCalendarUiTest extends BusinessCalendarBaseUiTest {
 
                 checkRecordIsDisplayed(DAY_OF_WEEK_SATURDAY, HOLIDAYS_TABLE_J_TEST_ID)
                 checkRecordIsDisplayed(DAY_OF_WEEK_SUNDAY, HOLIDAYS_TABLE_J_TEST_ID)
-                checkRecordIsDisplayed(DESCRIPTION_FIELD, HOLIDAYS_TABLE_J_TEST_ID)
+                checkRecordIsDisplayed(DESCRIPTION_FIELD_VALUE, HOLIDAYS_TABLE_J_TEST_ID)
 
                 clickButton(ok)
             }
@@ -102,7 +102,6 @@ class DayOfWeekBusinessCalendarUiTest extends BusinessCalendarBaseUiTest {
                 clickButton(edit)
 
                 $j(HolidayEditor).with {
-                    fillTextField(descriptionField, ANOTHER_DESCRIPTION_FIELD)
                     selectValueWithoutFilterInComboBox(dayOfWeek, DAY_OF_WEEK_MONDAY)
                     clickButton(commitAndCloseBtn)
                 }
