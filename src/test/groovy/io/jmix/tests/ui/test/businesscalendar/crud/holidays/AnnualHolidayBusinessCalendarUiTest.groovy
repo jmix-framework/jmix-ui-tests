@@ -63,7 +63,7 @@ class AnnualHolidayBusinessCalendarUiTest extends BusinessCalendarBaseUiTest {
 
                 checkRecordIsDisplayed(HOLIDAY_TYPE_ANNUAL, HOLIDAYS_TABLE_J_TEST_ID)
                 checkRecordIsDisplayed(ANNUAL_MONTH_DAY_VALUE, HOLIDAYS_TABLE_J_TEST_ID)
-                checkRecordIsDisplayed(DESCRIPTION_FIELD, HOLIDAYS_TABLE_J_TEST_ID)
+                checkRecordIsDisplayed(DESCRIPTION_FIELD_VALUE, HOLIDAYS_TABLE_J_TEST_ID)
 
                 clickButton(ok)
             }
@@ -94,7 +94,6 @@ class AnnualHolidayBusinessCalendarUiTest extends BusinessCalendarBaseUiTest {
                 $j(HolidayEditor).with {
                     selectValueWithoutFilterInComboBox(monthField, ANNUAL_APRIL)
                     selectValueWithoutFilterInComboBox(dayField, ANNUAL_FIRST_DAY)
-                    fillTextField(descriptionField, ANOTHER_DESCRIPTION_FIELD)
                     clickButton(commitAndCloseBtn)
                 }
 

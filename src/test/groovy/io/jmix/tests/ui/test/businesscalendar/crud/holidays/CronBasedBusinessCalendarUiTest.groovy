@@ -63,7 +63,7 @@ class CronBasedBusinessCalendarUiTest extends BusinessCalendarBaseUiTest {
 
                 checkRecordIsDisplayed(HOLIDAY_TYPE_CRON_BASED, HOLIDAYS_TABLE_J_TEST_ID)
                 checkRecordIsDisplayed(LAST_DAY_MONTH_CRON_EXPRESSION, HOLIDAYS_TABLE_J_TEST_ID)
-                checkRecordIsDisplayed(DESCRIPTION_FIELD, HOLIDAYS_TABLE_J_TEST_ID)
+                checkRecordIsDisplayed(DESCRIPTION_FIELD_VALUE, HOLIDAYS_TABLE_J_TEST_ID)
 
                 clickButton(ok)
             }
@@ -93,7 +93,6 @@ class CronBasedBusinessCalendarUiTest extends BusinessCalendarBaseUiTest {
 
                 $j(HolidayEditor).with {
                     fillTextField(cronExpressionField, EVERY_SUNDAY_CRON_EXPRESSION)
-                    fillTextField(descriptionField, ANOTHER_DESCRIPTION_FIELD)
                     clickButton(commitAndCloseBtn)
                 }
 
@@ -102,7 +101,6 @@ class CronBasedBusinessCalendarUiTest extends BusinessCalendarBaseUiTest {
                     selectValueWithoutFilterInComboBox(holidayType, HOLIDAY_TYPE_ANNUAL)
                     selectValueInComboBox(monthField, ANNUAL_DECEMBER)
                     selectValueWithoutFilterInComboBox(dayField, ANNUAL_FIRST_DAY)
-                    fillTextField(descriptionField, ANOTHER_DESCRIPTION_FIELD)
                     clickButton(commitAndCloseBtn)
                 }
 

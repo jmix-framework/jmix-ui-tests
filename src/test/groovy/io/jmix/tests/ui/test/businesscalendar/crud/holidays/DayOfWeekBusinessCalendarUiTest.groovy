@@ -106,6 +106,10 @@ class DayOfWeekBusinessCalendarUiTest extends BusinessCalendarBaseUiTest {
                 clickButton(edit)
 
                 $j(HolidayEditor).with {
+                    selectValueWithoutFilterInComboBox(dayOfWeek, DAY_OF_WEEK_MONDAY)
+                    clickButton(commitAndCloseBtn)
+                }
+                clickButton(ok)
                     selectValueWithoutFilterInComboBox(holidayType, HOLIDAY_TYPE_DAY_OF_WEEK)
 
                     def optionsGroup = $j(OptionsGroup.class, 'dayOfWeekCheckboxGroup')

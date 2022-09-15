@@ -118,7 +118,7 @@ class BusinessCalendarBaseUiTest extends BaseUiTest implements UiHelper {
                     .setDateValue(DATE_FIELD_RAW_VALUE)
 
             descriptionField.shouldNotBe(Conditions.REQUIRED)
-            fillTextField(descriptionField, DESCRIPTION_FIELD)
+            fillTextField(descriptionField, DESCRIPTION_FIELD_VALUE)
             clickButton(commitAndCloseBtn)
         }
     }
@@ -134,7 +134,7 @@ class BusinessCalendarBaseUiTest extends BaseUiTest implements UiHelper {
             selectValueInComboBox(dayField, ANNUAL_LAST_DAY)
 
             descriptionField.shouldNotBe(Conditions.REQUIRED)
-            fillTextField(descriptionField, DESCRIPTION_FIELD)
+            fillTextField(descriptionField, DESCRIPTION_FIELD_VALUE)
             clickButton(commitAndCloseBtn)
         }
     }
@@ -143,7 +143,7 @@ class BusinessCalendarBaseUiTest extends BaseUiTest implements UiHelper {
         $j(HolidayEditor).with {
             selectValueWithoutFilterInComboBox(holidayType, HOLIDAY_TYPE_CRON_BASED)
             fillTextField(cronExpressionField, LAST_DAY_MONTH_CRON_EXPRESSION)
-            fillTextField(descriptionField, DESCRIPTION_FIELD)
+            fillTextField(descriptionField, DESCRIPTION_FIELD_VALUE)
             clickButton(commitAndCloseBtn)
         }
     }
@@ -170,7 +170,7 @@ class BusinessCalendarBaseUiTest extends BaseUiTest implements UiHelper {
 
             fillTextField(cronExpressionField, LAST_DAY_MONTH_CRON_EXPRESSION)
             descriptionField.shouldNotBe(Conditions.REQUIRED)
-            fillTextField(descriptionField, DESCRIPTION_FIELD)
+            fillTextField(descriptionField, DESCRIPTION_FIELD_VALUE)
             clickButton(commitAndCloseBtn)
         }
     }
