@@ -1,4 +1,4 @@
-package io.jmix.tests.ui.test.businesscalendar.crud
+package io.jmix.tests.ui.test.businesscalendar.crud.holidays
 
 import io.jmix.tests.JmixUiTestsApplication
 import io.jmix.tests.extension.ChromeExtension
@@ -11,11 +11,7 @@ import io.jmix.tests.ui.screen.administration.businesscalendars.editor.BusinessC
 import io.jmix.tests.ui.screen.system.dialog.ConfirmationDialog
 import io.jmix.tests.ui.screen.system.main.MainScreen
 import io.jmix.tests.ui.test.businesscalendar.BusinessCalendarBaseUiTest
-import org.junit.jupiter.api.AfterAll
-import org.junit.jupiter.api.BeforeEach
-import org.junit.jupiter.api.DisplayName
-import org.junit.jupiter.api.Test
-import org.junit.jupiter.api.TestInstance
+import org.junit.jupiter.api.*
 import org.junit.jupiter.api.extension.ExtendWith
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.test.context.ContextConfiguration
@@ -31,7 +27,7 @@ import static io.jmix.masquerade.Selectors.$j
         webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @ContextConfiguration(initializers = TestContextInitializer)
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
-class HolidaysBusinessCalendarUiTest extends BusinessCalendarBaseUiTest {
+class AnnualHolidayBusinessCalendarUiTest extends BusinessCalendarBaseUiTest {
 
     @BeforeEach
     void beforeEachTest() {
@@ -48,8 +44,8 @@ class HolidaysBusinessCalendarUiTest extends BusinessCalendarBaseUiTest {
     }
 
     @Test
-    @DisplayName("Create a Business Calendar with holidays where type is a Day of week")
-    void createBusinessCalendarWithDayOfWeek() {
+    @DisplayName("Create a Business Calendar with holidays where type is a annual holiday")
+    void createBusinessCalendarWithAnnualHoliday() {
         String name = getUniqueName(BUSINESS_CALENDAR_NAME)
         String code = getUniqueName(BUSINESS_CALENDAR_CODE)
         businessCalendars.add(name)
@@ -63,17 +59,11 @@ class HolidaysBusinessCalendarUiTest extends BusinessCalendarBaseUiTest {
 
                 clickButton(create)
 
-                $j(HolidayEditor).with {
-                    clickButton(commitAndCloseBtn)
-                    checkNotification(ALERT_NOTIFICATION_CAPTION, REQUIRED_HOLIDAY_TYPE_NOTIFICATION_CAPTION)
-                    clickButton(closeBtn)
-                }
-                clickButton(create)
-                createHolidaysWithDayOfWeek()
+                createAnnualHoliday()
 
-                checkRecordIsDisplayed(DAY_OF_WEEK_SATURDAY, HOLIDAYS_TABLE_J_TEST_ID)
-                checkRecordIsDisplayed(DAY_OF_WEEK_SUNDAY, HOLIDAYS_TABLE_J_TEST_ID)
-                checkRecordIsDisplayed(DESCRIPTION_FIELD, HOLIDAYS_TABLE_J_TEST_ID)
+                checkRecordIsDisplayed(HOLIDAY_TYPE_ANNUAL, HOLIDAYS_TABLE_J_TEST_ID)
+                checkRecordIsDisplayed(ANNUAL_MONTH_DAY_VALUE, HOLIDAYS_TABLE_J_TEST_ID)
+                checkRecordIsDisplayed(DESCRIPTION_FIELD_VALUE, HOLIDAYS_TABLE_J_TEST_ID)
 
                 clickButton(ok)
             }
@@ -82,8 +72,8 @@ class HolidaysBusinessCalendarUiTest extends BusinessCalendarBaseUiTest {
     }
 
     @Test
-    @DisplayName("Edit holidays with a day of the week")
-    void editBusinessCalendarWithDayOfWeek() {
+    @DisplayName("Edit holidays with a annual holiday")
+    void editBusinessCalendarWithAnnualHoliday() {
         String name = getUniqueName(BUSINESS_CALENDAR_NAME)
         String code = getUniqueName(BUSINESS_CALENDAR_CODE)
         businessCalendars.add(name)
@@ -96,16 +86,24 @@ class HolidaysBusinessCalendarUiTest extends BusinessCalendarBaseUiTest {
                 fillTextField(codeField, code)
 
                 clickButton(create)
-                createHolidaysWithDayOfWeek()
+                createAnnualHoliday()
 
-                selectRowInTableByText(DAY_OF_WEEK_SUNDAY, HOLIDAYS_TABLE_J_TEST_ID)
+                selectRowInTableByText(ANNUAL_MONTH_DAY_VALUE, HOLIDAYS_TABLE_J_TEST_ID)
                 clickButton(edit)
 
                 $j(HolidayEditor).with {
-                    fillTextField(descriptionField, ANOTHER_DESCRIPTION_FIELD)
-                    selectValueWithoutFilterInComboBox(dayOfWeek, DAY_OF_WEEK_MONDAY)
+                    selectValueWithoutFilterInComboBox(monthField, ANNUAL_APRIL)
+                    selectValueWithoutFilterInComboBox(dayField, ANNUAL_FIRST_DAY)
                     clickButton(commitAndCloseBtn)
                 }
+
+                clickButton(edit)
+                $j(HolidayEditor).with {
+                    selectValueWithoutFilterInComboBox(holidayType, HOLIDAY_TYPE_SPECIFIC_DATE)
+                    fixedDateField.setDateValue(FIXED_DATE_FIELD_RAW_VALUE)
+                    clickButton(commitAndCloseBtn)
+                }
+
                 clickButton(ok)
             }
             checkRecordIsDisplayed(name, BUSINESS_CALENDARS_TABLE_J_TEST_ID)
@@ -113,8 +111,8 @@ class HolidaysBusinessCalendarUiTest extends BusinessCalendarBaseUiTest {
     }
 
     @Test
-    @DisplayName("Remove holidays with a day of the week")
-    void removeBusinessCalendarWithDayOfWeek() {
+    @DisplayName("Remove holidays with a annual holiday")
+    void removeBusinessCalendarWithAnnualHoliday() {
         String name = getUniqueName(BUSINESS_CALENDAR_NAME)
         String code = getUniqueName(BUSINESS_CALENDAR_CODE)
         businessCalendars.add(name)
@@ -127,12 +125,12 @@ class HolidaysBusinessCalendarUiTest extends BusinessCalendarBaseUiTest {
                 fillTextField(codeField, code)
 
                 clickButton(create)
-                createHolidaysWithDayOfWeek()
+                createAnnualHoliday()
 
-                selectRowInTableByText(DAY_OF_WEEK_SATURDAY, HOLIDAYS_TABLE_J_TEST_ID)
+                selectRowInTableByText(ANNUAL_MONTH_DAY_VALUE, HOLIDAYS_TABLE_J_TEST_ID)
                 clickButton(remove)
                 $j(ConfirmationDialog).confirmChanges()
-                checkRecordIsNotDisplayed(DAY_OF_WEEK_SATURDAY, HOLIDAYS_TABLE_J_TEST_ID)
+                checkRecordIsNotDisplayed(ANNUAL_MONTH_DAY_VALUE, HOLIDAYS_TABLE_J_TEST_ID)
 
                 clickButton(ok)
             }
