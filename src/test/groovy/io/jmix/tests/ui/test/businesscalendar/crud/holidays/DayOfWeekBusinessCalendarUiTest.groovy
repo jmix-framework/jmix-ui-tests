@@ -110,23 +110,6 @@ class DayOfWeekBusinessCalendarUiTest extends BusinessCalendarBaseUiTest {
                     clickButton(commitAndCloseBtn)
                 }
                 clickButton(ok)
-                    selectValueWithoutFilterInComboBox(holidayType, HOLIDAY_TYPE_DAY_OF_WEEK)
-
-                    def optionsGroup = $j(OptionsGroup.class, 'dayOfWeekCheckboxGroup')
-                            .shouldBe(VISIBLE)
-                    optionsGroup
-                            .shouldNotHave(cssClass('v-select-optiongroup-horizontal'))
-                            .select(DAY_OF_WEEK_SATURDAY)
-                            .select(DAY_OF_WEEK_SUNDAY)
-
-                    descriptionField.shouldNotBe(Conditions.REQUIRED)
-                    fillTextField(descriptionField, DESCRIPTION_FIELD_VALUE)
-                    clickButton(ok)
-                }
-                checkRecordIsDisplayed(DAY_OF_WEEK_SATURDAY, HOLIDAYS_TABLE_J_TEST_ID)
-                checkRecordIsDisplayed(DAY_OF_WEEK_SUNDAY, HOLIDAYS_TABLE_J_TEST_ID)
-
-                checkRecordIsDisplayed(DESCRIPTION_FIELD_VALUE, HOLIDAYS_TABLE_J_TEST_ID)
             }
             checkRecordIsDisplayed(name, BUSINESS_CALENDARS_TABLE_J_TEST_ID)
         }
