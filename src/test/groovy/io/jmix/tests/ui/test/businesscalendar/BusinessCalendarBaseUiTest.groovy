@@ -3,11 +3,13 @@ package io.jmix.tests.ui.test.businesscalendar
 import io.jmix.masquerade.Conditions
 import io.jmix.masquerade.component.OptionsGroup
 import io.jmix.tests.ui.screen.administration.businesscalendars.browse.BusinessCalendarsBrowse
+import io.jmix.tests.ui.screen.administration.businesscalendars.dialogs.AdditionalBusinessDayEditor
 import io.jmix.tests.ui.screen.administration.businesscalendars.dialogs.HolidayEditor
+import io.jmix.tests.ui.screen.administration.businesscalendars.dialogs.WorkingScheduleEditor
 import io.jmix.tests.ui.screen.administration.businesscalendars.editor.BusinessCalendarEditor
 import io.jmix.tests.ui.screen.system.dialog.ConfirmationDialog
 
-import io.jmix.tests.ui.test.BaseUiTest;
+import io.jmix.tests.ui.test.BaseUiTest
 import io.jmix.tests.ui.test.utils.UiHelper
 
 import static com.codeborne.selenide.Condition.cssClass
@@ -59,6 +61,26 @@ class BusinessCalendarBaseUiTest extends BaseUiTest implements UiHelper {
     protected static final String NUMBER_NOT_VALID_CRON_EXPRESSION = "6699"
     protected static final String INCORRECT_CRON_NOTIFICATION = "Incorrect cron expression"
     protected static final String SPECIFY_VALID_EXPRESSION_NOTIFICATION = "Please specify valid quartz cron expression"
+
+    protected static final String SCHEDULED_BUSINESS_DAYS_TABLE = "scheduledBusinessDaysTable"
+    protected static final String INCORRECT_TIME_NOTIFICATION = "Incorrect time settings"
+    protected static final String VALID_TIME_EXPRESSION_NOTIFICATION = "Start time should be before End time"
+    protected static final String REQUIRED_DAY_HOURS_NOTIFICATION_CAPTION = "The 'Day of week' field is required" +
+            "\nThe field is required" +
+            "\nThe field is required"
+    protected static final String INCORRECT_TIME_SETTINGS_NOTIFICATION = "Incorrect working time settings"
+    protected static final String PERIODS_NOT_INTERSECTION_NOTIFICATION = "Working periods should not have intersection"
+    protected static final String START_TIME_VALUE_1200 = "1200"
+    protected static final String END_TIME_VALUE_1800 = "1800"
+    protected static final String START_TIME_VALUE_2000 = "2000"
+    protected static final String END_TIME_VALUE_2300 = "2300"
+    protected static final String START_TIME_VALUE_0000 = "0000"
+    protected static final String END_TIME_VALUE_0500 = "0500"
+
+    protected static final String ADDITIONAL_BUSINESS_DAYS_TABLE_J_TEST_ID = "additionalBusinessDaysTable"
+    protected static final String REQUIRED_DATE_AND_TIME_NOTIFICATION_CAPTION = "Date required" +
+            "\nStart time required" +
+            "\nEnd time required"
 
     protected static String getUniqueName(String baseString) {
         return baseString + getGeneratedString()
@@ -172,6 +194,133 @@ class BusinessCalendarBaseUiTest extends BaseUiTest implements UiHelper {
             descriptionField.shouldNotBe(Conditions.REQUIRED)
             fillTextField(descriptionField, DESCRIPTION_FIELD_VALUE)
             clickButton(commitAndCloseBtn)
+        }
+    }
+
+    protected static void createWorkingSchedule() {
+        $j(WorkingScheduleEditor).with {
+            def optionsGroup = $j(OptionsGroup.class, 'dayOfWeekCheckBoxGroup')
+                    .shouldBe(VISIBLE)
+            optionsGroup
+                    .shouldNotHave(cssClass('v-select-optiongroup-horizontal'))
+                    .select(DAY_OF_WEEK_MONDAY)
+                    .select(DAY_OF_WEEK_SATURDAY)
+                    .select(DAY_OF_WEEK_SUNDAY)
+
+            startTimeField.shouldBe(Conditions.REQUIRED)
+            startTimeField.setTimeValue(END_TIME_VALUE_1800)
+            endTimeField.shouldBe(Conditions.REQUIRED)
+            endTimeField.setTimeValue(START_TIME_VALUE_1200)
+            clickButton(commitAndCloseBtn)
+            checkNotification(INCORRECT_TIME_NOTIFICATION, VALID_TIME_EXPRESSION_NOTIFICATION)
+
+            startTimeField.setTimeValue(START_TIME_VALUE_1200)
+            endTimeField.setTimeValue(END_TIME_VALUE_1800)
+
+            clickButton(commitAndCloseBtn)
+        }
+    }
+
+    protected static void createWorkingScheduleWithIntervals() {
+        $j(WorkingScheduleEditor).with {
+            $j(OptionsGroup.class, 'dayOfWeekCheckBoxGroup')
+                    .select(DAY_OF_WEEK_SUNDAY)
+            startTimeField.setTimeValue(START_TIME_VALUE_1200)
+            endTimeField.setTimeValue(END_TIME_VALUE_1800)
+
+            clickButton(addAnotherIntervalLinkButton)
+            deleteIcon.shouldBe(VISIBLE)
+            clickButton(deleteIcon)
+
+            clickButton(addAnotherIntervalLinkButton)
+            firstIntervalStartTimeField.shouldBe(VISIBLE).setTimeValue(START_TIME_VALUE_2000)
+            firstIntervalEndTimeField.shouldBe(VISIBLE).setTimeValue(END_TIME_VALUE_2300)
+
+            clickButton(addAnotherIntervalLinkButton)
+            secondIntervalStartTimeField.shouldBe(VISIBLE).setTimeValue(START_TIME_VALUE_2000)
+            secondIntervalEndTimeField.shouldBe(VISIBLE).setTimeValue(END_TIME_VALUE_2300)
+            clickButton(commitAndCloseBtn)
+            checkNotification(INCORRECT_TIME_SETTINGS_NOTIFICATION, PERIODS_NOT_INTERSECTION_NOTIFICATION)
+
+            clickButton(deleteIcon)
+            clickButton(commitAndCloseBtn)
+        }
+    }
+
+    protected static void editWorkingSchedule() {
+        $j(WorkingScheduleEditor).with {
+            selectValueWithoutFilterInComboBox(dayOfWeekSchedule, DAY_OF_WEEK_MONDAY)
+            clickButton(addAnotherIntervalLinkButton)
+            secondIntervalStartTimeField.shouldBe(VISIBLE).setTimeValue(START_TIME_VALUE_0000)
+            secondIntervalEndTimeField.shouldBe(VISIBLE).setTimeValue(END_TIME_VALUE_0500)
+            clickButton(commitAndCloseBtn)
+        }
+    }
+
+    protected static void removeWorkingScheduleDays() {
+        $j(BusinessCalendarsBrowse).with {
+            $j(BusinessCalendarEditor).with {
+                selectRowInTableByText(DAY_OF_WEEK_MONDAY, SCHEDULED_BUSINESS_DAYS_TABLE)
+                clickButton(remove)
+                $j(ConfirmationDialog).confirmChanges()
+                selectRowInTableByText(DAY_OF_WEEK_SATURDAY, SCHEDULED_BUSINESS_DAYS_TABLE)
+                clickButton(remove)
+                $j(ConfirmationDialog).confirmChanges()
+                selectRowInTableByText(DAY_OF_WEEK_SUNDAY, SCHEDULED_BUSINESS_DAYS_TABLE)
+                clickButton(remove)
+                $j(ConfirmationDialog).confirmChanges()
+                checkRecordIsNotDisplayed(DAY_OF_WEEK_MONDAY, SCHEDULED_BUSINESS_DAYS_TABLE)
+                checkRecordIsNotDisplayed(DAY_OF_WEEK_SATURDAY, SCHEDULED_BUSINESS_DAYS_TABLE)
+                checkRecordIsNotDisplayed(DAY_OF_WEEK_SUNDAY, SCHEDULED_BUSINESS_DAYS_TABLE)
+            }
+        }
+    }
+
+    protected static void createAdditionalBusinessDay() {
+        $j(AdditionalBusinessDayEditor).with {
+            fixedDateField.shouldBe(VISIBLE)
+                    .setDateValue(DATE_FIELD_RAW_VALUE)
+            startTimeField.setTimeValue(START_TIME_VALUE_2000)
+            endTimeField.setTimeValue(END_TIME_VALUE_2300)
+            clickButton(commitAndCloseBtn)
+        }
+    }
+
+    protected static void createAdditionalBusinessDayWithAllChecks() {
+        $j(AdditionalBusinessDayEditor).with {
+            fixedDateField.shouldBe(VISIBLE)
+                    .setDateValue(DATE_FIELD_RAW_VALUE)
+
+            startTimeField.shouldBe(Conditions.REQUIRED)
+            startTimeField.setTimeValue(END_TIME_VALUE_1800)
+            endTimeField.shouldBe(Conditions.REQUIRED)
+            endTimeField.setTimeValue(START_TIME_VALUE_1200)
+            clickButton(commitAndCloseBtn)
+            checkNotification(INCORRECT_TIME_NOTIFICATION, VALID_TIME_EXPRESSION_NOTIFICATION)
+
+            startTimeField.setTimeValue(START_TIME_VALUE_1200)
+            endTimeField.setTimeValue(END_TIME_VALUE_1800)
+            clickButton(commitAndCloseBtn)
+        }
+    }
+
+    protected static void editAdditionalBusinessDay() {
+        $j(AdditionalBusinessDayEditor).with {
+            fixedDateField.setDateValue(FIXED_DATE_FIELD_RAW_VALUE)
+            startTimeField.setTimeValue(START_TIME_VALUE_0000)
+            endTimeField.setTimeValue(END_TIME_VALUE_0500)
+            clickButton(commitAndCloseBtn)
+        }
+    }
+
+    protected static void removeAdditionalBusinessDays() {
+        $j(BusinessCalendarsBrowse).with {
+            $j(BusinessCalendarEditor).with {
+                selectRowInTableByText(DATE_FIELD_FORMATTED_VALUE, ADDITIONAL_BUSINESS_DAYS_TABLE_J_TEST_ID)
+                clickButton(remove)
+                $j(ConfirmationDialog).confirmChanges()
+                checkRecordIsNotDisplayed(DATE_FIELD_FORMATTED_VALUE, ADDITIONAL_BUSINESS_DAYS_TABLE_J_TEST_ID)
+            }
         }
     }
 }
