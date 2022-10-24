@@ -10,6 +10,7 @@ import io.jmix.tests.ui.screen.administration.audit.EntityLogBrowse
 import io.jmix.tests.ui.screen.system.dialog.ConfirmationDialog
 import io.jmix.tests.ui.screen.system.main.MainScreen
 import io.jmix.tests.ui.test.BaseUiTest
+import io.jmix.tests.ui.test.utils.UiHelper
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
@@ -28,18 +29,19 @@ import static io.jmix.tests.ui.menu.Menus.ENTITY_LOG_BROWSE
         PostgreSQLExtension
 ])
 @SpringBootTest(classes = JmixUiTestsApplication,
-        webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT,
-        properties = ['jmix.liquibase.contexts=base,entity-log'])
+        webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @ContextConfiguration(initializers = TestContextInitializer)
-class EntityLogSetupTest extends BaseUiTest {
+class EntityLogSetupTest extends BaseUiTest implements UiHelper {
 
     public static final String ATMOSPHERE = 'Atmosphere (Atmosphere)'
+    public static final String ATMOSPHERE_RECORD = 'Atmosphere'
     public static final String ATMOSPHERIC_GAS = 'Atmospheric gas (AtmosphericGas)'
     public static final String ATMOSPHERIC_GAS_RECORD = 'AtmosphericGas'
     public static final String CARRIER = "Carrier (Carrier)"
     public static final String CARRIER_RECORD = "Carrier"
+    public static final String CATEGORY = "Category (dynat_Category)"
+    public static final String CATEGORY_RECORD = "dynat_Category"
     public static final String DELETE_CONFIRMATION = 'Are you sure you want to delete selected elements?'
-    public static final String ATMOSPHERE_RECORD = 'Atmosphere'
 
     @Test
     @DisplayName("Creates Setup record")
@@ -62,6 +64,8 @@ class EntityLogSetupTest extends BaseUiTest {
             selectSetupRecord(ATMOSPHERE_RECORD)
             applyChanges()
             checkAppliedChangesNotification()
+            clickButton(remove)
+            $j(ConfirmationDialog).confirmChanges()
         }
     }
 
@@ -75,10 +79,13 @@ class EntityLogSetupTest extends BaseUiTest {
         }
         $j(EntityLogBrowse).with {
             openSetupTab()
+            createSetup()
+            selectNameFromDropdown(ATMOSPHERIC_GAS)
+            setCheckbox(autoCheckBox, true)
+            setCheckbox(volume, true)
+            saveSetup()
             selectSetupRecord(ATMOSPHERIC_GAS_RECORD)
-            edit
-                    .shouldBe(ENABLED)
-                    .click()
+            clickButton(edit)
             entityNameField
                     .shouldBe(VISIBLE)
                     .shouldHave(value(ATMOSPHERIC_GAS))
@@ -88,7 +95,7 @@ class EntityLogSetupTest extends BaseUiTest {
             $j(CheckBox.class, 'volume')
                     .shouldBe(EDITABLE, CHECKED)
                     .setChecked(false)
-                    .setChecked(false)
+                    .shouldNotBe(CHECKED)
             $j(CheckBox.class, 'atmosphere')
                     .shouldNotBe(CHECKED)
                     .setChecked(true)
@@ -97,6 +104,8 @@ class EntityLogSetupTest extends BaseUiTest {
             selectSetupRecord(ATMOSPHERIC_GAS_RECORD)
             applyChanges()
             checkAppliedChangesNotification()
+            clickButton(remove)
+            $j(ConfirmationDialog).confirmChanges()
         }
     }
 
@@ -108,12 +117,18 @@ class EntityLogSetupTest extends BaseUiTest {
             sideMenu.openItem(ENTITY_LOG_BROWSE)
             $j(EntityLogBrowse).with {
                 openSetupTab()
-                createSetup()
-                selectNameFromDropdown(ATMOSPHERIC_GAS)
-                saveSetup()
+                createSimpleEntity(CATEGORY)
+                createSimpleEntity(CATEGORY)
                 $('.v-Notification-error')
                         .shouldBe(VISIBLE)
                         .click()
+                selectNameFromDropdown(CARRIER)
+                saveSetup()
+                clickButton(remove)
+                $j(ConfirmationDialog).confirmChanges()
+                selectSetupRecord(CATEGORY_RECORD)
+                clickButton(remove)
+                $j(ConfirmationDialog).confirmChanges()
             }
         }
     }

@@ -31,6 +31,9 @@ class EntityLogBrowse extends Composite<EntityLogBrowse> {
     CheckBox autoCheckBox
 
     @Wire
+    CheckBox volume
+
+    @Wire
     CheckBox manualCheckBox
 
     @Wire
@@ -200,5 +203,11 @@ class EntityLogBrowse extends Composite<EntityLogBrowse> {
             checkAttrValue('First name', firstName)
             checkAttrValue('Last name', lastName)
         }
+    }
+
+    void createSimpleEntity(String entityName) {
+        createSetup()
+        selectNameFromDropdown(entityName)
+        saveSetup()
     }
 }
