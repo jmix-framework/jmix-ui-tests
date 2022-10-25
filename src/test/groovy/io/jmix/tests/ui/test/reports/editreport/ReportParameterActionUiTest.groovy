@@ -8,12 +8,10 @@ import io.jmix.tests.ui.extension.PostgreSQLExtension
 import io.jmix.tests.ui.extension.SpringBootExtension
 import io.jmix.tests.ui.initializer.TestContextInitializer
 import io.jmix.tests.ui.screen.reports.editor.ReportParameterEditor
-import io.jmix.tests.ui.screen.system.dialog.UnsavedChangesDialog
 import io.jmix.tests.ui.screen.reports.editor.ReportEditor
 import io.jmix.tests.ui.screen.system.dialog.ConfirmationDialog
 import io.jmix.tests.ui.screen.system.main.MainScreen
 import io.jmix.tests.ui.test.reports.BaseReportUiTest
-import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
@@ -129,7 +127,11 @@ class ReportParameterActionUiTest extends BaseReportUiTest {
                 name.setValue(params[i])
                 alias.setValue(params[i].substring(0, 4).toLowerCase().concat(i as String))
                 selectValueWithoutFilterInComboBox(parameterTypeField, params[i])
-                selectValueWithoutFilterInComboBox($j(ComboBox, ENTITY_FIELD_J_TEST_ID), COMPANY_FULL_STRING)
+
+                // Set value to ComboBox to select value that
+                // is not visible in dropdown list
+                $j(ComboBox, ENTITY_FIELD_J_TEST_ID).setValue(COMPANY_FULL_STRING)
+
                 selectValueWithoutFilterInComboBox($j(ComboBox, ENTITY_SCREEN_FIELD_J_TEST_ID), SCREEN_VALUE)
                 clickButton(ok)
             }
