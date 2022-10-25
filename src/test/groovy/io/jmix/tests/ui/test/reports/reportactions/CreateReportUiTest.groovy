@@ -103,7 +103,11 @@ class CreateReportUiTest extends BaseReportUiTest {
             name.setValue(ENTITY_LOW_CASE_STR)
             alias.setValue(ENTITY_LOW_CASE_STR)
             selectValueWithoutFilterInComboBox(parameterTypeField, ENTITY_CAPITALIZED_STRING)
-            selectValueWithoutFilterInComboBox($j(ComboBox, ENTITY_FIELD_J_TEST_ID), COMPANY_FULL_STRING)
+
+            // Set value to ComboBox to select value that
+            // is not visible in dropdown list
+            $j(ComboBox, ENTITY_FIELD_J_TEST_ID).setValue(COMPANY_FULL_STRING)
+
             selectValueWithoutFilterInComboBox($j(ComboBox, ENTITY_SCREEN_FIELD_J_TEST_ID), SCREEN_VALUE)
             clickButton(ok)
         }
