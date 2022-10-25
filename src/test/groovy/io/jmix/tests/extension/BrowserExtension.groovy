@@ -39,8 +39,11 @@ abstract class BrowserExtension implements BeforeAllCallback, BeforeEachCallback
     }
 
     void startBrowser() {
+        // workaround, see https://github.com/jmix-framework/jmix-ui-tests/issues/48
         browser = new BrowserWebDriverContainer()
-                .withCapabilities(getCapabilities())
+                .withCapabilities(capabilities)
+                .withEnv("SE_OPTS", "--session-retry-interval 1") as BrowserWebDriverContainer
+
         browser.start()
         RemoteWebDriver remoteWebDriver = browser.getWebDriver()
         remoteWebDriver.setFileDetector(new LocalFileDetector())
