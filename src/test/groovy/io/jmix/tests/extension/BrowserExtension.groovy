@@ -6,9 +6,13 @@ import org.junit.jupiter.api.extension.*
 import org.openqa.selenium.Capabilities
 import org.openqa.selenium.remote.LocalFileDetector
 import org.openqa.selenium.remote.RemoteWebDriver
+import org.rnorth.ducttape.timeouts.Timeouts
+import org.rnorth.ducttape.unreliables.Unreliables
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import org.testcontainers.containers.BrowserWebDriverContainer
+
+import java.util.concurrent.TimeUnit
 
 abstract class BrowserExtension implements BeforeAllCallback, BeforeEachCallback, AfterEachCallback, AfterAllCallback {
 
@@ -39,17 +43,24 @@ abstract class BrowserExtension implements BeforeAllCallback, BeforeEachCallback
     }
 
     void startBrowser() {
-        // workaround, see https://github.com/jmix-framework/jmix-ui-tests/issues/48
         browser = new BrowserWebDriverContainer()
                 .withCapabilities(capabilities)
-                .withEnv("SE_OPTS", "--session-retry-interval 1") as BrowserWebDriverContainer
-
         browser.start()
-        RemoteWebDriver remoteWebDriver = browser.getWebDriver()
+        RemoteWebDriver remoteWebDriver = getWebDriver(30, 20, browser.seleniumAddress)
         remoteWebDriver.setFileDetector(new LocalFileDetector())
         WebDriverRunner.setWebDriver(remoteWebDriver)
 
         printVncRecordedUrl()
+    }
+
+    // Workaround, see https://github.com/jmix-framework/jmix-ui-tests/issues/48
+    // CAUTION! Copied form BrowserWebDriverContainer#getWebDriver()
+    RemoteWebDriver getWebDriver(int retryTimeOut, int performTimeOut, URL seleniumAddress) {
+        Unreliables.retryUntilSuccess(retryTimeOut, TimeUnit.SECONDS, () -> {
+            return Timeouts.getWithTimeout(performTimeOut, TimeUnit.SECONDS, () -> {
+                return new RemoteWebDriver(seleniumAddress, capabilities);
+            });
+        });
     }
 
     void stopBrowser() {
