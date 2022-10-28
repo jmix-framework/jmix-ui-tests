@@ -45,6 +45,11 @@ class DataGridAggregatableUiTest extends BaseSamplerUiTest {
     @DisplayName("Check custom aggregation for dataGrid")
     void checkDataGridCustomAggregation() {
         openSample('datagrid-aggregatable')
+
+        // Sometimes a random click occurs and opens another
+        // screen from menu, so move cursor to some safe element
+        moveCursorToTab("Description")
+
         def dataGrid = $j(DataGrid.class, 'orderDataGrid')
                 .shouldBe(VISIBLE)
         int amount = 0
