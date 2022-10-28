@@ -14,7 +14,7 @@ import static org.openqa.selenium.Keys.ENTER
 class CategoryEditor extends Composite<CategoryEditor> {
 
     @Wire(path = 'nameField')
-    TextField name
+    TextField nameField
 
     @Wire(path = 'entityTypeField')
     ComboBox entityType
@@ -66,7 +66,7 @@ class CategoryEditor extends Composite<CategoryEditor> {
     }
 
     void setName(String nameValue) {
-        name.shouldBe(EDITABLE)
+        nameField.shouldBe(EDITABLE)
                 .setValue(nameValue)
     }
 

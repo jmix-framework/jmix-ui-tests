@@ -57,7 +57,7 @@ class CategoryAttributeActionsTest extends BaseUiTest {
                     setRequired(true)
                     checkCode(GAS, FIRST)
                     setType(STRING)
-                    [lookupField, isCollection, width, rowsCount, defaultStringValue]
+                    [lookupField, isCollectionField, widthField, rowsCount, defaultStringValue]
                             .each {
                                 it.shouldBe(VISIBLE, EDITABLE)
                             }
