@@ -1,7 +1,9 @@
 package io.jmix.tests.sampler
 
+import com.codeborne.selenide.Selenide
 import io.jmix.masquerade.Components
 import io.jmix.masquerade.component.ComboBox
+import io.jmix.masquerade.component.TabSheet
 import io.jmix.tests.sampler.test_support.component.grouptable.SamplerGroupTable
 import io.jmix.tests.sampler.test_support.component.grouptable.SamplerGroupTableImpl
 import org.junit.jupiter.api.BeforeEach
@@ -35,5 +37,15 @@ abstract class BaseSamplerUiTest {
                 .shouldBe(VISIBLE)
                 .openOptionsPopup()
                 .select(language)
+    }
+
+    /**
+     * Moves cursor to tab from TabSheet below sample/
+     */
+    static void moveCursorToTab(String id) {
+        $j(TabSheet.class, 'tabSheet').with {
+            TabSheet.Tab tab = getTab(id)
+            Selenide.actions().moveToElement(tab.getDelegate())
+        }
     }
 }

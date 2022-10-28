@@ -47,6 +47,11 @@ class DataGridBasicSettingsUiTest extends BaseSamplerUiTest {
     @DisplayName("Checks sortable option is off for dataGrid")
     void checkDataGridSortableOptionIsOff() {
         openSample('datagrid-basic-settings')
+
+        // Sometimes a random click occurs and opens another
+        // screen from menu, so move cursor to some safe element
+        moveCursorToTab("Description")
+
         setSortable(false)
         $(byJTestId(COLUMN_DATE))
                 .shouldNotHave(cssClass('sortable'))
