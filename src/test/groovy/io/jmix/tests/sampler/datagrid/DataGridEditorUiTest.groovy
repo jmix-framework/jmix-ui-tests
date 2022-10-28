@@ -63,6 +63,11 @@ class DataGridEditorUiTest extends BaseSamplerUiTest {
     @DisplayName("Check dataGrid inline editor while editorBuffered is off")
     void checkDataGridCInlineEditorWhileEditorBufferedOff() {
         openSample('datagrid-editor')
+
+        // Sometimes a random click occurs and opens another
+        // screen from menu, so move cursor to some safe element
+        moveCursorToTab("Description")
+
         setEditorBuffered(false)
         $j(DataGrid.class, 'customersDataGrid')
                 .sort('column_name', ASCENDING)
