@@ -43,6 +43,7 @@ class TargetScreenActionsTest extends BaseUiTest {
     public static final String COMPONENT = 'component'
     public static final String GAS_FORM_LAST = 'gasFormLast'
     public static final String GAS_FORM = 'gasForm'
+    public static final String GAS_EDITOR_DEFAULT_FORM = 'form'
     public static final String THIRD_ATTR = '+GasThird'
     public static final String INTEGER = "Integer"
 

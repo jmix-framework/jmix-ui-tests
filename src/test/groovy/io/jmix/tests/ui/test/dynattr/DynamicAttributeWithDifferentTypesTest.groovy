@@ -1,6 +1,6 @@
 package io.jmix.tests.ui.test.dynattr
 
-
+import com.codeborne.selenide.Selenide
 import io.jmix.masquerade.component.*
 import io.jmix.tests.JmixUiTestsApplication
 import io.jmix.tests.extension.ChromeExtension
@@ -25,8 +25,8 @@ import static com.codeborne.selenide.Selenide.$
 import static io.jmix.masquerade.Conditions.*
 import static io.jmix.masquerade.Selectors.*
 import static io.jmix.tests.ui.screen.administration.dynattr.CategoryAttributeEditor.*
-import static io.jmix.tests.ui.test.datatools.BaseDatatoolsUiTest.clickButton
 import static io.jmix.tests.ui.test.dynattr.CategoryAttributeActionsTest.GAS
+import static io.jmix.tests.ui.test.dynattr.TargetScreenActionsTest.GAS_EDITOR_DEFAULT_FORM
 import static io.jmix.tests.ui.test.dynattr.TargetScreenActionsTest.GAS_FORM
 import static java.lang.Boolean.TRUE
 
@@ -114,7 +114,6 @@ class DynamicAttributeWithDifferentTypesTest extends BaseUiTest {
         }
     }
 
-
     @Test
     @DisplayName("Checks date type attribute")
     void checkDateAttribute() {
@@ -123,6 +122,7 @@ class DynamicAttributeWithDifferentTypesTest extends BaseUiTest {
                 .with {
                     editCategory(GAS)
                     $j(CategoryEditor).with {
+                        refreshAndDelay(400)
                         createAttribute()
                         $j(CategoryAttributeEditor).with {
                             shouldBe(VISIBLE)
@@ -130,7 +130,7 @@ class DynamicAttributeWithDifferentTypesTest extends BaseUiTest {
                             setRequired(true)
                             checkCode(GAS, DATE)
                             setType(DATE)
-                            [isCollection, defaultDateField, width, defaultDateIsCurrent]
+                            [isCollection, defaultDateField, widthField, defaultDateIsCurrent]
                                     .each {
                                         it.shouldBe(VISIBLE, ENABLED)
                                     }
@@ -246,7 +246,7 @@ class DynamicAttributeWithDifferentTypesTest extends BaseUiTest {
                     setName(DATE_WITHOUT_TIME)
                     checkCode(GAS, DATE_WITHOUT_TIME)
                     setType(DATE_NO_TIME_TYPE)
-                    [isCollection, defaultDateWithoutTimeField, width, defaultDateIsCurrent]
+                    [isCollection, defaultDateWithoutTimeField, widthField, defaultDateIsCurrent]
                             .each {
                                 it.shouldBe(VISIBLE, ENABLED)
                             }
@@ -499,7 +499,7 @@ class DynamicAttributeWithDifferentTypesTest extends BaseUiTest {
                             setRequired(true)
                             checkCode(GAS, USER)
                             setType(ENTITY_TYPE)
-                            [isCollection, lookupField, width, entityClassField, defaultEntityIdField, screenField]
+                            [isCollection, lookupField, widthField, entityClassField, defaultEntityIdField, screenField]
                                     .each {
                                         it.shouldBe(VISIBLE, ENABLED)
                                     }
@@ -609,7 +609,7 @@ class DynamicAttributeWithDifferentTypesTest extends BaseUiTest {
                             setRequired(true)
                             checkCode(GAS, ENUMER)
                             setType(ENUMERATION_TYPE)
-                            [isCollection, width, defaultStringValue]
+                            [isCollection, widthField, defaultStringValue]
                                     .each {
                                         it.shouldBe(VISIBLE, ENABLED)
                                     }
@@ -722,7 +722,7 @@ class DynamicAttributeWithDifferentTypesTest extends BaseUiTest {
                             setRequired(true)
                             checkCode(GAS, FIXED_POINT)
                             setType(FIXED_POINT_NUMBER)
-                            [isCollection, lookupField, width, defaultValue, numberFormatPattern, minValue, maxValue]
+                            [isCollection, lookupField, widthField, defaultValue, numberFormatPattern, minValue, maxValue]
                                     .each {
                                         it.shouldBe(VISIBLE, ENABLED)
                                     }
@@ -860,22 +860,20 @@ class DynamicAttributeWithDifferentTypesTest extends BaseUiTest {
                 .with {
                     editCategory(GAS)
                     $j(CategoryEditor).with {
+                        refreshAndDelay(400)
                         createAttribute()
                         $j(CategoryAttributeEditor).with {
                             setName(INTEGER)
                             setRequired(true)
                             checkCode(GAS, INTEGER)
                             setType(INTEGER)
-                            [isCollection, lookupField, width, defaultIntField, minIntValue, maxIntValue]
+                            [isCollection, lookupField, widthField, defaultIntField, minIntValue, maxIntValue]
                                     .each {
                                         it.shouldBe(VISIBLE)
                                     }
-                            width
-                                    .setValue("500px")
-                            minIntValue
-                                    .setValue("10")
-                            maxIntValue
-                                    .setValue(TWENTY)
+                            widthField.setValue("500px")
+                            minIntValue.setValue("10")
+                            maxIntValue.setValue(TWENTY)
                             ["Some value", '9', '21']
                                     .each {
                                         defaultIntField
@@ -914,22 +912,27 @@ class DynamicAttributeWithDifferentTypesTest extends BaseUiTest {
             closeWithoutSaving()
         }
         //edit integer attribute with width = 50%
+        String percentageWidth = "50%"
+
         $j(MainScreen).openDynamicAttributeBrowse()
                 .with {
                     editCategory(GAS)
                     $j(CategoryEditor).with {
                         editAttribute(INTEGER_CODE)
                         $j(CategoryAttributeEditor).with {
-                            width
+                            widthField
                                     .shouldBe(VISIBLE)
                                     .delegate
                                     .clear()
-                            width
-                                    .setValue(WIDTH_VALUE_PERCENTS)
-                                    .shouldHave(value(WIDTH_VALUE_PERCENTS))
+                            widthField
+                                    .setValue(percentageWidth)
+                                    .shouldHave(value(percentageWidth))
                             defaultIntField
                                     .shouldBe(VISIBLE)
                                     .setValue(DEFAULT_INT_VALUE)
+                            openVisibilityTab()
+                            removeScreensOnVisibility(0) // should remove editor with gasForm
+                            addGasEditorOnVisibility(1, GAS_EDITOR_DEFAULT_FORM)
                             saveChanges()
                         }
                         checkCategoryAttribute((GAS + INTEGER), DEFAULT_INT_VALUE)
@@ -943,9 +946,9 @@ class DynamicAttributeWithDifferentTypesTest extends BaseUiTest {
                 .openGasBrowse()
                 .create()
         $j(GasEditor).with {
-            checkIntegerWidth('170px')
             integerField
                     .shouldHave(value(DEFAULT_INT_VALUE))
+//                    .shouldHave(cssValue("width", percentageWidth)) // shows actual value in px instead of percentage
         }
 
         //edit integer attribute with isCollection = true
@@ -1014,14 +1017,12 @@ class DynamicAttributeWithDifferentTypesTest extends BaseUiTest {
 
                             checkCode(GAS, STRING)
                             setType(STRING)
-                            [isCollection, lookupField, width, rowsCount, defaultStringValue]
+                            [isCollection, lookupField, widthField, rowsCount, defaultStringValue]
                                     .each {
                                         it.shouldBe(VISIBLE)
                                     }
-                            rowsCount
-                                    .setValue(FIVE)
-                            defaultStringValue
-                                    .setValue(DEFAULT_STRING_VALUE)
+                            rowsCount.setValue(FIVE)
+                            defaultStringValue.setValue(DEFAULT_STRING_VALUE)
                             addScreensOnVisibility(GAS_FORM)
                             saveChanges()
                         }
@@ -1099,5 +1100,10 @@ class DynamicAttributeWithDifferentTypesTest extends BaseUiTest {
                       shouldHave(valueContains("first, second"))*/
             closeWithoutSaving()
         }
+    }
+
+    protected void refreshAndDelay(int milliseconds) {
+        Selenide.refresh()
+        Selenide.sleep(milliseconds)
     }
 }

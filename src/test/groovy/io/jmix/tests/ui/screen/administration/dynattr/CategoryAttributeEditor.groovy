@@ -3,6 +3,7 @@ package io.jmix.tests.ui.screen.administration.dynattr
 import io.jmix.masquerade.Wire
 import io.jmix.masquerade.base.Composite
 import io.jmix.masquerade.component.*
+import io.jmix.tests.ui.screen.system.dialog.ConfirmationDialog
 
 import static com.codeborne.selenide.Selectors.byClassName
 import static com.codeborne.selenide.Selenide.$
@@ -40,7 +41,6 @@ class CategoryAttributeEditor extends Composite<CategoryAttributeEditor> {
     public static final String INTEGER = "Integer"
     public static final String DEFAULT_INT_VALUE = '15'
     public static final String INTEGER_CODE = 'GasInteger'
-    public static final String WIDTH_VALUE_PERCENTS = "50%"
     public static final String STRING = "String"
     public static final String DEFAULT_STRING_VALUE = "Default string"
     public static final String BOOLEAN_VALUE = 'Bool'
@@ -70,7 +70,7 @@ class CategoryAttributeEditor extends Composite<CategoryAttributeEditor> {
     CheckBox isCollection
 
     @Wire(path = ['dialog_dynat_CategoryAttribute.edit', 'widthField'])
-    TextField width
+    TextField widthField
 
     @Wire(path = ['dialog_dynat_CategoryAttribute.edit', 'rowsCountField'])
     TextField rowsCount
@@ -220,19 +220,11 @@ class CategoryAttributeEditor extends Composite<CategoryAttributeEditor> {
     }
 
     void openVisibilityTab() {
-        $j(TabSheet.class, 'tabSheet').with {
-            TabSheet.Tab visibilityTab = getTab('visibilityTab')
-            visibilityTab.shouldBe(VISIBLE)
-                    .select()
-        }
+        openTab('visibilityTab')
     }
 
     void openCalculatedValuesAndOptionsTab() {
-        $j(TabSheet.class, 'tabSheet').with {
-            TabSheet.Tab tab = getTab('calculatedValuesAndOptionsTab')
-            tab.shouldBe(VISIBLE)
-                    .select()
-        }
+        openTab('calculatedValuesAndOptionsTab')
     }
 
     void openLocalizationTab() {
@@ -242,8 +234,12 @@ class CategoryAttributeEditor extends Composite<CategoryAttributeEditor> {
     }
 
     void openGeneralTab() {
-        $j(TabSheet.class, 'tabSheet').with {
-            TabSheet.Tab tab = getTab('mainTab')
+        openTab('mainTab')
+    }
+
+    void openTab(String id) {
+        $j(TabSheet.class, 'dialog_dynat_CategoryAttribute.edit','tabSheet').with {
+            TabSheet.Tab tab = getTab(id)
             tab.shouldBe(VISIBLE)
                     .select()
         }
@@ -283,6 +279,18 @@ class CategoryAttributeEditor extends Composite<CategoryAttributeEditor> {
         setScreen(0, editorName, form)
         addTargetScreen()
         setScreen(1, browserName, null)
+    }
+
+    void addGasEditorOnVisibility(int rowIndex, String form = null, String editorName = GAS_EDITOR) {
+        addTargetScreen()
+        setScreen(rowIndex, editorName, form)
+    }
+
+    void removeScreensOnVisibility(int index) {
+        selectScreen(index)
+        removeTargetScreen.shouldBe(ENABLED)
+                .click()
+        $j(ConfirmationDialog).confirmChanges()
     }
 
     void setDefaultDateField(String dateValue) {
