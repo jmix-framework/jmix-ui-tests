@@ -18,22 +18,22 @@ import static org.openqa.selenium.Keys.ENTER
 class DataGridFrozenColumnUiTest extends BaseSamplerUiTest {
 
     @Test
-    @DisplayName("Check dataGrid  frozen columns")
+    @DisplayName("Check dataGrid frozen columns")
     void checkDataGridFrozenColumns() {
         openSample('datagrid-frozen-columns')
         setFrozenColumnCount('0')
         $j(DataGrid.class, 'customersDataGrid')
                 .getHeaderCell("name")
-                .shouldHave(exactText("Name"))
+                .shouldHave(exactText("First name"))
                 .shouldNotHave(cssClass("frozen"))
         setFrozenColumnCount('2')
         $j(DataGrid.class, 'customersDataGrid')
                 .getHeaderCell("name")
-                .shouldHave(exactText("Name"))
+                .shouldHave(exactText("First Name"))
                 .shouldHave(cssClass("frozen"))
         $j(DataGrid.class, 'customersDataGrid')
                 .getHeaderCell("lastName")
-                .shouldHave(exactText("Last Name"))
+                .shouldHave(exactText("Last name"))
                 .shouldHave(cssClass("last-frozen"))
     }
 
