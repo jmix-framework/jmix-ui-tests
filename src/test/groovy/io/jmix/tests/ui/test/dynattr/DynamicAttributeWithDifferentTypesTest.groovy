@@ -130,7 +130,7 @@ class DynamicAttributeWithDifferentTypesTest extends BaseUiTest {
                             setRequired(true)
                             checkCode(GAS, DATE)
                             setType(DATE)
-                            [isCollection, defaultDateField, widthField, defaultDateIsCurrent]
+                            [isCollectionField, defaultDateField, widthField, defaultDateIsCurrent]
                                     .each {
                                         it.shouldBe(VISIBLE, ENABLED)
                                     }
@@ -169,7 +169,7 @@ class DynamicAttributeWithDifferentTypesTest extends BaseUiTest {
                             setDateIsCurrent(false)
                             defaultDateField
                                     .shouldBe(VISIBLE)
-                            isCollection.setChecked(true)
+                            isCollectionField.setChecked(true)
                             saveChanges()
                             saveCategory()
                         }
@@ -216,7 +216,7 @@ class DynamicAttributeWithDifferentTypesTest extends BaseUiTest {
                         $j(CategoryAttributeEditor).with {
                             setDefaultDateField(DEFAULT_DATE_VALUE)
                             defaultDateField.shouldBe(VISIBLE)
-                            isCollection.setChecked(false)
+                            isCollectionField.setChecked(false)
                             saveChanges()
                             saveCategory()
                         }
@@ -246,7 +246,7 @@ class DynamicAttributeWithDifferentTypesTest extends BaseUiTest {
                     setName(DATE_WITHOUT_TIME)
                     checkCode(GAS, DATE_WITHOUT_TIME)
                     setType(DATE_NO_TIME_TYPE)
-                    [isCollection, defaultDateWithoutTimeField, widthField, defaultDateIsCurrent]
+                    [isCollectionField, defaultDateWithoutTimeField, widthField, defaultDateIsCurrent]
                             .each {
                                 it.shouldBe(VISIBLE, ENABLED)
                             }
@@ -310,7 +310,7 @@ class DynamicAttributeWithDifferentTypesTest extends BaseUiTest {
                             defaultDateWithoutTimeField
                                     .shouldNotBe(VISIBLE)
                             setRequired(false)
-                            isCollection.setChecked(false)
+                            isCollectionField.setChecked(false)
                             saveChanges()
                             saveCategory()
                         }
@@ -499,7 +499,7 @@ class DynamicAttributeWithDifferentTypesTest extends BaseUiTest {
                             setRequired(true)
                             checkCode(GAS, USER)
                             setType(ENTITY_TYPE)
-                            [isCollection, lookupField, widthField, entityClassField, defaultEntityIdField, screenField]
+                            [isCollectionField, lookupField, widthField, entityClassField, defaultEntityIdField, screenField]
                                     .each {
                                         it.shouldBe(VISIBLE, ENABLED)
                                     }
@@ -509,7 +509,7 @@ class DynamicAttributeWithDifferentTypesTest extends BaseUiTest {
                             checkDynamicAttributeValidation()
                             screenField
                                     .setValue("Users (User.browse)")
-                            isCollection
+                            isCollectionField
                                     .setChecked(true)
                             addScreensOnVisibility(GAS_FORM)
                             saveChanges()
@@ -564,7 +564,7 @@ class DynamicAttributeWithDifferentTypesTest extends BaseUiTest {
                         editAttribute(GAS + USER)
                         $j(CategoryAttributeEditor).with {
                             setRequired(false)
-                            isCollection
+                            isCollectionField
                                     .shouldBe(VISIBLE)
                                     .setChecked(false)
                             $(byChain(byJTestId('defaultEntityIdField'), byJTestId('lookup')))
@@ -609,7 +609,7 @@ class DynamicAttributeWithDifferentTypesTest extends BaseUiTest {
                             setRequired(true)
                             checkCode(GAS, ENUMER)
                             setType(ENUMERATION_TYPE)
-                            [isCollection, widthField, defaultStringValue]
+                            [isCollectionField, widthField, defaultStringValue]
                                     .each {
                                         it.shouldBe(VISIBLE, ENABLED)
                                     }
@@ -681,7 +681,7 @@ class DynamicAttributeWithDifferentTypesTest extends BaseUiTest {
                         editAttribute(ENUMER)
                         $j(CategoryAttributeEditor).with {
                             setRequired(false)
-                            isCollection.setChecked(false)
+                            isCollectionField.setChecked(false)
                             defaultStringValue.setValue(GREEN)
                             checkDynamicAttributeValidation()
                             defaultStringValue
@@ -722,7 +722,7 @@ class DynamicAttributeWithDifferentTypesTest extends BaseUiTest {
                             setRequired(true)
                             checkCode(GAS, FIXED_POINT)
                             setType(FIXED_POINT_NUMBER)
-                            [isCollection, lookupField, widthField, defaultValue, numberFormatPattern, minValue, maxValue]
+                            [isCollectionField, lookupField, widthField, defaultValue, numberFormatPattern, minValue, maxValue]
                                     .each {
                                         it.shouldBe(VISIBLE, ENABLED)
                                     }
@@ -806,7 +806,7 @@ class DynamicAttributeWithDifferentTypesTest extends BaseUiTest {
                         editAttribute(FIXED_POINT)
                         $j(CategoryAttributeEditor).with {
                             setRequired(false)
-                            isCollection
+                            isCollectionField
                                     .shouldBe(VISIBLE)
                                     .setChecked(false)
                             minValue
@@ -867,7 +867,7 @@ class DynamicAttributeWithDifferentTypesTest extends BaseUiTest {
                             setRequired(true)
                             checkCode(GAS, INTEGER)
                             setType(INTEGER)
-                            [isCollection, lookupField, widthField, defaultIntField, minIntValue, maxIntValue]
+                            [isCollectionField, lookupField, widthField, defaultIntField, minIntValue, maxIntValue]
                                     .each {
                                         it.shouldBe(VISIBLE)
                                     }
@@ -1017,7 +1017,7 @@ class DynamicAttributeWithDifferentTypesTest extends BaseUiTest {
 
                             checkCode(GAS, STRING)
                             setType(STRING)
-                            [isCollection, lookupField, widthField, rowsCount, defaultStringValue]
+                            [isCollectionField, lookupField, widthField, rowsCount, defaultStringValue]
                                     .each {
                                         it.shouldBe(VISIBLE)
                                     }

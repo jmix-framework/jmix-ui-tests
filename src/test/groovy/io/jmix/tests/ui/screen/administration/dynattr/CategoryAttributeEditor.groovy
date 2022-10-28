@@ -4,6 +4,7 @@ import io.jmix.masquerade.Wire
 import io.jmix.masquerade.base.Composite
 import io.jmix.masquerade.component.*
 import io.jmix.tests.ui.screen.system.dialog.ConfirmationDialog
+import io.jmix.tests.ui.test_support.component.checkbox.UiCheckBox
 
 import static com.codeborne.selenide.Selectors.byClassName
 import static com.codeborne.selenide.Selenide.$
@@ -55,7 +56,7 @@ class CategoryAttributeEditor extends Composite<CategoryAttributeEditor> {
     TextArea descriptionField
 
     @Wire(path = ['dialog_dynat_CategoryAttribute.edit', 'requiredField'])
-    CheckBox requiredField
+    UiCheckBox requiredField
 
     @Wire(path = ['dialog_dynat_CategoryAttribute.edit', 'dataTypeField'])
     ComboBox type
@@ -67,7 +68,7 @@ class CategoryAttributeEditor extends Composite<CategoryAttributeEditor> {
     CheckBox lookupField
 
     @Wire(path = ['dialog_dynat_CategoryAttribute.edit', 'isCollectionField'])
-    CheckBox isCollection
+    UiCheckBox isCollectionField
 
     @Wire(path = ['dialog_dynat_CategoryAttribute.edit', 'widthField'])
     TextField widthField
@@ -115,7 +116,7 @@ class CategoryAttributeEditor extends Composite<CategoryAttributeEditor> {
     DateField defaultDateField
 
     @Wire(path = ['dialog_dynat_CategoryAttribute.edit', 'defaultDateIsCurrentField'])
-    CheckBox defaultDateIsCurrent
+    UiCheckBox defaultDateIsCurrent
 
     @Wire(path = ['dialog_dynat_CategoryAttribute.edit', 'minDoubleField'])
     TextField minDoubleField
@@ -307,7 +308,7 @@ class CategoryAttributeEditor extends Composite<CategoryAttributeEditor> {
 
 
     void setIsCollection(boolean isTrue) {
-        isCollection
+        isCollectionField
                 .shouldBe(VISIBLE)
                 .setChecked(isTrue)
                 .setChecked(isTrue)
