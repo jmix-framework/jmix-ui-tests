@@ -78,7 +78,7 @@ class ReportGroupActionUiTest extends BaseReportUiTest {
 
         $j(ReportGroupEditor).with {
             setGroupTitle(groupName)
-            setSystemCode(groupCode)
+            codeInput.setValue(groupCode)
             clickButton(ok)
         }
     }
@@ -90,7 +90,7 @@ class ReportGroupActionUiTest extends BaseReportUiTest {
         }
 
         $j(ReportGroupEditor).with {
-            setSystemCode(EMPTY_STRING)
+            codeInput.setValue(EMPTY_STRING)
             clickButton(ok)
         }
     }

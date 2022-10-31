@@ -200,6 +200,11 @@ class EntityLogViewTest extends BaseUiTest {
 
         $j(IndividualBrowse).
                 removeIndividual(FEDOROV)
+
+        // Collapse menu before opening item from administration
+        $j(MainScreen)
+                .sideMenu.collapse()
+
         $j(MainScreen)
                 .sideMenu
                 .openItem(ENTITY_LOG_BROWSE)
