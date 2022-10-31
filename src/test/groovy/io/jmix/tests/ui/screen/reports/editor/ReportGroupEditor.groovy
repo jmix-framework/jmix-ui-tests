@@ -24,10 +24,4 @@ class ReportGroupEditor extends Composite<ReportGroupEditor> {
         titleInput.shouldBe(EDITABLE)
         titleInput.setValue(groupTitle)
     }
-
-    void setSystemCode(String systemCodeTitle) {
-        codeInput.shouldBe(EDITABLE)
-        codeInput.setValue(systemCodeTitle)
-    }
-
 }
