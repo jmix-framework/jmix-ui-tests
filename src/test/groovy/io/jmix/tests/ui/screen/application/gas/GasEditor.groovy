@@ -60,7 +60,7 @@ class GasEditor extends Composite<GasEditor> {
     TextArea stringField
 
     @Wire(path = '+GasString')
-    ComboBox stringCollection
+    ComboBox stringCollectionTypeField
 
     @Wire(path = '+GasCalculated')
     public ComboBox calculatedAttribute
