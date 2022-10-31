@@ -1011,6 +1011,7 @@ class DynamicAttributeWithDifferentTypesTest extends BaseUiTest {
                 .with {
                     editCategory(GAS)
                     $j(CategoryEditor).with {
+                        refreshAndDelay(400)
                         createAttribute()
                         $j(CategoryAttributeEditor).with {
                             setName(STRING)
@@ -1047,7 +1048,7 @@ class DynamicAttributeWithDifferentTypesTest extends BaseUiTest {
 
             close()
         }
-        //edit string attribute with  isCollection, required is true
+        //edit string attribute, "isCollection", "required" set to true
         $j(MainScreen).openDynamicAttributeBrowse()
                 .with {
                     editCategory(GAS)
@@ -1075,7 +1076,7 @@ class DynamicAttributeWithDifferentTypesTest extends BaseUiTest {
         $j(GasEditor).with {
             setName("string")
             checkAttributeValidation()
-            stringCollection
+            stringCollectionTypeField
                     .shouldBe(VISIBLE)
             $(byChain(byJTestId('+GasString'), byJTestId(VALUES_SELECT)))
                     .shouldBe(VISIBLE)
@@ -1083,21 +1084,19 @@ class DynamicAttributeWithDifferentTypesTest extends BaseUiTest {
             $j('dialog_selectValueDialog')
                     .with {
                         shouldBe(VISIBLE)
-                        //todo
-                        //https://github.com/Haulmont/jmix-dynattr/issues/82
-                        /* ['first', 'second']
+                         ['first', 'second']
                                  .each {
                                      $j('listValueField').setValue(it)
                                      $j(Button, 'add')
                                              .shouldBe(VISIBLE)
                                              .click()
-                                 }*/
+                                 }
                         $j(Button, COMMIT_BTN)
                                 .shouldBe(VISIBLE)
                                 .click()
                     }
-            /*  stringCollection.
-                      shouldHave(valueContains("first, second"))*/
+              stringCollectionTypeField.
+                      shouldHave(valueContains("first, second"))
             closeWithoutSaving()
         }
     }

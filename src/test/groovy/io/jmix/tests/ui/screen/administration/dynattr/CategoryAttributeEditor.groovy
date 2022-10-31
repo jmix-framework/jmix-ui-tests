@@ -311,7 +311,6 @@ class CategoryAttributeEditor extends Composite<CategoryAttributeEditor> {
         isCollectionField
                 .shouldBe(VISIBLE)
                 .setChecked(isTrue)
-                .setChecked(isTrue)
     }
 
     void setDefaultDouble(def doubleValue) {
