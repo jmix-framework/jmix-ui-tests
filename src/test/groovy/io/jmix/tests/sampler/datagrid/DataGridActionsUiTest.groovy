@@ -32,6 +32,11 @@ class DataGridActionsUiTest extends BaseSamplerUiTest {
     @DisplayName("Check dataGrid custom action on button panel")
     void checkDataGridCustomActionOnButtonPanel() {
         openSample('datagrid-actions')
+
+        // Sometimes a random click occurs and opens another
+        // screen from menu, so move cursor to some safe element
+        moveCursorToTab("Description")
+
         def greetingButton = $j(Button.class, 'greeting')
         greetingButton
                 .shouldBe(ENABLED)
