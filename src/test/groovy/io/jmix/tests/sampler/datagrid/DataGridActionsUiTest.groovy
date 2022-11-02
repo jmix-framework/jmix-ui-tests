@@ -173,6 +173,11 @@ class DataGridActionsUiTest extends BaseSamplerUiTest {
     @DisplayName("Check DataGrid remove action in context menu")
     void checkDataGridRemoveActionInContextMenu() {
         openSample('datagrid-actions')
+
+        // Sometimes a random click occurs and opens another
+        // screen from menu, so move cursor to some safe element
+        moveCursorToTab("Description")
+
         def row = selectRow()
         def contextMenu = focusOnContextMenu(row)
         contextMenu

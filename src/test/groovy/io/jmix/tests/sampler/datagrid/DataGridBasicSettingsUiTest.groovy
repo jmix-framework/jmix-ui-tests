@@ -71,9 +71,14 @@ class DataGridBasicSettingsUiTest extends BaseSamplerUiTest {
     }
 
     @Test
-    @DisplayName("Checks columnsCollapsingAllowed option is off for ащк dataGrid")
+    @DisplayName("Checks columnsCollapsingAllowed option is off for dataGrid")
     void checkDataGridColumnsCollapsingAllowedOptionIsOff() {
         openSample('datagrid-basic-settings')
+
+        // Sometimes a random click occurs and opens another
+        // screen from menu, so move cursor to some safe element
+        moveCursorToTab("Description")
+
         setColumnControlVisible(false)
         $x("//*[contains(@class, 'v-grid-sidebar')]")
                 .shouldNotBe(VISIBLE)
