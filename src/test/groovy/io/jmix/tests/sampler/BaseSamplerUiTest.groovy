@@ -40,7 +40,8 @@ abstract class BaseSamplerUiTest {
     }
 
     /**
-     * Moves cursor to tab from TabSheet below sample/
+     * Moves cursor to the tab from TabSheet below sample that contains description of sample,
+     * code of descriptor, controller and other file contents.
      */
     static void moveCursorToTab(String id) {
         $j(TabSheet.class, 'tabSheet').with {

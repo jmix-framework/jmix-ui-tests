@@ -58,6 +58,11 @@ class DataGridEditorActionsUiTest extends BaseSamplerUiTest {
     @DisplayName("Check dataGrid overridden create action")
     void checkDataGridOverriddenCreateAction() {
         openSample('datagrid-editor-actions')
+
+        // Sometimes a random click occurs and opens another
+        // screen from menu, so move cursor to some safe element
+        moveCursorToTab("Description")
+
         $j(Button.class, 'createBtn')
                 .click()
         $x("//*[contains(@class, 'v-customcomponent')]//*[@j-test-id='name']")
