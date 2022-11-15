@@ -6,6 +6,7 @@ import io.jmix.masquerade.component.Button
 import io.jmix.masquerade.component.CheckBox
 import io.jmix.masquerade.component.ComboBox
 import io.jmix.masquerade.component.TextField
+import org.openqa.selenium.support.FindBy
 
 class EntityPolicyEditor extends Composite<EntityPolicyEditor> {
 
@@ -18,7 +19,7 @@ class EntityPolicyEditor extends Composite<EntityPolicyEditor> {
     @Wire
     CheckBox allActionsCheckBox
 
-    @Wire
+    @FindBy(xpath = "//div[@j-test-id=\"actionsCheckBoxGroup\"]/span[1]")
     CheckBox createCheckBox
 
     @Wire
