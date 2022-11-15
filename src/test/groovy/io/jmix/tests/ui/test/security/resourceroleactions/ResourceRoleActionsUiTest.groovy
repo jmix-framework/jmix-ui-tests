@@ -264,7 +264,7 @@ class ResourceRoleActionsUiTest extends BaseSecurityUiTest {
         }
         $j(ResourceRoleEditor).with {
             checkRecordIsDisplayed("Atmosphere.*", RESOURCE_POLICIES_TABLE_JTEST_ID)
-            checkRecordIsDisplayed("entityAttribute", RESOURCE_POLICIES_TABLE_JTEST_ID)
+            checkRecordIsDisplayed("Entity attribute", RESOURCE_POLICIES_TABLE_JTEST_ID)
         }
 
         interruptRoleCreating()
@@ -312,29 +312,29 @@ class ResourceRoleActionsUiTest extends BaseSecurityUiTest {
         addEntityPolicyToRole()
 
         $j(ResourceRoleEditor).with {
-            checkRecordIsDisplayed(CREATE_ACTION, RESOURCE_POLICIES_TABLE_JTEST_ID)
-            selectRowInTableByText(CREATE_ACTION, RESOURCE_POLICIES_TABLE_JTEST_ID)
+            checkRecordIsDisplayed(CREATE_ACTION_CAPTION, RESOURCE_POLICIES_TABLE_JTEST_ID)
+            selectRowInTableByText(CREATE_ACTION_CAPTION, RESOURCE_POLICIES_TABLE_JTEST_ID)
             clickButton(edit)
         }
 
         $j(EntityResourcePolicyDialog).with {
             entityField.shouldHave(value(ATMOSPHERE_FULL_STRING))
-            actionField.shouldHave(value(CREATE_ACTION))
+            actionField.shouldHave(value(CREATE_ACTION_CAPTION))
             policyGroupField.shouldHave(value(ATMOSPHERE_ENTITY_NAME))
 
             actionField.openOptionsPopup()
-                    .select(READ_ACTION)
+                    .select(READ_ACTION_CAPTION)
             clickButton(ok)
         }
         $j(ResourceRoleEditor).with {
-            checkRecordIsDisplayed(READ_ACTION, RESOURCE_POLICIES_TABLE_JTEST_ID)
-            selectRowInTableByText(READ_ACTION, RESOURCE_POLICIES_TABLE_JTEST_ID)
+            checkRecordIsDisplayed(READ_ACTION_CAPTION, RESOURCE_POLICIES_TABLE_JTEST_ID)
+            selectRowInTableByText(READ_ACTION_CAPTION, RESOURCE_POLICIES_TABLE_JTEST_ID)
             clickButton(remove)
         }
 
         $j(ConfirmationDialog).confirmChanges()
 
-        $j(ResourceRoleEditor).checkRecordIsNotDisplayed(READ_ACTION, RESOURCE_POLICIES_TABLE_JTEST_ID)
+        $j(ResourceRoleEditor).checkRecordIsNotDisplayed(READ_ACTION_CAPTION, RESOURCE_POLICIES_TABLE_JTEST_ID)
 
         interruptRoleCreating()
     }

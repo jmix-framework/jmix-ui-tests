@@ -53,8 +53,8 @@ class BaseSecurityUiTest extends BaseUiTest implements UiHelper {
 
     public static final String RESOURCE_POLICY_NAME = "ui.loginToUi"
     public static final String TEST_GROUP_NAME = "test"
-    public static final String CREATE_ACTION = "create"
-    public static final String READ_ACTION = "read"
+    public static final String CREATE_ACTION_CAPTION = "Create"
+    public static final String READ_ACTION_CAPTION = "Read"
     public static final String UPDATE_ACTION = "update"
     public static final String DELETE_ACTION = "delete"
 
@@ -133,7 +133,7 @@ class BaseSecurityUiTest extends BaseUiTest implements UiHelper {
         }
 
         $j(ResourceRoleEditor).with {
-            checkRecordIsDisplayed(CREATE_ACTION, RESOURCE_POLICIES_TABLE_JTEST_ID)
+            checkRecordIsDisplayed(CREATE_ACTION_CAPTION, RESOURCE_POLICIES_TABLE_JTEST_ID)
             clickButton(ok)
         }
     }
