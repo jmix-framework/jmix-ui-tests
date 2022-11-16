@@ -2,6 +2,7 @@ package io.jmix.tests.ui.test.security.resourceroleactions
 
 import com.codeborne.selenide.Condition
 import io.jmix.masquerade.component.Button
+import io.jmix.security.model.EntityPolicyAction
 import io.jmix.tests.JmixUiTestsApplication
 import io.jmix.tests.extension.ChromeExtension
 import io.jmix.tests.ui.extension.PostgreSQLExtension
@@ -319,11 +320,11 @@ class ResourceRoleActionsUiTest extends BaseSecurityUiTest {
 
         $j(EntityResourcePolicyDialog).with {
             entityField.shouldHave(value(ATMOSPHERE_FULL_STRING))
-            actionField.shouldHave(value(CREATE_ACTION_CAPTION))
+            actionField.shouldHave(value(EntityPolicyAction.CREATE.getId()))
             policyGroupField.shouldHave(value(ATMOSPHERE_ENTITY_NAME))
 
             actionField.openOptionsPopup()
-                    .select(READ_ACTION_CAPTION)
+                    .select(EntityPolicyAction.READ.getId())
             clickButton(ok)
         }
         $j(ResourceRoleEditor).with {
