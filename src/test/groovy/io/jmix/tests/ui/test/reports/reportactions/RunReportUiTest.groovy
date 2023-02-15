@@ -14,6 +14,7 @@ import io.jmix.tests.ui.screen.reports.browser.ReportBrowse
 import io.jmix.tests.ui.screen.reports.dialog.JPQLQueryEditorDialog
 import io.jmix.tests.ui.screen.reports.dialog.ReportRegionsDialog
 import io.jmix.tests.ui.screen.reports.dialog.SaveReportDialog
+import io.jmix.tests.ui.screen.reports.dialog.ShowReportOptionDialog
 import io.jmix.tests.ui.screen.reports.editor.ReportEditor
 import io.jmix.tests.ui.screen.reports.screen.ReportRunScreen
 import io.jmix.tests.ui.screen.reports.screen.ShowReportTableScreen
@@ -40,7 +41,7 @@ import static io.jmix.masquerade.Selectors.$j
 ])
 @SpringBootTest(classes = JmixUiTestsApplication,
         webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT,
-        properties = ['jmix.liquibase.contexts=base,reports'])
+        properties = ['main.liquibase.contexts=base,reports'])
 @ContextConfiguration(initializers = TestContextInitializer)
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 class RunReportUiTest extends BaseReportUiTest {
@@ -172,6 +173,9 @@ class RunReportUiTest extends BaseReportUiTest {
             $j(Table, COMPANY_SHOW_TABLES_JTEST_ID).shouldBe(VISIBLE)
             checkRecordIsDisplayed(COMPANY_TEST_EMAIL, COMPANY_SHOW_TABLES_JTEST_ID)
             clickButton($j(Button, "excelExport"))
+            $j(ShowReportOptionDialog).with {
+                clickButton(currentPage)
+            }
         }
 
         $j(MainScreen).openReportsBrowse()

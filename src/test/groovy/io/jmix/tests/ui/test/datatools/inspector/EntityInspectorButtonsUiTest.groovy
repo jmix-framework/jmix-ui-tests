@@ -27,7 +27,7 @@ import static io.jmix.masquerade.Selectors.$j
 ])
 @SpringBootTest(classes = JmixUiTestsApplication,
         webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT,
-        properties = ['jmix.liquibase.contexts=base,datatools'])
+        properties = ['main.liquibase.contexts=base,datatools'])
 @ContextConfiguration(initializers = TestContextInitializer)
 class EntityInspectorButtonsUiTest extends BaseDatatoolsUiTest {
 

@@ -5,6 +5,18 @@
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
                       http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
 
+    <property name="uuid.type" dbms="oracle" value="varchar2(32)"/>
+    <property name="uuid.type" dbms="!oracle" value="uuid"/>
+
+    <include file="/io/jmix/data/liquibase/changelog.xml"/>
+    <include file="/io/jmix/uidata/liquibase/changelog.xml"/>
+    <include file="/io/jmix/securitydata/liquibase/changelog.xml"/>
+    <include file="/io/jmix/dynattr/liquibase/changelog.xml"/>
+    <include file="/io/jmix/audit/liquibase/changelog.xml"/>
+    <include file="/io/jmix/reports/liquibase/changelog.xml"/>
+    <include file="/io/jmix/webdav/liquibase/changelog.xml"/>
+    <include file="/io/jmix/businesscalendar/liquibase/changelog.xml"/>
+
     <includeAll path="/io/jmix/tests/liquibase/changelog"/>
 
 </databaseChangeLog>

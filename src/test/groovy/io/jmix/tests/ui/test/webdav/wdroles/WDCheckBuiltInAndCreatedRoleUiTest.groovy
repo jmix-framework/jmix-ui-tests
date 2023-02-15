@@ -41,7 +41,7 @@ import static io.jmix.masquerade.Selectors.$j
 ])
 @SpringBootTest(classes = JmixUiTestsApplication,
         webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT,
-        properties = ['jmix.liquibase.contexts=base,webdav'])
+        properties = ['main.liquibase.contexts=base,webdav'])
 @ContextConfiguration(initializers = TestContextInitializer)
 class WDCheckBuiltInAndCreatedRoleUiTest extends WebDAVBaseUITest {
 

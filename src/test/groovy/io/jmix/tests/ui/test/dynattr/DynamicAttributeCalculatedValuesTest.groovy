@@ -31,7 +31,7 @@ import static io.jmix.tests.ui.test.dynattr.TargetScreenActionsTest.GAS_FORM
 ])
 @SpringBootTest(classes = JmixUiTestsApplication,
         webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT,
-        properties = ['jmix.liquibase.contexts=base,dynattr'])
+        properties = ['main.liquibase.contexts=base,dynattr'])
 @ContextConfiguration(initializers = TestContextInitializer)
 class DynamicAttributeCalculatedValuesTest extends BaseUiTest {
 

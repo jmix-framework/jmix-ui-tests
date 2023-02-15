@@ -32,7 +32,7 @@ import static org.openqa.selenium.Keys.ENTER
 ])
 @SpringBootTest(classes = JmixUiTestsApplication,
         webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT,
-        properties = ['jmix.liquibase.contexts=base,entity-log'])
+        properties = ['main.liquibase.contexts=base,entity-log'])
 @ContextConfiguration(initializers = TestContextInitializer)
 class EntityLogViewTest extends BaseUiTest {
 

@@ -30,7 +30,7 @@ import static io.jmix.masquerade.Selectors.$j
 ])
 @SpringBootTest(classes = JmixUiTestsApplication,
         webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT,
-        properties = ['jmix.liquibase.contexts=base,security'])
+        properties = ['main.liquibase.contexts=base,security'])
 @ContextConfiguration(initializers = TestContextInitializer)
 class ResourceRoleActionsUiTest extends BaseSecurityUiTest {
 

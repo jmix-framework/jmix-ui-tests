@@ -13,7 +13,8 @@ class TestContextInitializer implements ApplicationContextInitializer<Configurab
                 "main.datasource.username=test",
                 "main.datasource.password=pass",
                 "jmix.data.dbmsType=postgres",
-                "jmix.liquibase.dropFirst=true"
+                "main.liquibase.change-log=io/jmix/tests/liquibase/changelog.xml",
+                "main.liquibase.drop-first=true"
         ).applyTo(applicationContext.getEnvironment())
     }
 }

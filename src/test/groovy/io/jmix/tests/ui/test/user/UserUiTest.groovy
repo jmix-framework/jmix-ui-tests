@@ -26,7 +26,8 @@ import static io.jmix.tests.ui.menu.Menus.USER_BROWSE
         PostgreSQLExtension
 ])
 @SpringBootTest(classes = JmixUiTestsApplication,
-        webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+        webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT,
+        properties = "main.liquibase.contexts=base")
 @ContextConfiguration(initializers = TestContextInitializer)
 class UserUiTest extends BaseUiTest {
 

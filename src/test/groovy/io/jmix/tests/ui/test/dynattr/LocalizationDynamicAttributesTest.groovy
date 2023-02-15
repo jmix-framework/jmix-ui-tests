@@ -36,7 +36,7 @@ import static io.jmix.tests.ui.screen.administration.dynattr.CategoryAttributeEd
 ])
 @SpringBootTest(classes = JmixUiTestsApplication,
         webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT,
-        properties = ['jmix.liquibase.contexts=base,dynattr'])
+        properties = ['main.liquibase.contexts=base,dynattr'])
 @ContextConfiguration(initializers = TestContextInitializer)
 class LocalizationDynamicAttributesTest extends BaseUiTest {
 
