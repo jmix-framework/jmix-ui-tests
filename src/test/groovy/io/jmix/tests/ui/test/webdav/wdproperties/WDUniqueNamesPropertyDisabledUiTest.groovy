@@ -34,7 +34,7 @@ import static io.jmix.masquerade.Selectors.$j
 //@DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_CLASS)
 @SpringBootTest(classes = [JmixUiTestsApplication],
         webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT,
-        properties = ["jmix.webdav.auto-generate-unique-resource-uri=false"])
+        properties = ["jmix.webdav.auto-generate-unique-resource-uri=false", "main.liquibase.contexts=base"])
 @ContextConfiguration(initializers = [TestContextInitializer])
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 class WDUniqueNamesPropertyDisabledUiTest extends WebDAVBaseUITest {

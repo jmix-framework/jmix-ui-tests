@@ -38,7 +38,7 @@ import static io.jmix.masquerade.Selectors.byJTestId
 ])
 @SpringBootTest(classes = JmixUiTestsApplication,
         webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT,
-        properties = ['jmix.liquibase.contexts=base,reports'])
+        properties = ['main.liquibase.contexts=base,reports'])
 @ContextConfiguration(initializers = TestContextInitializer)
 class CreateReportUiTest extends BaseReportUiTest {
 

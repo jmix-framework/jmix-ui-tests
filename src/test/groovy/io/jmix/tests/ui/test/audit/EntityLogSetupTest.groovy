@@ -29,7 +29,8 @@ import static io.jmix.tests.ui.menu.Menus.ENTITY_LOG_BROWSE
         PostgreSQLExtension
 ])
 @SpringBootTest(classes = JmixUiTestsApplication,
-        webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+        webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT,
+        properties = "main.liquibase.contexts=base")
 @ContextConfiguration(initializers = TestContextInitializer)
 class EntityLogSetupTest extends BaseUiTest implements UiHelper {
 

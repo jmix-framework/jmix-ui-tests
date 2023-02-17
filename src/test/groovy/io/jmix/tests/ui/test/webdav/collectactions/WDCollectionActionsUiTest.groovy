@@ -35,7 +35,8 @@ import static io.jmix.masquerade.Selectors.byJTestId
         PostgreSQLExtension
 ])
 @SpringBootTest(classes = JmixUiTestsApplication,
-        webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+        webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT,
+        properties = "main.liquibase.contexts=base")
 @ContextConfiguration(initializers = TestContextInitializer)
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 class WDCollectionActionsUiTest extends WebDAVBaseUITest {

@@ -254,6 +254,7 @@ abstract class BaseReportUiTest extends BaseUiTest implements UiHelper {
         }
 
         $j(ReportEditor).with {
+            selectValueWithoutFilterInComboBox(group, GROUP_GENERAL_NAME)
             name.setValue(reportUniqueName)
             clickButton(ok)
         }

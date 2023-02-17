@@ -1,6 +1,6 @@
 package io.jmix.tests.ui.extension
 
-import io.jmix.data.impl.liquibase.JmixLiquibase
+import liquibase.integration.spring.SpringLiquibase
 import org.junit.jupiter.api.extension.ExtensionContext
 import org.springframework.test.context.junit.jupiter.SpringExtension
 import org.testcontainers.containers.PostgreSQLContainer
@@ -17,7 +17,7 @@ class PostgreSQLExtension extends SpringExtension {
                 .withPassword("pass")
         postgreSQLContainer.start()
 
-        getApplicationContext(context).getBean(JmixLiquibase).afterPropertiesSet()
+        getApplicationContext(context).getBean(SpringLiquibase).afterPropertiesSet()
     }
 
     @Override

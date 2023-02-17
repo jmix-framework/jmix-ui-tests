@@ -25,7 +25,8 @@ import static io.jmix.masquerade.Selectors.$j
         PostgreSQLExtension
 ])
 @SpringBootTest(classes = JmixUiTestsApplication,
-        webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+        webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT,
+        properties = "main.liquibase.contexts=base")
 @ContextConfiguration(initializers = TestContextInitializer)
 class EntityInfoDialogButtonsUiTest extends BaseDatatoolsUiTest {
     public static final String INSERT_BTN_CAPTION = "Script for insert"
