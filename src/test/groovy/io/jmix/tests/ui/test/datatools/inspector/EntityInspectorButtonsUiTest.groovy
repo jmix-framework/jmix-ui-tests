@@ -120,7 +120,7 @@ class EntityInspectorButtonsUiTest extends BaseDatatoolsUiTest {
             clickButton(excelExport)
         }
         $j(ConfirmExportDialog).with {
-            clickButton(selectedRow)
+            clickButton(selectedRows)
         }
     }
 
@@ -134,6 +134,9 @@ class EntityInspectorButtonsUiTest extends BaseDatatoolsUiTest {
         $j(EntityInspectorBrowse).with {
             findEntityByFilter(USER_ENTITY_NAME, USER_FULL_STRING)
             clickButton(excelExport)
+        }
+        $j(ConfirmExportDialog).with {
+            clickButton(allRows)
         }
     }
 }
