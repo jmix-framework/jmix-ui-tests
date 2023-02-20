@@ -7,7 +7,7 @@ import io.jmix.tests.ui.extension.SpringBootExtension
 import io.jmix.tests.ui.initializer.TestContextInitializer
 import io.jmix.tests.ui.screen.administration.datatools.EntityInspectorBrowse
 import io.jmix.tests.ui.screen.application.user.UserBrowse
-import io.jmix.tests.ui.screen.reports.dialog.ExcelExportModeOptionDialog
+import io.jmix.tests.ui.screen.system.dialog.ExcelExportModeOptionDialog
 import io.jmix.tests.ui.screen.system.dialog.ConfirmationDialog
 import io.jmix.tests.ui.screen.system.dialog.OptionDialog
 import io.jmix.tests.ui.screen.system.main.MainScreen

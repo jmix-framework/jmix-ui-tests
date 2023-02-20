@@ -14,7 +14,7 @@ import io.jmix.tests.ui.screen.reports.browser.ReportBrowse
 import io.jmix.tests.ui.screen.reports.dialog.JPQLQueryEditorDialog
 import io.jmix.tests.ui.screen.reports.dialog.ReportRegionsDialog
 import io.jmix.tests.ui.screen.reports.dialog.SaveReportDialog
-import io.jmix.tests.ui.screen.reports.dialog.ExcelExportModeOptionDialog
+import io.jmix.tests.ui.screen.system.dialog.ExcelExportModeOptionDialog
 import io.jmix.tests.ui.screen.reports.editor.ReportEditor
 import io.jmix.tests.ui.screen.reports.screen.ReportRunScreen
 import io.jmix.tests.ui.screen.reports.screen.ShowReportTableScreen

@@ -7,7 +7,7 @@ import io.jmix.tests.ui.extension.SpringBootExtension
 import io.jmix.tests.ui.initializer.TestContextInitializer
 import io.jmix.tests.ui.screen.reports.browser.ReportBrowse
 import io.jmix.tests.ui.screen.reports.browser.ReportExecutionBrowse
-import io.jmix.tests.ui.screen.reports.dialog.ExcelExportModeOptionDialog
+import io.jmix.tests.ui.screen.system.dialog.ExcelExportModeOptionDialog
 import io.jmix.tests.ui.screen.system.main.MainScreen
 import io.jmix.tests.ui.test.reports.BaseReportUiTest
 import org.junit.jupiter.api.AfterAll
