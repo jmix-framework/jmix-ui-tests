@@ -6,8 +6,8 @@ import io.jmix.tests.ui.extension.PostgreSQLExtension
 import io.jmix.tests.ui.extension.SpringBootExtension
 import io.jmix.tests.ui.initializer.TestContextInitializer
 import io.jmix.tests.ui.screen.administration.datatools.EntityInspectorBrowse
-import io.jmix.tests.ui.screen.administration.datatools.dialogs.ConfirmExportDialog
 import io.jmix.tests.ui.screen.application.user.UserBrowse
+import io.jmix.tests.ui.screen.system.dialog.ExcelExportModeOptionDialog
 import io.jmix.tests.ui.screen.system.dialog.ConfirmationDialog
 import io.jmix.tests.ui.screen.system.dialog.OptionDialog
 import io.jmix.tests.ui.screen.system.main.MainScreen
@@ -119,8 +119,8 @@ class EntityInspectorButtonsUiTest extends BaseDatatoolsUiTest {
             selectRowInTableByText(USERNAME2, USER_TABLE_JTEST_ID)
             clickButton(excelExport)
         }
-        $j(ConfirmExportDialog).with {
-            clickButton(selectedRow)
+        $j(ExcelExportModeOptionDialog).with {
+            clickButton(selectedRows)
         }
     }
 
@@ -134,6 +134,9 @@ class EntityInspectorButtonsUiTest extends BaseDatatoolsUiTest {
         $j(EntityInspectorBrowse).with {
             findEntityByFilter(USER_ENTITY_NAME, USER_FULL_STRING)
             clickButton(excelExport)
+        }
+        $j(ExcelExportModeOptionDialog).with {
+            clickButton(allRows)
         }
     }
 }

@@ -7,7 +7,7 @@ import io.jmix.tests.ui.extension.SpringBootExtension
 import io.jmix.tests.ui.initializer.TestContextInitializer
 import io.jmix.tests.ui.screen.reports.browser.ReportBrowse
 import io.jmix.tests.ui.screen.reports.browser.ReportExecutionBrowse
-import io.jmix.tests.ui.screen.reports.dialog.HistoryParametersDialog
+import io.jmix.tests.ui.screen.system.dialog.ExcelExportModeOptionDialog
 import io.jmix.tests.ui.screen.system.main.MainScreen
 import io.jmix.tests.ui.test.reports.BaseReportUiTest
 import org.junit.jupiter.api.AfterAll
@@ -106,8 +106,8 @@ class ReportHistoryButtonUiTest extends BaseReportUiTest {
             clickButton(excel)
         }
 
-        $j(HistoryParametersDialog).with {
-            clickButton(all)
+        $j(ExcelExportModeOptionDialog).with {
+            clickButton(allRows)
         }
     }
 
@@ -137,8 +137,8 @@ class ReportHistoryButtonUiTest extends BaseReportUiTest {
             clickButton(excel)
         }
 
-        $j(HistoryParametersDialog).with {
-            clickButton(selected)
+        $j(ExcelExportModeOptionDialog).with {
+            clickButton(selectedRows)
         }
     }
 }
