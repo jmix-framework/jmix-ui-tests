@@ -7,7 +7,7 @@ plugins {
 apply plugin: 'org.springframework.boot'
 
 jmix {
-    bomVersion = '2.0.999-SNAPSHOT'
+    bomVersion = '1.5.999-SNAPSHOT'
 }
 
 group = 'io.jmix.tests'
