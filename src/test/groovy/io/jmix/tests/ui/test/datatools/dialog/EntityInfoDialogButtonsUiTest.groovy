@@ -4,7 +4,6 @@ import io.jmix.tests.JmixUiTestsApplication
 import io.jmix.tests.extension.ChromeExtension
 import io.jmix.tests.ui.extension.PostgreSQLExtension
 import io.jmix.tests.ui.extension.SpringBootExtension
-import io.jmix.tests.ui.initializer.TestContextInitializer
 import io.jmix.tests.ui.screen.administration.datatools.EntityInspectorBrowse
 import io.jmix.tests.ui.screen.administration.datatools.dialogs.EntityInformationDialog
 import io.jmix.tests.ui.screen.system.main.MainScreen
@@ -14,7 +13,6 @@ import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 import org.springframework.boot.test.context.SpringBootTest
-import org.springframework.test.context.ContextConfiguration
 
 import static io.jmix.masquerade.Conditions.VISIBLE
 import static io.jmix.masquerade.Selectors.$j
@@ -25,9 +23,7 @@ import static io.jmix.masquerade.Selectors.$j
         PostgreSQLExtension
 ])
 @SpringBootTest(classes = JmixUiTestsApplication,
-        webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT,
-        properties = "main.liquibase.contexts=base")
-@ContextConfiguration(initializers = TestContextInitializer)
+        webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 class EntityInfoDialogButtonsUiTest extends BaseDatatoolsUiTest {
     public static final String INSERT_BTN_CAPTION = "Script for insert"
     public static final String SELECT_BTN_CAPTION = "Script for select"

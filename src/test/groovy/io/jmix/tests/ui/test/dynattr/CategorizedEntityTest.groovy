@@ -5,19 +5,17 @@ import io.jmix.tests.JmixUiTestsApplication
 import io.jmix.tests.extension.ChromeExtension
 import io.jmix.tests.ui.extension.PostgreSQLExtension
 import io.jmix.tests.ui.extension.SpringBootExtension
-import io.jmix.tests.ui.initializer.TestContextInitializer
 import io.jmix.tests.ui.screen.administration.dynattr.CategoryAttributeEditor
 import io.jmix.tests.ui.screen.administration.dynattr.CategoryEditor
 import io.jmix.tests.ui.screen.administration.dynattr.DynamicAttributeBrowse
 import io.jmix.tests.ui.screen.application.dymanicCategories.DynamicCategoryBrowse
 import io.jmix.tests.ui.screen.application.dymanicCategories.DynamicCategoryEditor
 import io.jmix.tests.ui.screen.system.main.MainScreen
-import io.jmix.tests.ui.test.BaseUiTest
+import io.jmix.tests.ui.test.BaseLoginUiTest
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 import org.springframework.boot.test.context.SpringBootTest
-import org.springframework.test.context.ContextConfiguration
 
 import static com.codeborne.selenide.Condition.empty
 
@@ -33,8 +31,7 @@ import static io.jmix.masquerade.Selectors.$j
 @SpringBootTest(classes = JmixUiTestsApplication,
         webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT,
         properties = ['main.liquibase.contexts=base,dynattr'])
-@ContextConfiguration(initializers = TestContextInitializer)
-class CategorizedEntityTest extends BaseUiTest {
+class CategorizedEntityTest extends BaseLoginUiTest {
 
     public static final String DYNAMIC_CATEGORY_ENTITY = "Dynamic category (DynamicCategory)"
     public static final String DYNAMIC_CATEGORY = "Dynamic category"

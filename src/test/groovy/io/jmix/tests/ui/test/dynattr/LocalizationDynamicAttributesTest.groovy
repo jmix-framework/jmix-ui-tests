@@ -6,7 +6,6 @@ import io.jmix.tests.JmixUiTestsApplication
 import io.jmix.tests.extension.ChromeExtension
 import io.jmix.tests.ui.extension.PostgreSQLExtension
 import io.jmix.tests.ui.extension.SpringBootExtension
-import io.jmix.tests.ui.initializer.TestContextInitializer
 import io.jmix.tests.ui.screen.administration.dynattr.CategoryAttributeEditor
 import io.jmix.tests.ui.screen.administration.dynattr.CategoryEditor
 import io.jmix.tests.ui.screen.administration.dynattr.DynamicAttributeBrowse
@@ -15,13 +14,13 @@ import io.jmix.tests.ui.screen.application.discounts.DiscountEditor
 import io.jmix.tests.ui.screen.application.localizedDynamic.LocalizedDynamicBrowse
 import io.jmix.tests.ui.screen.application.localizedDynamic.LocalizedDynamicEditor
 import io.jmix.tests.ui.screen.system.main.MainScreen
+import io.jmix.tests.ui.test.BaseLoginUiTest
 import io.jmix.tests.ui.test.BaseUiTest
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 import org.springframework.boot.test.context.SpringBootTest
-import org.springframework.test.context.ContextConfiguration
 
 import static io.jmix.masquerade.Conditions.VISIBLE
 import static io.jmix.masquerade.Conditions.value
@@ -37,8 +36,7 @@ import static io.jmix.tests.ui.screen.administration.dynattr.CategoryAttributeEd
 @SpringBootTest(classes = JmixUiTestsApplication,
         webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT,
         properties = ['main.liquibase.contexts=base,dynattr'])
-@ContextConfiguration(initializers = TestContextInitializer)
-class LocalizationDynamicAttributesTest extends BaseUiTest {
+class LocalizationDynamicAttributesTest extends BaseLoginUiTest {
 
     public static final String LOCALIZED_TYPE = "Localized dynamic (LocalizedDynamic)"
     public static final String LOCALIZED = "Localized"

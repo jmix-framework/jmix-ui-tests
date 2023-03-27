@@ -4,7 +4,6 @@ import io.jmix.tests.JmixUiTestsApplication
 import io.jmix.tests.extension.ChromeExtension
 import io.jmix.tests.ui.extension.PostgreSQLExtension
 import io.jmix.tests.ui.extension.SpringBootExtension
-import io.jmix.tests.ui.initializer.TestContextInitializer
 import io.jmix.tests.ui.screen.administration.security.browser.RoleBrowse
 import io.jmix.tests.ui.screen.system.main.MainScreen
 import io.jmix.tests.ui.test.security.BaseSecurityUiTest
@@ -12,7 +11,6 @@ import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 import org.springframework.boot.test.context.SpringBootTest
-import org.springframework.test.context.ContextConfiguration
 import static io.jmix.masquerade.Selectors.$j
 
 @ExtendWith([
@@ -23,7 +21,6 @@ import static io.jmix.masquerade.Selectors.$j
 @SpringBootTest(classes = JmixUiTestsApplication,
         webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT,
         properties = ['main.liquibase.contexts=base,security'])
-@ContextConfiguration(initializers = TestContextInitializer)
 class CheckExistingRolesUiTest extends BaseSecurityUiTest {
 
     @Test

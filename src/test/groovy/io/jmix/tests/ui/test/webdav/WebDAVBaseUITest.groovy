@@ -6,7 +6,7 @@ import io.jmix.masquerade.component.Button
 import io.jmix.tests.ui.screen.administration.webdav.browse.WebDAVDocumentBrowse
 import io.jmix.tests.ui.screen.application.wdenabledentity.WDEnabledEntityBrowse
 import io.jmix.tests.ui.screen.system.dialog.ConfirmationDialog
-import io.jmix.tests.ui.test.BaseUiTest
+import io.jmix.tests.ui.test.BaseLoginUiTest
 import io.jmix.tests.ui.test.utils.UiHelper
 
 import static com.codeborne.selenide.Selectors.byCssSelector
@@ -17,7 +17,7 @@ import static io.jmix.masquerade.Conditions.VISIBLE
 import static io.jmix.masquerade.Conditions.caption
 import static io.jmix.masquerade.Selectors.$j
 
-class WebDAVBaseUITest extends BaseUiTest implements UiHelper {
+class WebDAVBaseUITest extends BaseLoginUiTest implements UiHelper {
     public static final String WEBDAV_ENABLED_VERSIONING_TABLE_J_TEST_ID = "enabledVersEntitiesTable"
     public static final String WEBDAV_DISABLED_VERSIONING_TABLE_J_TEST_ID = "disabledVersEntitiesTable"
     public static final String WEBDAV_DOCUMENTS_TABLE_J_TEST_ID = "webdavDocumentsTable"

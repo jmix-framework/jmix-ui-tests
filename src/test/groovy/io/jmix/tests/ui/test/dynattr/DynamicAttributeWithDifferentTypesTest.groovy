@@ -6,13 +6,13 @@ import io.jmix.tests.JmixUiTestsApplication
 import io.jmix.tests.extension.ChromeExtension
 import io.jmix.tests.ui.extension.PostgreSQLExtension
 import io.jmix.tests.ui.extension.SpringBootExtension
-import io.jmix.tests.ui.initializer.TestContextInitializer
 import io.jmix.tests.ui.screen.administration.dynattr.CategoryAttributeEditor
 import io.jmix.tests.ui.screen.administration.dynattr.CategoryEditor
 import io.jmix.tests.ui.screen.application.gas.GasBrowse
 import io.jmix.tests.ui.screen.application.gas.GasEditor
 import io.jmix.tests.ui.screen.application.user.UserBrowse
 import io.jmix.tests.ui.screen.system.main.MainScreen
+import io.jmix.tests.ui.test.BaseLoginUiTest
 import io.jmix.tests.ui.test.BaseUiTest
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
@@ -38,8 +38,7 @@ import static java.lang.Boolean.TRUE
 @SpringBootTest(classes = JmixUiTestsApplication,
         webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT,
         properties = ['main.liquibase.contexts=base,dynattr'])
-@ContextConfiguration(initializers = TestContextInitializer)
-class DynamicAttributeWithDifferentTypesTest extends BaseUiTest {
+class DynamicAttributeWithDifferentTypesTest extends BaseLoginUiTest {
 
     public static final String ADD_BUTTON = 'add'
     public static final String VALUES_SELECT = 'values_select'
