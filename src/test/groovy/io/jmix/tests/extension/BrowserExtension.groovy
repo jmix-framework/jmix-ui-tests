@@ -46,7 +46,7 @@ abstract class BrowserExtension implements BeforeAllCallback, BeforeEachCallback
         browser = new BrowserWebDriverContainer()
                 .withCapabilities(capabilities)
         browser.start()
-        RemoteWebDriver remoteWebDriver = getWebDriver(30, 20, browser.seleniumAddress)
+        RemoteWebDriver remoteWebDriver = getWebDriver(35, 25, browser.seleniumAddress)
         remoteWebDriver.setFileDetector(new LocalFileDetector())
         WebDriverRunner.setWebDriver(remoteWebDriver)
 
