@@ -258,7 +258,7 @@ class CategoryAttributeEditor extends Composite<CategoryAttributeEditor> {
                 .sendKeys(ENTER)
         targetScreensTable.selectRow(byIndex(rowIndex))
                 .$(byJTestId(COMPONENT))
-                .setValue(componentValue)
+                .setValue((String) componentValue)
     }
 
     void addTargetScreen() {
