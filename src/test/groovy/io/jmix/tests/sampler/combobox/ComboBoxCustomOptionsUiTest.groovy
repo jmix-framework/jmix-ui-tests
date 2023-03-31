@@ -15,7 +15,7 @@ import static io.jmix.masquerade.Selectors.byText
 @ExtendWith(ChromeExtension)
 class ComboBoxCustomOptionsUiTest extends BaseSamplerUiTest {
 
-    public static final String AMOUNT = "1,000"
+    public static final String AMOUNT = "1,000.00"
     public static final String AGE = "twenty"
     public static final String STANDARD = "Standard"
 

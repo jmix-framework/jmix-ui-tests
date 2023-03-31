@@ -4,10 +4,10 @@ import com.codeborne.selenide.SelenideElement
 import io.jmix.masquerade.component.Table
 import io.jmix.tests.extension.ChromeExtension
 import io.jmix.tests.sampler.BaseSamplerUiTest
+import io.jmix.tests.sampler.test_support.UiSamplesUtils
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
-import java.text.NumberFormat
 
 import static com.codeborne.selenide.Condition.text
 import static com.codeborne.selenide.Selectors.byClassName
@@ -23,7 +23,7 @@ class TableAggregatableUiTest extends BaseSamplerUiTest {
     void checkTableAggregationSum() {
         openSample('table-aggregatable')
         def table = $j(Table.class, 'orderTable')
-        int amount = 0
+        double amount = 0
         for (int i = 0; i < 4; i++) {
             def value = table
                     .getCell(byRowColIndexes(i, 3))
@@ -31,9 +31,9 @@ class TableAggregatableUiTest extends BaseSamplerUiTest {
                     .getText()
             def newValue = value.replace(" ", "")
                     .replace(",", "")
-            amount = amount + (newValue as int)
+            amount = amount + (newValue as double)
         }
-        def amountValue = NumberFormat.getInstance().format(amount)
+        def amountValue = UiSamplesUtils.decimalFormat.format(amount)
         getAggregationRowCell(4)
                 .shouldHave(text(amountValue))
     }
