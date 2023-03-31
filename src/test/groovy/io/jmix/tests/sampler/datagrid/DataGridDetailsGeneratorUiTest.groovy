@@ -23,7 +23,7 @@ class DataGridDetailsGeneratorUiTest extends BaseSamplerUiTest {
         openSample('datagrid-details-generator')
         $j(DataGrid.class, 'ordersDataGrid')
                 .shouldBe(VISIBLE)
-                .getCell(byText("24,990"))
+                .getCell(byText("24,990.00"))
                 .doubleClick()
         $j(Label.class, 'contentLabel')
                 .shouldBe(VISIBLE)
