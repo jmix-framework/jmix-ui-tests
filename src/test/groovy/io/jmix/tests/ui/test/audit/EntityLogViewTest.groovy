@@ -4,19 +4,18 @@ import io.jmix.tests.JmixUiTestsApplication
 import io.jmix.tests.extension.ChromeExtension
 import io.jmix.tests.ui.extension.PostgreSQLExtension
 import io.jmix.tests.ui.extension.SpringBootExtension
-import io.jmix.tests.ui.initializer.TestContextInitializer
 import io.jmix.tests.ui.screen.administration.audit.EntityLogBrowse
 import io.jmix.tests.ui.screen.administration.datatools.EntityInspectorBrowse
 import io.jmix.tests.ui.screen.application.individual.IndividualBrowse
 import io.jmix.tests.ui.screen.application.individual.IndividualEditor
 import io.jmix.tests.ui.screen.system.dialog.OptionDialog
 import io.jmix.tests.ui.screen.system.main.MainScreen
+import io.jmix.tests.ui.test.BaseLoginUiTest
 import io.jmix.tests.ui.test.BaseUiTest
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 import org.springframework.boot.test.context.SpringBootTest
-import org.springframework.test.context.ContextConfiguration
 
 import static com.codeborne.selenide.Selectors.byClassName
 import static io.jmix.masquerade.Conditions.*
@@ -33,8 +32,7 @@ import static org.openqa.selenium.Keys.ENTER
 @SpringBootTest(classes = JmixUiTestsApplication,
         webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT,
         properties = ['main.liquibase.contexts=base,entity-log'])
-@ContextConfiguration(initializers = TestContextInitializer)
-class EntityLogViewTest extends BaseUiTest {
+class EntityLogViewTest extends BaseLoginUiTest {
 
     public static final String BRONZE = "Bronze"
     public static final String IVANOV = "Ivanov"

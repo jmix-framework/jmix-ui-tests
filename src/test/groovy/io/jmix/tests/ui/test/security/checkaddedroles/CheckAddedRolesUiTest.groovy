@@ -6,7 +6,6 @@ import io.jmix.tests.JmixUiTestsApplication
 import io.jmix.tests.extension.ChromeExtension
 import io.jmix.tests.ui.extension.PostgreSQLExtension
 import io.jmix.tests.ui.extension.SpringBootExtension
-import io.jmix.tests.ui.initializer.TestContextInitializer
 import io.jmix.tests.ui.screen.administration.datatools.browsers.AtmosphericGasBrowse
 import io.jmix.tests.ui.screen.administration.security.editor.*
 import io.jmix.tests.ui.screen.application.user.UserBrowse
@@ -17,7 +16,6 @@ import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 import org.springframework.boot.test.context.SpringBootTest
-import org.springframework.test.context.ContextConfiguration
 
 import static io.jmix.masquerade.Conditions.READONLY
 import static io.jmix.masquerade.Selectors.$j
@@ -31,7 +29,6 @@ import static io.jmix.masquerade.Selectors.$j
 @SpringBootTest(classes = JmixUiTestsApplication,
         webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT,
         properties = ['main.liquibase.contexts=base,security'])
-@ContextConfiguration(initializers = TestContextInitializer)
 class CheckAddedRolesUiTest extends BaseSecurityUiTest {
     private static String ATMOSPHERIC_GAS_BROWSER_SCREEN_FULL_STRING = "Atmospheric gas browser (AtmosphericGas.browse)"
     private static String ATMOSPHERIC_GAS_BROWSER_MENU_ITEM_FULL_STRING = "Application > Atmospheric gas browser (AtmosphericGas.browse)"

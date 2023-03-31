@@ -6,7 +6,6 @@ import io.jmix.tests.JmixUiTestsApplication
 import io.jmix.tests.extension.ChromeExtension
 import io.jmix.tests.ui.extension.PostgreSQLExtension
 import io.jmix.tests.ui.extension.SpringBootExtension
-import io.jmix.tests.ui.initializer.TestContextInitializer
 import io.jmix.tests.ui.screen.administration.webdav.browse.WebDAVDocumentBrowse
 import io.jmix.tests.ui.screen.system.dialog.ConfirmationDialog
 import io.jmix.tests.ui.screen.system.main.MainScreen
@@ -35,7 +34,6 @@ import static io.jmix.masquerade.Selectors.$j
 @SpringBootTest(classes = [JmixUiTestsApplication],
         webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT,
         properties = ["jmix.webdav.auto-generate-unique-resource-uri=false", "main.liquibase.contexts=base"])
-@ContextConfiguration(initializers = [TestContextInitializer])
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 class WDUniqueNamesPropertyDisabledUiTest extends WebDAVBaseUITest {
 

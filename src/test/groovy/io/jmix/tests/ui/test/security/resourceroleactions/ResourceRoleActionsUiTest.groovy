@@ -7,7 +7,6 @@ import io.jmix.tests.JmixUiTestsApplication
 import io.jmix.tests.extension.ChromeExtension
 import io.jmix.tests.ui.extension.PostgreSQLExtension
 import io.jmix.tests.ui.extension.SpringBootExtension
-import io.jmix.tests.ui.initializer.TestContextInitializer
 import io.jmix.tests.ui.screen.administration.security.browser.RoleBrowse
 import io.jmix.tests.ui.screen.administration.security.dialog.EntityResourcePolicyDialog
 import io.jmix.tests.ui.screen.administration.security.editor.*
@@ -31,7 +30,6 @@ import static io.jmix.masquerade.Selectors.$j
 @SpringBootTest(classes = JmixUiTestsApplication,
         webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT,
         properties = ['main.liquibase.contexts=base,security'])
-@ContextConfiguration(initializers = TestContextInitializer)
 class ResourceRoleActionsUiTest extends BaseSecurityUiTest {
 
     private static String ENTITY_INSPECTOR_MENU_ITEM_FULL_STRING = "Administration > Entity inspector (entityInspector.browse)"

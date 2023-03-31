@@ -6,6 +6,7 @@ import io.jmix.tests.ui.screen.administration.datatools.EntityInspectorBrowse
 import io.jmix.tests.ui.screen.system.dialog.ConfirmationDialog
 import io.jmix.tests.ui.screen.system.dialog.OptionDialog
 import io.jmix.tests.ui.screen.system.main.MainScreen
+import io.jmix.tests.ui.test.BaseLoginUiTest
 import io.jmix.tests.ui.test.BaseUiTest
 import io.jmix.tests.ui.test.utils.UiHelper
 
@@ -13,7 +14,7 @@ import static com.codeborne.selenide.Selenide.$
 import static com.codeborne.selenide.Selenide.$$
 import static io.jmix.masquerade.Selectors.*
 
-abstract class BaseDatatoolsUiTest extends BaseUiTest implements UiHelper {
+abstract class BaseDatatoolsUiTest extends BaseLoginUiTest implements UiHelper {
     public static final String USER_ENTITY_NAME = "User"
     public static final String GAS_ENTITY_NAME = "Gas"
     public static final String CARRIER_ENTITY_NAME = "Carrier"

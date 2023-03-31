@@ -5,16 +5,14 @@ import io.jmix.tests.JmixUiTestsApplication
 import io.jmix.tests.extension.ChromeExtension
 import io.jmix.tests.ui.extension.PostgreSQLExtension
 import io.jmix.tests.ui.extension.SpringBootExtension
-import io.jmix.tests.ui.initializer.TestContextInitializer
 import io.jmix.tests.ui.screen.administration.dynattr.CategoryEditor
 import io.jmix.tests.ui.screen.administration.dynattr.DynamicAttributeBrowse
 import io.jmix.tests.ui.screen.system.main.MainScreen
-import io.jmix.tests.ui.test.BaseUiTest
+import io.jmix.tests.ui.test.BaseLoginUiTest
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 import org.springframework.boot.test.context.SpringBootTest
-import org.springframework.test.context.ContextConfiguration
 
 import static io.jmix.masquerade.Conditions.VISIBLE
 import static io.jmix.masquerade.Selectors.$j
@@ -28,8 +26,7 @@ import static io.jmix.masquerade.Selectors.byCells
 @SpringBootTest(classes = JmixUiTestsApplication,
         webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT,
         properties = ['main.liquibase.contexts=base,dynattr'])
-@ContextConfiguration(initializers = TestContextInitializer)
-class DynamicAttributeCategoriesTest extends BaseUiTest {
+class DynamicAttributeCategoriesTest extends BaseLoginUiTest {
 
     public static final String CUSTOMER_TYPE = "Customer (Customer)"
     public static final String CUSTOMER = "Customer"

@@ -8,15 +8,14 @@ import io.jmix.tests.ui.screen.administration.businesscalendars.dialogs.HolidayE
 import io.jmix.tests.ui.screen.administration.businesscalendars.dialogs.WorkingScheduleEditor
 import io.jmix.tests.ui.screen.administration.businesscalendars.editor.BusinessCalendarEditor
 import io.jmix.tests.ui.screen.system.dialog.ConfirmationDialog
-
-import io.jmix.tests.ui.test.BaseUiTest
+import io.jmix.tests.ui.test.BaseLoginUiTest
 import io.jmix.tests.ui.test.utils.UiHelper
 
 import static com.codeborne.selenide.Condition.cssClass
 import static io.jmix.masquerade.Conditions.VISIBLE
 import static io.jmix.masquerade.Selectors.$j
 
-class BusinessCalendarBaseUiTest extends BaseUiTest implements UiHelper {
+class BusinessCalendarBaseUiTest extends BaseLoginUiTest implements UiHelper {
 
     protected static final String BUSINESS_CALENDAR_NAME = "Business Calendar "
     protected static final String BUSINESS_CALENDAR_CODE = "code-business-calendar-"
