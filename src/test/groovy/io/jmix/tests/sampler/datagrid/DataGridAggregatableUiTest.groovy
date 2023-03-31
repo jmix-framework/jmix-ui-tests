@@ -4,11 +4,10 @@ import com.codeborne.selenide.SelenideElement
 import io.jmix.masquerade.component.DataGrid
 import io.jmix.tests.extension.ChromeExtension
 import io.jmix.tests.sampler.BaseSamplerUiTest
+import io.jmix.tests.sampler.test_support.UiSamplesUtils
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
-
-import java.text.NumberFormat
 
 import static com.codeborne.selenide.Condition.text
 import static com.codeborne.selenide.Selectors.byClassName
@@ -25,7 +24,7 @@ class DataGridAggregatableUiTest extends BaseSamplerUiTest {
     void checkDataGridSumAggregation() {
         openSample('datagrid-aggregatable')
         def dataGrid = $j(DataGrid.class, 'orderDataGrid')
-        int amount = 0
+        double amount = 0
         for (int i = 0; i < 4; i++) {
             def value = dataGrid
                     .getCell(byRowColIndexes(i, 3))
@@ -34,9 +33,9 @@ class DataGridAggregatableUiTest extends BaseSamplerUiTest {
             def newValue = value
                     .replace(" ", "")
                     .replace(",", "")
-            amount = amount + (newValue as int)
+            amount = amount + (newValue as double)
         }
-        def amountValue = NumberFormat.getInstance().format(amount)
+        def amountValue = UiSamplesUtils.decimalFormat.format(amount)
         getAggregationRowCell(4)
                 .shouldHave(text(amountValue))
     }
