@@ -5,7 +5,6 @@ import io.jmix.tests.JmixUiTestsApplication
 import io.jmix.tests.extension.ChromeExtension
 import io.jmix.tests.ui.extension.PostgreSQLExtension
 import io.jmix.tests.ui.extension.SpringBootExtension
-import io.jmix.tests.ui.initializer.TestContextInitializer
 import io.jmix.tests.ui.screen.administration.businesscalendars.browse.BusinessCalendarsBrowse
 import io.jmix.tests.ui.screen.administration.businesscalendars.editor.BusinessCalendarEditor
 import io.jmix.tests.ui.screen.system.dialog.ConfirmationDialog
@@ -18,7 +17,6 @@ import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.TestInstance
 import org.junit.jupiter.api.extension.ExtendWith
 import org.springframework.boot.test.context.SpringBootTest
-import org.springframework.test.context.ContextConfiguration
 
 import static io.jmix.masquerade.Conditions.value
 import static io.jmix.masquerade.Selectors.$j
@@ -27,11 +25,9 @@ import static io.jmix.masquerade.Selectors.$j
         SpringBootExtension,
         ChromeExtension,
         PostgreSQLExtension
-        ])
+])
 @SpringBootTest(classes = JmixUiTestsApplication,
-        webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT,
-        properties = "main.liquibase.contexts=base")
-@ContextConfiguration(initializers = TestContextInitializer)
+        webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 class BusinessCalendarEntityUiTest extends BusinessCalendarBaseUiTest {
 

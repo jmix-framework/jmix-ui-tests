@@ -5,17 +5,15 @@ import io.jmix.tests.JmixUiTestsApplication
 import io.jmix.tests.extension.ChromeExtension
 import io.jmix.tests.ui.extension.PostgreSQLExtension
 import io.jmix.tests.ui.extension.SpringBootExtension
-import io.jmix.tests.ui.initializer.TestContextInitializer
 import io.jmix.tests.ui.screen.administration.audit.EntityLogBrowse
 import io.jmix.tests.ui.screen.system.dialog.ConfirmationDialog
 import io.jmix.tests.ui.screen.system.main.MainScreen
-import io.jmix.tests.ui.test.BaseUiTest
+import io.jmix.tests.ui.test.BaseLoginUiTest
 import io.jmix.tests.ui.test.utils.UiHelper
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 import org.springframework.boot.test.context.SpringBootTest
-import org.springframework.test.context.ContextConfiguration
 
 import static com.codeborne.selenide.Condition.textCaseSensitive
 import static com.codeborne.selenide.Selenide.$
@@ -29,10 +27,8 @@ import static io.jmix.tests.ui.menu.Menus.ENTITY_LOG_BROWSE
         PostgreSQLExtension
 ])
 @SpringBootTest(classes = JmixUiTestsApplication,
-        webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT,
-        properties = "main.liquibase.contexts=base")
-@ContextConfiguration(initializers = TestContextInitializer)
-class EntityLogSetupTest extends BaseUiTest implements UiHelper {
+        webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+class EntityLogSetupTest extends BaseLoginUiTest implements UiHelper {
 
     public static final String ATMOSPHERE = 'Atmosphere (Atmosphere)'
     public static final String ATMOSPHERE_RECORD = 'Atmosphere'

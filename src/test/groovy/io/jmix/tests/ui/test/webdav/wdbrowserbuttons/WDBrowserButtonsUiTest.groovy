@@ -5,7 +5,6 @@ import io.jmix.tests.JmixUiTestsApplication
 import io.jmix.tests.extension.ChromeExtension
 import io.jmix.tests.ui.extension.PostgreSQLExtension
 import io.jmix.tests.ui.extension.SpringBootExtension
-import io.jmix.tests.ui.initializer.TestContextInitializer
 import io.jmix.tests.ui.screen.administration.webdav.browse.WebDAVDocumentBrowse
 import io.jmix.tests.ui.screen.administration.webdav.dialog.DocumentVersionDialog
 import io.jmix.tests.ui.screen.system.dialog.ConfirmationDialog
@@ -28,9 +27,7 @@ import static io.jmix.masquerade.Selectors.$j
         PostgreSQLExtension
 ])
 @SpringBootTest(classes = JmixUiTestsApplication,
-        webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT,
-        properties = "main.liquibase.contexts=base")
-@ContextConfiguration(initializers = TestContextInitializer)
+        webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 class WDBrowserButtonsUiTest extends WebDAVBaseUITest {
     public fileNameArray = []

@@ -7,7 +7,6 @@ import io.jmix.tests.JmixUiTestsApplication
 import io.jmix.tests.extension.ChromeExtension
 import io.jmix.tests.ui.extension.PostgreSQLExtension
 import io.jmix.tests.ui.extension.SpringBootExtension
-import io.jmix.tests.ui.initializer.TestContextInitializer
 import io.jmix.tests.ui.screen.administration.webdav.browse.WebDAVDocumentBrowse
 import io.jmix.tests.ui.screen.administration.webdav.dialog.WebdavCollectionDialog
 import io.jmix.tests.ui.screen.system.dialog.ConfirmationDialog
@@ -20,7 +19,6 @@ import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.TestInstance
 import org.junit.jupiter.api.extension.ExtendWith
 import org.springframework.boot.test.context.SpringBootTest
-import org.springframework.test.context.ContextConfiguration
 
 import static com.codeborne.selenide.Selectors.byCssSelector
 import static com.codeborne.selenide.Selenide.$
@@ -35,9 +33,7 @@ import static io.jmix.masquerade.Selectors.byJTestId
         PostgreSQLExtension
 ])
 @SpringBootTest(classes = JmixUiTestsApplication,
-        webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT,
-        properties = "main.liquibase.contexts=base")
-@ContextConfiguration(initializers = TestContextInitializer)
+        webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 class WDCollectionActionsUiTest extends WebDAVBaseUITest {
 

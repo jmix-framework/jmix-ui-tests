@@ -10,7 +10,7 @@ import io.jmix.tests.ui.screen.reports.dialog.*
 import io.jmix.tests.ui.screen.reports.editor.ReportEditor
 import io.jmix.tests.ui.screen.system.dialog.ConfirmationDialog
 import io.jmix.tests.ui.screen.system.dialog.UnsavedChangesDialog
-import io.jmix.tests.ui.test.BaseUiTest
+import io.jmix.tests.ui.test.BaseLoginUiTest
 import io.jmix.tests.ui.test.utils.UiHelper
 
 import static com.codeborne.selenide.Selectors.withText
@@ -21,7 +21,7 @@ import static io.jmix.masquerade.Conditions.VISIBLE
 import static io.jmix.masquerade.Selectors.$j
 import static io.jmix.masquerade.Selectors.byClassName
 
-abstract class BaseReportUiTest extends BaseUiTest implements UiHelper {
+abstract class BaseReportUiTest extends BaseLoginUiTest implements UiHelper {
     public static final String COMPANY_FULL_STRING = "Company (Company)"
     public static final String ATMOSPHERE_FULL_STRING = "Atmosphere (Atmosphere)"
 

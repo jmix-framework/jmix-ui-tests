@@ -7,7 +7,6 @@ import io.jmix.tests.JmixUiTestsApplication
 import io.jmix.tests.extension.ChromeExtension
 import io.jmix.tests.ui.extension.PostgreSQLExtension
 import io.jmix.tests.ui.extension.SpringBootExtension
-import io.jmix.tests.ui.initializer.TestContextInitializer
 import io.jmix.tests.ui.screen.administration.security.browser.RoleBrowse
 import io.jmix.tests.ui.screen.administration.security.editor.RoleAssigmentEditor
 import io.jmix.tests.ui.screen.administration.security.editor.RowLevelPolicyEditor
@@ -24,7 +23,6 @@ import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 import org.openqa.selenium.Keys
 import org.springframework.boot.test.context.SpringBootTest
-import org.springframework.test.context.ContextConfiguration
 
 import static com.codeborne.selenide.Selectors.byCssSelector
 import static io.jmix.masquerade.Conditions.DISABLED
@@ -42,7 +40,6 @@ import static io.jmix.masquerade.Selectors.$j
 @SpringBootTest(classes = JmixUiTestsApplication,
         webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT,
         properties = ['main.liquibase.contexts=base,webdav'])
-@ContextConfiguration(initializers = TestContextInitializer)
 class WDCheckBuiltInAndCreatedRoleUiTest extends WebDAVBaseUITest {
 
     public static final String ROW_LEVEL_POLICY_PREDICATE_TYPE = "Predicate"

@@ -9,7 +9,7 @@ import io.jmix.tests.ui.screen.administration.security.editor.RowLevelPolicyEdit
 import io.jmix.tests.ui.screen.administration.security.editor.RowLevelRoleEditor
 import io.jmix.tests.ui.screen.system.dialog.ConfirmationDialog
 import io.jmix.tests.ui.screen.system.main.MainScreen
-import io.jmix.tests.ui.test.BaseUiTest
+import io.jmix.tests.ui.test.BaseLoginUiTest
 import io.jmix.tests.ui.test.utils.UiHelper
 
 import static io.jmix.masquerade.Conditions.EDITABLE
@@ -17,7 +17,7 @@ import static io.jmix.masquerade.Conditions.REQUIRED
 import static io.jmix.masquerade.Conditions.VISIBLE
 import static io.jmix.masquerade.Selectors.$j
 
-class BaseSecurityUiTest extends BaseUiTest implements UiHelper {
+class BaseSecurityUiTest extends BaseLoginUiTest implements UiHelper {
 
     public static final String USER_BROWSER_TABLE_JTEST_ID = "usersTable_composition"
     public static final String ROLE_MODELS_TABLE_JTEST_ID = "roleModelsTable"
