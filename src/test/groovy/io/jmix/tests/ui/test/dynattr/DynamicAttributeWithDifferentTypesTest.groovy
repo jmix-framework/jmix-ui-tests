@@ -794,7 +794,7 @@ class DynamicAttributeWithDifferentTypesTest extends BaseLoginUiTest {
                                 .click()
                     }
             fixedPointCollection.
-                    shouldHave(valueContains("55,555, 666,666"))
+                    shouldHave(valueContains("55,555.00, 666,666.00"))
             closeWithoutSaving()
         }
         //edit fixed-point number attribute with is collection = false, check min, max value
